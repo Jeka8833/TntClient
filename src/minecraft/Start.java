@@ -1,35 +1,36 @@
-import java.io.File;
-import java.lang.reflect.Field;
-import java.net.Proxy;
-import java.util.Arrays;
-
 import com.mojang.authlib.Agent;
 import com.mojang.authlib.exceptions.AuthenticationException;
 import com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService;
 import com.mojang.authlib.yggdrasil.YggdrasilUserAuthentication;
 import net.minecraft.client.main.Main;
 
-public class Start
-{
+import java.net.Proxy;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
-    private final static String email = "email";
-    private final static String password = "password";
+public class Start {
 
+    /**
+     * To start the license, the -email and -pass option are required. Example: -license true -email yourEmail -pass yourPass
+     * The -name option is required to start the pirate. Example: -license false -name User228
+     */
     public static void main(String[] args) throws AuthenticationException {
-        YggdrasilUserAuthentication auth = (YggdrasilUserAuthentication) (new YggdrasilAuthenticationService(Proxy.NO_PROXY, "")).createUserAuthentication(Agent.MINECRAFT);
-        auth.setUsername(email);
-        auth.setPassword(password);
-        auth.logIn();
-        Main.main(concat(new String[]{"--username", auth.getSelectedProfile().getName(), "--version", "1.8.8-HackChi3", "--gameDir", "C:\\Users\\eader\\AppData\\Roaming\\.minecraft", "--assetsDir", "C:\\Users\\eader\\AppData\\Roaming\\.minecraft//assets", "--assetIndex", "1.8", "--uuid", auth.getSelectedProfile().getId().toString(), "--accessToken", auth.getAuthenticatedToken(), "--userType", "mojang", "--versionType", "release"}, args));
-
-        //Main.main(concat(new String[]{"--username", "Jeka8833Bot", "--version", "1.8.8-HackChi3", "--gameDir", "C:\\Users\\eader\\AppData\\Roaming\\.minecraft", "--assetsDir", "C:\\Users\\eader\\AppData\\Roaming\\.minecraft//assets", "--assetIndex", "1.8", "--accessToken", "0", "--versionType", "release"}, args));
-
+        final Path path = Paths.get(System.getenv("AppData"),".minecraft");
+        if (getValue("-license", args).equalsIgnoreCase("true")) {
+            final YggdrasilUserAuthentication auth = (YggdrasilUserAuthentication) (new YggdrasilAuthenticationService(Proxy.NO_PROXY, "")).createUserAuthentication(Agent.MINECRAFT);
+            auth.setUsername(getValue("-email", args));
+            auth.setPassword(getValue("-pass", args));
+            auth.logIn();
+            Main.main(new String[]{"--username", auth.getSelectedProfile().getName(), "--version", "TntClient", "--gameDir", path.toString(), "--assetsDir", path.resolve("assets").toString(), "--assetIndex", "1.8", "--uuid", auth.getSelectedProfile().getId().toString(), "--accessToken", auth.getAuthenticatedToken(), "--userType", "mojang"});
+        } else {
+            Main.main(new String[]{"--username", getValue("-name", args), "--version", "TntClient", "--gameDir", path.toString(), "--assetsDir", path.resolve("assets").toString(), "--assetIndex", "1.8", "--uuid", "--accessToken", "0", "--userType", "mojang"});
+        }
     }
 
-
-    private static <T> T[] concat(T[] first, T[] second) {
-        T[] result = Arrays.copyOf(first, first.length + second.length);
-        System.arraycopy(second, 0, result, first.length, second.length);
-        return result;
+    private static String getValue(final String key, final String[] array) {
+        for (int i = 0; i < array.length; i++)
+            if (array[i].equalsIgnoreCase(key) && i + 1 < array.length)
+                return array[i + 1];
+        throw new NullPointerException("Key(" + key + ") not found");
     }
 }
