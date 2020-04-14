@@ -18,9 +18,12 @@ public class TntClient {
     public static final String version = "1.0.4";
     public static final boolean pussy = false;
 
-    private static final Minecraft mc = Minecraft.getMinecraft();
+    public static boolean isDebug = false;
+
     public static EventManager eventManager = new EventManager();
+
     private boolean keyPress = false;
+    private final Minecraft mc = Minecraft.getMinecraft();
 
     public TntClient() {
         AutoTip.startTime();
@@ -32,7 +35,7 @@ public class TntClient {
             if (module.isActive())
                 module.onEnable();
         }
-        if(pussy) {
+        if (pussy) {
             for (Module module : Config.config.getDangerMods()) {
                 module.setActive(false);
                 module.onDisable();
@@ -43,7 +46,7 @@ public class TntClient {
 
     @EventTarget
     public void onDraw(Event2D event) {
-        if(!pussy) {
+        if (!pussy) {
             if (mc.currentScreen == null) {
                 if (GameSettings.isKeyDown(mc.gameSettings.jumpHelper)) {
                     if (!keyPress) {

@@ -3,6 +3,7 @@ package net.TntClient;
 import com.google.gson.Gson;
 import net.TntClient.mods.Language;
 import net.TntClient.mods.translate.TranslateGoogle;
+import net.TntClient.modules.DebugModule;
 import net.TntClient.modules.Module;
 import net.TntClient.modules.block.GlitchBlocks;
 import net.TntClient.modules.movement.*;
@@ -26,7 +27,7 @@ public class Config {
     public GlitchBlocks glitchBlocks = new GlitchBlocks();
     public AutoTip autoTip = new AutoTip();
     public LongDJump longDJump = new LongDJump();
-    public FakePing fakePing = new FakePing();
+    public DebugModule debugModule = new DebugModule();
 
     public Language googleLang = TranslateGoogle.lang[3];
     public String apiKey = "";
@@ -50,7 +51,7 @@ public class Config {
     }
 
     public Module[] getDangerMods() {
-        return new Module[]{config.jumpHelper, config.spider, config.longDJump, config.glitchBlocks, config.dolphin, config.fakePing};
+        return new Module[]{config.jumpHelper, config.spider, config.longDJump, config.glitchBlocks, config.dolphin};
     }
 
     public Module[] getPussyMods() {
@@ -62,7 +63,10 @@ public class Config {
         if (TntClient.pussy) {
             return getPussyMods();
         } else {
-            return ArrayUtils.addAll(getPussyMods(), getDangerMods());
+            if (TntClient.isDebug)
+                return ArrayUtils.addAll(ArrayUtils.addAll(getPussyMods(), getDangerMods()), config.debugModule);
+            else
+                return ArrayUtils.addAll(getPussyMods(), getDangerMods());
         }
     }
 }

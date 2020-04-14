@@ -9,11 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Module {
-    protected static Minecraft mc = Minecraft.getMinecraft();
-    private final List<Component> options = new ArrayList<>();
-
-    private transient final String name;
+    protected static final Minecraft mc = Minecraft.getMinecraft();
     private boolean active;
+
+    private transient final List<Component> options = new ArrayList<>();
+    private transient final String name;
     private transient final Category category;
     private transient final String description;
 
@@ -30,6 +30,7 @@ public abstract class Module {
         this.category = category;
         onSetup();
     }
+
     public void onEnable() {
         TntClient.eventManager.register(this);
     }
@@ -62,11 +63,10 @@ public abstract class Module {
         active = !active;
         onToggle();
 
-        if (active) {
+        if (active)
             onEnable();
-        } else {
+        else
             onDisable();
-        }
         Config.write();
     }
 

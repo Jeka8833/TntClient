@@ -120,16 +120,18 @@ public class ListMods extends GuiScreen {
         GL11.glTranslatef(0.0F, scroll, 0.0F);
         final int whid = (size - 1) / 3 * blockHeight > height - 4 ? (width - 5) / 3 : width / 3;
         for (int i = 0; i < size; i++) {
+            final boolean isOptions = modules[i].getOptions().size() > 0;
             final int PosX = (i % 3) * whid + ScX + 2;
             final int PosY = (i / 3) * blockHeight + ScY + 17;
 
-
-            /*glColor4f(1, 1, 1, 0.5f);
-            glLineWidth(1.0f);
-            glBegin(GL_LINES);
-            glVertex2f(PosX + whid - 12, PosY);
-            glVertex2f(PosX + whid - 12, PosY + blockHeight - 2);
-            glEnd();*/
+            if (isOptions) {
+                glColor4f(1, 1, 1, 0.5f);
+                glLineWidth(1.0f);
+                glBegin(GL_LINES);
+                glVertex2f(PosX + whid - 12, PosY);
+                glVertex2f(PosX + whid - 12, PosY + blockHeight - 2);
+                glEnd();
+            }
 
             if (modules[i].isActive())
                 glColor4f(0, 1, 0, .5f);
@@ -144,16 +146,17 @@ public class ListMods extends GuiScreen {
             glEnd();
             if (mouseY > ScY + 13 && mouseY < ScY + height && mouseX > ScX && mouseX < ScX + width) {
                 final int realY = PosY + (int) scroll;
-                if (mouseX > PosX && mouseX < PosX + whid/* - 12*/ && mouseY > realY && mouseY < realY + blockHeight - 2) {
+                if (mouseX > PosX && mouseX < PosX + whid - (isOptions ? 12 : 0) && mouseY > realY && mouseY < realY + blockHeight - 2) {
+                    final int x = PosX + whid - (isOptions ? 13 : 0);
                     glColor4f(0, 0, 0f, 0.25f);
                     glBegin(GL_QUADS);
                     glVertex2f(PosX, PosY);
-                    glVertex2f(PosX + whid/* - 13*/, PosY);
-                    glVertex2f(PosX + whid/* - 13*/, PosY + blockHeight - 2);
+                    glVertex2f(x, PosY);
+                    glVertex2f(x, PosY + blockHeight - 2);
                     glVertex2f(PosX, PosY + blockHeight - 2);
                     glEnd();
                 }
-                /*if (mouseX > PosX + whid - 13 && mouseX < PosX + whid - 2 && mouseY > realY && mouseY < realY + blockHeight - 2) {
+                if (isOptions && mouseX > PosX + whid - 13 && mouseX < PosX + whid - 2 && mouseY > realY && mouseY < realY + blockHeight - 2) {
                     glColor4f(0, 0, 0f, 0.25f);
                     glBegin(GL_QUADS);
                     glVertex2f(PosX + whid - 11, PosY);
@@ -161,14 +164,15 @@ public class ListMods extends GuiScreen {
                     glVertex2f(PosX + whid, PosY + blockHeight - 2);
                     glVertex2f(PosX + whid - 11, PosY + blockHeight - 2);
                     glEnd();
-                }*/
+                }
             }
             glColor4f(1, 1, 1, 1);
             GL11.glEnable(GL11.GL_TEXTURE_2D);
             GL11.glEnable(GL11.GL_CULL_FACE);
             GL11.glDisable(GL11.GL_BLEND);
             mc.fontRendererObj.drawString(modules[i].getName(), PosX + 5, PosY + (blockHeight / 2 - 5), 0xffffffff);
-            //mc.fontRendererObj.drawString(">", PosX + whid - 8, PosY + (blockHeight / 2 - 5), 0xffffffff);
+            if (isOptions)
+                mc.fontRendererObj.drawString(">", PosX + whid - 8, PosY + (blockHeight / 2 - 5), 0xffffffff);
             GL11.glEnable(GL11.GL_BLEND);
             GL11.glDisable(GL11.GL_CULL_FACE);
             GL11.glDisable(GL11.GL_TEXTURE_2D);
@@ -218,14 +222,15 @@ public class ListMods extends GuiScreen {
                 int realY = ScY + (int) scroll;
                 final int whid = modules.length > 12 ? (width - 5) / 3 : width / 3;
                 for (int i = 0; i < modules.length; i++) {
+                    final boolean isOptions = modules[i].getOptions().size() > 0;
                     final int PosX = (i % 3) * whid + ScX + 2;
                     final int PosY = (i / 3) * blockHeight + realY + 17;
-                    if (mouseY > PosY && mouseY < PosY + blockHeight - 2 && mouseX > PosX && mouseX < PosX + whid /*- 12*/) {
+                    if (mouseY > PosY && mouseY < PosY + blockHeight - 2 && mouseX > PosX && mouseX < PosX + whid - (isOptions ? 12 : 0)) {
                         modules[i].toggle();
                     }
-                    /*if (mouseY > PosY && mouseY < PosY + blockHeight - 2 && mouseX > PosX + whid - 13 && mouseX < PosX + whid - 2) {
+                    if (isOptions && mouseY > PosY && mouseY < PosY + blockHeight - 2 && mouseX > PosX + whid - 13 && mouseX < PosX + whid - 2) {
                         mc.displayGuiScreen(new EditMod(modules[i]));
-                    }*/
+                    }
                 }
                 if (mouseX > ScX + width - 5 && mouseX < ScX + width - 1) {
                     isSellectScroll = true;

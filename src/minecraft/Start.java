@@ -2,6 +2,7 @@ import com.mojang.authlib.Agent;
 import com.mojang.authlib.exceptions.AuthenticationException;
 import com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService;
 import com.mojang.authlib.yggdrasil.YggdrasilUserAuthentication;
+import net.TntClient.TntClient;
 import net.minecraft.client.main.Main;
 
 import java.net.Proxy;
@@ -15,7 +16,8 @@ public class Start {
      * The -name option is required to start the pirate. Example: -license false -name User228
      */
     public static void main(String[] args) throws AuthenticationException {
-        final Path path = Paths.get(System.getenv("AppData"),".minecraft");
+        TntClient.isDebug = true;
+        final Path path = Paths.get(System.getenv("AppData"), ".minecraft");
         if (getValue("-license", args).equalsIgnoreCase("true")) {
             final YggdrasilUserAuthentication auth = (YggdrasilUserAuthentication) (new YggdrasilAuthenticationService(Proxy.NO_PROXY, "")).createUserAuthentication(Agent.MINECRAFT);
             auth.setUsername(getValue("-email", args));
