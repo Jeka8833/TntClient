@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="mcp:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/mcp_jar</output-path>
+    <root id="archive" name="mcp.jar">
+      <element id="module-output" name="mcp" />
+      <element id="library" level="project" name="1.8" />
+      <element id="file-copy" path="$PROJECT_DIR$/src/minecraft/pack.png" />
+    </root>
+  </artifact>
+</component>
