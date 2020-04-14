@@ -13,7 +13,11 @@ public class AutoTip {
             @Override
             public void run() {
                 if (HypixelPlayers.isHypixel && (Config.config.autoTip.isActive())) {
-                    Minecraft.getMinecraft().thePlayer.sendChatMessage("/tip all");
+                    try {
+                        Minecraft.getMinecraft().thePlayer.sendChatMessage("/tip all");
+                    } catch (Exception ex){
+                        ex.printStackTrace();
+                    }
                 }
             }
         }, 0, 600000);
