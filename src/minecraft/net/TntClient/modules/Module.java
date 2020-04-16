@@ -11,23 +11,32 @@ import java.util.List;
 public abstract class Module {
     protected static final Minecraft mc = Minecraft.getMinecraft();
     private boolean active;
+    public int keyBind;
 
+    public transient final boolean isDanger;
     private transient final List<Component> options = new ArrayList<>();
     private transient final String name;
     private transient final Category category;
     private transient final String description;
 
-    public Module(final String name, final Category category) {
-        description = "";
-        this.name = name;
-        this.category = category;
-        onSetup();
+    public Module(final String name, final Category category, final boolean isDanger) {
+        this(name, category, "", Integer.MAX_VALUE, isDanger);
     }
 
-    public Module(final String name, final Category category, final String description) {
+    public Module(final String name, final Category category, final int keyBind, final boolean isDanger) {
+        this(name, category, "", keyBind, isDanger);
+    }
+
+    public Module(final String name, final Category category, final String description, final boolean isDanger) {
+        this(name, category, description, Integer.MAX_VALUE, isDanger);
+    }
+
+    public Module(final String name, final Category category, final String description, final int keyBind, final boolean isDanger) {
         this.description = description;
         this.name = name;
         this.category = category;
+        this.keyBind = keyBind;
+        this.isDanger = isDanger;
         onSetup();
     }
 

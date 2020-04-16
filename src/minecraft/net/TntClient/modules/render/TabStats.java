@@ -5,7 +5,7 @@ import net.TntClient.modules.Module;
 
 public class TabStats extends Module {
     public TabStats() {
-        super("Tab Stats", Category.RENDER);
+        super("Tab Stats", Category.RENDER, false);
     }
 
     @Override

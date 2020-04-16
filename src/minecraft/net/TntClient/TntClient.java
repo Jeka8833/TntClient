@@ -11,18 +11,16 @@ import net.TntClient.mods.hypixel.HypixelPlayers;
 import net.TntClient.mods.translate.TranslateGoogle;
 import net.TntClient.modules.Module;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.settings.GameSettings;
+import org.lwjgl.input.Keyboard;
 
 public class TntClient {
 
-    public static final String version = "1.0.4";
+    public static final String version = "1.0.5";
     public static final boolean pussy = false;
 
     public static boolean isDebug = false;
 
-    public static EventManager eventManager = new EventManager();
-
-    private boolean keyPress = false;
+    public static final EventManager eventManager = new EventManager();
     private final Minecraft mc = Minecraft.getMinecraft();
 
     public TntClient() {
@@ -46,24 +44,20 @@ public class TntClient {
 
     @EventTarget
     public void onDraw(Event2D event) {
-        if (!pussy) {
-            if (mc.currentScreen == null) {
-                if (GameSettings.isKeyDown(mc.gameSettings.jumpHelper)) {
-                    if (!keyPress) {
-                        keyPress = true;
-                        Config.config.jumpHelper.toggle();
-                    }
-                } else keyPress = false;
-            }
-            if (Config.config.jumpHelper.isActive() || Config.config.spider.isActive())
+        for (Module m : Config.config.getModList())
+            if (m.isDanger && m.isActive()) {
                 mc.fontRendererObj.drawString("This can lead to a ban!!!", 2, (int) (event.getHeight() - 10), Util.getRainbow());
-        }
+                return;
+            }
     }
 
     @EventTarget
     public void onUpdateKey(EventKey event) {
-        if (event.getKey() == 54) {
+        if (event.getKey() == Keyboard.KEY_RSHIFT)
             mc.displayGuiScreen(new ListMods());
-        }
+        else if (mc.currentScreen == null)
+            for (Module m : Config.config.getModList())
+                if (m.keyBind == event.getKey())
+                    m.toggle();
     }
 }

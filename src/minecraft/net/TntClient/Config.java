@@ -15,7 +15,7 @@ import org.apache.commons.lang3.ArrayUtils;
 import java.nio.file.Files;
 
 public class Config {
-    public JumpHelper jumpHelper = new JumpHelper();
+    public Bot bot = new Bot();
     public ShowPotions showPotions = new ShowPotions();
     public Brightness brightness = new Brightness();
     public Dolphin dolphin = new Dolphin();
@@ -51,7 +51,7 @@ public class Config {
     }
 
     public Module[] getDangerMods() {
-        return new Module[]{config.jumpHelper, config.spider, config.longDJump, config.glitchBlocks, config.dolphin};
+        return new Module[]{config.bot, config.spider, config.longDJump, config.glitchBlocks, config.dolphin};
     }
 
     public Module[] getPussyMods() {

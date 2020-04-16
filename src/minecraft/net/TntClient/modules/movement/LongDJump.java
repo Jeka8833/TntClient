@@ -13,7 +13,7 @@ public class LongDJump extends Module {
     private static long time = 0;
 
     public LongDJump() {
-        super("Long DJump", Category.MOVEMENT);
+        super("Long DJump", Category.MOVEMENT, false);
     }
 
     @Override

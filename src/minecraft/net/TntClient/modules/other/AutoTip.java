@@ -7,7 +7,7 @@ import net.minecraft.client.Minecraft;
 
 public class AutoTip extends Module {
     public AutoTip() {
-        super("Auto tip", Category.OTHER);
+        super("Auto tip", Category.OTHER, false);
     }
 
     @Override

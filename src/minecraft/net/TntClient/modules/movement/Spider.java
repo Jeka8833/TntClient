@@ -9,7 +9,7 @@ public class Spider extends Module
 {
     public Spider()
     {
-        super("Spider", Category.MOVEMENT);
+        super("Spider", Category.MOVEMENT, true);
     }
 
     @Override

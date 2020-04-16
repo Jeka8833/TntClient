@@ -12,7 +12,7 @@ public class TntGameStats extends Module {
     public static int streak = Integer.MIN_VALUE;
 
     public TntGameStats() {
-        super("TntGame stats", Category.RENDER);
+        super("TntGame stats", Category.RENDER, false);
     }
 
     @Override

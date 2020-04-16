@@ -170,7 +170,8 @@ public class ListMods extends GuiScreen {
             GL11.glEnable(GL11.GL_TEXTURE_2D);
             GL11.glEnable(GL11.GL_CULL_FACE);
             GL11.glDisable(GL11.GL_BLEND);
-            mc.fontRendererObj.drawString(modules[i].getName(), PosX + 5, PosY + (blockHeight / 2 - 5), 0xffffffff);
+            mc.fontRendererObj.drawString(substringText((modules[i].keyBind != Integer.MAX_VALUE ? ("[" + Keyboard.getKeyName(modules[i].keyBind) + "]") : "")
+                    + modules[i].getName(), whid - (isOptions ? 12 : 0) - 5), PosX + 5, PosY + (blockHeight / 2 - 5), 0xffffffff);
             if (isOptions)
                 mc.fontRendererObj.drawString(">", PosX + whid - 8, PosY + (blockHeight / 2 - 5), 0xffffffff);
             GL11.glEnable(GL11.GL_BLEND);
@@ -236,6 +237,21 @@ public class ListMods extends GuiScreen {
                     isSellectScroll = true;
                 }
             }
+        } else if (mouseButton == 2) {
+            final ScaledResolution sr = new ScaledResolution(Minecraft.getMinecraft());
+            final int ScX = (sr.getScaledWidth() - width) / 2;
+            final int ScY = (sr.getScaledHeight() - height) / 2;
+            if (mouseY > ScY + 13 && mouseY < ScY + height && mouseX > ScX && mouseX < ScX + width) {
+                int realY = ScY + (int) scroll;
+                final int whid = modules.length > 12 ? (width - 5) / 3 : width / 3;
+                for (int i = 0; i < modules.length; i++) {
+                    final int PosX = (i % 3) * whid + ScX + 2;
+                    final int PosY = (i / 3) * blockHeight + realY + 17;
+                    if (mouseY > PosY && mouseY < PosY + blockHeight - 2 && mouseX > PosX && mouseX < PosX + whid) {
+                        mc.displayGuiScreen(new KeyBind(modules[i]));
+                    }
+                }
+            }
         }
     }
 
@@ -261,5 +277,16 @@ public class ListMods extends GuiScreen {
             }
         }
         super.handleMouseInput();
+    }
+
+    private String substringText(final String text, final int width) {
+        if (mc.fontRendererObj.getStringWidth(text) < width) return text;
+        final int len = text.length();
+        for (int i = len; i > 0; i--) {
+            final String sText = text.substring(0, i);
+            if (mc.fontRendererObj.getStringWidth(sText) < width)
+                return sText;
+        }
+        return "";
     }
 }

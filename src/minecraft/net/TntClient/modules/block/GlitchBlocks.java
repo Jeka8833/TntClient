@@ -7,6 +7,7 @@ import net.TntClient.modules.Module;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.BlockPos;
+import org.lwjgl.input.Keyboard;
 
 public class GlitchBlocks extends Module {
 
@@ -20,7 +21,7 @@ public class GlitchBlocks extends Module {
     private static final BlockInfo[] blocks = new BlockInfo[3];
 
     public GlitchBlocks() {
-        super("Glitch Blocks", Category.BLOCKS);
+        super("Glitch Blocks", Category.BLOCKS, Keyboard.KEY_G, true);
     }
 
     @Override

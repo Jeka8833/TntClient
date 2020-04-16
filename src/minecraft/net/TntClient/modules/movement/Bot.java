@@ -13,10 +13,11 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3i;
+import org.lwjgl.input.Keyboard;
 
 import java.util.*;
 
-public class JumpHelper extends Module {
+public class Bot extends Module {
 
     private static final IBlockState air = Block.getBlockById(0).getDefaultState();
     private static final IBlockState sand = Block.getBlockById(12).getDefaultState();
@@ -32,8 +33,8 @@ public class JumpHelper extends Module {
     private static long time = System.currentTimeMillis();
     private static long airTime = System.currentTimeMillis();
 
-    public JumpHelper() {
-        super("TntRun Bot", Category.MOVEMENT);
+    public Bot() {
+        super("TntRun Bot", Category.MOVEMENT, Keyboard.KEY_F, true);
     }
 
     @Override

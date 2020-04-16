@@ -18,7 +18,7 @@ import java.util.Collection;
 public class ShowPotions extends Module {
 
     public ShowPotions() {
-        super("Show Potions", Category.RENDER);
+        super("Show Potions", Category.RENDER, false);
     }
 
     @Override

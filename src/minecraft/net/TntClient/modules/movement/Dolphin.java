@@ -9,7 +9,7 @@ public class Dolphin extends Module
 {
     public Dolphin()
     {
-        super("Dolphin", Category.MOVEMENT);
+        super("Dolphin", Category.MOVEMENT, false);
     }
 
     @Override
