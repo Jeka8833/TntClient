@@ -29,6 +29,7 @@ public class PlayerInfo implements Comparable<PlayerInfo> {
     }
 
     public void update() throws IOException {
+        time = System.currentTimeMillis();
         final JsonObject tntgame = parser.parse(HypixelPlayers.urlToText(new URL("https://api.hypixel.net/player?key="
                 + Config.config.apiKey + "&name=" + name))).getAsJsonObject().getAsJsonObject("player")
                 .getAsJsonObject("stats").getAsJsonObject("TNTGames");
@@ -37,7 +38,6 @@ public class PlayerInfo implements Comparable<PlayerInfo> {
         streak = getInt(tntgame.get("winstreak"));
         coin = getInt(tntgame.get("coins"));
         jump = getInt(tntgame.get("assists_capture"));
-        time = System.currentTimeMillis();
     }
 
     @Override

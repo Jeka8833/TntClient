@@ -18,8 +18,6 @@ import io.netty.handler.timeout.TimeoutException;
 import io.netty.util.AttributeKey;
 import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.GenericFutureListener;
-import net.TntClient.event.events.EventReceivePacket;
-import net.TntClient.event.events.EventSendPacket;
 import net.minecraft.util.*;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.Validate;
@@ -122,12 +120,6 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet> {
     protected void channelRead0(ChannelHandlerContext p_channelRead0_1_, Packet p_channelRead0_2_) throws Exception {
         if (this.channel.isOpen()) {
             try {
-                EventReceivePacket eventReceivePacket = new EventReceivePacket(p_channelRead0_2_);
-                eventReceivePacket.call();
-
-                if (eventReceivePacket.isCancelled())
-                    return;
-
                 p_channelRead0_2_.processPacket(this.packetListener);
             } catch (ThreadQuickExitException ignored) {
 
@@ -146,12 +138,6 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet> {
     }
 
     public void sendPacket(Packet packetIn) {
-        EventSendPacket eventSendPacket = new EventSendPacket(packetIn);
-        eventSendPacket.call();
-
-        if (eventSendPacket.isCancelled())
-            return;
-
         if (this.isChannelOpen()) {
             this.flushOutboundQueue();
             this.dispatchPacket(packetIn, null);

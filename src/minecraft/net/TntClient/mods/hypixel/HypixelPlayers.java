@@ -26,36 +26,36 @@ public class HypixelPlayers {
         new Timer().scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                try {
-                    if (isHypixel && (Config.config.tabStats.isActive() || Config.config.nicknameStats.isActive() || Config.config.tntGameStats.isActive())) {
-                        updateStat();
-                        if(mc.getCurrentServerData() == null)
-                            isHypixel = false;
-                    }
-                } catch (Exception ignored) {
+                if (isHypixel && (Config.config.tabStats.isActive() || Config.config.nicknameStats.isActive() || Config.config.tntGameStats.isActive())) {
+                    updateStat();
+                    if (mc.getCurrentServerData() == null)
+                        isHypixel = false;
                 }
             }
         }, 0, 501);
     }
 
-    public static void updateStat() throws IOException {
-        players = mc.thePlayer.sendQueue.getPlayerInfoMap().stream().map(NetworkPlayerInfo::getGameProfile).collect(Collectors.toList());
-        final LinkedList<PlayerInfo> playerInfos = new LinkedList<>();
-        for (GameProfile player : players) {
-            final String name = player.getName();
-            if (playerInfoMap.containsKey(name))
-                playerInfos.add(playerInfoMap.get(name));
-            else
-                playerInfos.add(new PlayerInfo(name));
-        }
-        Collections.sort(playerInfos);
-        final PlayerInfo upd = playerInfos.getFirst();
-        upd.update();
-        playerInfoMap.put(upd.name, upd);
-        if (mc.thePlayer.getGameProfile().getName().equals(upd.name)) {
-            TntGameStats.streak = upd.streak;
-            TntGameStats.lose = upd.lose;
-            TntGameStats.win = upd.win;
+    public static void updateStat() {
+        try {
+            players = mc.thePlayer.sendQueue.getPlayerInfoMap().stream().map(NetworkPlayerInfo::getGameProfile).collect(Collectors.toList());
+            final LinkedList<PlayerInfo> playerInfos = new LinkedList<>();
+            for (GameProfile player : players) {
+                final String name = player.getName();
+                if (playerInfoMap.containsKey(name))
+                    playerInfos.add(playerInfoMap.get(name));
+                else
+                    playerInfos.add(new PlayerInfo(name));
+            }
+            playerInfos.sort(null);
+            final PlayerInfo upd = playerInfos.getFirst();
+            upd.update();
+            playerInfoMap.put(upd.name, upd);
+            if (mc.thePlayer.getGameProfile().getName().equals(upd.name)) {
+                TntGameStats.streak = upd.streak;
+                TntGameStats.lose = upd.lose;
+                TntGameStats.win = upd.win;
+            }
+        } catch (Exception ignored) {
         }
     }
 
