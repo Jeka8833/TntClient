@@ -37,7 +37,6 @@ import org.lwjgl.opengl.GLContext;
 import org.lwjgl.util.glu.Project;
 
 public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
-    private static final AtomicInteger field_175373_f = new AtomicInteger(0);
     private static final Logger logger = LogManager.getLogger();
     private static final Random RANDOM = new Random();
 
@@ -123,7 +122,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
 
             if (!list.isEmpty()) {
                 while (true) {
-                    this.splashText = (String) list.get(RANDOM.nextInt(list.size()));
+                    this.splashText = list.get(RANDOM.nextInt(list.size()));
 
                     if (this.splashText.hashCode() != 125780783) {
                         break;
@@ -209,7 +208,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
             this.field_92024_r = this.fontRendererObj.getStringWidth(this.openGLWarning2);
             int k = Math.max(this.field_92023_s, this.field_92024_r);
             this.field_92022_t = (this.width - k) / 2;
-            this.field_92021_u = ((GuiButton) this.buttonList.get(0)).yPosition - 24;
+            this.field_92021_u = this.buttonList.get(0).yPosition - 24;
             this.field_92020_v = this.field_92022_t + k;
             this.field_92019_w = this.field_92021_u + 24;
         }
@@ -222,7 +221,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
      */
     private void addSingleplayerMultiplayerButtons(int p_73969_1_, int p_73969_2_) {
         this.buttonList.add(new GuiButton(1, this.width / 2 - 100, p_73969_1_, I18n.format("menu.singleplayer", new Object[0])));
-        this.buttonList.add(new GuiButton(2, this.width / 2 - 100, p_73969_1_ + p_73969_2_ * 1, I18n.format("menu.multiplayer", new Object[0])));
+        this.buttonList.add(new GuiButton(2, this.width / 2 - 100, p_73969_1_ + p_73969_2_, I18n.format("menu.multiplayer", new Object[0])));
         this.buttonList.add(this.realmsButton = new GuiButton(14, this.width / 2 - 100, p_73969_1_ + p_73969_2_ * 2, I18n.format("menu.online", new Object[0])));
     }
 
@@ -231,7 +230,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
      */
     private void addDemoButtons(int p_73972_1_, int p_73972_2_) {
         this.buttonList.add(new GuiButton(11, this.width / 2 - 100, p_73972_1_, I18n.format("menu.playdemo", new Object[0])));
-        this.buttonList.add(this.buttonResetDemo = new GuiButton(12, this.width / 2 - 100, p_73972_1_ + p_73972_2_ * 1, I18n.format("menu.resetdemo", new Object[0])));
+        this.buttonList.add(this.buttonResetDemo = new GuiButton(12, this.width / 2 - 100, p_73972_1_ + p_73972_2_, I18n.format("menu.resetdemo", new Object[0])));
         ISaveFormat isaveformat = this.mc.getSaveLoader();
         WorldInfo worldinfo = isaveformat.getWorldInfo("Demo_World");
 
@@ -298,7 +297,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
             if (result) {
                 try {
                     Class<?> oclass = Class.forName("java.awt.Desktop");
-                    Object object = oclass.getMethod("getDesktop", new Class[0]).invoke((Object) null, new Object[0]);
+                    Object object = oclass.getMethod("getDesktop", new Class[0]).invoke(null, new Object[0]);
                     oclass.getMethod("browse", new Class[]{URI.class}).invoke(object, new Object[]{new URI(this.openGLWarningLink)});
                 } catch (Throwable throwable) {
                     logger.error("Couldn\'t open link", throwable);
@@ -413,10 +412,10 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
             int k = this.width;
             int l = this.height;
             float f1 = (float) (j - i / 2) / 256.0F;
-            worldrenderer.pos((double) k, (double) l, (double) this.zLevel).tex((double) (0.0F + f1), 1.0D).color(1.0F, 1.0F, 1.0F, f).endVertex();
-            worldrenderer.pos((double) k, 0.0D, (double) this.zLevel).tex((double) (1.0F + f1), 1.0D).color(1.0F, 1.0F, 1.0F, f).endVertex();
-            worldrenderer.pos(0.0D, 0.0D, (double) this.zLevel).tex((double) (1.0F + f1), 0.0D).color(1.0F, 1.0F, 1.0F, f).endVertex();
-            worldrenderer.pos(0.0D, (double) l, (double) this.zLevel).tex((double) (0.0F + f1), 0.0D).color(1.0F, 1.0F, 1.0F, f).endVertex();
+            worldrenderer.pos(k, l, this.zLevel).tex(0.0F + f1, 1.0D).color(1.0F, 1.0F, 1.0F, f).endVertex();
+            worldrenderer.pos(k, 0.0D, this.zLevel).tex(1.0F + f1, 1.0D).color(1.0F, 1.0F, 1.0F, f).endVertex();
+            worldrenderer.pos(0.0D, 0.0D, this.zLevel).tex(1.0F + f1, 0.0D).color(1.0F, 1.0F, 1.0F, f).endVertex();
+            worldrenderer.pos(0.0D, l, this.zLevel).tex(0.0F + f1, 0.0D).color(1.0F, 1.0F, 1.0F, f).endVertex();
         }
 
         tessellator.draw();
@@ -448,10 +447,10 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
         Tessellator tessellator = Tessellator.getInstance();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
         worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-        worldrenderer.pos(0.0D, (double) j, (double) this.zLevel).tex((double) (0.5F - f1), (double) (0.5F + f2)).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
-        worldrenderer.pos((double) i, (double) j, (double) this.zLevel).tex((double) (0.5F - f1), (double) (0.5F - f2)).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
-        worldrenderer.pos((double) i, 0.0D, (double) this.zLevel).tex((double) (0.5F + f1), (double) (0.5F - f2)).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
-        worldrenderer.pos(0.0D, 0.0D, (double) this.zLevel).tex((double) (0.5F + f1), (double) (0.5F + f2)).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
+        worldrenderer.pos(0.0D, j, this.zLevel).tex(0.5F - f1, 0.5F + f2).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
+        worldrenderer.pos(i, j, this.zLevel).tex(0.5F - f1, 0.5F - f2).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
+        worldrenderer.pos(i, 0.0D, this.zLevel).tex(0.5F + f1, 0.5F - f2).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
+        worldrenderer.pos(0.0D, 0.0D, this.zLevel).tex(0.5F + f1, 0.5F + f2).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
         tessellator.draw();
     }
 
@@ -462,8 +461,6 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
         GlStateManager.disableAlpha();
         this.renderSkybox(mouseX, mouseY, partialTicks);
         GlStateManager.enableAlpha();
-        Tessellator tessellator = Tessellator.getInstance();
-        WorldRenderer worldrenderer = tessellator.getWorldRenderer();
         int i = 274;
         int j = this.width / 2 - i / 2;
         int k = 30;
@@ -473,14 +470,14 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 
         if ((double) this.updateCounter < 1.0E-4D) {
-            this.drawTexturedModalRect(j + 0, k + 0, 0, 0, 99, 44);
-            this.drawTexturedModalRect(j + 99, k + 0, 129, 0, 27, 44);
-            this.drawTexturedModalRect(j + 99 + 26, k + 0, 126, 0, 3, 44);
-            this.drawTexturedModalRect(j + 99 + 26 + 3, k + 0, 99, 0, 26, 44);
-            this.drawTexturedModalRect(j + 155, k + 0, 0, 45, 155, 44);
+            this.drawTexturedModalRect(j, k, 0, 0, 99, 44);
+            this.drawTexturedModalRect(j + 99, k, 129, 0, 27, 44);
+            this.drawTexturedModalRect(j + 99 + 26, k, 126, 0, 3, 44);
+            this.drawTexturedModalRect(j + 99 + 26 + 3, k, 99, 0, 26, 44);
+            this.drawTexturedModalRect(j + 155, k, 0, 45, 155, 44);
         } else {
-            this.drawTexturedModalRect(j + 0, k + 0, 0, 0, 155, 44);
-            this.drawTexturedModalRect(j + 155, k + 0, 0, 45, 155, 44);
+            this.drawTexturedModalRect(j, k, 0, 0, 155, 44);
+            this.drawTexturedModalRect(j + 155, k, 0, 45, 155, 44);
         }
 
         GlStateManager.pushMatrix();
@@ -504,7 +501,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
         if (this.openGLWarning1 != null && this.openGLWarning1.length() > 0) {
             drawRect(this.field_92022_t - 2, this.field_92021_u - 2, this.field_92020_v + 2, this.field_92019_w - 1, 1428160512);
             this.drawString(this.fontRendererObj, this.openGLWarning1, this.field_92022_t, this.field_92021_u, -1);
-            this.drawString(this.fontRendererObj, this.openGLWarning2, (this.width - this.field_92024_r) / 2, ((GuiButton) this.buttonList.get(0)).yPosition - 12, -1);
+            this.drawString(this.fontRendererObj, this.openGLWarning2, (this.width - this.field_92024_r) / 2, this.buttonList.get(0).yPosition - 12, -1);
         }
 
         super.drawScreen(mouseX, mouseY, partialTicks);

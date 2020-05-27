@@ -21,15 +21,17 @@ public class HypixelPlayers {
     public static boolean isHypixel = false;
     public static Map<String, PlayerInfo> playerInfoMap = new HashMap<>();
     public static List<GameProfile> players;
-    public static int count = 0;
 
     public static void startTime() {
         new Timer().scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
                 try {
-                    if (isHypixel && (Config.config.tabStats.isActive() || Config.config.nicknameStats.isActive() || Config.config.tntGameStats.isActive()))
+                    if (isHypixel && (Config.config.tabStats.isActive() || Config.config.nicknameStats.isActive() || Config.config.tntGameStats.isActive())) {
                         updateStat();
+                        if(mc.getCurrentServerData() == null)
+                            isHypixel = false;
+                    }
                 } catch (Exception ignored) {
                 }
             }
@@ -37,24 +39,23 @@ public class HypixelPlayers {
     }
 
     public static void updateStat() throws IOException {
-        players = Minecraft.getMinecraft().thePlayer.sendQueue.getPlayerInfoMap().stream().map(NetworkPlayerInfo::getGameProfile).collect(Collectors.toList());
-        final int len = players.size();
-        for (int i = 0; i < len; i++) {
-            final String name = players.get(i).getName();
-            if (!playerInfoMap.containsKey(name))
-                playerInfoMap.put(name, null);
+        players = mc.thePlayer.sendQueue.getPlayerInfoMap().stream().map(NetworkPlayerInfo::getGameProfile).collect(Collectors.toList());
+        final LinkedList<PlayerInfo> playerInfos = new LinkedList<>();
+        for (GameProfile player : players) {
+            final String name = player.getName();
+            if (playerInfoMap.containsKey(name))
+                playerInfos.add(playerInfoMap.get(name));
+            else
+                playerInfos.add(new PlayerInfo(name));
         }
-
-        if (count >= len)
-            count = 0;
-
-        final String name = players.get(count++).getName();
-        final PlayerInfo info = new PlayerInfo(urlToText(new URL("https://api.hypixel.net/player?key=" + Config.config.apiKey + "&name=" + name)));
-        playerInfoMap.put(name, info);
-        if (mc.thePlayer.getGameProfile().getName().equals(name)) {
-            TntGameStats.streak = info.streak;
-            TntGameStats.lose = info.lose;
-            TntGameStats.win = info.win;
+        Collections.sort(playerInfos);
+        final PlayerInfo upd = playerInfos.getFirst();
+        upd.update();
+        playerInfoMap.put(upd.name, upd);
+        if (mc.thePlayer.getGameProfile().getName().equals(upd.name)) {
+            TntGameStats.streak = upd.streak;
+            TntGameStats.lose = upd.lose;
+            TntGameStats.win = upd.win;
         }
     }
 
@@ -120,7 +121,7 @@ public class HypixelPlayers {
         return false;
     }
 
-    private static String urlToText(URL url) throws IOException {
+    public static String urlToText(URL url) throws IOException {
         final BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
         final StringBuilder buf = new StringBuilder();
         String line;

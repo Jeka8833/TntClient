@@ -11,6 +11,8 @@ public class LongDJump extends Module {
 
     private static boolean jump = false;
     private static long time = 0;
+    public float XZPower = 1.5f;
+    public float YPower = 1.16f;
 
     public LongDJump() {
         super("Long DJump", Category.MOVEMENT, false);
@@ -30,9 +32,9 @@ public class LongDJump extends Module {
     public void onUpdate(EventPreMotionUpdate event) {
         if (mc.thePlayer.motionY > 0.6 || mc.thePlayer.motionZ > 0.6 || mc.thePlayer.motionZ < -0.6 || mc.thePlayer.motionX > 0.6 || mc.thePlayer.motionX < -0.6) {
             if (!jump) {
-                mc.thePlayer.motionX *= 1.5;
-                mc.thePlayer.motionY *= 1.16;
-                mc.thePlayer.motionZ *= 1.5;
+                mc.thePlayer.motionX *= XZPower;
+                mc.thePlayer.motionY *= YPower;
+                mc.thePlayer.motionZ *= XZPower;
                 jump = true;
                 time = System.currentTimeMillis();
             }

@@ -19,7 +19,6 @@ public class Config {
     public ShowPotions showPotions = new ShowPotions();
     public Brightness brightness = new Brightness();
     public Dolphin dolphin = new Dolphin();
-    public Spider spider = new Spider();
     public Sprint sprint = new Sprint();
     public TntGameStats tntGameStats = new TntGameStats();
     public NicknameStats nicknameStats = new NicknameStats();
@@ -51,7 +50,7 @@ public class Config {
     }
 
     public Module[] getDangerMods() {
-        return new Module[]{config.bot, config.spider, config.longDJump, config.glitchBlocks, config.dolphin};
+        return new Module[]{config.bot, config.longDJump, config.glitchBlocks, config.dolphin};
     }
 
     public Module[] getPussyMods() {
