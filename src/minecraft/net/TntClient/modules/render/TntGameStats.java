@@ -2,8 +2,11 @@ package net.TntClient.modules.render;
 
 import net.TntClient.event.EventTarget;
 import net.TntClient.event.events.Event2D;
+import net.TntClient.mods.hypixel.HypixelPlayers;
 import net.TntClient.modules.Category;
 import net.TntClient.modules.Module;
+
+import java.time.LocalTime;
 
 public class TntGameStats extends Module {
 
@@ -27,19 +30,25 @@ public class TntGameStats extends Module {
 
     @EventTarget
     public void onUpdate(Event2D event) {
-        if(!mc.gameSettings.showDebugInfo) {
-            if(win != Integer.MIN_VALUE){
-                final String line = "Wins: " +  win;
-                mc.fontRendererObj.drawString(line, (int) (event.getWidth() - mc.fontRendererObj.getStringWidth(line)), 2, -2039584);
-            }
-            if(lose != Integer.MIN_VALUE){
-                final String line = "Loses: " +  lose;
-                mc.fontRendererObj.drawString(line, (int) (event.getWidth() - mc.fontRendererObj.getStringWidth(line)), 12, -2039584);
-            }
-            if(streak != Integer.MIN_VALUE){
-                final String line = "Streak: " +  streak;
-                mc.fontRendererObj.drawString(line, (int) (event.getWidth() - mc.fontRendererObj.getStringWidth(line)), 22, -2039584);
+        if (!mc.gameSettings.showDebugInfo) {
+            int posX = -8;
+            final LocalTime time = LocalTime.now();
+            final String line3 = "Time: " + time.getHour() + ":" + time.getMinute();
+            mc.fontRendererObj.drawString(line3, (int) (event.getWidth() - mc.fontRendererObj.getStringWidth(line3)), posX += 10, -2039584);
+            if(HypixelPlayers.isHypixel()) {
+                final String line = "Wins: " + toNull(win);
+                mc.fontRendererObj.drawString(line, (int) (event.getWidth() - mc.fontRendererObj.getStringWidth(line)), posX += 10, -2039584);
+                final String line1 = "Loses: " + toNull(lose);
+                mc.fontRendererObj.drawString(line1, (int) (event.getWidth() - mc.fontRendererObj.getStringWidth(line1)), posX += 10, -2039584);
+                final String line2 = "Streak: " + toNull(streak);
+                mc.fontRendererObj.drawString(line2, (int) (event.getWidth() - mc.fontRendererObj.getStringWidth(line2)), posX += 10, -2039584);
             }
         }
+    }
+
+    private static int toNull(int in) {
+        if (in == Integer.MIN_VALUE)
+            return 0;
+        return in;
     }
 }

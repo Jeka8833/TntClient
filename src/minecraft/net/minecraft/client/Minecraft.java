@@ -1,6 +1,10 @@
 package net.minecraft.client;
 
-import com.google.common.collect.*;
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+import com.google.common.collect.Queues;
+import com.google.common.collect.Sets;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.ListenableFutureTask;
@@ -8,6 +12,30 @@ import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.minecraft.MinecraftSessionService;
 import com.mojang.authlib.properties.PropertyMap;
 import com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService;
+
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.Proxy;
+import java.net.SocketAddress;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Collections;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Queue;
+import java.util.Set;
+import java.util.UUID;
+import java.util.concurrent.Callable;
+import java.util.concurrent.Executors;
+import java.util.concurrent.FutureTask;
+import javax.imageio.ImageIO;
+
 import net.TntClient.TntClient;
 import net.TntClient.event.events.EventKey;
 import net.minecraft.block.Block;
@@ -15,7 +43,19 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.audio.MusicTicker;
 import net.minecraft.client.audio.SoundHandler;
 import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.client.gui.*;
+import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.GuiChat;
+import net.minecraft.client.gui.GuiControls;
+import net.minecraft.client.gui.GuiGameOver;
+import net.minecraft.client.gui.GuiIngame;
+import net.minecraft.client.gui.GuiIngameMenu;
+import net.minecraft.client.gui.GuiMainMenu;
+import net.minecraft.client.gui.GuiMemoryErrorScreen;
+import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.GuiSleepMP;
+import net.minecraft.client.gui.GuiYesNo;
+import net.minecraft.client.gui.GuiYesNoCallback;
+import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.gui.achievement.GuiAchievement;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.gui.stream.GuiStreamUnavailable;
@@ -27,7 +67,14 @@ import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.network.NetHandlerLoginClient;
 import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.client.particle.EffectRenderer;
-import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.BlockRendererDispatcher;
+import net.minecraft.client.renderer.EntityRenderer;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.ItemRenderer;
+import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.client.renderer.RenderGlobal;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.chunk.RenderChunk;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -35,8 +82,29 @@ import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.client.resources.*;
-import net.minecraft.client.resources.data.*;
+import net.minecraft.client.resources.DefaultResourcePack;
+import net.minecraft.client.resources.FoliageColorReloadListener;
+import net.minecraft.client.resources.GrassColorReloadListener;
+import net.minecraft.client.resources.I18n;
+import net.minecraft.client.resources.IReloadableResourceManager;
+import net.minecraft.client.resources.IResourceManager;
+import net.minecraft.client.resources.IResourcePack;
+import net.minecraft.client.resources.LanguageManager;
+import net.minecraft.client.resources.ResourceIndex;
+import net.minecraft.client.resources.ResourcePackRepository;
+import net.minecraft.client.resources.SimpleReloadableResourceManager;
+import net.minecraft.client.resources.SkinManager;
+import net.minecraft.client.resources.data.AnimationMetadataSection;
+import net.minecraft.client.resources.data.AnimationMetadataSectionSerializer;
+import net.minecraft.client.resources.data.FontMetadataSection;
+import net.minecraft.client.resources.data.FontMetadataSectionSerializer;
+import net.minecraft.client.resources.data.IMetadataSerializer;
+import net.minecraft.client.resources.data.LanguageMetadataSection;
+import net.minecraft.client.resources.data.LanguageMetadataSectionSerializer;
+import net.minecraft.client.resources.data.PackMetadataSection;
+import net.minecraft.client.resources.data.PackMetadataSectionSerializer;
+import net.minecraft.client.resources.data.TextureMetadataSection;
+import net.minecraft.client.resources.data.TextureMetadataSectionSerializer;
 import net.minecraft.client.resources.model.ModelManager;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.client.settings.KeyBinding;
@@ -50,7 +118,11 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLeashKnot;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.boss.BossStatus;
-import net.minecraft.entity.item.*;
+import net.minecraft.entity.item.EntityArmorStand;
+import net.minecraft.entity.item.EntityBoat;
+import net.minecraft.entity.item.EntityItemFrame;
+import net.minecraft.entity.item.EntityMinecart;
+import net.minecraft.entity.item.EntityPainting;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Bootstrap;
@@ -72,11 +144,24 @@ import net.minecraft.profiler.Profiler;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.integrated.IntegratedServer;
 import net.minecraft.stats.AchievementList;
+import net.minecraft.stats.IStatStringFormat;
 import net.minecraft.stats.StatFileWriter;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.FrameTimer;
+import net.minecraft.util.IThreadListener;
+import net.minecraft.util.MathHelper;
+import net.minecraft.util.MinecraftError;
+import net.minecraft.util.MouseHelper;
+import net.minecraft.util.MovementInputFromOptions;
+import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.ReportedException;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.ScreenShotHelper;
+import net.minecraft.util.Session;
 import net.minecraft.util.Timer;
 import net.minecraft.util.Util;
-import net.minecraft.util.*;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.WorldProviderEnd;
 import net.minecraft.world.WorldProviderHell;
@@ -93,24 +178,15 @@ import org.lwjgl.LWJGLException;
 import org.lwjgl.Sys;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
-import org.lwjgl.opengl.*;
+import org.lwjgl.opengl.ContextCapabilities;
+import org.lwjgl.opengl.Display;
+import org.lwjgl.opengl.DisplayMode;
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL20;
+import org.lwjgl.opengl.GLContext;
+import org.lwjgl.opengl.OpenGLException;
+import org.lwjgl.opengl.PixelFormat;
 import org.lwjgl.util.glu.GLU;
-
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.Proxy;
-import java.net.SocketAddress;
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
-import java.util.*;
-import java.util.concurrent.Callable;
-import java.util.concurrent.Executors;
-import java.util.concurrent.FutureTask;
 
 public class Minecraft implements IThreadListener, IPlayerUsage {
     private static final Logger logger = LogManager.getLogger();
@@ -152,7 +228,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
     /**
      * Instance of PlayerUsageSnooper.
      */
-    private final PlayerUsageSnooper usageSnooper = new PlayerUsageSnooper("client", this, MinecraftServer.getCurrentTimeMillis());
+    private PlayerUsageSnooper usageSnooper = new PlayerUsageSnooper("client", this, MinecraftServer.getCurrentTimeMillis());
     public WorldClient theWorld;
     public RenderGlobal renderGlobal;
     private RenderManager renderManager;
@@ -445,11 +521,13 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
         this.mcResourceManager.registerReloadListener(this.standardGalacticFontRenderer);
         this.mcResourceManager.registerReloadListener(new GrassColorReloadListener());
         this.mcResourceManager.registerReloadListener(new FoliageColorReloadListener());
-        AchievementList.openInventory.setStatStringFormatter(p_74535_1_ -> {
-            try {
-                return String.format(p_74535_1_, GameSettings.getKeyDisplayString(Minecraft.this.gameSettings.keyBindInventory.getKeyCode()));
-            } catch (Exception exception) {
-                return "Error: " + exception.getLocalizedMessage();
+        AchievementList.openInventory.setStatStringFormatter(new IStatStringFormat() {
+            public String formatString(String p_74535_1_) {
+                try {
+                    return String.format(p_74535_1_, GameSettings.getKeyDisplayString(Minecraft.this.gameSettings.keyBindInventory.getKeyCode()));
+                } catch (Exception exception) {
+                    return "Error: " + exception.getLocalizedMessage();
+                }
             }
         });
         this.mouseHelper = new MouseHelper();
@@ -1462,7 +1540,11 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
             } catch (Throwable throwable1) {
                 CrashReport crashreport = CrashReport.makeCrashReport(throwable1, "Updating screen events");
                 CrashReportCategory crashreportcategory = crashreport.makeCategory("Affected screen");
-                crashreportcategory.addCrashSectionCallable("Screen name", () -> Minecraft.this.currentScreen.getClass().getCanonicalName());
+                crashreportcategory.addCrashSectionCallable("Screen name", new Callable<String>() {
+                    public String call() throws Exception {
+                        return Minecraft.this.currentScreen.getClass().getCanonicalName();
+                    }
+                });
                 throw new ReportedException(crashreport);
             }
 
@@ -1472,7 +1554,11 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
                 } catch (Throwable throwable) {
                     CrashReport crashreport1 = CrashReport.makeCrashReport(throwable, "Ticking screen");
                     CrashReportCategory crashreportcategory1 = crashreport1.makeCategory("Affected screen");
-                    crashreportcategory1.addCrashSectionCallable("Screen name", () -> Minecraft.this.currentScreen.getClass().getCanonicalName());
+                    crashreportcategory1.addCrashSectionCallable("Screen name", new Callable<String>() {
+                        public String call() throws Exception {
+                            return Minecraft.this.currentScreen.getClass().getCanonicalName();
+                        }
+                    });
                     throw new ReportedException(crashreport1);
                 }
             }
@@ -2127,36 +2213,76 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
      * adds core server Info (GL version , Texture pack, isModded, type), and the worldInfo to the crash report
      */
     public CrashReport addGraphicsAndWorldToCrashReport(CrashReport theCrash) {
-        theCrash.getCategory().addCrashSectionCallable("Launched Version", () -> Minecraft.this.launchedVersion);
-        theCrash.getCategory().addCrashSectionCallable("LWJGL", Sys::getVersion);
-        theCrash.getCategory().addCrashSectionCallable("OpenGL", () -> GL11.glGetString(GL11.GL_RENDERER) + " GL version " + GL11.glGetString(GL11.GL_VERSION) + ", " + GL11.glGetString(GL11.GL_VENDOR));
-        theCrash.getCategory().addCrashSectionCallable("GL Caps", OpenGlHelper::getLogText);
-        theCrash.getCategory().addCrashSectionCallable("Using VBOs", () -> Minecraft.this.gameSettings.useVbo ? "Yes" : "No");
-        theCrash.getCategory().addCrashSectionCallable("Is Modded", () -> {
-            String s = ClientBrandRetriever.getClientModName();
-            return !s.equals("vanilla") ? "Definitely; Client brand changed to '" + s + "'" : (Minecraft.class.getSigners() == null ? "Very likely; Jar signature invalidated" : "Probably not. Jar signature remains and client brand is untouched.");
-        });
-        theCrash.getCategory().addCrashSectionCallable("Type", () -> "Client (map_client.txt)");
-        theCrash.getCategory().addCrashSectionCallable("Resource Packs", () -> {
-            StringBuilder stringbuilder = new StringBuilder();
-
-            for (Object s : Minecraft.this.gameSettings.resourcePacks) {
-                if (stringbuilder.length() > 0) {
-                    stringbuilder.append(", ");
-                }
-
-                stringbuilder.append(s);
-
-                if (Minecraft.this.gameSettings.field_183018_l.contains(s)) {
-                    stringbuilder.append(" (incompatible)");
-                }
+        theCrash.getCategory().addCrashSectionCallable("Launched Version", new Callable<String>() {
+            public String call() throws Exception {
+                return Minecraft.this.launchedVersion;
             }
-
-            return stringbuilder.toString();
         });
-        theCrash.getCategory().addCrashSectionCallable("Current Language", () -> Minecraft.this.mcLanguageManager.getCurrentLanguage().toString());
-        theCrash.getCategory().addCrashSectionCallable("Profiler Position", () -> Minecraft.this.mcProfiler.profilingEnabled ? Minecraft.this.mcProfiler.getNameOfLastSection() : "N/A (disabled)");
-        theCrash.getCategory().addCrashSectionCallable("CPU", OpenGlHelper::func_183029_j);
+        theCrash.getCategory().addCrashSectionCallable("LWJGL", new Callable<String>() {
+            public String call() {
+                return Sys.getVersion();
+            }
+        });
+        theCrash.getCategory().addCrashSectionCallable("OpenGL", new Callable<String>() {
+            public String call() {
+                return GL11.glGetString(GL11.GL_RENDERER) + " GL version " + GL11.glGetString(GL11.GL_VERSION) + ", " + GL11.glGetString(GL11.GL_VENDOR);
+            }
+        });
+        theCrash.getCategory().addCrashSectionCallable("GL Caps", new Callable<String>() {
+            public String call() {
+                return OpenGlHelper.getLogText();
+            }
+        });
+        theCrash.getCategory().addCrashSectionCallable("Using VBOs", new Callable<String>() {
+            public String call() {
+                return Minecraft.this.gameSettings.useVbo ? "Yes" : "No";
+            }
+        });
+        theCrash.getCategory().addCrashSectionCallable("Is Modded", new Callable<String>() {
+            public String call() throws Exception {
+                String s = ClientBrandRetriever.getClientModName();
+                return !s.equals("vanilla") ? "Definitely; Client brand changed to '" + s + "'" : (Minecraft.class.getSigners() == null ? "Very likely; Jar signature invalidated" : "Probably not. Jar signature remains and client brand is untouched.");
+            }
+        });
+        theCrash.getCategory().addCrashSectionCallable("Type", new Callable<String>() {
+            public String call() throws Exception {
+                return "Client (map_client.txt)";
+            }
+        });
+        theCrash.getCategory().addCrashSectionCallable("Resource Packs", new Callable<String>() {
+            public String call() throws Exception {
+                StringBuilder stringbuilder = new StringBuilder();
+
+                for (Object s : Minecraft.this.gameSettings.resourcePacks) {
+                    if (stringbuilder.length() > 0) {
+                        stringbuilder.append(", ");
+                    }
+
+                    stringbuilder.append(s);
+
+                    if (Minecraft.this.gameSettings.field_183018_l.contains(s)) {
+                        stringbuilder.append(" (incompatible)");
+                    }
+                }
+
+                return stringbuilder.toString();
+            }
+        });
+        theCrash.getCategory().addCrashSectionCallable("Current Language", new Callable<String>() {
+            public String call() throws Exception {
+                return Minecraft.this.mcLanguageManager.getCurrentLanguage().toString();
+            }
+        });
+        theCrash.getCategory().addCrashSectionCallable("Profiler Position", new Callable<String>() {
+            public String call() throws Exception {
+                return Minecraft.this.mcProfiler.profilingEnabled ? Minecraft.this.mcProfiler.getNameOfLastSection() : "N/A (disabled)";
+            }
+        });
+        theCrash.getCategory().addCrashSectionCallable("CPU", new Callable<String>() {
+            public String call() {
+                return OpenGlHelper.func_183029_j();
+            }
+        });
 
         if (this.theWorld != null) {
             this.theWorld.addWorldInfoToCrashReport(theCrash);
@@ -2173,7 +2299,11 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
     }
 
     public ListenableFuture<Object> scheduleResourcesRefresh() {
-        return this.addScheduledTask(Minecraft.this::refreshResources);
+        return this.addScheduledTask(new Runnable() {
+            public void run() {
+                Minecraft.this.refreshResources();
+            }
+        });
     }
 
     public void addServerStatsToSnooper(PlayerUsageSnooper playerSnooper) {
@@ -2467,12 +2597,14 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
                         if (this.getTwitchStream().isBroadcasting()) {
                             this.getTwitchStream().stopBroadcasting();
                         } else if (this.getTwitchStream().isReadyToBroadcast()) {
-                            this.displayGuiScreen(new GuiYesNo((result, id) -> {
-                                if (result) {
-                                    Minecraft.this.getTwitchStream().func_152930_t();
-                                }
+                            this.displayGuiScreen(new GuiYesNo(new GuiYesNoCallback() {
+                                public void confirmClicked(boolean result, int id) {
+                                    if (result) {
+                                        Minecraft.this.getTwitchStream().func_152930_t();
+                                    }
 
-                                Minecraft.this.displayGuiScreen(null);
+                                    Minecraft.this.displayGuiScreen(null);
+                                }
                             }, I18n.format("stream.confirm_start"), "", 0));
                         } else if (this.getTwitchStream().func_152928_D() && this.getTwitchStream().func_152936_l()) {
                             if (this.theWorld != null) {

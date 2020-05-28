@@ -5,6 +5,7 @@ import net.TntClient.Config;
 import net.TntClient.modules.render.TntGameStats;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ChatLine;
+import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.network.NetworkPlayerInfo;
 import net.minecraft.util.StringUtils;
 
@@ -57,6 +58,13 @@ public class HypixelPlayers {
             }
         } catch (Exception ignored) {
         }
+    }
+
+    public static boolean isHypixel(){
+        final ServerData serverData = mc.getCurrentServerData();
+        if(serverData == null)
+            return false;
+        return serverData.serverIP.toLowerCase().contains("hypixel.net");
     }
 
     public static void connected(final String ip) {

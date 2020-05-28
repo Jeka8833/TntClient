@@ -14,6 +14,7 @@ public abstract class Module {
     public int keyBind;
 
     public transient final boolean isDanger;
+    public transient boolean isBlocking;
     private transient final List<Component> options = new ArrayList<>();
     private transient final String name;
     private transient final Category category;
@@ -41,11 +42,13 @@ public abstract class Module {
     }
 
     public void onEnable() {
-        TntClient.eventManager.register(this);
+        if (!isBlocking)
+            TntClient.eventManager.register(this);
     }
 
     public void onDisable() {
-        TntClient.eventManager.unregister(this);
+        if (!isBlocking)
+            TntClient.eventManager.unregister(this);
     }
 
     public abstract void onToggle();
@@ -66,6 +69,15 @@ public abstract class Module {
 
     public void setActive(final boolean active) {
         this.active = active;
+    }
+
+    public void setBlocking(final boolean state) {
+        if (isBlocking == state) return;
+        if (isBlocking)
+            TntClient.eventManager.unregister(this);
+        else
+            TntClient.eventManager.register(this);
+        isBlocking = !isBlocking;
     }
 
     public void toggle() {

@@ -132,8 +132,9 @@ public class ListMods extends GuiScreen {
                 glVertex2f(PosX + whid - 12, PosY + blockHeight - 2);
                 glEnd();
             }
-
-            if (modules[i].isActive())
+            if (modules[i].isBlocking)
+                glColor4f(0.5f, 0.5f, 0.5f, .5f);
+            else if (modules[i].isActive())
                 glColor4f(0, 1, 0, .5f);
             else
                 glColor4f(1, .5f, .4f, .5f);
@@ -223,6 +224,7 @@ public class ListMods extends GuiScreen {
                 int realY = ScY + (int) scroll;
                 final int whid = modules.length > 12 ? (width - 5) / 3 : width / 3;
                 for (int i = 0; i < modules.length; i++) {
+                    if(modules[i].isBlocking) continue;
                     final boolean isOptions = modules[i].getOptions().size() > 0;
                     final int PosX = (i % 3) * whid + ScX + 2;
                     final int PosY = (i / 3) * blockHeight + realY + 17;

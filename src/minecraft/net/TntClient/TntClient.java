@@ -15,7 +15,7 @@ import org.lwjgl.input.Keyboard;
 
 public class TntClient {
 
-    public static final String version = "1.0.5";
+    public static final String version = "1.0.6";
     public static final boolean pussy = false;
 
     public static boolean isDebug = false;
@@ -49,6 +49,12 @@ public class TntClient {
                 mc.fontRendererObj.drawString("This can lead to a ban!!!", 2, (int) (event.getHeight() - 10), Util.getRainbow());
                 return;
             }
+        final boolean isBlo = !HypixelPlayers.isHypixel();
+        Config.config.nicknameStats.setBlocking(isBlo);
+        Config.config.tntGameStats.setBlocking(isBlo);
+        Config.config.tabStats.setBlocking(isBlo);
+        Config.config.autoTip.setBlocking(isBlo);
+        Config.config.longDJump.setBlocking(isBlo);
     }
 
     @EventTarget

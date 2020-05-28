@@ -9,28 +9,24 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
+
 import net.minecraft.client.Minecraft;
 
-public class HttpUtils
-{
+public class HttpUtils {
 
-    public static byte[] get(String p_get_0_) throws IOException
-    {
+    public static byte[] get(String p_get_0_) throws IOException {
         HttpURLConnection httpurlconnection = null;
         byte[] abyte1;
 
-        try
-        {
+        try {
             URL url = new URL(p_get_0_);
-            httpurlconnection = (HttpURLConnection)url.openConnection(Minecraft.getMinecraft().getProxy());
+            httpurlconnection = (HttpURLConnection) url.openConnection(Minecraft.getMinecraft().getProxy());
             httpurlconnection.setDoInput(true);
             httpurlconnection.setDoOutput(false);
             httpurlconnection.connect();
 
-            if (httpurlconnection.getResponseCode() / 100 != 2)
-            {
-                if (httpurlconnection.getErrorStream() != null)
-                {
+            if (httpurlconnection.getResponseCode() / 100 != 2) {
+                if (httpurlconnection.getErrorStream() != null) {
                     Config.readAll(httpurlconnection.getErrorStream());
                 }
 
@@ -53,11 +49,8 @@ public class HttpUtils
             } while (i < abyte.length);
 
             abyte1 = abyte;
-        }
-        finally
-        {
-            if (httpurlconnection != null)
-            {
+        } finally {
+            if (httpurlconnection != null) {
                 httpurlconnection.disconnect();
             }
         }
@@ -65,28 +58,17 @@ public class HttpUtils
         return abyte1;
     }
 
-    public static String post(String p_post_0_, Map p_post_1_, byte[] p_post_2_) throws IOException
-    {
+    public static String post(String p_post_0_, Map p_post_1_, byte[] p_post_2_) throws IOException {
         HttpURLConnection httpurlconnection = null;
-        String s3;
-
-        try
-        {
-            URL url = new URL(p_post_0_);
-            httpurlconnection = (HttpURLConnection)url.openConnection(Minecraft.getMinecraft().getProxy());
+        try {
+            httpurlconnection = (HttpURLConnection) new URL(p_post_0_).openConnection(Minecraft.getMinecraft().getProxy());
             httpurlconnection.setRequestMethod("POST");
-
             if (p_post_1_ != null)
-            {
                 for (Object s : p_post_1_.keySet())
-                {
-                    String s1 = "" + p_post_1_.get(s);
-                    httpurlconnection.setRequestProperty((String) s, s1);
-                }
-            }
+                    httpurlconnection.setRequestProperty((String) s, p_post_1_.get(s) + "");
 
             httpurlconnection.setRequestProperty("Content-Type", "text/plain");
-            httpurlconnection.setRequestProperty("Content-Length", "" + p_post_2_.length);
+            httpurlconnection.setRequestProperty("Content-Length", Integer.toString(p_post_2_.length));
             httpurlconnection.setRequestProperty("Content-Language", "en-US");
             httpurlconnection.setUseCaches(false);
             httpurlconnection.setDoInput(true);
@@ -98,26 +80,18 @@ public class HttpUtils
             InputStream inputstream = httpurlconnection.getInputStream();
             InputStreamReader inputstreamreader = new InputStreamReader(inputstream, StandardCharsets.US_ASCII);
             BufferedReader bufferedreader = new BufferedReader(inputstreamreader);
-            StringBuffer stringbuffer = new StringBuffer();
+            StringBuilder stringbuffer = new StringBuilder();
             String s2;
 
-            while ((s2 = bufferedreader.readLine()) != null)
-            {
-                stringbuffer.append(s2);
-                stringbuffer.append('\r');
+            while ((s2 = bufferedreader.readLine()) != null) {
+                stringbuffer.append(s2).append('\r');
             }
 
             bufferedreader.close();
-            s3 = stringbuffer.toString();
-        }
-        finally
-        {
+            return stringbuffer.toString();
+        } finally {
             if (httpurlconnection != null)
-            {
                 httpurlconnection.disconnect();
-            }
         }
-
-        return s3;
     }
 }
