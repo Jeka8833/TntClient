@@ -6,7 +6,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 public class EventManager {
-    private Map<Class<? extends Event>, ArrayHelper<Data>> REGISTRY_MAP = new HashMap();
+    private final Map<Class<? extends Event>, ArrayHelper<Data>> REGISTRY_MAP = new HashMap();
 
     public void register(Object o) {
         for (Method method : o.getClass().getDeclaredMethods()) {
@@ -58,18 +58,6 @@ public class EventManager {
         cleanMap(true);
     }
 
-    public void unregister(final Object o, final Class<? extends Event> clazz) {
-        if (REGISTRY_MAP.containsKey(clazz)) {
-            for (final Data methodData : REGISTRY_MAP.get(clazz)) {
-                if (methodData.source.equals(o)) {
-                    REGISTRY_MAP.get(clazz).remove(methodData);
-                }
-            }
-
-            cleanMap(true);
-        }
-    }
-
     public void cleanMap(boolean b) {
         Iterator<Map.Entry<Class<? extends Event>, ArrayHelper<Data>>> iterator = REGISTRY_MAP.entrySet().iterator();
 
@@ -80,19 +68,8 @@ public class EventManager {
         }
     }
 
-    public void removeEnty(Class<? extends Event> clazz) {
-        Iterator<Map.Entry<Class<? extends Event>, ArrayHelper<Data>>> iterator = REGISTRY_MAP.entrySet().iterator();
-
-        while (iterator.hasNext()) {
-            if (iterator.next().getKey().equals(clazz)) {
-                iterator.remove();
-                break;
-            }
-        }
-    }
-
     private void sortListValue(Class<? extends Event> clazz) {
-        ArrayHelper<Data> flexibleArray = new ArrayHelper<Data>();
+        ArrayHelper<Data> flexibleArray = new ArrayHelper<>();
 
         for (byte b : Priority.VALUE_ARRAY) {
             for (Data methodData : REGISTRY_MAP.get(clazz)) {
@@ -115,6 +92,10 @@ public class EventManager {
 
     public ArrayHelper<Data> get(final Class<? extends Event> clazz) {
         return REGISTRY_MAP.get(clazz);
+    }
+
+    public boolean isClassEvent(final Class<? extends Event> clazz){
+        return REGISTRY_MAP.containsKey(clazz);
     }
 
     public void shutdown() {

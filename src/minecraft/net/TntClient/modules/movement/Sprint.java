@@ -8,7 +8,7 @@ import net.TntClient.modules.Module;
 public class Sprint extends Module {
 
     public Sprint() {
-        super("Sprint", Category.MOVEMENT, false);
+        super("Sprint", Category.MOVEMENT, false, false, false);
     }
 
     @Override

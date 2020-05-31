@@ -33,6 +33,8 @@
       <root url="jar://$PROJECT_DIR$/jars/libraries/tv/twitch/twitch/6.5/twitch-6.5.jar!/" />
       <root url="jar://$PROJECT_DIR$/jars/libraries/tv/twitch/twitch-external-platform/4.5/twitch-external-platform-4.5-natives-windows-64.jar!/" />
       <root url="jar://$PROJECT_DIR$/jars/libraries/tv/twitch/twitch-platform/6.5/twitch-platform-6.5-natives-windows-64.jar!/" />
+      <root url="jar://$PROJECT_DIR$/jars/libraries/org/apache/logging/log4j/log4j-core/2.0-beta9/log4j-core-2.0-beta9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/jars/libraries/org/apache/logging/log4j/log4j-api/2.0-beta9/log4j-api-2.0-beta9.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

@@ -2,11 +2,13 @@ package net.TntClient.mods.hypixel;
 
 import com.mojang.authlib.GameProfile;
 import net.TntClient.Config;
+import net.TntClient.modules.Module;
 import net.TntClient.modules.render.TntGameStats;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ChatLine;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.network.NetworkPlayerInfo;
+import net.minecraft.scoreboard.ScoreObjective;
 import net.minecraft.util.StringUtils;
 
 import java.io.BufferedReader;
@@ -19,18 +21,25 @@ import java.util.stream.Collectors;
 public class HypixelPlayers {
 
     private static final Minecraft mc = Minecraft.getMinecraft();
-    public static boolean isHypixel = false;
     public static Map<String, PlayerInfo> playerInfoMap = new HashMap<>();
     public static List<GameProfile> players;
+
+    public static boolean isHypixel;
+    public static boolean isTntRun;
+
 
     public static void startTime() {
         new Timer().scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                if (isHypixel && (Config.config.tabStats.isActive() || Config.config.nicknameStats.isActive() || Config.config.tntGameStats.isActive())) {
+                if ((isHypixel = isHypixel()) && (Config.config.tabStats.isActive() || Config.config.nicknameStats.isActive() || Config.config.tntGameStats.isActive()))
                     updateStat();
-                    if (mc.getCurrentServerData() == null)
-                        isHypixel = false;
+                try {
+                    isTntRun = isTntRun();
+                    for (Module m : Config.config.getModList())
+                        m.setBlocking((m.onlyHypixel && !isHypixel) || (m.onlyTntGame && !isTntRun));
+                } catch (Exception exception) {
+
                 }
             }
         }, 0, 501);
@@ -45,13 +54,13 @@ public class HypixelPlayers {
                 if (playerInfoMap.containsKey(name))
                     playerInfos.add(playerInfoMap.get(name));
                 else
-                    playerInfos.add(new PlayerInfo(name));
+                    playerInfos.add(new PlayerInfo(player));
             }
             playerInfos.sort(null);
             final PlayerInfo upd = playerInfos.getFirst();
             upd.update();
-            playerInfoMap.put(upd.name, upd);
-            if (mc.thePlayer.getGameProfile().getName().equals(upd.name)) {
+            playerInfoMap.put(upd.profile.getName(), upd);
+            if (mc.thePlayer.getGameProfile().equals(upd.profile)) {
                 TntGameStats.streak = upd.streak;
                 TntGameStats.lose = upd.lose;
                 TntGameStats.win = upd.win;
@@ -60,16 +69,23 @@ public class HypixelPlayers {
         }
     }
 
-    public static boolean isHypixel(){
+    private static boolean isHypixel() {
         final ServerData serverData = mc.getCurrentServerData();
-        if(serverData == null)
+        if (serverData == null)
             return false;
         return serverData.serverIP.toLowerCase().contains("hypixel.net");
     }
 
+    private static boolean isTntRun() {
+        if(!isHypixel) return false;
+        for (ScoreObjective dd : mc.theWorld.getScoreboard().getScoreObjectives())
+            if (StringUtils.stripControlCodes(dd.getDisplayName()).toLowerCase().contains("tnt run"))
+                return true;
+        return false;
+    }
+
     public static void connected(final String ip) {
         if (ip.toLowerCase().contains("hypixel.net")) {
-            isHypixel = true;
             if (!isValidKey()) {
                 new Thread(() -> {
                     int count = 0;
@@ -77,7 +93,7 @@ public class HypixelPlayers {
                     while (!good && count < 10) {
                         try {
                             Thread.sleep(2000);
-                            Minecraft.getMinecraft().thePlayer.sendChatMessage("/api new");
+                            mc.thePlayer.sendChatMessage("/api new");
                             good = true;
                         } catch (Exception ex) {
                             count++;
@@ -107,14 +123,12 @@ public class HypixelPlayers {
                 new Thread(() -> {
                     try {
                         Thread.sleep(10000);
-                        Minecraft.getMinecraft().thePlayer.sendChatMessage("/tip all");
+                        mc.thePlayer.sendChatMessage("/tip all");
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }).start();
             }
-        } else {
-            isHypixel = false;
         }
     }
 

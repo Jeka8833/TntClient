@@ -13,6 +13,8 @@ import org.lwjgl.opengl.GL11;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.lwjgl.opengl.GL11.*;
@@ -119,6 +121,7 @@ public class ListMods extends GuiScreen {
         GL11.glPushMatrix();
         GL11.glTranslatef(0.0F, scroll, 0.0F);
         final int whid = (size - 1) / 3 * blockHeight > height - 4 ? (width - 5) / 3 : width / 3;
+        int selected = -1;
         for (int i = 0; i < size; i++) {
             final boolean isOptions = modules[i].getOptions().size() > 0;
             final int PosX = (i % 3) * whid + ScX + 2;
@@ -156,6 +159,7 @@ public class ListMods extends GuiScreen {
                     glVertex2f(x, PosY + blockHeight - 2);
                     glVertex2f(PosX, PosY + blockHeight - 2);
                     glEnd();
+                    selected = i;
                 }
                 if (isOptions && mouseX > PosX + whid - 13 && mouseX < PosX + whid - 2 && mouseY > realY && mouseY < realY + blockHeight - 2) {
                     glColor4f(0, 0, 0f, 0.25f);
@@ -191,6 +195,8 @@ public class ListMods extends GuiScreen {
         if (!searchField.isFocused() && searchField.getText().equals(""))
             mc.fontRendererObj.drawString("Search...", ScX - 50 + width / 2, ScY - 4, 0x9f9f9fff);
         searchField.drawTextBox();
+        if(selected != -1)
+            drawHoveringText(Collections.singletonList(modules[selected].getDescription()), mouseX, mouseY);
     }
 
     @Override

@@ -8,7 +8,7 @@ import net.TntClient.modules.Module;
 public class Brightness extends Module {
 
     public Brightness() {
-        super("Brightness", Category.RENDER, false);
+        super("Brightness", Category.RENDER, false, false, false);
     }
 
     @Override

@@ -14,30 +14,35 @@ public abstract class Module {
     public int keyBind;
 
     public transient final boolean isDanger;
+    public transient final boolean onlyHypixel;
+    public transient final boolean onlyTntGame;
+
     public transient boolean isBlocking;
     private transient final List<Component> options = new ArrayList<>();
     private transient final String name;
     private transient final Category category;
     private transient final String description;
 
-    public Module(final String name, final Category category, final boolean isDanger) {
-        this(name, category, "", Integer.MAX_VALUE, isDanger);
+    public Module(final String name, final Category category, final boolean isDanger, boolean onlyHypixel, boolean onlyTntGame) {
+        this(name, category, "", Integer.MAX_VALUE, isDanger, onlyHypixel, onlyTntGame);
     }
 
-    public Module(final String name, final Category category, final int keyBind, final boolean isDanger) {
-        this(name, category, "", keyBind, isDanger);
+    public Module(final String name, final Category category, final int keyBind, final boolean isDanger, boolean onlyHypixel, boolean onlyTntGame) {
+        this(name, category, "", keyBind, isDanger, onlyHypixel, onlyTntGame);
     }
 
-    public Module(final String name, final Category category, final String description, final boolean isDanger) {
-        this(name, category, description, Integer.MAX_VALUE, isDanger);
+    public Module(final String name, final Category category, final String description, final boolean isDanger, boolean onlyHypixel, boolean onlyTntGame) {
+        this(name, category, description, Integer.MAX_VALUE, isDanger, onlyHypixel, onlyTntGame);
     }
 
-    public Module(final String name, final Category category, final String description, final int keyBind, final boolean isDanger) {
+    public Module(final String name, final Category category, final String description, final int keyBind, final boolean isDanger, boolean onlyHypixel, boolean onlyTntGame) {
         this.description = description;
         this.name = name;
         this.category = category;
         this.keyBind = keyBind;
         this.isDanger = isDanger;
+        this.onlyHypixel = onlyHypixel;
+        this.onlyTntGame = onlyTntGame;
         onSetup();
     }
 
@@ -64,7 +69,7 @@ public abstract class Module {
     }
 
     public boolean isActive() {
-        return active;
+        return active && !isBlocking;
     }
 
     public void setActive(final boolean active) {
@@ -73,11 +78,14 @@ public abstract class Module {
 
     public void setBlocking(final boolean state) {
         if (isBlocking == state) return;
-        if (isBlocking)
-            TntClient.eventManager.unregister(this);
-        else
-            TntClient.eventManager.register(this);
-        isBlocking = !isBlocking;
+        final boolean act = isActive();
+        isBlocking = state;
+        if(isActive() != act){
+            if (!state)
+                TntClient.eventManager.register(this);
+            else
+                TntClient.eventManager.unregister(this);
+        }
     }
 
     public void toggle() {

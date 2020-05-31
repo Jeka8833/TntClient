@@ -9,7 +9,7 @@ public class DebugModule extends Module {
     private static UISlider testSlider = new UISlider("Test", 0, 100, 1);
 
     public DebugModule() {
-        super("Test module", Category.FUN, true);
+        super("Test module", Category.FUN, true, false, false);
         addOption(testSlider);
     }
 

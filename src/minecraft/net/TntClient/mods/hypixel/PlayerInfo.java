@@ -3,6 +3,7 @@ package net.TntClient.mods.hypixel;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.mojang.authlib.GameProfile;
 import net.TntClient.Config;
 import net.minecraft.util.EnumChatFormatting;
 
@@ -14,7 +15,7 @@ public class PlayerInfo implements Comparable<PlayerInfo> {
 
     private static final JsonParser parser = new JsonParser();
 
-    public String name;
+    public final GameProfile profile;
 
     public int win = Integer.MIN_VALUE;
     public int lose = Integer.MIN_VALUE;
@@ -24,14 +25,14 @@ public class PlayerInfo implements Comparable<PlayerInfo> {
 
     public long time = Long.MIN_VALUE;
 
-    public PlayerInfo(final String name){
-        this.name = name;
+    public PlayerInfo(GameProfile profile) {
+        this.profile = profile;
     }
 
     public void update() throws IOException {
         time = System.currentTimeMillis();
         final JsonObject tntgame = parser.parse(HypixelPlayers.urlToText(new URL("https://api.hypixel.net/player?key="
-                + Config.config.apiKey + "&name=" + name))).getAsJsonObject().getAsJsonObject("player")
+                + Config.config.apiKey + "&name=" + profile.getName()))).getAsJsonObject().getAsJsonObject("player")
                 .getAsJsonObject("stats").getAsJsonObject("TNTGames");
         win = getInt(tntgame.get("wins_tntrun"));
         lose = getInt(tntgame.get("deaths_tntrun"));
@@ -58,10 +59,25 @@ public class PlayerInfo implements Comparable<PlayerInfo> {
             return EnumChatFormatting.DARK_RED + "[" + EnumChatFormatting.GREEN + EnumChatFormatting.ITALIC + "Lo: " + EnumChatFormatting.RESET + EnumChatFormatting.GREEN + lose + EnumChatFormatting.DARK_RED + "]" + EnumChatFormatting.RESET;
         } else if (streak != Integer.MIN_VALUE) {
             return EnumChatFormatting.DARK_RED + "[" + EnumChatFormatting.LIGHT_PURPLE + EnumChatFormatting.ITALIC + "St: " + EnumChatFormatting.RESET + EnumChatFormatting.LIGHT_PURPLE + streak + EnumChatFormatting.DARK_RED + "]" + EnumChatFormatting.RESET;
-        } else if (coin != Integer.MIN_VALUE) {
-            return EnumChatFormatting.DARK_RED + "[" + EnumChatFormatting.YELLOW + EnumChatFormatting.ITALIC + "Co: " + EnumChatFormatting.RESET + EnumChatFormatting.YELLOW + coin + EnumChatFormatting.DARK_RED + "]" + EnumChatFormatting.RESET;
         } else if (jump != Integer.MIN_VALUE) {
             return EnumChatFormatting.DARK_RED + "[" + EnumChatFormatting.GRAY + EnumChatFormatting.ITALIC + "Ju: " + EnumChatFormatting.RESET + EnumChatFormatting.GRAY + jump + EnumChatFormatting.DARK_RED + "]" + EnumChatFormatting.RESET;
+        } else if (coin != Integer.MIN_VALUE) {
+            return EnumChatFormatting.DARK_RED + "[" + EnumChatFormatting.YELLOW + EnumChatFormatting.ITALIC + "Co: " + EnumChatFormatting.RESET + EnumChatFormatting.YELLOW + coin + EnumChatFormatting.DARK_RED + "]" + EnumChatFormatting.RESET;
+        }
+        return "";
+    }
+
+    public String nickName() {
+        if (win != Integer.MIN_VALUE) {
+            return "Wins: " + win;
+        } else if (lose != Integer.MIN_VALUE) {
+            return "Loses: " + lose;
+        } else if (streak != Integer.MIN_VALUE) {
+            return "Streak: " + streak;
+        } else if (jump != Integer.MIN_VALUE) {
+            return "Jump: " + jump;
+        } else if (coin != Integer.MIN_VALUE) {
+            return "Coins: " + coin;
         }
         return "";
     }

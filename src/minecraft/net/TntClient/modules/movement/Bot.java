@@ -34,7 +34,7 @@ public class Bot extends Module {
     private static long airTime = System.currentTimeMillis();
 
     public Bot() {
-        super("TntRun Bot", Category.MOVEMENT, Keyboard.KEY_F, true);
+        super("TntRun Bot", Category.MOVEMENT, Keyboard.KEY_F, true, false, false);
     }
 
     @Override

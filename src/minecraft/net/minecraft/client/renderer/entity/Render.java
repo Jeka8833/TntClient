@@ -1,8 +1,6 @@
 package net.minecraft.client.renderer.entity;
 
-import com.mojang.authlib.GameProfile;
 import net.TntClient.mods.hypixel.HypixelPlayers;
-import net.TntClient.mods.hypixel.PlayerInfo;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -16,10 +14,12 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.*;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.MathHelper;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import optifine.Config;
-
 import org.lwjgl.opengl.GL11;
 import shadersmod.client.Shaders;
 
@@ -304,18 +304,14 @@ public abstract class Render<T extends Entity> {
      * Renders an entity's name above its head
      */
     protected void renderLivingLabel(T entityIn, String str, double x, double y, double z) {
-        double d0 = entityIn.getDistanceSqToEntity(this.renderManager.livingPlayer);
-
-        if (d0 <= (double) (64 * 64)) {
+        if (entityIn.getDistanceSqToEntity(this.renderManager.livingPlayer) <= 4096) {
             FontRenderer fontrenderer = this.getFontRendererFromRenderManager();
-            float f = 1.6F;
-            float f1 = 0.016666668F * f;
             GlStateManager.pushMatrix();
-            GlStateManager.translate((float) x + 0.0F, (float) y + entityIn.height + 0.5F, (float) z);
-            GL11.glNormal3f(0.0F, 1.0F, 0.0F);
-            GlStateManager.rotate(-this.renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
-            GlStateManager.rotate(this.renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
-            GlStateManager.scale(-f1, -f1, f1);
+            GlStateManager.translate((float) x, (float) y + entityIn.height + 0.5F, (float) z);
+            GL11.glNormal3f(0, 1, 0);
+            GlStateManager.rotate(-this.renderManager.playerViewY, 0, 1, 0);
+            GlStateManager.rotate(this.renderManager.playerViewX, 1, 0, 0);
+            GlStateManager.scale(-0.02666667f, -0.02666667f, 0.02666667f);
             GlStateManager.disableLighting();
             GlStateManager.depthMask(false);
             GlStateManager.disableDepth();
@@ -323,38 +319,14 @@ public abstract class Render<T extends Entity> {
             GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
             Tessellator tessellator = Tessellator.getInstance();
             WorldRenderer worldrenderer = tessellator.getWorldRenderer();
-            byte b0 = 0;
-
-            if (str.equals("deadmau5")) {
-                b0 = -10;
-            }
+            final byte b0 = str.equals("deadmau5") ? (byte) -10 : 0;
 
             String win = null;
-            if (HypixelPlayers.isHypixel && net.TntClient.Config.config.nicknameStats.isActive() && entityIn instanceof EntityPlayer && HypixelPlayers.players != null) {
-                try {
-                    for (GameProfile gameProfile : HypixelPlayers.players) {
-                        final String name = gameProfile.getName();
-                        if (StringUtils.stripControlCodes(str).contains(name)) {
-                            final PlayerInfo info = HypixelPlayers.playerInfoMap.get(name);
-                            if (info == null)
-                                break;
-                            if (info.win != Integer.MIN_VALUE) {
-                                win = "Wins: " + info.win;
-                            } else if (info.lose != Integer.MIN_VALUE) {
-                                win = "Loses: " + info.lose;
-                            } else if (info.streak != Integer.MIN_VALUE) {
-                                win = "Streak: " + info.streak;
-                            } else if (info.coin != Integer.MIN_VALUE) {
-                                win = "Coins: " + info.coin;
-                            }
-                            break;
-                        }
-                    }
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-            }
-            int i = fontrenderer.getStringWidth(str) / 2;
+            if (HypixelPlayers.isHypixel && net.TntClient.Config.config.nicknameStats.isActive() &&
+                    entityIn instanceof EntityPlayer && HypixelPlayers.playerInfoMap.containsKey(entityIn.getName()))
+                win = HypixelPlayers.playerInfoMap.get(entityIn.getName()).nickName();
+
+            final int i = fontrenderer.getStringWidth(str) / 2;
             GlStateManager.disableTexture2D();
             worldrenderer.begin(7, DefaultVertexFormats.POSITION_COLOR);
             worldrenderer.pos(-i - 1, -1 + b0, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
@@ -363,12 +335,12 @@ public abstract class Render<T extends Entity> {
             worldrenderer.pos(i + 1, -1 + b0, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
             tessellator.draw();
             GlStateManager.enableTexture2D();
-            fontrenderer.drawString(str, -fontrenderer.getStringWidth(str) / 2, b0, 553648127);
+            fontrenderer.drawString(str, -i, b0, 553648127);
             if (win != null)
                 fontrenderer.drawString(win, -fontrenderer.getStringWidth(win) / 2, b0 - 10, 553648127);
             GlStateManager.enableDepth();
             GlStateManager.depthMask(true);
-            fontrenderer.drawString(str, -fontrenderer.getStringWidth(str) / 2, b0, -1);
+            fontrenderer.drawString(str, -i, b0, -1);
             if (win != null)
                 fontrenderer.drawString(win, -fontrenderer.getStringWidth(win) / 2, b0 - 10, -1);
             GlStateManager.enableLighting();

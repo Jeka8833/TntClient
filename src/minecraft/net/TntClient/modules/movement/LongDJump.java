@@ -15,7 +15,7 @@ public class LongDJump extends Module {
     public float YPower = 1.16f;
 
     public LongDJump() {
-        super("Long DJump", Category.MOVEMENT, false);
+        super("Long DJump", Category.MOVEMENT, false, true, true);
     }
 
     @Override

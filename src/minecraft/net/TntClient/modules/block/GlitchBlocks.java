@@ -21,7 +21,7 @@ public class GlitchBlocks extends Module {
     private static final BlockInfo[] blocks = new BlockInfo[3];
 
     public GlitchBlocks() {
-        super("Glitch Blocks", Category.BLOCKS, Keyboard.KEY_G, true);
+        super("Glitch Blocks", Category.BLOCKS, Keyboard.KEY_G, true, true, true);
     }
 
     @Override

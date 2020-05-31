@@ -49,12 +49,6 @@ public class TntClient {
                 mc.fontRendererObj.drawString("This can lead to a ban!!!", 2, (int) (event.getHeight() - 10), Util.getRainbow());
                 return;
             }
-        final boolean isBlo = !HypixelPlayers.isHypixel();
-        Config.config.nicknameStats.setBlocking(isBlo);
-        Config.config.tntGameStats.setBlocking(isBlo);
-        Config.config.tabStats.setBlocking(isBlo);
-        Config.config.autoTip.setBlocking(isBlo);
-        Config.config.longDJump.setBlocking(isBlo);
     }
 
     @EventTarget

@@ -8,14 +8,6 @@ public abstract class Event
 {
     private boolean cancelled;
 
-    public enum State
-    {
-        PRE("PRE", 0), POST("POST", 1);
-        State(String string, int number)
-        {
-        }
-    }
-
     public Event call()
     {
         this.cancelled = false;
