@@ -332,7 +332,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
     long field_181543_z = System.nanoTime();
     private final boolean jvm64bit;
     private final boolean isDemo;
-    private NetworkManager myNetworkManager;
+    public NetworkManager myNetworkManager;
     private boolean integratedServerIsRunning;
 
     /**
