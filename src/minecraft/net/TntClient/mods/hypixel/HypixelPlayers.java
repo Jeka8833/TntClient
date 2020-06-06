@@ -2,6 +2,7 @@ package net.TntClient.mods.hypixel;
 
 import com.mojang.authlib.GameProfile;
 import net.TntClient.Config;
+import net.TntClient.Util;
 import net.TntClient.modules.Module;
 import net.TntClient.modules.render.TntGameStats;
 import net.minecraft.client.Minecraft;
@@ -11,10 +12,7 @@ import net.minecraft.client.network.NetworkPlayerInfo;
 import net.minecraft.scoreboard.ScoreObjective;
 import net.minecraft.util.StringUtils;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -27,7 +25,6 @@ public class HypixelPlayers {
     public static boolean isHypixel;
     public static boolean isTntRun;
 
-
     public static void startTime() {
         new Timer().scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -38,8 +35,7 @@ public class HypixelPlayers {
                     isTntRun = isTntRun();
                     for (Module m : Config.config.getModList())
                         m.setBlocking((m.onlyHypixel && !isHypixel) || (m.onlyTntGame && !isTntRun));
-                } catch (Exception exception) {
-
+                } catch (Exception ignored) {
                 }
             }
         }, 0, 501);
@@ -77,7 +73,7 @@ public class HypixelPlayers {
     }
 
     private static boolean isTntRun() {
-        if(!isHypixel) return false;
+        if (!isHypixel) return false;
         for (ScoreObjective dd : mc.theWorld.getScoreboard().getScoreObjectives())
             if (StringUtils.stripControlCodes(dd.getDisplayName()).toLowerCase().contains("tnt run"))
                 return true;
@@ -86,8 +82,8 @@ public class HypixelPlayers {
 
     public static void connected(final String ip) {
         if (ip.toLowerCase().contains("hypixel.net")) {
-            if (!isValidKey()) {
-                new Thread(() -> {
+            new Thread(() -> {
+                if (!isValidKey()) {
                     int count = 0;
                     boolean good = false;
                     while (!good && count < 10) {
@@ -117,40 +113,26 @@ public class HypixelPlayers {
                             }
                         }
                     }
-                }).start();
-            }
-            if (Config.config.autoTip.isActive()) {
-                new Thread(() -> {
+                }
+                if (Config.config.autoTip.isActive()) {
                     try {
                         Thread.sleep(10000);
                         mc.thePlayer.sendChatMessage("/tip all");
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                }).start();
-            }
+                }
+            }).start();
         }
     }
 
     private static boolean isValidKey() {
-        if (Config.config.apiKey.isEmpty())
-            return false;
+        if (Config.config.apiKey.isEmpty()) return false;
         try {
-            if (!urlToText(new URL("https://api.hypixel.net/key?key=" + Config.config.apiKey)).contains("Invalid API key"))
+            if (!Util.readSite("https://api.hypixel.net/key?key=" + Config.config.apiKey).contains("Invalid API key"))
                 return true;
         } catch (IOException ignored) {
         }
         return false;
     }
-
-    public static String urlToText(URL url) throws IOException {
-        final BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
-        final StringBuilder buf = new StringBuilder();
-        String line;
-        while ((line = reader.readLine()) != null) {
-            buf.append(line).append('\n');
-        }
-        return buf.toString();
-    }
-
 }

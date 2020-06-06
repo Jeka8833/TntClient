@@ -27,7 +27,7 @@ public class Config {
     public AutoTip autoTip = new AutoTip();
     public LongDJump longDJump = new LongDJump();
     public DebugModule debugModule = new DebugModule();
-    public ClearSlowness clearSlowness = new ClearSlowness();
+    public FreeDJ freeDJ = new FreeDJ();
 
     public Language googleLang = TranslateGoogle.lang[3];
     public String apiKey = "";
@@ -51,7 +51,7 @@ public class Config {
     }
 
     public Module[] getDangerMods() {
-        return new Module[]{config.bot, config.longDJump, config.glitchBlocks, config.dolphin, config.clearSlowness};
+        return new Module[]{config.bot, config.longDJump, config.glitchBlocks, config.dolphin, config.freeDJ};
     }
 
     public Module[] getPussyMods() {

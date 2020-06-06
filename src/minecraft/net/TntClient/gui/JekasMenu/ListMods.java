@@ -1,6 +1,7 @@
 package net.TntClient.gui.JekasMenu;
 
 import net.TntClient.Config;
+import net.TntClient.mods.hypixel.HypixelPlayers;
 import net.TntClient.modules.Module;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
@@ -195,8 +196,16 @@ public class ListMods extends GuiScreen {
         if (!searchField.isFocused() && searchField.getText().equals(""))
             mc.fontRendererObj.drawString("Search...", ScX - 50 + width / 2, ScY - 4, 0x9f9f9fff);
         searchField.drawTextBox();
-        if(selected != -1)
-            drawHoveringText(Collections.singletonList(modules[selected].getDescription()), mouseX, mouseY);
+        if(selected != -1) {
+            final Module md = modules[selected];
+            if(!md.isActive()){
+                if(md.onlyTntGame && !HypixelPlayers.isTntRun)
+                    drawHoveringText(Collections.singletonList("Only TntRun"), mouseX, mouseY);
+                else if(md.onlyHypixel && !HypixelPlayers.isHypixel)
+                    drawHoveringText(Collections.singletonList("Only Hypixel"), mouseX, mouseY);
+            } else if(!md.getDescription().isEmpty())
+                drawHoveringText(Collections.singletonList(md.getDescription()), mouseX, mouseY);
+        }
     }
 
     @Override

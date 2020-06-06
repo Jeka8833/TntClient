@@ -5,11 +5,10 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.mojang.authlib.GameProfile;
 import net.TntClient.Config;
+import net.TntClient.Util;
 import net.minecraft.util.EnumChatFormatting;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 public class PlayerInfo implements Comparable<PlayerInfo> {
 
@@ -31,8 +30,8 @@ public class PlayerInfo implements Comparable<PlayerInfo> {
 
     public void update() throws IOException {
         time = System.currentTimeMillis();
-        final JsonObject tntgame = parser.parse(HypixelPlayers.urlToText(new URL("https://api.hypixel.net/player?key="
-                + Config.config.apiKey + "&name=" + profile.getName()))).getAsJsonObject().getAsJsonObject("player")
+        final JsonObject tntgame = parser.parse(Util.readSite("https://api.hypixel.net/player?key="
+                + Config.config.apiKey + "&name=" + profile.getName())).getAsJsonObject().getAsJsonObject("player")
                 .getAsJsonObject("stats").getAsJsonObject("TNTGames");
         win = getInt(tntgame.get("wins_tntrun"));
         lose = getInt(tntgame.get("deaths_tntrun"));
