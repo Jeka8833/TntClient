@@ -574,7 +574,7 @@ public class FontRenderer implements IResourceManagerReloadListener {
                 f += f1;
 
                 if (flag && f1 > 0.0F) {
-                    f += this.unicodeFlag ? 1.0F : this.offsetBold;
+                    f += this.unicodeFlag ? .5F : this.offsetBold;
                 }
             }
 
