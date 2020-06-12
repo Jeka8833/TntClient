@@ -22,8 +22,8 @@ public class BiomeGenMesa extends BiomeGenBase
     private NoiseGeneratorPerlin field_150623_aE;
     private NoiseGeneratorPerlin field_150624_aF;
     private NoiseGeneratorPerlin field_150625_aG;
-    private boolean field_150626_aH;
-    private boolean field_150620_aI;
+    private final boolean field_150626_aH;
+    private final boolean field_150620_aI;
 
     public BiomeGenMesa(int p_i45380_1_, boolean p_i45380_2_, boolean p_i45380_3_)
     {
@@ -197,7 +197,7 @@ public class BiomeGenMesa extends BiomeGenBase
                                 }
                                 else
                                 {
-                                    iblockstate4 = this.func_180629_a(p_180622_4_, i1, p_180622_5_);
+                                    iblockstate4 = this.func_180629_a(p_180622_4_, i1);
                                 }
                             }
                             else
@@ -218,7 +218,7 @@ public class BiomeGenMesa extends BiomeGenBase
                         }
                         else
                         {
-                            IBlockState iblockstate2 = this.func_180629_a(p_180622_4_, i1, p_180622_5_);
+                            IBlockState iblockstate2 = this.func_180629_a(p_180622_4_, i1);
                             chunkPrimerIn.setBlockState(k1, i1, j1, iblockstate2);
                         }
                     }
@@ -308,7 +308,7 @@ public class BiomeGenMesa extends BiomeGenBase
         }
     }
 
-    private IBlockState func_180629_a(int p_180629_1_, int p_180629_2_, int p_180629_3_)
+    private IBlockState func_180629_a(int p_180629_1_, int p_180629_2_)
     {
         int i = (int)Math.round(this.field_150625_aG.func_151601_a((double)p_180629_1_ * 1.0D / 512.0D, (double)p_180629_1_ * 1.0D / 512.0D) * 2.0D);
         return this.field_150621_aC[(p_180629_2_ + i + 64) % 64];

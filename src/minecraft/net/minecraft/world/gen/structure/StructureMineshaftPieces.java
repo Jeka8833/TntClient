@@ -22,7 +22,7 @@ import net.minecraft.world.World;
 @SuppressWarnings("incomplete-switch")
 public class StructureMineshaftPieces
 {
-    private static final List<WeightedRandomChestContent> CHEST_CONTENT_WEIGHT_LIST = Lists.newArrayList(new WeightedRandomChestContent[] {new WeightedRandomChestContent(Items.iron_ingot, 0, 1, 5, 10), new WeightedRandomChestContent(Items.gold_ingot, 0, 1, 3, 5), new WeightedRandomChestContent(Items.redstone, 0, 4, 9, 5), new WeightedRandomChestContent(Items.dye, EnumDyeColor.BLUE.getDyeDamage(), 4, 9, 5), new WeightedRandomChestContent(Items.diamond, 0, 1, 2, 3), new WeightedRandomChestContent(Items.coal, 0, 3, 8, 10), new WeightedRandomChestContent(Items.bread, 0, 1, 3, 15), new WeightedRandomChestContent(Items.iron_pickaxe, 0, 1, 1, 1), new WeightedRandomChestContent(Item.getItemFromBlock(Blocks.rail), 0, 4, 8, 1), new WeightedRandomChestContent(Items.melon_seeds, 0, 2, 4, 10), new WeightedRandomChestContent(Items.pumpkin_seeds, 0, 2, 4, 10), new WeightedRandomChestContent(Items.saddle, 0, 1, 1, 3), new WeightedRandomChestContent(Items.iron_horse_armor, 0, 1, 1, 1)});
+    private static final List<WeightedRandomChestContent> CHEST_CONTENT_WEIGHT_LIST = Lists.newArrayList(new WeightedRandomChestContent(Items.iron_ingot, 0, 1, 5, 10), new WeightedRandomChestContent(Items.gold_ingot, 0, 1, 3, 5), new WeightedRandomChestContent(Items.redstone, 0, 4, 9, 5), new WeightedRandomChestContent(Items.dye, EnumDyeColor.BLUE.getDyeDamage(), 4, 9, 5), new WeightedRandomChestContent(Items.diamond, 0, 1, 2, 3), new WeightedRandomChestContent(Items.coal, 0, 3, 8, 10), new WeightedRandomChestContent(Items.bread, 0, 1, 3, 15), new WeightedRandomChestContent(Items.iron_pickaxe, 0, 1, 1, 1), new WeightedRandomChestContent(Item.getItemFromBlock(Blocks.rail), 0, 4, 8, 1), new WeightedRandomChestContent(Items.melon_seeds, 0, 2, 4, 10), new WeightedRandomChestContent(Items.pumpkin_seeds, 0, 2, 4, 10), new WeightedRandomChestContent(Items.saddle, 0, 1, 1, 3), new WeightedRandomChestContent(Items.iron_horse_armor, 0, 1, 1, 1));
 
     public static void registerStructurePieces()
     {
@@ -42,16 +42,16 @@ public class StructureMineshaftPieces
 
             if (structureboundingbox != null)
             {
-                return new StructureMineshaftPieces.Cross(type, rand, structureboundingbox, facing);
+                return new StructureMineshaftPieces.Cross(type, structureboundingbox, facing);
             }
         }
         else if (i >= 70)
         {
-            StructureBoundingBox structureboundingbox1 = StructureMineshaftPieces.Stairs.func_175812_a(listIn, rand, x, y, z, facing);
+            StructureBoundingBox structureboundingbox1 = StructureMineshaftPieces.Stairs.func_175812_a(listIn, x, y, z, facing);
 
             if (structureboundingbox1 != null)
             {
-                return new StructureMineshaftPieces.Stairs(type, rand, structureboundingbox1, facing);
+                return new StructureMineshaftPieces.Stairs(type, structureboundingbox1, facing);
             }
         }
         else
@@ -294,7 +294,7 @@ public class StructureMineshaftPieces
             {
                 int i = rand.nextBoolean() ? 1 : 0;
                 worldIn.setBlockState(blockpos, Blocks.rail.getStateFromMeta(this.getMetadataWithOffset(Blocks.rail, i)), 2);
-                EntityMinecartChest entityminecartchest = new EntityMinecartChest(worldIn, (double)((float)blockpos.getX() + 0.5F), (double)((float)blockpos.getY() + 0.5F), (double)((float)blockpos.getZ() + 0.5F));
+                EntityMinecartChest entityminecartchest = new EntityMinecartChest(worldIn, (float)blockpos.getX() + 0.5F, (float)blockpos.getY() + 0.5F, (float)blockpos.getZ() + 0.5F);
                 WeightedRandomChestContent.generateChestContents(rand, listIn, entityminecartchest, max);
                 worldIn.spawnEntityInWorld(entityminecartchest);
                 return true;
@@ -319,11 +319,11 @@ public class StructureMineshaftPieces
                 int l = 2;
                 int i1 = this.sectionCount * 5 - 1;
                 this.fillWithBlocks(worldIn, structureBoundingBoxIn, 0, 0, 0, 2, 1, i1, Blocks.air.getDefaultState(), Blocks.air.getDefaultState(), false);
-                this.func_175805_a(worldIn, structureBoundingBoxIn, randomIn, 0.8F, 0, 2, 0, 2, 2, i1, Blocks.air.getDefaultState(), Blocks.air.getDefaultState(), false);
+                this.func_175805_a(worldIn, structureBoundingBoxIn, randomIn, 0.8F, 0, 2, 0, 2, 2, i1, Blocks.air.getDefaultState(), Blocks.air.getDefaultState());
 
                 if (this.hasSpiders)
                 {
-                    this.func_175805_a(worldIn, structureBoundingBoxIn, randomIn, 0.6F, 0, 0, 0, 2, 1, i1, Blocks.web.getDefaultState(), Blocks.air.getDefaultState(), false);
+                    this.func_175805_a(worldIn, structureBoundingBoxIn, randomIn, 0.6F, 0, 0, 0, 2, 1, i1, Blocks.web.getDefaultState(), Blocks.air.getDefaultState());
                 }
 
                 for (int j1 = 0; j1 < this.sectionCount; ++j1)
@@ -355,12 +355,12 @@ public class StructureMineshaftPieces
 
                     if (randomIn.nextInt(100) == 0)
                     {
-                        this.generateChestContents(worldIn, structureBoundingBoxIn, randomIn, 2, 0, k1 - 1, WeightedRandomChestContent.func_177629_a(StructureMineshaftPieces.CHEST_CONTENT_WEIGHT_LIST, new WeightedRandomChestContent[] {Items.enchanted_book.getRandom(randomIn)}), 3 + randomIn.nextInt(4));
+                        this.generateChestContents(worldIn, structureBoundingBoxIn, randomIn, 2, 0, k1 - 1, WeightedRandomChestContent.func_177629_a(StructureMineshaftPieces.CHEST_CONTENT_WEIGHT_LIST, Items.enchanted_book.getRandom(randomIn)), 3 + randomIn.nextInt(4));
                     }
 
                     if (randomIn.nextInt(100) == 0)
                     {
-                        this.generateChestContents(worldIn, structureBoundingBoxIn, randomIn, 0, 0, k1 + 1, WeightedRandomChestContent.func_177629_a(StructureMineshaftPieces.CHEST_CONTENT_WEIGHT_LIST, new WeightedRandomChestContent[] {Items.enchanted_book.getRandom(randomIn)}), 3 + randomIn.nextInt(4));
+                        this.generateChestContents(worldIn, structureBoundingBoxIn, randomIn, 0, 0, k1 + 1, WeightedRandomChestContent.func_177629_a(StructureMineshaftPieces.CHEST_CONTENT_WEIGHT_LIST, Items.enchanted_book.getRandom(randomIn)), 3 + randomIn.nextInt(4));
                     }
 
                     if (this.hasSpiders && !this.spawnerPlaced)
@@ -439,7 +439,7 @@ public class StructureMineshaftPieces
             this.corridorDirection = EnumFacing.getHorizontal(tagCompound.getInteger("D"));
         }
 
-        public Cross(int type, Random rand, StructureBoundingBox structurebb, EnumFacing facing)
+        public Cross(int type, StructureBoundingBox structurebb, EnumFacing facing)
         {
             super(type);
             this.corridorDirection = facing;
@@ -584,7 +584,7 @@ public class StructureMineshaftPieces
 
     public static class Room extends StructureComponent
     {
-        private List<StructureBoundingBox> roomsLinkedToTheRoom = Lists.<StructureBoundingBox>newLinkedList();
+        private final List<StructureBoundingBox> roomsLinkedToTheRoom = Lists.newLinkedList();
 
         public Room()
         {
@@ -695,7 +695,7 @@ public class StructureMineshaftPieces
                     this.fillWithBlocks(worldIn, structureBoundingBoxIn, structureboundingbox.minX, structureboundingbox.maxY - 2, structureboundingbox.minZ, structureboundingbox.maxX, structureboundingbox.maxY, structureboundingbox.maxZ, Blocks.air.getDefaultState(), Blocks.air.getDefaultState(), false);
                 }
 
-                this.randomlyRareFillWithBlocks(worldIn, structureBoundingBoxIn, this.boundingBox.minX, this.boundingBox.minY + 4, this.boundingBox.minZ, this.boundingBox.maxX, this.boundingBox.maxY, this.boundingBox.maxZ, Blocks.air.getDefaultState(), false);
+                this.randomlyRareFillWithBlocks(worldIn, structureBoundingBoxIn, this.boundingBox.minX, this.boundingBox.minY + 4, this.boundingBox.minZ, this.boundingBox.maxX, this.boundingBox.maxY, this.boundingBox.maxZ, Blocks.air.getDefaultState());
                 return true;
             }
         }
@@ -739,7 +739,7 @@ public class StructureMineshaftPieces
         {
         }
 
-        public Stairs(int type, Random rand, StructureBoundingBox structurebb, EnumFacing facing)
+        public Stairs(int type, StructureBoundingBox structurebb, EnumFacing facing)
         {
             super(type);
             this.coordBaseMode = facing;
@@ -754,7 +754,7 @@ public class StructureMineshaftPieces
         {
         }
 
-        public static StructureBoundingBox func_175812_a(List<StructureComponent> listIn, Random rand, int x, int y, int z, EnumFacing facing)
+        public static StructureBoundingBox func_175812_a(List<StructureComponent> listIn, int x, int y, int z, EnumFacing facing)
         {
             StructureBoundingBox structureboundingbox = new StructureBoundingBox(x, y - 5, z, x, y + 2, z);
 

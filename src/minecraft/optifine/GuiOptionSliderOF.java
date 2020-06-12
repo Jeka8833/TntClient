@@ -5,7 +5,7 @@ import net.minecraft.client.settings.GameSettings;
 
 public class GuiOptionSliderOF extends GuiOptionSlider implements IOptionControl
 {
-    private GameSettings.Options option;
+    private final GameSettings.Options option;
 
     public GuiOptionSliderOF(int p_i50_1_, int p_i50_2_, int p_i50_3_, GameSettings.Options p_i50_4_)
     {

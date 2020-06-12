@@ -6,8 +6,8 @@ import net.minecraft.entity.monster.EntityMagmaCube;
 
 public class ModelMagmaCube extends ModelBase
 {
-    ModelRenderer[] segments = new ModelRenderer[8];
-    ModelRenderer core;
+    final ModelRenderer[] segments = new ModelRenderer[8];
+    final ModelRenderer core;
 
     public ModelMagmaCube()
     {

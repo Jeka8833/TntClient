@@ -19,14 +19,14 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class CustomColormap implements CustomColors.IColorizer
 {
-    public String name;
-    public String basePath;
-    private int format;
+    public final String name;
+    public final String basePath;
+    private final int format;
     private MatchBlock[] matchBlocks;
-    private String source;
+    private final String source;
     private int color;
-    private int yVariance;
-    private int yOffset;
+    private final int yVariance;
+    private final int yOffset;
     private int width;
     private int height;
     private int[] colors = null;
@@ -344,7 +344,7 @@ public class CustomColormap implements CustomColors.IColorizer
 
     public boolean isColorConstant()
     {
-        return this.format == 2;
+        return this.format != 2;
     }
 
     public int getColor(BiomeGenBase p_getColor_1_, BlockPos p_getColor_2_)

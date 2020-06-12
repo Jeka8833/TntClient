@@ -10,7 +10,7 @@ public class PotionEffect
     private static final Logger LOGGER = LogManager.getLogger();
 
     /** ID value of the potion this effect matches. */
-    private int potionID;
+    private final int potionID;
 
     /** The duration of the potion effect */
     private int duration;
@@ -138,9 +138,9 @@ public class PotionEffect
         return this.duration > 0;
     }
 
-    private int deincrementDuration()
+    private void deincrementDuration()
     {
-        return --this.duration;
+        --this.duration;
     }
 
     public void performEffect(EntityLivingBase entityIn)

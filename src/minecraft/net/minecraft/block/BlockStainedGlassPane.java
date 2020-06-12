@@ -17,12 +17,12 @@ import net.minecraft.world.World;
 
 public class BlockStainedGlassPane extends BlockPane
 {
-    public static final PropertyEnum<EnumDyeColor> COLOR = PropertyEnum.<EnumDyeColor>create("color", EnumDyeColor.class);
+    public static final PropertyEnum<EnumDyeColor> COLOR = PropertyEnum.create("color", EnumDyeColor.class);
 
     public BlockStainedGlassPane()
     {
         super(Material.glass, false);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(NORTH, Boolean.valueOf(false)).withProperty(EAST, Boolean.valueOf(false)).withProperty(SOUTH, Boolean.valueOf(false)).withProperty(WEST, Boolean.valueOf(false)).withProperty(COLOR, EnumDyeColor.WHITE));
+        this.setDefaultState(this.blockState.getBaseState().withProperty(NORTH, Boolean.FALSE).withProperty(EAST, Boolean.FALSE).withProperty(SOUTH, Boolean.FALSE).withProperty(WEST, Boolean.FALSE).withProperty(COLOR, EnumDyeColor.WHITE));
         this.setCreativeTab(CreativeTabs.tabDecorations);
     }
 
@@ -32,7 +32,7 @@ public class BlockStainedGlassPane extends BlockPane
      */
     public int damageDropped(IBlockState state)
     {
-        return ((EnumDyeColor)state.getValue(COLOR)).getMetadata();
+        return state.getValue(COLOR).getMetadata();
     }
 
     /**
@@ -51,7 +51,7 @@ public class BlockStainedGlassPane extends BlockPane
      */
     public MapColor getMapColor(IBlockState state)
     {
-        return ((EnumDyeColor)state.getValue(COLOR)).getMapColor();
+        return state.getValue(COLOR).getMapColor();
     }
 
     public EnumWorldBlockLayer getBlockLayer()
@@ -72,12 +72,12 @@ public class BlockStainedGlassPane extends BlockPane
      */
     public int getMetaFromState(IBlockState state)
     {
-        return ((EnumDyeColor)state.getValue(COLOR)).getMetadata();
+        return state.getValue(COLOR).getMetadata();
     }
 
     protected BlockState createBlockState()
     {
-        return new BlockState(this, new IProperty[] {NORTH, EAST, WEST, SOUTH, COLOR});
+        return new BlockState(this, NORTH, EAST, WEST, SOUTH, COLOR);
     }
 
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state)

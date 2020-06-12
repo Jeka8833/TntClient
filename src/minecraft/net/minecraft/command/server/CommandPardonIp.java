@@ -39,7 +39,7 @@ public class CommandPardonIp extends CommandBase
     /**
      * Gets the usage string for the command.
      */
-    public String getCommandUsage(ICommandSender sender)
+    public String getCommandUsage()
     {
         return "commands.unbanip.usage";
     }
@@ -56,20 +56,20 @@ public class CommandPardonIp extends CommandBase
             if (matcher.matches())
             {
                 MinecraftServer.getServer().getConfigurationManager().getBannedIPs().removeEntry(args[0]);
-                notifyOperators(sender, this, "commands.unbanip.success", new Object[] {args[0]});
+                notifyOperators(sender, this, "commands.unbanip.success", args[0]);
             }
             else
             {
-                throw new SyntaxErrorException("commands.unbanip.invalid", new Object[0]);
+                throw new SyntaxErrorException("commands.unbanip.invalid");
             }
         }
         else
         {
-            throw new WrongUsageException("commands.unbanip.usage", new Object[0]);
+            throw new WrongUsageException("commands.unbanip.usage");
         }
     }
 
-    public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos)
+    public List<String> addTabCompletionOptions(String[] args, BlockPos pos)
     {
         return args.length == 1 ? getListOfStringsMatchingLastWord(args, MinecraftServer.getServer().getConfigurationManager().getBannedIPs().getKeys()) : null;
     }

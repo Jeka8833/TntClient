@@ -223,12 +223,12 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
     public int displayWidth;
     public int displayHeight;
     private boolean field_181541_X = false;
-    public Timer timer = new Timer(20.0F);
+    public final Timer timer = new Timer(20.0F);
 
     /**
      * Instance of PlayerUsageSnooper.
      */
-    private PlayerUsageSnooper usageSnooper = new PlayerUsageSnooper("client", this, MinecraftServer.getCurrentTimeMillis());
+    private final PlayerUsageSnooper usageSnooper = new PlayerUsageSnooper("client", this, MinecraftServer.getCurrentTimeMillis());
     public WorldClient theWorld;
     public RenderGlobal renderGlobal;
     private RenderManager renderManager;
@@ -262,12 +262,12 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
     /**
      * Display width
      */
-    private int tempDisplayWidth;
+    private final int tempDisplayWidth;
 
     /**
      * Display height
      */
-    private int tempDisplayHeight;
+    private final int tempDisplayHeight;
 
     /**
      * Instance of IntegratedServer.
@@ -375,7 +375,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
      * String that shows the debug information
      */
     public String debug = "";
-    public boolean renderChunksMany = true;
+    public final boolean renderChunksMany = true;
 
     /**
      * Approximate time (in ms) of last update to debug string
@@ -1429,25 +1429,17 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
                 this.displayWidth = Display.getDisplayMode().getWidth();
                 this.displayHeight = Display.getDisplayMode().getHeight();
 
-                if (this.displayWidth <= 0) {
-                    this.displayWidth = 1;
-                }
-
-                if (this.displayHeight <= 0) {
-                    this.displayHeight = 1;
-                }
             } else {
                 Display.setDisplayMode(new DisplayMode(this.tempDisplayWidth, this.tempDisplayHeight));
                 this.displayWidth = this.tempDisplayWidth;
                 this.displayHeight = this.tempDisplayHeight;
 
-                if (this.displayWidth <= 0) {
-                    this.displayWidth = 1;
-                }
-
-                if (this.displayHeight <= 0) {
-                    this.displayHeight = 1;
-                }
+            }
+            if (this.displayWidth <= 0) {
+                this.displayWidth = 1;
+            }
+            if (this.displayHeight <= 0) {
+                this.displayHeight = 1;
             }
 
             if (this.currentScreen != null) {

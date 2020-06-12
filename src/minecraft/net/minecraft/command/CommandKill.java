@@ -27,7 +27,7 @@ public class CommandKill extends CommandBase
     /**
      * Gets the usage string for the command.
      */
-    public String getCommandUsage(ICommandSender sender)
+    public String getCommandUsage()
     {
         return "commands.kill.usage";
     }
@@ -41,13 +41,13 @@ public class CommandKill extends CommandBase
         {
             EntityPlayer entityplayer = getCommandSenderAsPlayer(sender);
             entityplayer.onKillCommand();
-            notifyOperators(sender, this, "commands.kill.successful", new Object[] {entityplayer.getDisplayName()});
+            notifyOperators(sender, this, "commands.kill.successful", entityplayer.getDisplayName());
         }
         else
         {
             Entity entity = func_175768_b(sender, args[0]);
             entity.onKillCommand();
-            notifyOperators(sender, this, "commands.kill.successful", new Object[] {entity.getDisplayName()});
+            notifyOperators(sender, this, "commands.kill.successful", entity.getDisplayName());
         }
     }
 
@@ -59,7 +59,7 @@ public class CommandKill extends CommandBase
         return index == 0;
     }
 
-    public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos)
+    public List<String> addTabCompletionOptions(String[] args, BlockPos pos)
     {
         return args.length == 1 ? getListOfStringsMatchingLastWord(args, MinecraftServer.getServer().getAllUsernames()) : null;
     }

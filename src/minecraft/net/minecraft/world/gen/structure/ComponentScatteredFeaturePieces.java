@@ -11,7 +11,6 @@ import net.minecraft.block.BlockStoneBrick;
 import net.minecraft.block.BlockStoneSlab;
 import net.minecraft.block.BlockTripWire;
 import net.minecraft.block.BlockTripWireHook;
-import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.monster.EntityWitch;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -33,8 +32,8 @@ public class ComponentScatteredFeaturePieces
 
     public static class DesertPyramid extends ComponentScatteredFeaturePieces.Feature
     {
-        private boolean[] field_74940_h = new boolean[4];
-        private static final List<WeightedRandomChestContent> itemsToGenerateInTemple = Lists.newArrayList(new WeightedRandomChestContent[] {new WeightedRandomChestContent(Items.diamond, 0, 1, 3, 3), new WeightedRandomChestContent(Items.iron_ingot, 0, 1, 5, 10), new WeightedRandomChestContent(Items.gold_ingot, 0, 2, 7, 15), new WeightedRandomChestContent(Items.emerald, 0, 1, 3, 2), new WeightedRandomChestContent(Items.bone, 0, 4, 6, 20), new WeightedRandomChestContent(Items.rotten_flesh, 0, 3, 7, 16), new WeightedRandomChestContent(Items.saddle, 0, 1, 1, 3), new WeightedRandomChestContent(Items.iron_horse_armor, 0, 1, 1, 1), new WeightedRandomChestContent(Items.golden_horse_armor, 0, 1, 1, 1), new WeightedRandomChestContent(Items.diamond_horse_armor, 0, 1, 1, 1)});
+        private final boolean[] field_74940_h = new boolean[4];
+        private static final List<WeightedRandomChestContent> itemsToGenerateInTemple = Lists.newArrayList(new WeightedRandomChestContent(Items.diamond, 0, 1, 3, 3), new WeightedRandomChestContent(Items.iron_ingot, 0, 1, 5, 10), new WeightedRandomChestContent(Items.gold_ingot, 0, 2, 7, 15), new WeightedRandomChestContent(Items.emerald, 0, 1, 3, 2), new WeightedRandomChestContent(Items.bone, 0, 4, 6, 20), new WeightedRandomChestContent(Items.rotten_flesh, 0, 3, 7, 16), new WeightedRandomChestContent(Items.saddle, 0, 1, 1, 3), new WeightedRandomChestContent(Items.iron_horse_armor, 0, 1, 1, 1), new WeightedRandomChestContent(Items.golden_horse_armor, 0, 1, 1, 1), new WeightedRandomChestContent(Items.diamond_horse_armor, 0, 1, 1, 1));
 
         public DesertPyramid()
         {
@@ -42,7 +41,7 @@ public class ComponentScatteredFeaturePieces
 
         public DesertPyramid(Random p_i2062_1_, int p_i2062_2_, int p_i2062_3_)
         {
-            super(p_i2062_1_, p_i2062_2_, 64, p_i2062_3_, 21, 15, 21);
+            super(p_i2062_1_, p_i2062_2_, p_i2062_3_, 21, 15, 21);
         }
 
         protected void writeStructureToNBT(NBTTagCompound tagCompound)
@@ -260,7 +259,7 @@ public class ComponentScatteredFeaturePieces
                 {
                     int l1 = enumfacing.getFrontOffsetX() * 2;
                     int i2 = enumfacing.getFrontOffsetZ() * 2;
-                    this.field_74940_h[enumfacing.getHorizontalIndex()] = this.generateChestContents(worldIn, structureBoundingBoxIn, randomIn, 10 + l1, -11, 10 + i2, WeightedRandomChestContent.func_177629_a(itemsToGenerateInTemple, new WeightedRandomChestContent[] {Items.enchanted_book.getRandom(randomIn)}), 2 + randomIn.nextInt(5));
+                    this.field_74940_h[enumfacing.getHorizontalIndex()] = this.generateChestContents(worldIn, structureBoundingBoxIn, randomIn, 10 + l1, -11, 10 + i2, WeightedRandomChestContent.func_177629_a(itemsToGenerateInTemple, Items.enchanted_book.getRandom(randomIn)), 2 + randomIn.nextInt(5));
                 }
             }
 
@@ -279,7 +278,7 @@ public class ComponentScatteredFeaturePieces
         {
         }
 
-        protected Feature(Random p_i2065_1_, int p_i2065_2_, int p_i2065_3_, int p_i2065_4_, int p_i2065_5_, int p_i2065_6_, int p_i2065_7_)
+        protected Feature(Random p_i2065_1_, int p_i2065_2_, int p_i2065_4_, int p_i2065_5_, int p_i2065_6_, int p_i2065_7_)
         {
             super(0);
             this.scatteredFeatureSizeX = p_i2065_5_;
@@ -291,11 +290,11 @@ public class ComponentScatteredFeaturePieces
             {
                 case NORTH:
                 case SOUTH:
-                    this.boundingBox = new StructureBoundingBox(p_i2065_2_, p_i2065_3_, p_i2065_4_, p_i2065_2_ + p_i2065_5_ - 1, p_i2065_3_ + p_i2065_6_ - 1, p_i2065_4_ + p_i2065_7_ - 1);
+                    this.boundingBox = new StructureBoundingBox(p_i2065_2_, 64, p_i2065_4_, p_i2065_2_ + p_i2065_5_ - 1, 64 + p_i2065_6_ - 1, p_i2065_4_ + p_i2065_7_ - 1);
                     break;
 
                 default:
-                    this.boundingBox = new StructureBoundingBox(p_i2065_2_, p_i2065_3_, p_i2065_4_, p_i2065_2_ + p_i2065_7_ - 1, p_i2065_3_ + p_i2065_6_ - 1, p_i2065_4_ + p_i2065_5_ - 1);
+                    this.boundingBox = new StructureBoundingBox(p_i2065_2_, 64, p_i2065_4_, p_i2065_2_ + p_i2065_7_ - 1, 64 + p_i2065_6_ - 1, p_i2065_4_ + p_i2065_5_ - 1);
             }
         }
 
@@ -315,11 +314,11 @@ public class ComponentScatteredFeaturePieces
             this.field_74936_d = tagCompound.getInteger("HPos");
         }
 
-        protected boolean func_74935_a(World worldIn, StructureBoundingBox p_74935_2_, int p_74935_3_)
+        protected boolean func_74935_a(World worldIn, StructureBoundingBox p_74935_2_)
         {
             if (this.field_74936_d >= 0)
             {
-                return true;
+                return false;
             }
             else
             {
@@ -343,13 +342,13 @@ public class ComponentScatteredFeaturePieces
 
                 if (j == 0)
                 {
-                    return false;
+                    return true;
                 }
                 else
                 {
                     this.field_74936_d = i / j;
-                    this.boundingBox.offset(0, this.field_74936_d - this.boundingBox.minY + p_74935_3_, 0);
-                    return true;
+                    this.boundingBox.offset(0, this.field_74936_d - this.boundingBox.minY + 0, 0);
+                    return false;
                 }
             }
         }
@@ -361,9 +360,9 @@ public class ComponentScatteredFeaturePieces
         private boolean field_74948_i;
         private boolean field_74945_j;
         private boolean field_74946_k;
-        private static final List<WeightedRandomChestContent> field_175816_i = Lists.newArrayList(new WeightedRandomChestContent[] {new WeightedRandomChestContent(Items.diamond, 0, 1, 3, 3), new WeightedRandomChestContent(Items.iron_ingot, 0, 1, 5, 10), new WeightedRandomChestContent(Items.gold_ingot, 0, 2, 7, 15), new WeightedRandomChestContent(Items.emerald, 0, 1, 3, 2), new WeightedRandomChestContent(Items.bone, 0, 4, 6, 20), new WeightedRandomChestContent(Items.rotten_flesh, 0, 3, 7, 16), new WeightedRandomChestContent(Items.saddle, 0, 1, 1, 3), new WeightedRandomChestContent(Items.iron_horse_armor, 0, 1, 1, 1), new WeightedRandomChestContent(Items.golden_horse_armor, 0, 1, 1, 1), new WeightedRandomChestContent(Items.diamond_horse_armor, 0, 1, 1, 1)});
-        private static final List<WeightedRandomChestContent> field_175815_j = Lists.newArrayList(new WeightedRandomChestContent[] {new WeightedRandomChestContent(Items.arrow, 0, 2, 7, 30)});
-        private static ComponentScatteredFeaturePieces.JunglePyramid.Stones junglePyramidsRandomScatteredStones = new ComponentScatteredFeaturePieces.JunglePyramid.Stones();
+        private static final List<WeightedRandomChestContent> field_175816_i = Lists.newArrayList(new WeightedRandomChestContent(Items.diamond, 0, 1, 3, 3), new WeightedRandomChestContent(Items.iron_ingot, 0, 1, 5, 10), new WeightedRandomChestContent(Items.gold_ingot, 0, 2, 7, 15), new WeightedRandomChestContent(Items.emerald, 0, 1, 3, 2), new WeightedRandomChestContent(Items.bone, 0, 4, 6, 20), new WeightedRandomChestContent(Items.rotten_flesh, 0, 3, 7, 16), new WeightedRandomChestContent(Items.saddle, 0, 1, 1, 3), new WeightedRandomChestContent(Items.iron_horse_armor, 0, 1, 1, 1), new WeightedRandomChestContent(Items.golden_horse_armor, 0, 1, 1, 1), new WeightedRandomChestContent(Items.diamond_horse_armor, 0, 1, 1, 1));
+        private static final List<WeightedRandomChestContent> field_175815_j = Lists.newArrayList(new WeightedRandomChestContent(Items.arrow, 0, 2, 7, 30));
+        private static final ComponentScatteredFeaturePieces.JunglePyramid.Stones junglePyramidsRandomScatteredStones = new ComponentScatteredFeaturePieces.JunglePyramid.Stones();
 
         public JunglePyramid()
         {
@@ -371,7 +370,7 @@ public class ComponentScatteredFeaturePieces
 
         public JunglePyramid(Random p_i2064_1_, int p_i2064_2_, int p_i2064_3_)
         {
-            super(p_i2064_1_, p_i2064_2_, 64, p_i2064_3_, 12, 10, 15);
+            super(p_i2064_1_, p_i2064_2_, p_i2064_3_, 12, 10, 15);
         }
 
         protected void writeStructureToNBT(NBTTagCompound tagCompound)
@@ -394,7 +393,7 @@ public class ComponentScatteredFeaturePieces
 
         public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn)
         {
-            if (!this.func_74935_a(worldIn, structureBoundingBoxIn, 0))
+            if (this.func_74935_a(worldIn, structureBoundingBoxIn))
             {
                 return false;
             }
@@ -484,9 +483,9 @@ public class ComponentScatteredFeaturePieces
 
                 for (int l1 = 0; l1 < 4; ++l1)
                 {
-                    this.setBlockState(worldIn, Blocks.stone_stairs.getStateFromMeta(j), 5, 0 - l1, 6 + l1, structureBoundingBoxIn);
-                    this.setBlockState(worldIn, Blocks.stone_stairs.getStateFromMeta(j), 6, 0 - l1, 6 + l1, structureBoundingBoxIn);
-                    this.fillWithAir(worldIn, structureBoundingBoxIn, 5, 0 - l1, 7 + l1, 6, 0 - l1, 9 + l1);
+                    this.setBlockState(worldIn, Blocks.stone_stairs.getStateFromMeta(j), 5, -l1, 6 + l1, structureBoundingBoxIn);
+                    this.setBlockState(worldIn, Blocks.stone_stairs.getStateFromMeta(j), 6, -l1, 6 + l1, structureBoundingBoxIn);
+                    this.fillWithAir(worldIn, structureBoundingBoxIn, 5, -l1, 7 + l1, 6, -l1, 9 + l1);
                 }
 
                 this.fillWithAir(worldIn, structureBoundingBoxIn, 1, -3, 12, 10, -1, 13);
@@ -507,10 +506,10 @@ public class ComponentScatteredFeaturePieces
                 this.fillWithRandomizedBlocks(worldIn, structureBoundingBoxIn, 7, -2, 1, 9, -2, 1, false, randomIn, junglePyramidsRandomScatteredStones);
                 this.fillWithRandomizedBlocks(worldIn, structureBoundingBoxIn, 6, -3, 1, 6, -3, 1, false, randomIn, junglePyramidsRandomScatteredStones);
                 this.fillWithRandomizedBlocks(worldIn, structureBoundingBoxIn, 6, -1, 1, 6, -1, 1, false, randomIn, junglePyramidsRandomScatteredStones);
-                this.setBlockState(worldIn, Blocks.tripwire_hook.getStateFromMeta(this.getMetadataWithOffset(Blocks.tripwire_hook, EnumFacing.EAST.getHorizontalIndex())).withProperty(BlockTripWireHook.ATTACHED, Boolean.valueOf(true)), 1, -3, 8, structureBoundingBoxIn);
-                this.setBlockState(worldIn, Blocks.tripwire_hook.getStateFromMeta(this.getMetadataWithOffset(Blocks.tripwire_hook, EnumFacing.WEST.getHorizontalIndex())).withProperty(BlockTripWireHook.ATTACHED, Boolean.valueOf(true)), 4, -3, 8, structureBoundingBoxIn);
-                this.setBlockState(worldIn, Blocks.tripwire.getDefaultState().withProperty(BlockTripWire.ATTACHED, Boolean.valueOf(true)), 2, -3, 8, structureBoundingBoxIn);
-                this.setBlockState(worldIn, Blocks.tripwire.getDefaultState().withProperty(BlockTripWire.ATTACHED, Boolean.valueOf(true)), 3, -3, 8, structureBoundingBoxIn);
+                this.setBlockState(worldIn, Blocks.tripwire_hook.getStateFromMeta(this.getMetadataWithOffset(Blocks.tripwire_hook, EnumFacing.EAST.getHorizontalIndex())).withProperty(BlockTripWireHook.ATTACHED, Boolean.TRUE), 1, -3, 8, structureBoundingBoxIn);
+                this.setBlockState(worldIn, Blocks.tripwire_hook.getStateFromMeta(this.getMetadataWithOffset(Blocks.tripwire_hook, EnumFacing.WEST.getHorizontalIndex())).withProperty(BlockTripWireHook.ATTACHED, Boolean.TRUE), 4, -3, 8, structureBoundingBoxIn);
+                this.setBlockState(worldIn, Blocks.tripwire.getDefaultState().withProperty(BlockTripWire.ATTACHED, Boolean.TRUE), 2, -3, 8, structureBoundingBoxIn);
+                this.setBlockState(worldIn, Blocks.tripwire.getDefaultState().withProperty(BlockTripWire.ATTACHED, Boolean.TRUE), 3, -3, 8, structureBoundingBoxIn);
                 this.setBlockState(worldIn, Blocks.redstone_wire.getDefaultState(), 5, -3, 7, structureBoundingBoxIn);
                 this.setBlockState(worldIn, Blocks.redstone_wire.getDefaultState(), 5, -3, 6, structureBoundingBoxIn);
                 this.setBlockState(worldIn, Blocks.redstone_wire.getDefaultState(), 5, -3, 5, structureBoundingBoxIn);
@@ -523,15 +522,15 @@ public class ComponentScatteredFeaturePieces
 
                 if (!this.field_74945_j)
                 {
-                    this.field_74945_j = this.generateDispenserContents(worldIn, structureBoundingBoxIn, randomIn, 3, -2, 1, EnumFacing.NORTH.getIndex(), field_175815_j, 2);
+                    this.field_74945_j = this.generateDispenserContents(worldIn, structureBoundingBoxIn, randomIn, 3, 1, EnumFacing.NORTH.getIndex(), field_175815_j);
                 }
 
                 this.setBlockState(worldIn, Blocks.vine.getStateFromMeta(15), 3, -2, 2, structureBoundingBoxIn);
-                this.setBlockState(worldIn, Blocks.tripwire_hook.getStateFromMeta(this.getMetadataWithOffset(Blocks.tripwire_hook, EnumFacing.NORTH.getHorizontalIndex())).withProperty(BlockTripWireHook.ATTACHED, Boolean.valueOf(true)), 7, -3, 1, structureBoundingBoxIn);
-                this.setBlockState(worldIn, Blocks.tripwire_hook.getStateFromMeta(this.getMetadataWithOffset(Blocks.tripwire_hook, EnumFacing.SOUTH.getHorizontalIndex())).withProperty(BlockTripWireHook.ATTACHED, Boolean.valueOf(true)), 7, -3, 5, structureBoundingBoxIn);
-                this.setBlockState(worldIn, Blocks.tripwire.getDefaultState().withProperty(BlockTripWire.ATTACHED, Boolean.valueOf(true)), 7, -3, 2, structureBoundingBoxIn);
-                this.setBlockState(worldIn, Blocks.tripwire.getDefaultState().withProperty(BlockTripWire.ATTACHED, Boolean.valueOf(true)), 7, -3, 3, structureBoundingBoxIn);
-                this.setBlockState(worldIn, Blocks.tripwire.getDefaultState().withProperty(BlockTripWire.ATTACHED, Boolean.valueOf(true)), 7, -3, 4, structureBoundingBoxIn);
+                this.setBlockState(worldIn, Blocks.tripwire_hook.getStateFromMeta(this.getMetadataWithOffset(Blocks.tripwire_hook, EnumFacing.NORTH.getHorizontalIndex())).withProperty(BlockTripWireHook.ATTACHED, Boolean.TRUE), 7, -3, 1, structureBoundingBoxIn);
+                this.setBlockState(worldIn, Blocks.tripwire_hook.getStateFromMeta(this.getMetadataWithOffset(Blocks.tripwire_hook, EnumFacing.SOUTH.getHorizontalIndex())).withProperty(BlockTripWireHook.ATTACHED, Boolean.TRUE), 7, -3, 5, structureBoundingBoxIn);
+                this.setBlockState(worldIn, Blocks.tripwire.getDefaultState().withProperty(BlockTripWire.ATTACHED, Boolean.TRUE), 7, -3, 2, structureBoundingBoxIn);
+                this.setBlockState(worldIn, Blocks.tripwire.getDefaultState().withProperty(BlockTripWire.ATTACHED, Boolean.TRUE), 7, -3, 3, structureBoundingBoxIn);
+                this.setBlockState(worldIn, Blocks.tripwire.getDefaultState().withProperty(BlockTripWire.ATTACHED, Boolean.TRUE), 7, -3, 4, structureBoundingBoxIn);
                 this.setBlockState(worldIn, Blocks.redstone_wire.getDefaultState(), 8, -3, 6, structureBoundingBoxIn);
                 this.setBlockState(worldIn, Blocks.redstone_wire.getDefaultState(), 9, -3, 6, structureBoundingBoxIn);
                 this.setBlockState(worldIn, Blocks.redstone_wire.getDefaultState(), 9, -3, 5, structureBoundingBoxIn);
@@ -540,7 +539,7 @@ public class ComponentScatteredFeaturePieces
 
                 if (!this.field_74946_k)
                 {
-                    this.field_74946_k = this.generateDispenserContents(worldIn, structureBoundingBoxIn, randomIn, 9, -2, 3, EnumFacing.WEST.getIndex(), field_175815_j, 2);
+                    this.field_74946_k = this.generateDispenserContents(worldIn, structureBoundingBoxIn, randomIn, 9, 3, EnumFacing.WEST.getIndex(), field_175815_j);
                 }
 
                 this.setBlockState(worldIn, Blocks.vine.getStateFromMeta(15), 8, -1, 3, structureBoundingBoxIn);
@@ -548,7 +547,7 @@ public class ComponentScatteredFeaturePieces
 
                 if (!this.field_74947_h)
                 {
-                    this.field_74947_h = this.generateChestContents(worldIn, structureBoundingBoxIn, randomIn, 8, -3, 3, WeightedRandomChestContent.func_177629_a(field_175816_i, new WeightedRandomChestContent[] {Items.enchanted_book.getRandom(randomIn)}), 2 + randomIn.nextInt(5));
+                    this.field_74947_h = this.generateChestContents(worldIn, structureBoundingBoxIn, randomIn, 8, -3, 3, WeightedRandomChestContent.func_177629_a(field_175816_i, Items.enchanted_book.getRandom(randomIn)), 2 + randomIn.nextInt(5));
                 }
 
                 this.setBlockState(worldIn, Blocks.mossy_cobblestone.getDefaultState(), 9, -3, 2, structureBoundingBoxIn);
@@ -581,7 +580,7 @@ public class ComponentScatteredFeaturePieces
 
                 if (!this.field_74948_i)
                 {
-                    this.field_74948_i = this.generateChestContents(worldIn, structureBoundingBoxIn, randomIn, 9, -3, 10, WeightedRandomChestContent.func_177629_a(field_175816_i, new WeightedRandomChestContent[] {Items.enchanted_book.getRandom(randomIn)}), 2 + randomIn.nextInt(5));
+                    this.field_74948_i = this.generateChestContents(worldIn, structureBoundingBoxIn, randomIn, 9, -3, 10, WeightedRandomChestContent.func_177629_a(field_175816_i, Items.enchanted_book.getRandom(randomIn)), 2 + randomIn.nextInt(5));
                 }
 
                 return true;
@@ -594,7 +593,7 @@ public class ComponentScatteredFeaturePieces
             {
             }
 
-            public void selectBlocks(Random rand, int x, int y, int z, boolean p_75062_5_)
+            public void selectBlocks(Random rand, boolean p_75062_5_)
             {
                 if (rand.nextFloat() < 0.4F)
                 {
@@ -618,7 +617,7 @@ public class ComponentScatteredFeaturePieces
 
         public SwampHut(Random p_i2066_1_, int p_i2066_2_, int p_i2066_3_)
         {
-            super(p_i2066_1_, p_i2066_2_, 64, p_i2066_3_, 7, 7, 9);
+            super(p_i2066_1_, p_i2066_2_, p_i2066_3_, 7, 7, 9);
         }
 
         protected void writeStructureToNBT(NBTTagCompound tagCompound)
@@ -635,7 +634,7 @@ public class ComponentScatteredFeaturePieces
 
         public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn)
         {
-            if (!this.func_74935_a(worldIn, structureBoundingBoxIn, 0))
+            if (this.func_74935_a(worldIn, structureBoundingBoxIn))
             {
                 return false;
             }
@@ -689,8 +688,8 @@ public class ComponentScatteredFeaturePieces
                     {
                         this.hasWitch = true;
                         EntityWitch entitywitch = new EntityWitch(worldIn);
-                        entitywitch.setLocationAndAngles((double)l1 + 0.5D, (double)i2, (double)k1 + 0.5D, 0.0F, 0.0F);
-                        entitywitch.onInitialSpawn(worldIn.getDifficultyForLocation(new BlockPos(l1, i2, k1)), (IEntityLivingData)null);
+                        entitywitch.setLocationAndAngles((double)l1 + 0.5D, i2, (double)k1 + 0.5D, 0.0F, 0.0F);
+                        entitywitch.onInitialSpawn(worldIn.getDifficultyForLocation(new BlockPos(l1, i2, k1)), null);
                         worldIn.spawnEntityInWorld(entitywitch);
                     }
                 }

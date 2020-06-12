@@ -39,6 +39,6 @@ public class S01PacketPong implements Packet<INetHandlerStatusClient>
      */
     public void processPacket(INetHandlerStatusClient handler)
     {
-        handler.handlePong(this);
+        handler.handlePong();
     }
 }

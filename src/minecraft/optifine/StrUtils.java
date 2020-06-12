@@ -117,24 +117,17 @@ public class StrUtils
         {
             if (p_indexOfMaskSingle_2_ >= 0 && p_indexOfMaskSingle_2_ <= p_indexOfMaskSingle_0_.length())
             {
-                if (p_indexOfMaskSingle_0_.length() < p_indexOfMaskSingle_2_ + p_indexOfMaskSingle_1_.length())
-                {
-                    return -1;
-                }
-                else
-                {
-                    for (int i = p_indexOfMaskSingle_2_; i + p_indexOfMaskSingle_1_.length() <= p_indexOfMaskSingle_0_.length(); ++i)
-                    {
+                if (p_indexOfMaskSingle_0_.length() >= p_indexOfMaskSingle_2_ + p_indexOfMaskSingle_1_.length()) {
+                    for (int i = p_indexOfMaskSingle_2_; i + p_indexOfMaskSingle_1_.length() <= p_indexOfMaskSingle_0_.length(); ++i) {
                         String s = p_indexOfMaskSingle_0_.substring(i, i + p_indexOfMaskSingle_1_.length());
 
-                        if (equalsMaskSingle(s, p_indexOfMaskSingle_1_, p_indexOfMaskSingle_3_))
-                        {
+                        if (equalsMaskSingle(s, p_indexOfMaskSingle_1_, p_indexOfMaskSingle_3_)) {
                             return i;
                         }
                     }
 
-                    return -1;
                 }
+                return -1;
             }
             else
             {
@@ -324,12 +317,8 @@ public class StrUtils
                 p_removePrefix_0_ = p_removePrefix_0_.substring(p_removePrefix_1_.length());
             }
 
-            return p_removePrefix_0_;
         }
-        else
-        {
-            return p_removePrefix_0_;
-        }
+        return p_removePrefix_0_;
     }
 
     public static String removeSuffix(String p_removeSuffix_0_, String p_removeSuffix_1_)
@@ -341,12 +330,8 @@ public class StrUtils
                 p_removeSuffix_0_ = p_removeSuffix_0_.substring(0, p_removeSuffix_0_.length() - p_removeSuffix_1_.length());
             }
 
-            return p_removeSuffix_0_;
         }
-        else
-        {
-            return p_removeSuffix_0_;
-        }
+        return p_removeSuffix_0_;
     }
 
     public static String replaceSuffix(String p_replaceSuffix_0_, String p_replaceSuffix_1_, String p_replaceSuffix_2_)
@@ -423,12 +408,8 @@ public class StrUtils
                 }
             }
 
-            return p_removeSuffix_0_;
         }
-        else
-        {
-            return p_removeSuffix_0_;
-        }
+        return p_removeSuffix_0_;
     }
 
     public static String removePrefix(String p_removePrefix_0_, String[] p_removePrefix_1_)
@@ -448,12 +429,8 @@ public class StrUtils
                 }
             }
 
-            return p_removePrefix_0_;
         }
-        else
-        {
-            return p_removePrefix_0_;
-        }
+        return p_removePrefix_0_;
     }
 
     public static String removePrefixSuffix(String p_removePrefixSuffix_0_, String[] p_removePrefixSuffix_1_, String[] p_removePrefixSuffix_2_)

@@ -10,7 +10,7 @@ public class ServerListEntryLanScan implements GuiListExtended.IGuiListEntry
     public void drawEntry(int slotIndex, int x, int y, int listWidth, int slotHeight, int mouseX, int mouseY, boolean isSelected)
     {
         int i = y + slotHeight / 2 - this.mc.fontRendererObj.FONT_HEIGHT / 2;
-        this.mc.fontRendererObj.drawString(I18n.format("lanServer.scanning", new Object[0]), this.mc.currentScreen.width / 2 - this.mc.fontRendererObj.getStringWidth(I18n.format("lanServer.scanning", new Object[0])) / 2, i, 16777215);
+        this.mc.fontRendererObj.drawString(I18n.format("lanServer.scanning"), this.mc.currentScreen.width / 2 - this.mc.fontRendererObj.getStringWidth(I18n.format("lanServer.scanning")) / 2, i, 16777215);
         String s;
 
         switch ((int)(Minecraft.getSystemTime() / 300L % 4L))
@@ -32,7 +32,7 @@ public class ServerListEntryLanScan implements GuiListExtended.IGuiListEntry
         this.mc.fontRendererObj.drawString(s, this.mc.currentScreen.width / 2 - this.mc.fontRendererObj.getStringWidth(s) / 2, i + this.mc.fontRendererObj.FONT_HEIGHT, 8421504);
     }
 
-    public void setSelected(int p_178011_1_, int p_178011_2_, int p_178011_3_)
+    public void setSelected(int p_178011_3_)
     {
     }
 
@@ -47,7 +47,7 @@ public class ServerListEntryLanScan implements GuiListExtended.IGuiListEntry
     /**
      * Fired when the mouse button is released. Arguments: index, x, y, mouseEvent, relativeX, relativeY
      */
-    public void mouseReleased(int slotIndex, int x, int y, int mouseEvent, int relativeX, int relativeY)
+    public void mouseReleased(int x, int y, int mouseEvent)
     {
     }
 }

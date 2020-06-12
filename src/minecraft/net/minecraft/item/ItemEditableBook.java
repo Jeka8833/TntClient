@@ -26,7 +26,7 @@ public class ItemEditableBook extends Item
 
     public static boolean validBookTagContents(NBTTagCompound nbt)
     {
-        if (!ItemWritableBook.isNBTValid(nbt))
+        if (ItemWritableBook.isNBTValid(nbt))
         {
             return false;
         }
@@ -37,7 +37,7 @@ public class ItemEditableBook extends Item
         else
         {
             String s = nbt.getString("title");
-            return s != null && s.length() <= 32 ? nbt.hasKey("author", 8) : false;
+            return (s != null && s.length() <= 32) && nbt.hasKey("author", 8);
         }
     }
 

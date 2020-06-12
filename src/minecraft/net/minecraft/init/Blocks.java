@@ -240,12 +240,12 @@ public class Blocks
      */
     private static Block getRegisteredBlock(String p_180383_0_)
     {
-        return (Block)Block.blockRegistry.getObject(new ResourceLocation(p_180383_0_));
+        return Block.blockRegistry.getObject(new ResourceLocation(p_180383_0_));
     }
 
     static
     {
-        if (!Bootstrap.isRegistered())
+        if (Bootstrap.isRegistered())
         {
             throw new RuntimeException("Accessed Blocks before Bootstrap!");
         }

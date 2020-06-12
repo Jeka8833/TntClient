@@ -13,12 +13,12 @@ import java.awt.image.BufferedImage;
 
 public class PlayerItemModel
 {
-    private boolean usePlayerTexture;
-    private PlayerItemRenderer[] modelRenderers;
+    private final boolean usePlayerTexture;
+    private final PlayerItemRenderer[] modelRenderers;
     private ResourceLocation textureLocation = null;
     private BufferedImage textureImage = null;
     private DynamicTexture texture = null;
-    private ResourceLocation locationMissing = new ResourceLocation("textures/blocks/wool_colored_red.png");
+    private final ResourceLocation locationMissing = new ResourceLocation("textures/blocks/wool_colored_red.png");
 
     public PlayerItemModel(boolean p_i74_2_, PlayerItemRenderer[] p_i74_3_)
     {

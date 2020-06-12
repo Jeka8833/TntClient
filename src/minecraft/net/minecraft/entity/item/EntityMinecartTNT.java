@@ -47,7 +47,7 @@ public class EntityMinecartTNT extends EntityMinecart
         if (this.minecartTNTFuse > 0)
         {
             --this.minecartTNTFuse;
-            this.worldObj.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, this.posX, this.posY + 0.5D, this.posZ, 0.0D, 0.0D, 0.0D, new int[0]);
+            this.worldObj.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, this.posX, this.posY + 0.5D, this.posZ, 0.0D, 0.0D, 0.0D);
         }
         else if (this.minecartTNTFuse == 0)
         {
@@ -125,7 +125,7 @@ public class EntityMinecartTNT extends EntityMinecart
         if (distance >= 3.0F)
         {
             float f = distance / 10.0F;
-            this.explodeCart((double)(f * f));
+            this.explodeCart(f * f);
         }
 
         super.fall(distance, damageMultiplier);
@@ -134,7 +134,7 @@ public class EntityMinecartTNT extends EntityMinecart
     /**
      * Called every tick the minecart is on an activator rail. Args: x, y, z, is the rail receiving power
      */
-    public void onActivatorRailPass(int x, int y, int z, boolean receivingPower)
+    public void onActivatorRailPass(boolean receivingPower)
     {
         if (receivingPower && this.minecartTNTFuse < 0)
         {
@@ -185,7 +185,7 @@ public class EntityMinecartTNT extends EntityMinecart
      */
     public boolean isIgnited()
     {
-        return this.minecartTNTFuse > -1;
+        return this.minecartTNTFuse <= -1;
     }
 
     /**
@@ -193,12 +193,12 @@ public class EntityMinecartTNT extends EntityMinecart
      */
     public float getExplosionResistance(Explosion explosionIn, World worldIn, BlockPos pos, IBlockState blockStateIn)
     {
-        return !this.isIgnited() || !BlockRailBase.isRailBlock(blockStateIn) && !BlockRailBase.isRailBlock(worldIn, pos.up()) ? super.getExplosionResistance(explosionIn, worldIn, pos, blockStateIn) : 0.0F;
+        return this.isIgnited() || !BlockRailBase.isRailBlock(blockStateIn) && !BlockRailBase.isRailBlock(worldIn, pos.up()) ? super.getExplosionResistance(explosionIn, worldIn, pos, blockStateIn) : 0.0F;
     }
 
     public boolean verifyExplosion(Explosion explosionIn, World worldIn, BlockPos pos, IBlockState blockStateIn, float p_174816_5_)
     {
-        return !this.isIgnited() || !BlockRailBase.isRailBlock(blockStateIn) && !BlockRailBase.isRailBlock(worldIn, pos.up()) ? super.verifyExplosion(explosionIn, worldIn, pos, blockStateIn, p_174816_5_) : false;
+        return (this.isIgnited() || !BlockRailBase.isRailBlock(blockStateIn) && !BlockRailBase.isRailBlock(worldIn, pos.up())) && super.verifyExplosion(explosionIn, worldIn, pos, blockStateIn, p_174816_5_);
     }
 
     /**

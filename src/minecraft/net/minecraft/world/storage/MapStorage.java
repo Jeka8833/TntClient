@@ -17,10 +17,10 @@ import net.minecraft.world.WorldSavedData;
 
 public class MapStorage
 {
-    private ISaveHandler saveHandler;
-    protected Map<String, WorldSavedData> loadedDataMap = Maps.<String, WorldSavedData>newHashMap();
-    private List<WorldSavedData> loadedDataList = Lists.<WorldSavedData>newArrayList();
-    private Map<String, Short> idCounts = Maps.<String, Short>newHashMap();
+    private final ISaveHandler saveHandler;
+    protected final Map<String, WorldSavedData> loadedDataMap = Maps.newHashMap();
+    private final List<WorldSavedData> loadedDataList = Lists.newArrayList();
+    private final Map<String, Short> idCounts = Maps.newHashMap();
 
     public MapStorage(ISaveHandler saveHandlerIn)
     {
@@ -34,28 +34,17 @@ public class MapStorage
      */
     public WorldSavedData loadData(Class <? extends WorldSavedData > clazz, String dataIdentifier)
     {
-        WorldSavedData worldsaveddata = (WorldSavedData)this.loadedDataMap.get(dataIdentifier);
+        WorldSavedData worldsaveddata = this.loadedDataMap.get(dataIdentifier);
 
-        if (worldsaveddata != null)
-        {
-            return worldsaveddata;
-        }
-        else
-        {
-            if (this.saveHandler != null)
-            {
-                try
-                {
+        if (worldsaveddata == null) {
+            if (this.saveHandler != null) {
+                try {
                     File file1 = this.saveHandler.getMapFileFromName(dataIdentifier);
 
-                    if (file1 != null && file1.exists())
-                    {
-                        try
-                        {
-                            worldsaveddata = (WorldSavedData)clazz.getConstructor(new Class[] {String.class}).newInstance(new Object[] {dataIdentifier});
-                        }
-                        catch (Exception exception)
-                        {
+                    if (file1 != null && file1.exists()) {
+                        try {
+                            worldsaveddata = clazz.getConstructor(new Class[]{String.class}).newInstance(dataIdentifier);
+                        } catch (Exception exception) {
                             throw new RuntimeException("Failed to instantiate " + clazz.toString(), exception);
                         }
 
@@ -64,21 +53,18 @@ public class MapStorage
                         fileinputstream.close();
                         worldsaveddata.readFromNBT(nbttagcompound.getCompoundTag("data"));
                     }
-                }
-                catch (Exception exception1)
-                {
+                } catch (Exception exception1) {
                     exception1.printStackTrace();
                 }
             }
 
-            if (worldsaveddata != null)
-            {
+            if (worldsaveddata != null) {
                 this.loadedDataMap.put(dataIdentifier, worldsaveddata);
                 this.loadedDataList.add(worldsaveddata);
             }
 
-            return worldsaveddata;
         }
+        return worldsaveddata;
     }
 
     /**
@@ -102,7 +88,7 @@ public class MapStorage
     {
         for (int i = 0; i < this.loadedDataList.size(); ++i)
         {
-            WorldSavedData worldsaveddata = (WorldSavedData)this.loadedDataList.get(i);
+            WorldSavedData worldsaveddata = this.loadedDataList.get(i);
 
             if (worldsaveddata.isDirty())
             {
@@ -171,7 +157,7 @@ public class MapStorage
                     {
                         NBTTagShort nbttagshort = (NBTTagShort)nbtbase;
                         short short1 = nbttagshort.getShort();
-                        this.idCounts.put(s, Short.valueOf(short1));
+                        this.idCounts.put(s, short1);
                     }
                 }
             }
@@ -187,36 +173,28 @@ public class MapStorage
      */
     public int getUniqueDataId(String key)
     {
-        Short oshort = (Short)this.idCounts.get(key);
+        Short oshort = this.idCounts.get(key);
 
         if (oshort == null)
         {
-            oshort = Short.valueOf((short)0);
+            oshort = (short) 0;
         }
         else
         {
-            oshort = Short.valueOf((short)(oshort.shortValue() + 1));
+            oshort = (short) (oshort.shortValue() + 1);
         }
 
         this.idCounts.put(key, oshort);
 
-        if (this.saveHandler == null)
-        {
-            return oshort.shortValue();
-        }
-        else
-        {
-            try
-            {
+        if (this.saveHandler != null) {
+            try {
                 File file1 = this.saveHandler.getMapFileFromName("idcounts");
 
-                if (file1 != null)
-                {
+                if (file1 != null) {
                     NBTTagCompound nbttagcompound = new NBTTagCompound();
 
-                    for (String s : this.idCounts.keySet())
-                    {
-                        short short1 = ((Short)this.idCounts.get(s)).shortValue();
+                    for (String s : this.idCounts.keySet()) {
+                        short short1 = this.idCounts.get(s);
                         nbttagcompound.setShort(s, short1);
                     }
 
@@ -224,13 +202,11 @@ public class MapStorage
                     CompressedStreamTools.write(nbttagcompound, dataoutputstream);
                     dataoutputstream.close();
                 }
-            }
-            catch (Exception exception)
-            {
+            } catch (Exception exception) {
                 exception.printStackTrace();
             }
 
-            return oshort.shortValue();
         }
+        return oshort;
     }
 }

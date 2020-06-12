@@ -23,7 +23,7 @@ public class CommandSetPlayerTimeout extends CommandBase
     /**
      * Gets the usage string for the command.
      */
-    public String getCommandUsage(ICommandSender sender)
+    public String getCommandUsage()
     {
         return "commands.setidletimeout.usage";
     }
@@ -35,13 +35,13 @@ public class CommandSetPlayerTimeout extends CommandBase
     {
         if (args.length != 1)
         {
-            throw new WrongUsageException("commands.setidletimeout.usage", new Object[0]);
+            throw new WrongUsageException("commands.setidletimeout.usage");
         }
         else
         {
             int i = parseInt(args[0], 0);
             MinecraftServer.getServer().setPlayerIdleTimeout(i);
-            notifyOperators(sender, this, "commands.setidletimeout.success", new Object[] {Integer.valueOf(i)});
+            notifyOperators(sender, this, "commands.setidletimeout.success", i);
         }
     }
 }

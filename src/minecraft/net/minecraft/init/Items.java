@@ -204,12 +204,12 @@ public class Items
 
     private static Item getRegisteredItem(String name)
     {
-        return (Item)Item.itemRegistry.getObject(new ResourceLocation(name));
+        return Item.itemRegistry.getObject(new ResourceLocation(name));
     }
 
     static
     {
-        if (!Bootstrap.isRegistered())
+        if (Bootstrap.isRegistered())
         {
             throw new RuntimeException("Accessed Items before Bootstrap!");
         }

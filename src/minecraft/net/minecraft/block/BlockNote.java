@@ -16,7 +16,7 @@ import net.minecraft.world.World;
 
 public class BlockNote extends BlockContainer
 {
-    private static final List<String> INSTRUMENTS = Lists.newArrayList(new String[] {"harp", "bd", "snare", "hat", "bassattack"});
+    private static final List<String> INSTRUMENTS = Lists.newArrayList("harp", "bd", "snare", "hat", "bassattack");
 
     public BlockNote()
     {
@@ -50,24 +50,18 @@ public class BlockNote extends BlockContainer
 
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ)
     {
-        if (worldIn.isRemote)
-        {
-            return true;
-        }
-        else
-        {
+        if (!worldIn.isRemote) {
             TileEntity tileentity = worldIn.getTileEntity(pos);
 
-            if (tileentity instanceof TileEntityNote)
-            {
-                TileEntityNote tileentitynote = (TileEntityNote)tileentity;
+            if (tileentity instanceof TileEntityNote) {
+                TileEntityNote tileentitynote = (TileEntityNote) tileentity;
                 tileentitynote.changePitch();
                 tileentitynote.triggerNote(worldIn, pos);
                 playerIn.triggerAchievement(StatList.field_181735_S);
             }
 
-            return true;
         }
+        return true;
     }
 
     public void onBlockClicked(World worldIn, BlockPos pos, EntityPlayer playerIn)
@@ -87,7 +81,7 @@ public class BlockNote extends BlockContainer
     /**
      * Returns a new instance of a block's tile entity class. Called on placing the block.
      */
-    public TileEntity createNewTileEntity(World worldIn, int meta)
+    public TileEntity createNewTileEntity(int meta)
     {
         return new TileEntityNote();
     }
@@ -99,7 +93,7 @@ public class BlockNote extends BlockContainer
             id = 0;
         }
 
-        return (String)INSTRUMENTS.get(id);
+        return INSTRUMENTS.get(id);
     }
 
     /**
@@ -109,7 +103,7 @@ public class BlockNote extends BlockContainer
     {
         float f = (float)Math.pow(2.0D, (double)(eventParam - 12) / 12.0D);
         worldIn.playSoundEffect((double)pos.getX() + 0.5D, (double)pos.getY() + 0.5D, (double)pos.getZ() + 0.5D, "note." + this.getInstrument(eventID), 3.0F, f);
-        worldIn.spawnParticle(EnumParticleTypes.NOTE, (double)pos.getX() + 0.5D, (double)pos.getY() + 1.2D, (double)pos.getZ() + 0.5D, (double)eventParam / 24.0D, 0.0D, 0.0D, new int[0]);
+        worldIn.spawnParticle(EnumParticleTypes.NOTE, (double)pos.getX() + 0.5D, (double)pos.getY() + 1.2D, (double)pos.getZ() + 0.5D, (double)eventParam / 24.0D, 0.0D, 0.0D);
         return true;
     }
 

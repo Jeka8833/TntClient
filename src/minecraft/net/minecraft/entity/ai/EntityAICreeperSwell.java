@@ -6,7 +6,7 @@ import net.minecraft.entity.monster.EntityCreeper;
 public class EntityAICreeperSwell extends EntityAIBase
 {
     /** The creeper that is swelling. */
-    EntityCreeper swellingCreeper;
+    final EntityCreeper swellingCreeper;
 
     /**
      * The creeper's attack target. This is used for the changing of the creeper's state.

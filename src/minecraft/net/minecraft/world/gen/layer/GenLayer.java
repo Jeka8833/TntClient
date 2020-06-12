@@ -77,7 +77,7 @@ public abstract class GenLayer
 
         for (int k = 0; k < i; ++k)
         {
-            genlayerhills = new GenLayerZoom((long)(1000 + k), genlayerhills);
+            genlayerhills = new GenLayerZoom(1000 + k, genlayerhills);
 
             if (k == 0)
             {
@@ -182,26 +182,26 @@ public abstract class GenLayer
 
             try
             {
-                return biomegenbase != null && biomegenbase1 != null ? biomegenbase.isEqualTo(biomegenbase1) : false;
+                return (biomegenbase != null && biomegenbase1 != null) && biomegenbase.isEqualTo(biomegenbase1);
             }
             catch (Throwable throwable)
             {
                 CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Comparing biomes");
                 CrashReportCategory crashreportcategory = crashreport.makeCategory("Biomes being compared");
-                crashreportcategory.addCrashSection("Biome A ID", Integer.valueOf(biomeIDA));
-                crashreportcategory.addCrashSection("Biome B ID", Integer.valueOf(biomeIDB));
+                crashreportcategory.addCrashSection("Biome A ID", biomeIDA);
+                crashreportcategory.addCrashSection("Biome B ID", biomeIDB);
                 crashreportcategory.addCrashSectionCallable("Biome A", new Callable<String>()
                 {
                     public String call() throws Exception
                     {
-                        return String.valueOf((Object)biomegenbase);
+                        return String.valueOf(biomegenbase);
                     }
                 });
                 crashreportcategory.addCrashSectionCallable("Biome B", new Callable<String>()
                 {
                     public String call() throws Exception
                     {
-                        return String.valueOf((Object)biomegenbase1);
+                        return String.valueOf(biomegenbase1);
                     }
                 });
                 throw new ReportedException(crashreport);
@@ -234,6 +234,6 @@ public abstract class GenLayer
      */
     protected int selectModeOrRandom(int p_151617_1_, int p_151617_2_, int p_151617_3_, int p_151617_4_)
     {
-        return p_151617_2_ == p_151617_3_ && p_151617_3_ == p_151617_4_ ? p_151617_2_ : (p_151617_1_ == p_151617_2_ && p_151617_1_ == p_151617_3_ ? p_151617_1_ : (p_151617_1_ == p_151617_2_ && p_151617_1_ == p_151617_4_ ? p_151617_1_ : (p_151617_1_ == p_151617_3_ && p_151617_1_ == p_151617_4_ ? p_151617_1_ : (p_151617_1_ == p_151617_2_ && p_151617_3_ != p_151617_4_ ? p_151617_1_ : (p_151617_1_ == p_151617_3_ && p_151617_2_ != p_151617_4_ ? p_151617_1_ : (p_151617_1_ == p_151617_4_ && p_151617_2_ != p_151617_3_ ? p_151617_1_ : (p_151617_2_ == p_151617_3_ && p_151617_1_ != p_151617_4_ ? p_151617_2_ : (p_151617_2_ == p_151617_4_ && p_151617_1_ != p_151617_3_ ? p_151617_2_ : (p_151617_3_ == p_151617_4_ && p_151617_1_ != p_151617_2_ ? p_151617_3_ : this.selectRandom(new int[] {p_151617_1_, p_151617_2_, p_151617_3_, p_151617_4_}))))))))));
+        return p_151617_2_ == p_151617_3_ && p_151617_3_ == p_151617_4_ ? p_151617_2_ : (p_151617_1_ == p_151617_2_ && p_151617_1_ == p_151617_3_ ? p_151617_1_ : (p_151617_1_ == p_151617_2_ && p_151617_1_ == p_151617_4_ ? p_151617_1_ : (p_151617_1_ == p_151617_3_ && p_151617_1_ == p_151617_4_ ? p_151617_1_ : (p_151617_1_ == p_151617_2_ && p_151617_3_ != p_151617_4_ ? p_151617_1_ : (p_151617_1_ == p_151617_3_ && p_151617_2_ != p_151617_4_ ? p_151617_1_ : (p_151617_1_ == p_151617_4_ && p_151617_2_ != p_151617_3_ ? p_151617_1_ : (p_151617_2_ == p_151617_3_ && p_151617_1_ != p_151617_4_ ? p_151617_2_ : (p_151617_2_ == p_151617_4_ && p_151617_1_ != p_151617_3_ ? p_151617_2_ : (p_151617_3_ == p_151617_4_ && p_151617_1_ != p_151617_2_ ? p_151617_3_ : this.selectRandom(p_151617_1_, p_151617_2_, p_151617_3_, p_151617_4_))))))))));
     }
 }

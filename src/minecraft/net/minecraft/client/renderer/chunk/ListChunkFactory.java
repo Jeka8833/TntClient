@@ -8,6 +8,6 @@ public class ListChunkFactory implements IRenderChunkFactory
 {
     public RenderChunk makeRenderChunk(World worldIn, RenderGlobal globalRenderer, BlockPos pos, int index)
     {
-        return new ListedRenderChunk(worldIn, globalRenderer, pos, index);
+        return new ListedRenderChunk(worldIn, globalRenderer, pos);
     }
 }

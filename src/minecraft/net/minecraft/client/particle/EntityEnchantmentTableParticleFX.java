@@ -4,10 +4,10 @@ import net.minecraft.world.World;
 
 public class EntityEnchantmentTableParticleFX extends EntityFX
 {
-    private float field_70565_a;
-    private double coordX;
-    private double coordY;
-    private double coordZ;
+    private final float field_70565_a;
+    private final double coordX;
+    private final double coordY;
+    private final double coordZ;
 
     protected EntityEnchantmentTableParticleFX(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn)
     {
@@ -86,7 +86,7 @@ public class EntityEnchantmentTableParticleFX extends EntityFX
 
     public static class EnchantmentTable implements IParticleFactory
     {
-        public EntityFX getEntityFX(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_)
+        public EntityFX getEntityFX(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_)
         {
             return new EntityEnchantmentTableParticleFX(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
         }

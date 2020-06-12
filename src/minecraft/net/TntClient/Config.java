@@ -15,19 +15,19 @@ import org.apache.commons.lang3.ArrayUtils;
 import java.nio.file.Files;
 
 public class Config {
-    public Bot bot = new Bot();
-    public ShowPotions showPotions = new ShowPotions();
-    public Brightness brightness = new Brightness();
-    public Dolphin dolphin = new Dolphin();
-    public Sprint sprint = new Sprint();
-    public TntGameStats tntGameStats = new TntGameStats();
-    public NicknameStats nicknameStats = new NicknameStats();
-    public TabStats tabStats = new TabStats();
-    public GlitchBlocks glitchBlocks = new GlitchBlocks();
-    public AutoTip autoTip = new AutoTip();
-    public LongDJump longDJump = new LongDJump();
-    public DebugModule debugModule = new DebugModule();
-    public FreeDJ freeDJ = new FreeDJ();
+    public final Bot bot = new Bot();
+    public final ShowPotions showPotions = new ShowPotions();
+    public final Brightness brightness = new Brightness();
+    public final Dolphin dolphin = new Dolphin();
+    public final Sprint sprint = new Sprint();
+    public final TntGameStats tntGameStats = new TntGameStats();
+    public final NicknameStats nicknameStats = new NicknameStats();
+    public final TabStats tabStats = new TabStats();
+    public final GlitchBlocks glitchBlocks = new GlitchBlocks();
+    public final AutoTip autoTip = new AutoTip();
+    public final LongDJump longDJump = new LongDJump();
+    public final DebugModule debugModule = new DebugModule();
+    public final FreeDJ freeDJ = new FreeDJ();
 
     public Language googleLang = TranslateGoogle.lang[3];
     public String apiKey = "";

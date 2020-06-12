@@ -2,8 +2,8 @@ package optifine;
 
 public class HttpPipelineRequest
 {
-    private HttpRequest httpRequest;
-    private HttpListener httpListener;
+    private final HttpRequest httpRequest;
+    private final HttpListener httpListener;
     private boolean closed = false;
 
     public HttpPipelineRequest(HttpRequest p_i58_1_, HttpListener p_i58_2_)

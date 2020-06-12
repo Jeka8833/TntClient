@@ -6,10 +6,10 @@ import net.minecraft.world.World;
 
 public class EntityPortalFX extends EntityFX
 {
-    private float portalParticleScale;
-    private double portalPosX;
-    private double portalPosY;
-    private double portalPosZ;
+    private final float portalParticleScale;
+    private final double portalPosX;
+    private final double portalPosY;
+    private final double portalPosZ;
 
     protected EntityPortalFX(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn)
     {
@@ -95,7 +95,7 @@ public class EntityPortalFX extends EntityFX
 
     public static class Factory implements IParticleFactory
     {
-        public EntityFX getEntityFX(int particleID, World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_)
+        public EntityFX getEntityFX(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_)
         {
             return new EntityPortalFX(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
         }

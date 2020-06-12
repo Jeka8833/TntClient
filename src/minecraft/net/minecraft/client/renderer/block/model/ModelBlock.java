@@ -29,15 +29,15 @@ public class ModelBlock
     private final List<BlockPart> elements;
     private final boolean gui3d;
     private final boolean ambientOcclusion;
-    private ItemCameraTransforms cameraTransforms;
+    private final ItemCameraTransforms cameraTransforms;
     public String name;
     protected final Map<String, String> textures;
     protected ModelBlock parent;
-    protected ResourceLocation parentLocation;
+    protected final ResourceLocation parentLocation;
 
     public static ModelBlock deserialize(Reader p_178307_0_)
     {
-        return (ModelBlock)SERIALIZER.fromJson(p_178307_0_, ModelBlock.class);
+        return SERIALIZER.fromJson(p_178307_0_, ModelBlock.class);
     }
 
     public static ModelBlock deserialize(String p_178294_0_)
@@ -47,12 +47,12 @@ public class ModelBlock
 
     protected ModelBlock(List<BlockPart> p_i46225_1_, Map<String, String> p_i46225_2_, boolean p_i46225_3_, boolean p_i46225_4_, ItemCameraTransforms p_i46225_5_)
     {
-        this((ResourceLocation)null, p_i46225_1_, p_i46225_2_, p_i46225_3_, p_i46225_4_, p_i46225_5_);
+        this(null, p_i46225_1_, p_i46225_2_, p_i46225_3_, p_i46225_4_, p_i46225_5_);
     }
 
-    protected ModelBlock(ResourceLocation p_i46226_1_, Map<String, String> p_i46226_2_, boolean p_i46226_3_, boolean p_i46226_4_, ItemCameraTransforms p_i46226_5_)
+    protected ModelBlock(ResourceLocation p_i46226_1_, Map<String, String> p_i46226_2_, boolean p_i46226_3_, ItemCameraTransforms p_i46226_5_)
     {
-        this(p_i46226_1_, Collections.<BlockPart>emptyList(), p_i46226_2_, p_i46226_3_, p_i46226_4_, p_i46226_5_);
+        this(p_i46226_1_, Collections.emptyList(), p_i46226_2_, p_i46226_3_, true, p_i46226_5_);
     }
 
     private ModelBlock(ResourceLocation parentLocationIn, List<BlockPart> elementsIn, Map<String, String> texturesIn, boolean ambientOcclusionIn, boolean gui3dIn, ItemCameraTransforms cameraTransformsIn)
@@ -95,7 +95,7 @@ public class ModelBlock
     {
         if (this.parentLocation != null)
         {
-            this.parent = (ModelBlock)p_178299_1_.get(this.parentLocation);
+            this.parent = p_178299_1_.get(this.parentLocation);
         }
     }
 
@@ -125,7 +125,7 @@ public class ModelBlock
             }
             else
             {
-                String s = (String)this.textures.get(textureName.substring(1));
+                String s = this.textures.get(textureName.substring(1));
 
                 if (s == null && this.hasParent())
                 {
@@ -194,9 +194,8 @@ public class ModelBlock
 
                 throw new ModelBlock.LoopException();
             }
-            catch (NullPointerException var5)
+            catch (NullPointerException ignored)
             {
-                ;
             }
         }
     }
@@ -239,16 +238,16 @@ public class ModelBlock
                 if (jsonobject.has("display"))
                 {
                     JsonObject jsonobject1 = JsonUtils.getJsonObject(jsonobject, "display");
-                    itemcameratransforms = (ItemCameraTransforms)p_deserialize_3_.deserialize(jsonobject1, ItemCameraTransforms.class);
+                    itemcameratransforms = p_deserialize_3_.deserialize(jsonobject1, ItemCameraTransforms.class);
                 }
 
-                return flag1 ? new ModelBlock(new ResourceLocation(s), map, flag2, true, itemcameratransforms) : new ModelBlock(list, map, flag2, true, itemcameratransforms);
+                return flag1 ? new ModelBlock(new ResourceLocation(s), map, flag2, itemcameratransforms) : new ModelBlock(list, map, flag2, true, itemcameratransforms);
             }
         }
 
         private Map<String, String> getTextures(JsonObject p_178329_1_)
         {
-            Map<String, String> map = Maps.<String, String>newHashMap();
+            Map<String, String> map = Maps.newHashMap();
 
             if (p_178329_1_.has("textures"))
             {
@@ -256,7 +255,7 @@ public class ModelBlock
 
                 for (Entry<String, JsonElement> entry : jsonobject.entrySet())
                 {
-                    map.put(entry.getKey(), ((JsonElement)entry.getValue()).getAsString());
+                    map.put(entry.getKey(), entry.getValue().getAsString());
                 }
             }
 
@@ -275,13 +274,13 @@ public class ModelBlock
 
         protected List<BlockPart> getModelElements(JsonDeserializationContext p_178325_1_, JsonObject p_178325_2_)
         {
-            List<BlockPart> list = Lists.<BlockPart>newArrayList();
+            List<BlockPart> list = Lists.newArrayList();
 
             if (p_178325_2_.has("elements"))
             {
                 for (JsonElement jsonelement : JsonUtils.getJsonArray(p_178325_2_, "elements"))
                 {
-                    list.add((BlockPart)p_178325_1_.deserialize(jsonelement, BlockPart.class));
+                    list.add(p_178325_1_.deserialize(jsonelement, BlockPart.class));
                 }
             }
 

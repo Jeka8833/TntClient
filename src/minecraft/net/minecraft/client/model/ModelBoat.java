@@ -4,7 +4,7 @@ import net.minecraft.entity.Entity;
 
 public class ModelBoat extends ModelBase
 {
-    public ModelRenderer[] boatSides = new ModelRenderer[5];
+    public final ModelRenderer[] boatSides = new ModelRenderer[5];
 
     public ModelBoat()
     {

@@ -134,7 +134,7 @@ public class EntityLeashKnot extends EntityHanging
             }
         }
 
-        return true;
+        return false;
     }
 
     /**

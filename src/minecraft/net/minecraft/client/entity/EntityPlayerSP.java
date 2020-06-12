@@ -11,7 +11,6 @@ import net.minecraft.client.gui.GuiEnchantment;
 import net.minecraft.client.gui.GuiHopper;
 import net.minecraft.client.gui.GuiMerchant;
 import net.minecraft.client.gui.GuiRepair;
-import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiScreenBook;
 import net.minecraft.client.gui.inventory.GuiBeacon;
 import net.minecraft.client.gui.inventory.GuiBrewingStand;
@@ -104,7 +103,7 @@ public class EntityPlayerSP extends AbstractClientPlayer
     private boolean hasValidHealth;
     private String clientBrand;
     public MovementInput movementInput;
-    protected Minecraft mc;
+    protected final Minecraft mc;
 
     /**
      * Used to tell if the player pressed forward twice. If this is at 0 and it's pressed (And they are allowed to
@@ -231,8 +230,8 @@ public class EntityPlayerSP extends AbstractClientPlayer
             double d0 = this.posX - this.lastReportedPosX;
             double d1 = this.getEntityBoundingBox().minY - this.lastReportedPosY;
             double d2 = this.posZ - this.lastReportedPosZ;
-            double d3 = (double)(this.rotationYaw - this.lastReportedYaw);
-            double d4 = (double)(this.rotationPitch - this.lastReportedPitch);
+            double d3 = this.rotationYaw - this.lastReportedYaw;
+            double d4 = this.rotationPitch - this.lastReportedPitch;
             boolean flag2 = d0 * d0 + d1 * d1 + d2 * d2 > 9.0E-4D || this.positionUpdateTicks >= 20;
             boolean flag3 = d3 != 0.0D || d4 != 0.0D;
 
@@ -282,11 +281,10 @@ public class EntityPlayerSP extends AbstractClientPlayer
     /**
      * Called when player presses the drop item key
      */
-    public EntityItem dropOneItem(boolean dropAll)
+    public void dropOneItem(boolean dropAll)
     {
         C07PacketPlayerDigging.Action c07packetplayerdigging$action = dropAll ? C07PacketPlayerDigging.Action.DROP_ALL_ITEMS : C07PacketPlayerDigging.Action.DROP_ITEM;
         this.sendQueue.addToSendQueue(new C07PacketPlayerDigging(c07packetplayerdigging$action, BlockPos.ORIGIN, EnumFacing.DOWN));
-        return null;
     }
 
     /**
@@ -341,9 +339,9 @@ public class EntityPlayerSP extends AbstractClientPlayer
 
     public void closeScreenAndDropStack()
     {
-        this.inventory.setItemStack((ItemStack)null);
+        this.inventory.setItemStack(null);
         super.closeScreen();
-        this.mc.displayGuiScreen((GuiScreen)null);
+        this.mc.displayGuiScreen(null);
     }
 
     /**
@@ -442,70 +440,56 @@ public class EntityPlayerSP extends AbstractClientPlayer
 
     protected boolean pushOutOfBlocks(double x, double y, double z)
     {
-        if (this.noClip)
-        {
-            return false;
-        }
-        else
-        {
+        if (!this.noClip) {
             BlockPos blockpos = new BlockPos(x, y, z);
-            double d0 = x - (double)blockpos.getX();
-            double d1 = z - (double)blockpos.getZ();
+            double d0 = x - (double) blockpos.getX();
+            double d1 = z - (double) blockpos.getZ();
 
-            if (!this.isOpenBlockSpace(blockpos))
-            {
+            if (!this.isOpenBlockSpace(blockpos)) {
                 int i = -1;
                 double d2 = 9999.0D;
 
-                if (this.isOpenBlockSpace(blockpos.west()) && d0 < d2)
-                {
+                if (this.isOpenBlockSpace(blockpos.west()) && d0 < d2) {
                     d2 = d0;
                     i = 0;
                 }
 
-                if (this.isOpenBlockSpace(blockpos.east()) && 1.0D - d0 < d2)
-                {
+                if (this.isOpenBlockSpace(blockpos.east()) && 1.0D - d0 < d2) {
                     d2 = 1.0D - d0;
                     i = 1;
                 }
 
-                if (this.isOpenBlockSpace(blockpos.north()) && d1 < d2)
-                {
+                if (this.isOpenBlockSpace(blockpos.north()) && d1 < d2) {
                     d2 = d1;
                     i = 4;
                 }
 
-                if (this.isOpenBlockSpace(blockpos.south()) && 1.0D - d1 < d2)
-                {
+                if (this.isOpenBlockSpace(blockpos.south()) && 1.0D - d1 < d2) {
                     d2 = 1.0D - d1;
                     i = 5;
                 }
 
                 float f = 0.1F;
 
-                if (i == 0)
-                {
-                    this.motionX = (double)(-f);
+                if (i == 0) {
+                    this.motionX = -f;
                 }
 
-                if (i == 1)
-                {
-                    this.motionX = (double)f;
+                if (i == 1) {
+                    this.motionX = f;
                 }
 
-                if (i == 4)
-                {
-                    this.motionZ = (double)(-f);
+                if (i == 4) {
+                    this.motionZ = -f;
                 }
 
-                if (i == 5)
-                {
-                    this.motionZ = (double)f;
+                if (i == 5) {
+                    this.motionZ = f;
                 }
             }
 
-            return false;
         }
+        return false;
     }
 
     /**
@@ -689,7 +673,7 @@ public class EntityPlayerSP extends AbstractClientPlayer
      */
     public boolean isSneaking()
     {
-        boolean flag = this.movementInput != null ? this.movementInput.sneak : false;
+        boolean flag = this.movementInput != null && this.movementInput.sneak;
         return flag && !this.sleeping;
     }
 
@@ -741,7 +725,7 @@ public class EntityPlayerSP extends AbstractClientPlayer
         {
             if (this.mc.currentScreen != null && !this.mc.currentScreen.doesGuiPauseGame())
             {
-                this.mc.displayGuiScreen((GuiScreen)null);
+                this.mc.displayGuiScreen(null);
             }
 
             if (this.timeInPortal == 0.0F)
@@ -855,12 +839,12 @@ public class EntityPlayerSP extends AbstractClientPlayer
         {
             if (this.movementInput.sneak)
             {
-                this.motionY -= (double)(this.capabilities.getFlySpeed() * 3.0F);
+                this.motionY -= this.capabilities.getFlySpeed() * 3.0F;
             }
 
             if (this.movementInput.jump)
             {
-                this.motionY += (double)(this.capabilities.getFlySpeed() * 3.0F);
+                this.motionY += this.capabilities.getFlySpeed() * 3.0F;
             }
         }
 

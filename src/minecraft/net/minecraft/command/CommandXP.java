@@ -26,7 +26,7 @@ public class CommandXP extends CommandBase
     /**
      * Gets the usage string for the command.
      */
-    public String getCommandUsage(ICommandSender sender)
+    public String getCommandUsage()
     {
         return "commands.xp.usage";
     }
@@ -38,7 +38,7 @@ public class CommandXP extends CommandBase
     {
         if (args.length <= 0)
         {
-            throw new WrongUsageException("commands.xp.usage", new Object[0]);
+            throw new WrongUsageException("commands.xp.usage");
         }
         else
         {
@@ -67,12 +67,12 @@ public class CommandXP extends CommandBase
                 if (flag1)
                 {
                     entityplayer.addExperienceLevel(-i);
-                    notifyOperators(sender, this, "commands.xp.success.negative.levels", new Object[] {Integer.valueOf(i), entityplayer.getName()});
+                    notifyOperators(sender, this, "commands.xp.success.negative.levels", i, entityplayer.getName());
                 }
                 else
                 {
                     entityplayer.addExperienceLevel(i);
-                    notifyOperators(sender, this, "commands.xp.success.levels", new Object[] {Integer.valueOf(i), entityplayer.getName()});
+                    notifyOperators(sender, this, "commands.xp.success.levels", i, entityplayer.getName());
                 }
             }
             else
@@ -81,16 +81,16 @@ public class CommandXP extends CommandBase
 
                 if (flag1)
                 {
-                    throw new CommandException("commands.xp.failure.widthdrawXp", new Object[0]);
+                    throw new CommandException("commands.xp.failure.widthdrawXp");
                 }
 
                 entityplayer.addExperience(i);
-                notifyOperators(sender, this, "commands.xp.success", new Object[] {Integer.valueOf(i), entityplayer.getName()});
+                notifyOperators(sender, this, "commands.xp.success", i, entityplayer.getName());
             }
         }
     }
 
-    public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos)
+    public List<String> addTabCompletionOptions(String[] args, BlockPos pos)
     {
         return args.length == 2 ? getListOfStringsMatchingLastWord(args, this.getAllUsernames()) : null;
     }

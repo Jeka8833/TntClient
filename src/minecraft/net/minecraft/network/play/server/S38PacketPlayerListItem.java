@@ -16,7 +16,7 @@ import net.minecraft.world.WorldSettings;
 public class S38PacketPlayerListItem implements Packet<INetHandlerPlayClient>
 {
     private S38PacketPlayerListItem.Action action;
-    private final List<S38PacketPlayerListItem.AddPlayerData> players = Lists.<S38PacketPlayerListItem.AddPlayerData>newArrayList();
+    private final List<S38PacketPlayerListItem.AddPlayerData> players = Lists.newArrayList();
 
     public S38PacketPlayerListItem()
     {
@@ -28,7 +28,7 @@ public class S38PacketPlayerListItem implements Packet<INetHandlerPlayClient>
 
         for (EntityPlayerMP entityplayermp : players)
         {
-            this.players.add(new S38PacketPlayerListItem.AddPlayerData(entityplayermp.getGameProfile(), entityplayermp.ping, entityplayermp.theItemInWorldManager.getGameType(), entityplayermp.getTabListDisplayName()));
+            this.players.add(new AddPlayerData(entityplayermp.getGameProfile(), entityplayermp.ping, entityplayermp.theItemInWorldManager.getGameType(), entityplayermp.getTabListDisplayName()));
         }
     }
 
@@ -38,7 +38,7 @@ public class S38PacketPlayerListItem implements Packet<INetHandlerPlayClient>
 
         for (EntityPlayerMP entityplayermp : players)
         {
-            this.players.add(new S38PacketPlayerListItem.AddPlayerData(entityplayermp.getGameProfile(), entityplayermp.ping, entityplayermp.theItemInWorldManager.getGameType(), entityplayermp.getTabListDisplayName()));
+            this.players.add(new AddPlayerData(entityplayermp.getGameProfile(), entityplayermp.ping, entityplayermp.theItemInWorldManager.getGameType(), entityplayermp.getTabListDisplayName()));
         }
     }
 
@@ -47,7 +47,7 @@ public class S38PacketPlayerListItem implements Packet<INetHandlerPlayClient>
      */
     public void readPacketData(PacketBuffer buf) throws IOException
     {
-        this.action = (S38PacketPlayerListItem.Action)buf.readEnumValue(S38PacketPlayerListItem.Action.class);
+        this.action = buf.readEnumValue(Action.class);
         int i = buf.readVarIntFromBuffer();
 
         for (int j = 0; j < i; ++j)
@@ -90,17 +90,17 @@ public class S38PacketPlayerListItem implements Packet<INetHandlerPlayClient>
                     break;
 
                 case UPDATE_GAME_MODE:
-                    gameprofile = new GameProfile(buf.readUuid(), (String)null);
+                    gameprofile = new GameProfile(buf.readUuid(), null);
                     worldsettings$gametype = WorldSettings.GameType.getByID(buf.readVarIntFromBuffer());
                     break;
 
                 case UPDATE_LATENCY:
-                    gameprofile = new GameProfile(buf.readUuid(), (String)null);
+                    gameprofile = new GameProfile(buf.readUuid(), null);
                     k = buf.readVarIntFromBuffer();
                     break;
 
                 case UPDATE_DISPLAY_NAME:
-                    gameprofile = new GameProfile(buf.readUuid(), (String)null);
+                    gameprofile = new GameProfile(buf.readUuid(), null);
 
                     if (buf.readBoolean())
                     {
@@ -110,10 +110,10 @@ public class S38PacketPlayerListItem implements Packet<INetHandlerPlayClient>
                     break;
 
                 case REMOVE_PLAYER:
-                    gameprofile = new GameProfile(buf.readUuid(), (String)null);
+                    gameprofile = new GameProfile(buf.readUuid(), null);
             }
 
-            this.players.add(new S38PacketPlayerListItem.AddPlayerData(gameprofile, k, worldsettings$gametype, ichatcomponent));
+            this.players.add(new AddPlayerData(gameprofile, k, worldsettings$gametype, ichatcomponent));
         }
     }
 
@@ -219,16 +219,16 @@ public class S38PacketPlayerListItem implements Packet<INetHandlerPlayClient>
         return Objects.toStringHelper(this).add("action", this.action).add("entries", this.players).toString();
     }
 
-    public static enum Action
+    public enum Action
     {
         ADD_PLAYER,
         UPDATE_GAME_MODE,
         UPDATE_LATENCY,
         UPDATE_DISPLAY_NAME,
-        REMOVE_PLAYER;
+        REMOVE_PLAYER
     }
 
-    public class AddPlayerData
+    public static class AddPlayerData
     {
         private final int ping;
         private final WorldSettings.GameType gamemode;

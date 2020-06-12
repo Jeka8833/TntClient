@@ -64,11 +64,11 @@ public class SwimNodeProcessor extends NodeProcessor
      */
     private PathPoint getSafePoint(Entity entityIn, int x, int y, int z)
     {
-        int i = this.func_176186_b(entityIn, x, y, z);
+        int i = this.func_176186_b(x, y, z);
         return i == -1 ? this.openPoint(x, y, z) : null;
     }
 
-    private int func_176186_b(Entity entityIn, int x, int y, int z)
+    private int func_176186_b(int x, int y, int z)
     {
         BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
 

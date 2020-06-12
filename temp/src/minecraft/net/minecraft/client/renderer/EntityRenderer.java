@@ -2095,7 +2095,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
          this.updatedWorld = world;
       }
 
-      if (!this.setFxaaShader(Shaders.configAntialiasingLevel)) {
+      if (this.setFxaaShader(Shaders.configAntialiasingLevel)) {
          Shaders.configAntialiasingLevel = 0;
       }
 

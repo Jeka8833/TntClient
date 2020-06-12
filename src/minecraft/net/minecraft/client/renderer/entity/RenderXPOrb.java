@@ -36,9 +36,9 @@ public class RenderXPOrb extends Render
         GlStateManager.translate((float)x, (float)y, (float)z);
         this.bindEntityTexture(entity);
         int i = entity.getTextureByXP();
-        float f = (float)(i % 4 * 16 + 0) / 64.0F;
+        float f = (float)(i % 4 * 16) / 64.0F;
         float f1 = (float)(i % 4 * 16 + 16) / 64.0F;
-        float f2 = (float)(i / 4 * 16 + 0) / 64.0F;
+        float f2 = (float)(i / 4 * 16) / 64.0F;
         float f3 = (float)(i / 4 * 16 + 16) / 64.0F;
         float f4 = 1.0F;
         float f5 = 0.5F;
@@ -76,10 +76,10 @@ public class RenderXPOrb extends Render
             }
         }
 
-        worldrenderer.pos((double)(0.0F - f5), (double)(0.0F - f6), 0.0D).tex((double)f, (double)f3).color(j1, k1, l1, 128).normal(0.0F, 1.0F, 0.0F).endVertex();
-        worldrenderer.pos((double)(f4 - f5), (double)(0.0F - f6), 0.0D).tex((double)f1, (double)f3).color(j1, k1, l1, 128).normal(0.0F, 1.0F, 0.0F).endVertex();
-        worldrenderer.pos((double)(f4 - f5), (double)(1.0F - f6), 0.0D).tex((double)f1, (double)f2).color(j1, k1, l1, 128).normal(0.0F, 1.0F, 0.0F).endVertex();
-        worldrenderer.pos((double)(0.0F - f5), (double)(1.0F - f6), 0.0D).tex((double)f, (double)f2).color(j1, k1, l1, 128).normal(0.0F, 1.0F, 0.0F).endVertex();
+        worldrenderer.pos(0.0F - f5, 0.0F - f6, 0.0D).tex(f, f3).color(j1, k1, l1, 128).normal(0.0F, 1.0F, 0.0F).endVertex();
+        worldrenderer.pos(f4 - f5, 0.0F - f6, 0.0D).tex(f1, f3).color(j1, k1, l1, 128).normal(0.0F, 1.0F, 0.0F).endVertex();
+        worldrenderer.pos(f4 - f5, 1.0F - f6, 0.0D).tex(f1, f2).color(j1, k1, l1, 128).normal(0.0F, 1.0F, 0.0F).endVertex();
+        worldrenderer.pos(0.0F - f5, 1.0F - f6, 0.0D).tex(f, f2).color(j1, k1, l1, 128).normal(0.0F, 1.0F, 0.0F).endVertex();
         tessellator.draw();
         GlStateManager.disableBlend();
         GlStateManager.disableRescaleNormal();
@@ -90,7 +90,7 @@ public class RenderXPOrb extends Render
     /**
      * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
      */
-    protected ResourceLocation getEntityTexture(EntityXPOrb entity)
+    protected ResourceLocation getEntityTexture()
     {
         return experienceOrbTextures;
     }
@@ -100,7 +100,7 @@ public class RenderXPOrb extends Render
      */
     protected ResourceLocation getEntityTexture(Entity entity)
     {
-        return this.getEntityTexture((EntityXPOrb)entity);
+        return this.getEntityTexture();
     }
 
     /**

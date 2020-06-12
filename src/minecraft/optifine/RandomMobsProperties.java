@@ -9,8 +9,8 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class RandomMobsProperties
 {
-    public String name;
-    public String basePath;
+    public final String name;
+    public final String basePath;
     public ResourceLocation[] resourceLocations = null;
     public RandomMobsRule[] rules = null;
 

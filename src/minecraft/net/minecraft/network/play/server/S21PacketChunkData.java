@@ -79,13 +79,13 @@ public class S21PacketChunkData implements Packet<INetHandlerPlayClient>
     {
         ExtendedBlockStorage[] aextendedblockstorage = p_179756_0_.getBlockStorageArray();
         S21PacketChunkData.Extracted s21packetchunkdata$extracted = new S21PacketChunkData.Extracted();
-        List<ExtendedBlockStorage> list = Lists.<ExtendedBlockStorage>newArrayList();
+        List<ExtendedBlockStorage> list = Lists.newArrayList();
 
         for (int i = 0; i < aextendedblockstorage.length; ++i)
         {
             ExtendedBlockStorage extendedblockstorage = aextendedblockstorage[i];
 
-            if (extendedblockstorage != null && (!p_179756_1_ || !extendedblockstorage.isEmpty()) && (p_179756_3_ & 1 << i) != 0)
+            if (extendedblockstorage != null && (!p_179756_1_ || extendedblockstorage.isEmpty()) && (p_179756_3_ & 1 << i) != 0)
             {
                 s21packetchunkdata$extracted.dataSize |= 1 << i;
                 list.add(extendedblockstorage);

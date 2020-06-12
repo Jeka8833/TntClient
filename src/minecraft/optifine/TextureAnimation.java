@@ -123,7 +123,7 @@ public class TextureAnimation
         return this.frames.length;
     }
 
-    public boolean updateTexture()
+    public void updateTexture()
     {
         if (this.dstTextId < 0)
         {
@@ -131,7 +131,7 @@ public class TextureAnimation
 
             if (itextureobject == null)
             {
-                return false;
+                return;
             }
 
             this.dstTextId = itextureobject.getGlTextureId();
@@ -146,7 +146,6 @@ public class TextureAnimation
 
         if (!this.nextFrame())
         {
-            return false;
         }
         else
         {
@@ -156,14 +155,12 @@ public class TextureAnimation
 
             if (j + k > this.imageData.capacity())
             {
-                return false;
             }
             else
             {
                 this.imageData.position(j);
                 GlStateManager.bindTexture(this.dstTextId);
-                GL11.glTexSubImage2D(GL11.GL_TEXTURE_2D, 0, this.dstX, this.dstY, this.frameWidth, this.frameHeight, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, (ByteBuffer)this.imageData);
-                return true;
+                GL11.glTexSubImage2D(GL11.GL_TEXTURE_2D, 0, this.dstX, this.dstY, this.frameWidth, this.frameHeight, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, this.imageData);
             }
         }
     }

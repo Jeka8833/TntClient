@@ -5,7 +5,6 @@ import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ChatComponentTranslation;
-import net.minecraft.util.IProgressUpdate;
 import net.minecraft.world.MinecraftException;
 import net.minecraft.world.WorldServer;
 
@@ -22,7 +21,7 @@ public class CommandSaveAll extends CommandBase
     /**
      * Gets the usage string for the command.
      */
-    public String getCommandUsage(ICommandSender sender)
+    public String getCommandUsage()
     {
         return "commands.save.usage";
     }
@@ -33,7 +32,7 @@ public class CommandSaveAll extends CommandBase
     public void processCommand(ICommandSender sender, String[] args) throws CommandException
     {
         MinecraftServer minecraftserver = MinecraftServer.getServer();
-        sender.addChatMessage(new ChatComponentTranslation("commands.save.start", new Object[0]));
+        sender.addChatMessage(new ChatComponentTranslation("commands.save.start"));
 
         if (minecraftserver.getConfigurationManager() != null)
         {
@@ -49,14 +48,14 @@ public class CommandSaveAll extends CommandBase
                     WorldServer worldserver = minecraftserver.worldServers[i];
                     boolean flag = worldserver.disableLevelSaving;
                     worldserver.disableLevelSaving = false;
-                    worldserver.saveAllChunks(true, (IProgressUpdate)null);
+                    worldserver.saveAllChunks(true, null);
                     worldserver.disableLevelSaving = flag;
                 }
             }
 
             if (args.length > 0 && "flush".equals(args[0]))
             {
-                sender.addChatMessage(new ChatComponentTranslation("commands.save.flushStart", new Object[0]));
+                sender.addChatMessage(new ChatComponentTranslation("commands.save.flushStart"));
 
                 for (int j = 0; j < minecraftserver.worldServers.length; ++j)
                 {
@@ -70,15 +69,15 @@ public class CommandSaveAll extends CommandBase
                     }
                 }
 
-                sender.addChatMessage(new ChatComponentTranslation("commands.save.flushEnd", new Object[0]));
+                sender.addChatMessage(new ChatComponentTranslation("commands.save.flushEnd"));
             }
         }
         catch (MinecraftException minecraftexception)
         {
-            notifyOperators(sender, this, "commands.save.failed", new Object[] {minecraftexception.getMessage()});
+            notifyOperators(sender, this, "commands.save.failed", minecraftexception.getMessage());
             return;
         }
 
-        notifyOperators(sender, this, "commands.save.success", new Object[0]);
+        notifyOperators(sender, this, "commands.save.success");
     }
 }

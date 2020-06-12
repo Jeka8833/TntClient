@@ -12,8 +12,8 @@ public class BiomeCache
 
     /** The last time this BiomeCache was cleaned, in milliseconds. */
     private long lastCleanupTime;
-    private LongHashMap cacheMap = new LongHashMap();
-    private List<BiomeCache.Block> cache = Lists.<BiomeCache.Block>newArrayList();
+    private final LongHashMap cacheMap = new LongHashMap();
+    private final List<BiomeCache.Block> cache = Lists.newArrayList();
 
     public BiomeCache(WorldChunkManager chunkManagerIn)
     {
@@ -61,7 +61,7 @@ public class BiomeCache
 
             for (int k = 0; k < this.cache.size(); ++k)
             {
-                BiomeCache.Block biomecache$block = (BiomeCache.Block)this.cache.get(k);
+                BiomeCache.Block biomecache$block = this.cache.get(k);
                 long l = i - biomecache$block.lastAccessTime;
 
                 if (l > 30000L || l < 0L)
@@ -84,10 +84,10 @@ public class BiomeCache
 
     public class Block
     {
-        public float[] rainfallValues = new float[256];
-        public BiomeGenBase[] biomes = new BiomeGenBase[256];
-        public int xPosition;
-        public int zPosition;
+        public final float[] rainfallValues = new float[256];
+        public final BiomeGenBase[] biomes = new BiomeGenBase[256];
+        public final int xPosition;
+        public final int zPosition;
         public long lastAccessTime;
 
         public Block(int x, int z)

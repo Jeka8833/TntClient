@@ -24,7 +24,7 @@ public abstract class BanEntry<T> extends UserListEntry<T>
 
     protected BanEntry(T p_i1174_1_, JsonObject p_i1174_2_)
     {
-        super(p_i1174_1_, p_i1174_2_);
+        super(p_i1174_1_);
         Date date;
 
         try
@@ -65,7 +65,7 @@ public abstract class BanEntry<T> extends UserListEntry<T>
 
     boolean hasBanExpired()
     {
-        return this.banEndDate == null ? false : this.banEndDate.before(new Date());
+        return this.banEndDate != null && this.banEndDate.before(new Date());
     }
 
     protected void onSerialization(JsonObject data)

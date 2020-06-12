@@ -9,9 +9,9 @@ import optifine.StrUtils;
 
 public class ShaderPackFolder implements IShaderPack
 {
-    protected File packFile;
+    protected final File packFile;
 
-    public ShaderPackFolder(String name, File file)
+    public ShaderPackFolder(File file)
     {
         this.packFile = file;
     }
@@ -37,7 +37,7 @@ public class ShaderPackFolder implements IShaderPack
     public boolean hasDirectory(String name)
     {
         File file1 = new File(this.packFile, name.substring(1));
-        return !file1.exists() ? false : file1.isDirectory();
+        return file1.exists() && file1.isDirectory();
     }
 
     public String getName()

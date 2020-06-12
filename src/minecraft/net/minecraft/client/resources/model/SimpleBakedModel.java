@@ -30,7 +30,7 @@ public class SimpleBakedModel implements IBakedModel
 
     public List<BakedQuad> getFaceQuads(EnumFacing p_177551_1_)
     {
-        return (List)this.faceQuads.get(p_177551_1_.ordinal());
+        return this.faceQuads.get(p_177551_1_.ordinal());
     }
 
     public List<BakedQuad> getGeneralQuads()
@@ -69,8 +69,8 @@ public class SimpleBakedModel implements IBakedModel
         private final List<List<BakedQuad>> builderFaceQuads;
         private final boolean builderAmbientOcclusion;
         private TextureAtlasSprite builderTexture;
-        private boolean builderGui3d;
-        private ItemCameraTransforms builderCameraTransforms;
+        private final boolean builderGui3d;
+        private final ItemCameraTransforms builderCameraTransforms;
 
         public Builder(ModelBlock p_i46074_1_)
         {
@@ -108,12 +108,12 @@ public class SimpleBakedModel implements IBakedModel
 
         private Builder(boolean p_i46076_1_, boolean p_i46076_2_, ItemCameraTransforms p_i46076_3_)
         {
-            this.builderGeneralQuads = Lists.<BakedQuad>newArrayList();
-            this.builderFaceQuads = Lists.<List<BakedQuad>>newArrayListWithCapacity(6);
+            this.builderGeneralQuads = Lists.newArrayList();
+            this.builderFaceQuads = Lists.newArrayListWithCapacity(6);
 
             for (EnumFacing enumfacing : EnumFacing.values())
             {
-                this.builderFaceQuads.add(Lists.<BakedQuad>newArrayList());
+                this.builderFaceQuads.add(Lists.newArrayList());
             }
 
             this.builderAmbientOcclusion = p_i46076_1_;
@@ -121,16 +121,14 @@ public class SimpleBakedModel implements IBakedModel
             this.builderCameraTransforms = p_i46076_3_;
         }
 
-        public SimpleBakedModel.Builder addFaceQuad(EnumFacing p_177650_1_, BakedQuad p_177650_2_)
+        public void addFaceQuad(EnumFacing p_177650_1_, BakedQuad p_177650_2_)
         {
-            ((List)this.builderFaceQuads.get(p_177650_1_.ordinal())).add(p_177650_2_);
-            return this;
+            this.builderFaceQuads.get(p_177650_1_.ordinal()).add(p_177650_2_);
         }
 
-        public SimpleBakedModel.Builder addGeneralQuad(BakedQuad p_177648_1_)
+        public void addGeneralQuad(BakedQuad p_177648_1_)
         {
             this.builderGeneralQuads.add(p_177648_1_);
-            return this;
         }
 
         public SimpleBakedModel.Builder setTexture(TextureAtlasSprite p_177646_1_)

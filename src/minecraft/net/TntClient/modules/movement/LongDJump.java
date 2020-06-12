@@ -11,8 +11,8 @@ public class LongDJump extends Module {
 
     private static boolean jump = false;
     private static long time = 0;
-    public float XZPower = 1.5f;
-    public float YPower = 1.16f;
+    public final float XZPower = 1.5f;
+    public final float YPower = 1.16f;
 
     public LongDJump() {
         super("Long DJump", Category.MOVEMENT, false, true, true);

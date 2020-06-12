@@ -4,9 +4,9 @@ import net.minecraft.util.ResourceLocation;
 
 public class EnchantmentLootBonus extends Enchantment
 {
-    protected EnchantmentLootBonus(int p_i45767_1_, ResourceLocation p_i45767_2_, int p_i45767_3_, EnumEnchantmentType p_i45767_4_)
+    protected EnchantmentLootBonus(int p_i45767_1_, ResourceLocation p_i45767_2_, EnumEnchantmentType p_i45767_4_)
     {
-        super(p_i45767_1_, p_i45767_2_, p_i45767_3_, p_i45767_4_);
+        super(p_i45767_1_, p_i45767_2_, 2, p_i45767_4_);
 
         if (p_i45767_4_ == EnumEnchantmentType.DIGGER)
         {
@@ -51,6 +51,6 @@ public class EnchantmentLootBonus extends Enchantment
      */
     public boolean canApplyTogether(Enchantment ench)
     {
-        return super.canApplyTogether(ench) && ench.effectId != silkTouch.effectId;
+        return super.canApplyTogether(ench) || ench.effectId == silkTouch.effectId;
     }
 }

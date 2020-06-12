@@ -29,11 +29,11 @@ public class TextureCompass extends TextureAtlasSprite
 
         if (minecraft.theWorld != null && minecraft.thePlayer != null)
         {
-            this.updateCompass(minecraft.theWorld, minecraft.thePlayer.posX, minecraft.thePlayer.posZ, (double)minecraft.thePlayer.rotationYaw, false, false);
+            this.updateCompass(minecraft.theWorld, minecraft.thePlayer.posX, minecraft.thePlayer.posZ, minecraft.thePlayer.rotationYaw, false, false);
         }
         else
         {
-            this.updateCompass((World)null, 0.0D, 0.0D, 0.0D, true, false);
+            this.updateCompass(null, 0.0D, 0.0D, 0.0D, true, false);
         }
     }
 
@@ -70,7 +70,6 @@ public class TextureCompass extends TextureAtlasSprite
 
                 for (d3 = d0 - this.currentAngle; d3 < -Math.PI; d3 += (Math.PI * 2D))
                 {
-                    ;
                 }
 
                 while (d3 >= Math.PI)
@@ -88,7 +87,6 @@ public class TextureCompass extends TextureAtlasSprite
 
             for (i = (int)((this.currentAngle / (Math.PI * 2D) + 1.0D) * (double)this.framesTextureData.size()) % this.framesTextureData.size(); i < 0; i = (i + this.framesTextureData.size()) % this.framesTextureData.size())
             {
-                ;
             }
 
             if (i != this.frameCounter)
@@ -97,11 +95,11 @@ public class TextureCompass extends TextureAtlasSprite
 
                 if (Config.isShaders())
                 {
-                    ShadersTex.uploadTexSub((int[][])((int[][])this.framesTextureData.get(this.frameCounter)), this.width, this.height, this.originX, this.originY, false, false);
+                    ShadersTex.uploadTexSub((int[][]) this.framesTextureData.get(this.frameCounter), this.width, this.height, this.originX, this.originY, false, false);
                 }
                 else
                 {
-                    TextureUtil.uploadTextureMipmap((int[][])((int[][])this.framesTextureData.get(this.frameCounter)), this.width, this.height, this.originX, this.originY, false, false);
+                    TextureUtil.uploadTextureMipmap((int[][]) this.framesTextureData.get(this.frameCounter), this.width, this.height, this.originX, this.originY, false, false);
                 }
             }
         }

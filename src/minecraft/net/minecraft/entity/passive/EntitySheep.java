@@ -43,7 +43,7 @@ public class EntitySheep extends EntityAnimal
     {
         public boolean canInteractWith(EntityPlayer playerIn)
         {
-            return false;
+            return true;
         }
     }, 2, 1);
     private static final Map<EnumDyeColor, float[]> DYE_TO_RGB = Maps.newEnumMap(EnumDyeColor.class);
@@ -53,11 +53,11 @@ public class EntitySheep extends EntityAnimal
      * tick.
      */
     private int sheepTimer;
-    private EntityAIEatGrass entityAIEatGrass = new EntityAIEatGrass(this);
+    private final EntityAIEatGrass entityAIEatGrass = new EntityAIEatGrass(this);
 
     public static float[] func_175513_a(EnumDyeColor dyeColor)
     {
-        return (float[])DYE_TO_RGB.get(dyeColor);
+        return DYE_TO_RGB.get(dyeColor);
     }
 
     public EntitySheep(World worldIn)
@@ -108,7 +108,7 @@ public class EntitySheep extends EntityAnimal
     protected void entityInit()
     {
         super.entityInit();
-        this.dataWatcher.addObject(16, new Byte((byte)0));
+        this.dataWatcher.addObject(16, (byte) 0);
     }
 
     /**
@@ -188,9 +188,9 @@ public class EntitySheep extends EntityAnimal
                 for (int j = 0; j < i; ++j)
                 {
                     EntityItem entityitem = this.entityDropItem(new ItemStack(Item.getItemFromBlock(Blocks.wool), 1, this.getFleeceColor().getMetadata()), 1.0F);
-                    entityitem.motionY += (double)(this.rand.nextFloat() * 0.05F);
-                    entityitem.motionX += (double)((this.rand.nextFloat() - this.rand.nextFloat()) * 0.1F);
-                    entityitem.motionZ += (double)((this.rand.nextFloat() - this.rand.nextFloat()) * 0.1F);
+                    entityitem.motionY += this.rand.nextFloat() * 0.05F;
+                    entityitem.motionX += (this.rand.nextFloat() - this.rand.nextFloat()) * 0.1F;
+                    entityitem.motionZ += (this.rand.nextFloat() - this.rand.nextFloat()) * 0.1F;
                 }
             }
 
@@ -264,7 +264,7 @@ public class EntitySheep extends EntityAnimal
     public void setFleeceColor(EnumDyeColor color)
     {
         byte b0 = this.dataWatcher.getWatchableObjectByte(16);
-        this.dataWatcher.updateObject(16, Byte.valueOf((byte)(b0 & 240 | color.getMetadata() & 15)));
+        this.dataWatcher.updateObject(16, (byte) (b0 & 240 | color.getMetadata() & 15));
     }
 
     /**
@@ -284,11 +284,11 @@ public class EntitySheep extends EntityAnimal
 
         if (sheared)
         {
-            this.dataWatcher.updateObject(16, Byte.valueOf((byte)(b0 | 16)));
+            this.dataWatcher.updateObject(16, (byte) (b0 | 16));
         }
         else
         {
-            this.dataWatcher.updateObject(16, Byte.valueOf((byte)(b0 & -17)));
+            this.dataWatcher.updateObject(16, (byte) (b0 & -17));
         }
     }
 

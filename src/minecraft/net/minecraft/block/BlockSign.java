@@ -42,7 +42,7 @@ public class BlockSign extends BlockContainer
 
     public boolean isPassable(IBlockAccess worldIn, BlockPos pos)
     {
-        return true;
+        return false;
     }
 
     /**
@@ -61,7 +61,7 @@ public class BlockSign extends BlockContainer
     /**
      * Returns a new instance of a block's tile entity class. Called on placing the block.
      */
-    public TileEntity createNewTileEntity(World worldIn, int meta)
+    public TileEntity createNewTileEntity(int meta)
     {
         return new TileEntitySign();
     }
@@ -88,12 +88,12 @@ public class BlockSign extends BlockContainer
         else
         {
             TileEntity tileentity = worldIn.getTileEntity(pos);
-            return tileentity instanceof TileEntitySign ? ((TileEntitySign)tileentity).executeCommand(playerIn) : false;
+            return tileentity instanceof TileEntitySign && ((TileEntitySign) tileentity).executeCommand(playerIn);
         }
     }
 
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
     {
-        return !this.func_181087_e(worldIn, pos) && super.canPlaceBlockAt(worldIn, pos);
+        return this.func_181087_e(worldIn, pos) && super.canPlaceBlockAt(worldIn, pos);
     }
 }

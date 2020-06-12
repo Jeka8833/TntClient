@@ -25,7 +25,7 @@ public class NettyEncryptionTranslator
             this.field_150505_b = new byte[i];
         }
 
-        p_150502_1_.readBytes((byte[])this.field_150505_b, 0, i);
+        p_150502_1_.readBytes(this.field_150505_b, 0, i);
         return this.field_150505_b;
     }
 
@@ -49,6 +49,6 @@ public class NettyEncryptionTranslator
             this.field_150506_c = new byte[j];
         }
 
-        p_150504_2_.writeBytes((byte[])this.field_150506_c, 0, this.cipher.update(abyte, 0, i, this.field_150506_c));
+        p_150504_2_.writeBytes(this.field_150506_c, 0, this.cipher.update(abyte, 0, i, this.field_150506_c));
     }
 }

@@ -2,7 +2,7 @@ package net.minecraft.block;
 
 import java.util.List;
 import java.util.Random;
-import net.minecraft.block.properties.IProperty;
+
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockState;
@@ -26,12 +26,12 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class BlockSapling extends BlockBush implements IGrowable
 {
-    public static final PropertyEnum<BlockPlanks.EnumType> TYPE = PropertyEnum.<BlockPlanks.EnumType>create("type", BlockPlanks.EnumType.class);
+    public static final PropertyEnum<BlockPlanks.EnumType> TYPE = PropertyEnum.create("type", BlockPlanks.EnumType.class);
     public static final PropertyInteger STAGE = PropertyInteger.create("stage", 0, 1);
 
     protected BlockSapling()
     {
-        this.setDefaultState(this.blockState.getBaseState().withProperty(TYPE, BlockPlanks.EnumType.OAK).withProperty(STAGE, Integer.valueOf(0)));
+        this.setDefaultState(this.blockState.getBaseState().withProperty(TYPE, BlockPlanks.EnumType.OAK).withProperty(STAGE, 0));
         float f = 0.4F;
         this.setBlockBounds(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, f * 2.0F, 0.5F + f);
         this.setCreativeTab(CreativeTabs.tabDecorations);
@@ -60,7 +60,7 @@ public class BlockSapling extends BlockBush implements IGrowable
 
     public void grow(World worldIn, BlockPos pos, IBlockState state, Random rand)
     {
-        if (((Integer)state.getValue(STAGE)).intValue() == 0)
+        if (state.getValue(STAGE) == 0)
         {
             worldIn.setBlockState(pos, state.cycleProperty(STAGE), 4);
         }
@@ -72,12 +72,12 @@ public class BlockSapling extends BlockBush implements IGrowable
 
     public void generateTree(World worldIn, BlockPos pos, IBlockState state, Random rand)
     {
-        WorldGenerator worldgenerator = (WorldGenerator)(rand.nextInt(10) == 0 ? new WorldGenBigTree(true) : new WorldGenTrees(true));
+        WorldGenerator worldgenerator = rand.nextInt(10) == 0 ? new WorldGenBigTree(true) : new WorldGenTrees(true);
         int i = 0;
         int j = 0;
         boolean flag = false;
 
-        switch ((BlockPlanks.EnumType)state.getValue(TYPE))
+        switch (state.getValue(TYPE))
         {
             case SPRUCE:
                 label114:
@@ -109,7 +109,7 @@ public class BlockSapling extends BlockBush implements IGrowable
 
             case JUNGLE:
                 IBlockState iblockstate = Blocks.log.getDefaultState().withProperty(BlockOldLog.VARIANT, BlockPlanks.EnumType.JUNGLE);
-                IBlockState iblockstate1 = Blocks.leaves.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.EnumType.JUNGLE).withProperty(BlockLeaves.CHECK_DECAY, Boolean.valueOf(false));
+                IBlockState iblockstate1 = Blocks.leaves.getDefaultState().withProperty(BlockOldLeaf.VARIANT, BlockPlanks.EnumType.JUNGLE).withProperty(BlockLeaves.CHECK_DECAY, Boolean.FALSE);
                 label269:
 
                 for (i = 0; i >= -1; --i)
@@ -211,7 +211,7 @@ public class BlockSapling extends BlockBush implements IGrowable
      */
     public int damageDropped(IBlockState state)
     {
-        return ((BlockPlanks.EnumType)state.getValue(TYPE)).getMetadata();
+        return state.getValue(TYPE).getMetadata();
     }
 
     /**
@@ -228,12 +228,12 @@ public class BlockSapling extends BlockBush implements IGrowable
     /**
      * Whether this IGrowable can grow
      */
-    public boolean canGrow(World worldIn, BlockPos pos, IBlockState state, boolean isClient)
+    public boolean canGrow(World worldIn, BlockPos pos, IBlockState state)
     {
         return true;
     }
 
-    public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, IBlockState state)
+    public boolean canUseBonemeal(World worldIn, Random rand)
     {
         return (double)worldIn.rand.nextFloat() < 0.45D;
     }
@@ -248,7 +248,7 @@ public class BlockSapling extends BlockBush implements IGrowable
      */
     public IBlockState getStateFromMeta(int meta)
     {
-        return this.getDefaultState().withProperty(TYPE, BlockPlanks.EnumType.byMetadata(meta & 7)).withProperty(STAGE, Integer.valueOf((meta & 8) >> 3));
+        return this.getDefaultState().withProperty(TYPE, BlockPlanks.EnumType.byMetadata(meta & 7)).withProperty(STAGE, (meta & 8) >> 3);
     }
 
     /**
@@ -257,13 +257,13 @@ public class BlockSapling extends BlockBush implements IGrowable
     public int getMetaFromState(IBlockState state)
     {
         int i = 0;
-        i = i | ((BlockPlanks.EnumType)state.getValue(TYPE)).getMetadata();
-        i = i | ((Integer)state.getValue(STAGE)).intValue() << 3;
+        i = i | state.getValue(TYPE).getMetadata();
+        i = i | state.getValue(STAGE) << 3;
         return i;
     }
 
     protected BlockState createBlockState()
     {
-        return new BlockState(this, new IProperty[] {TYPE, STAGE});
+        return new BlockState(this, TYPE, STAGE);
     }
 }

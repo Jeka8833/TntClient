@@ -12,7 +12,7 @@ public interface IMerchant
 
     EntityPlayer getCustomer();
 
-    MerchantRecipeList getRecipes(EntityPlayer p_70934_1_);
+    MerchantRecipeList getRecipes();
 
     void setRecipes(MerchantRecipeList recipeList);
 

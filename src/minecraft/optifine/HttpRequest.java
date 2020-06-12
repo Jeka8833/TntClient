@@ -6,14 +6,14 @@ import java.util.Map;
 
 public class HttpRequest
 {
-    private String host;
+    private final String host;
     private int port;
-    private Proxy proxy;
-    private String method;
-    private String file;
-    private String http;
+    private final Proxy proxy;
+    private final String method;
+    private final String file;
+    private final String http;
     private Map<String, String> headers = new LinkedHashMap();
-    private byte[] body;
+    private final byte[] body;
     private int redirects = 0;
 
     public HttpRequest(String p_i60_1_, int p_i60_2_, Proxy p_i60_3_, String p_i60_4_, String p_i60_5_, String p_i60_6_, Map<String, String> p_i60_7_, byte[] p_i60_8_)

@@ -6,7 +6,7 @@ import net.minecraft.util.AxisAlignedBB;
 
 public class EntityAIHurtByTarget extends EntityAITarget
 {
-    private boolean entityCallsForHelp;
+    private final boolean entityCallsForHelp;
 
     /** Store the previous revengeTimer value */
     private int revengeTimerOld;
@@ -26,7 +26,7 @@ public class EntityAIHurtByTarget extends EntityAITarget
     public boolean shouldExecute()
     {
         int i = this.taskOwner.getRevengeTimer();
-        return i != this.revengeTimerOld && this.isSuitableTarget(this.taskOwner.getAITarget(), false);
+        return i != this.revengeTimerOld && this.isSuitableTarget(this.taskOwner.getAITarget());
     }
 
     /**

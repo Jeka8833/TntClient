@@ -10,10 +10,10 @@ import optifine.StrUtils;
 
 public class ShaderPackZip implements IShaderPack
 {
-    protected File packFile;
+    protected final File packFile;
     protected ZipFile packZipFile;
 
-    public ShaderPackZip(String name, File file)
+    public ShaderPackZip(File file)
     {
         this.packFile = file;
         this.packZipFile = null;
@@ -27,9 +27,8 @@ public class ShaderPackZip implements IShaderPack
             {
                 this.packZipFile.close();
             }
-            catch (Exception var2)
+            catch (Exception ignored)
             {
-                ;
             }
 
             this.packZipFile = null;

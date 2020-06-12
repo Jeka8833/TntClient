@@ -114,7 +114,7 @@ public class Chunk {
      * Contains the current round-robin relight check index, and is implied as the relight check location as well.
      */
     private int queuedLightChecks;
-    private ConcurrentLinkedQueue<BlockPos> tileEntityPosQueue;
+    private final ConcurrentLinkedQueue<BlockPos> tileEntityPosQueue;
 
     public Chunk(World worldIn, int x, int z) {
         this.storageArrays = new ExtendedBlockStorage[16];
@@ -619,7 +619,7 @@ public class Chunk {
                     TileEntity tileentity1 = this.getTileEntity(pos, Chunk.EnumCreateEntityType.CHECK);
 
                     if (tileentity1 == null) {
-                        tileentity1 = ((ITileEntityProvider) block).createNewTileEntity(this.worldObj, block.getMetaFromState(state));
+                        tileentity1 = ((ITileEntityProvider) block).createNewTileEntity(block.getMetaFromState(state));
                         this.worldObj.setTileEntity(pos, tileentity1);
                     }
 
@@ -694,7 +694,7 @@ public class Chunk {
         int j = MathHelper.floor_double(entityIn.posZ / 16.0D);
 
         if (i != this.xPosition || j != this.zPosition) {
-            logger.warn("Wrong location! (" + i + ", " + j + ") should be (" + this.xPosition + ", " + this.zPosition + "), " + entityIn, entityIn);
+            logger.warn("Wrong location! (" + i + ", " + j + ") should be (" + this.xPosition + ", " + this.zPosition + "), " + entityIn);
             entityIn.setDead();
         }
 
@@ -746,7 +746,7 @@ public class Chunk {
 
     private TileEntity createNewTileEntity(BlockPos pos) {
         Block block = this.getBlock(pos);
-        return !block.hasTileEntity() ? null : ((ITileEntityProvider) block).createNewTileEntity(this.worldObj, this.getBlockMetadata(pos));
+        return !block.hasTileEntity() ? null : ((ITileEntityProvider) block).createNewTileEntity(this.getBlockMetadata(pos));
     }
 
     public TileEntity getTileEntity(BlockPos pos, Chunk.EnumCreateEntityType p_177424_2_) {
@@ -1035,7 +1035,7 @@ public class Chunk {
         for (int i = startY; i <= endY; i += 16) {
             ExtendedBlockStorage extendedblockstorage = this.storageArrays[i >> 4];
 
-            if (extendedblockstorage != null && !extendedblockstorage.isEmpty()) {
+            if (extendedblockstorage != null && extendedblockstorage.isEmpty()) {
                 return false;
             }
         }

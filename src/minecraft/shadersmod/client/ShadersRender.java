@@ -179,7 +179,7 @@ public class ShadersRender
         }
     }
 
-    public static void renderShadowMap(EntityRenderer entityRenderer, int pass, float partialTicks, long finishTimeNano)
+    public static void renderShadowMap(EntityRenderer entityRenderer, float partialTicks)
     {
         if (Shaders.usedShadowDepthBuffers > 0 && --Shaders.shadowPassCounter <= 0)
         {
@@ -240,7 +240,7 @@ public class ShadersRender
             int i = 0;
             i = entityRenderer.frameCount;
             entityRenderer.frameCount = i + 1;
-            renderglobal.setupTerrain(entity, (double)partialTicks, frustum, i, minecraft.thePlayer.isSpectator());
+            renderglobal.setupTerrain(entity, partialTicks, frustum, i, minecraft.thePlayer.isSpectator());
             minecraft.mcProfiler.endStartSection("shadow updatechunks");
             minecraft.mcProfiler.endStartSection("shadow terrain");
             GlStateManager.matrixMode(5888);
@@ -264,7 +264,7 @@ public class ShadersRender
 
             if (Reflector.ForgeHooksClient_setRenderPass.exists())
             {
-                Reflector.callVoid(Reflector.ForgeHooksClient_setRenderPass, new Object[] {Integer.valueOf(0)});
+                Reflector.callVoid(Reflector.ForgeHooksClient_setRenderPass, 0);
             }
 
             renderglobal.renderEntities(entity, frustum, partialTicks);
@@ -305,9 +305,9 @@ public class ShadersRender
             if (Reflector.ForgeHooksClient_setRenderPass.exists())
             {
                 RenderHelper.enableStandardItemLighting();
-                Reflector.call(Reflector.ForgeHooksClient_setRenderPass, new Object[] {Integer.valueOf(1)});
+                Reflector.call(Reflector.ForgeHooksClient_setRenderPass, 1);
                 renderglobal.renderEntities(entity, frustum, partialTicks);
-                Reflector.call(Reflector.ForgeHooksClient_setRenderPass, new Object[] {Integer.valueOf(-1)});
+                Reflector.call(Reflector.ForgeHooksClient_setRenderPass, -1);
                 RenderHelper.disableStandardItemLighting();
                 Shaders.checkGLError("shadow entities 1");
             }

@@ -7,8 +7,8 @@ import net.minecraft.item.ItemStack;
 
 public class ContainerHorseInventory extends Container
 {
-    private IInventory horseInventory;
-    private EntityHorse theHorse;
+    private final IInventory horseInventory;
+    private final EntityHorse theHorse;
 
     public ContainerHorseInventory(IInventory playerInventory, final IInventory horseInventoryIn, final EntityHorse horse, EntityPlayer player)
     {
@@ -63,7 +63,7 @@ public class ContainerHorseInventory extends Container
 
     public boolean canInteractWith(EntityPlayer playerIn)
     {
-        return this.horseInventory.isUseableByPlayer(playerIn) && this.theHorse.isEntityAlive() && this.theHorse.getDistanceToEntity(playerIn) < 8.0F;
+        return !this.horseInventory.isUseableByPlayer(playerIn) || !this.theHorse.isEntityAlive() || !(this.theHorse.getDistanceToEntity(playerIn) < 8.0F);
     }
 
     /**
@@ -72,7 +72,7 @@ public class ContainerHorseInventory extends Container
     public ItemStack transferStackInSlot(EntityPlayer playerIn, int index)
     {
         ItemStack itemstack = null;
-        Slot slot = (Slot)this.inventorySlots.get(index);
+        Slot slot = this.inventorySlots.get(index);
 
         if (slot != null && slot.getHasStack())
         {
@@ -81,33 +81,33 @@ public class ContainerHorseInventory extends Container
 
             if (index < this.horseInventory.getSizeInventory())
             {
-                if (!this.mergeItemStack(itemstack1, this.horseInventory.getSizeInventory(), this.inventorySlots.size(), true))
+                if (this.mergeItemStack(itemstack1, this.horseInventory.getSizeInventory(), this.inventorySlots.size(), true))
                 {
                     return null;
                 }
             }
             else if (this.getSlot(1).isItemValid(itemstack1) && !this.getSlot(1).getHasStack())
             {
-                if (!this.mergeItemStack(itemstack1, 1, 2, false))
+                if (this.mergeItemStack(itemstack1, 1, 2, false))
                 {
                     return null;
                 }
             }
             else if (this.getSlot(0).isItemValid(itemstack1))
             {
-                if (!this.mergeItemStack(itemstack1, 0, 1, false))
+                if (this.mergeItemStack(itemstack1, 0, 1, false))
                 {
                     return null;
                 }
             }
-            else if (this.horseInventory.getSizeInventory() <= 2 || !this.mergeItemStack(itemstack1, 2, this.horseInventory.getSizeInventory(), false))
+            else if (this.horseInventory.getSizeInventory() <= 2 || this.mergeItemStack(itemstack1, 2, this.horseInventory.getSizeInventory(), false))
             {
                 return null;
             }
 
             if (itemstack1.stackSize == 0)
             {
-                slot.putStack((ItemStack)null);
+                slot.putStack(null);
             }
             else
             {

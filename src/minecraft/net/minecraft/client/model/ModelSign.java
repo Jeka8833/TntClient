@@ -3,10 +3,10 @@ package net.minecraft.client.model;
 public class ModelSign extends ModelBase
 {
     /** The board on a sign that has the writing on it. */
-    public ModelRenderer signBoard = new ModelRenderer(this, 0, 0);
+    public final ModelRenderer signBoard = new ModelRenderer(this, 0, 0);
 
     /** The stick a sign stands on. */
-    public ModelRenderer signStick;
+    public final ModelRenderer signStick;
 
     public ModelSign()
     {

@@ -27,15 +27,10 @@ public class ItemLead extends Item
 
         if (block instanceof BlockFence)
         {
-            if (worldIn.isRemote)
-            {
-                return true;
-            }
-            else
-            {
+            if (!worldIn.isRemote) {
                 attachToFence(playerIn, worldIn, pos);
-                return true;
             }
+            return true;
         }
         else
         {

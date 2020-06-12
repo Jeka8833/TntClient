@@ -13,7 +13,7 @@ public interface ICommand extends Comparable<ICommand>
     /**
      * Gets the usage string for the command.
      */
-    String getCommandUsage(ICommandSender sender);
+    String getCommandUsage();
 
     List<String> getCommandAliases();
 
@@ -27,7 +27,7 @@ public interface ICommand extends Comparable<ICommand>
      */
     boolean canCommandSenderUseCommand(ICommandSender sender);
 
-    List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos);
+    List<String> addTabCompletionOptions(String[] args, BlockPos pos);
 
     /**
      * Return whether the specified command parameter index is a username parameter.

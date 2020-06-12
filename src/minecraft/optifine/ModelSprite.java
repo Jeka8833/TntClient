@@ -10,17 +10,17 @@ import org.lwjgl.opengl.GL11;
 
 public class ModelSprite
 {
-    private ModelRenderer modelRenderer;
-    private float posX;
-    private float posY;
-    private float posZ;
-    private int sizeX;
-    private int sizeY;
-    private int sizeZ;
-    private float minU;
-    private float minV;
-    private float maxU;
-    private float maxV;
+    private final ModelRenderer modelRenderer;
+    private final float posX;
+    private final float posY;
+    private final float posZ;
+    private final int sizeX;
+    private final int sizeY;
+    private final int sizeZ;
+    private final float minU;
+    private final float minV;
+    private final float maxU;
+    private final float maxV;
 
     public ModelSprite(ModelRenderer p_i67_1_, int p_i67_2_, int p_i67_3_, float p_i67_4_, float p_i67_5_, float p_i67_6_, int p_i67_7_, int p_i67_8_, int p_i67_9_)
     {

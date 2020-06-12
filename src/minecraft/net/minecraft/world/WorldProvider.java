@@ -98,7 +98,7 @@ public abstract class WorldProvider
      */
     public IChunkProvider createChunkGenerator()
     {
-        return (IChunkProvider)(this.terrainType == WorldType.FLAT ? new ChunkProviderFlat(this.worldObj, this.worldObj.getSeed(), this.worldObj.getWorldInfo().isMapFeaturesEnabled(), this.generatorSettings) : (this.terrainType == WorldType.DEBUG_WORLD ? new ChunkProviderDebug(this.worldObj) : (this.terrainType == WorldType.CUSTOMIZED ? new ChunkProviderGenerate(this.worldObj, this.worldObj.getSeed(), this.worldObj.getWorldInfo().isMapFeaturesEnabled(), this.generatorSettings) : new ChunkProviderGenerate(this.worldObj, this.worldObj.getSeed(), this.worldObj.getWorldInfo().isMapFeaturesEnabled(), this.generatorSettings))));
+        return this.terrainType == WorldType.FLAT ? new ChunkProviderFlat(this.worldObj, this.worldObj.getSeed(), this.worldObj.getWorldInfo().isMapFeaturesEnabled(), this.generatorSettings) : (this.terrainType == WorldType.DEBUG_WORLD ? new ChunkProviderDebug(this.worldObj) : (this.terrainType == WorldType.CUSTOMIZED ? new ChunkProviderGenerate(this.worldObj, this.worldObj.getSeed(), this.worldObj.getWorldInfo().isMapFeaturesEnabled(), this.generatorSettings) : new ChunkProviderGenerate(this.worldObj, this.worldObj.getSeed(), this.worldObj.getWorldInfo().isMapFeaturesEnabled(), this.generatorSettings)));
     }
 
     /**
@@ -148,7 +148,7 @@ public abstract class WorldProvider
     /**
      * Returns array with sunrise/sunset colors
      */
-    public float[] calcSunriseSunsetColors(float celestialAngle, float partialTicks)
+    public float[] calcSunriseSunsetColors(float celestialAngle)
     {
         float f = 0.4F;
         float f1 = MathHelper.cos(celestialAngle * (float)Math.PI * 2.0F) - 0.0F;
@@ -174,7 +174,7 @@ public abstract class WorldProvider
     /**
      * Return Vec3D with biome specific fog color
      */
-    public Vec3 getFogColor(float p_76562_1_, float p_76562_2_)
+    public Vec3 getFogColor(float p_76562_1_)
     {
         float f = MathHelper.cos(p_76562_1_ * (float)Math.PI * 2.0F) * 2.0F + 0.5F;
         f = MathHelper.clamp_float(f, 0.0F, 1.0F);
@@ -184,7 +184,7 @@ public abstract class WorldProvider
         f1 = f1 * (f * 0.94F + 0.06F);
         f2 = f2 * (f * 0.94F + 0.06F);
         f3 = f3 * (f * 0.91F + 0.09F);
-        return new Vec3((double)f1, (double)f2, (double)f3);
+        return new Vec3(f1, f2, f3);
     }
 
     /**
@@ -197,7 +197,7 @@ public abstract class WorldProvider
 
     public static WorldProvider getProviderForDimension(int dimension)
     {
-        return (WorldProvider)(dimension == -1 ? new WorldProviderHell() : (dimension == 0 ? new WorldProviderSurface() : (dimension == 1 ? new WorldProviderEnd() : null)));
+        return dimension == -1 ? new WorldProviderHell() : (dimension == 0 ? new WorldProviderSurface() : (dimension == 1 ? new WorldProviderEnd() : null));
     }
 
     /**
@@ -236,7 +236,7 @@ public abstract class WorldProvider
     /**
      * Returns true if the given X,Z coordinate should show environmental fog.
      */
-    public boolean doesXZShowFog(int x, int z)
+    public boolean doesXZShowFog()
     {
         return false;
     }

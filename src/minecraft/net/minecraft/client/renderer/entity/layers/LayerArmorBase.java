@@ -22,10 +22,10 @@ public abstract class LayerArmorBase<T extends ModelBase> implements LayerRender
     protected ModelBase field_177189_c;
     protected ModelBase field_177186_d;
     private final RendererLivingEntity renderer;
-    private float alpha = 1.0F;
-    private float colorR = 1.0F;
-    private float colorG = 1.0F;
-    private float colorB = 1.0F;
+    private final float alpha = 1.0F;
+    private final float colorR = 1.0F;
+    private final float colorG = 1.0F;
+    private final float colorB = 1.0F;
     private boolean field_177193_i;
     private static final Map ARMOR_TEXTURE_RES_MAP = Maps.newHashMap();
     private static final String __OBFID = "CL_00002428";
@@ -62,17 +62,17 @@ public abstract class LayerArmorBase<T extends ModelBase> implements LayerRender
 
             if (Reflector.ForgeHooksClient.exists())
             {
-                modelbase = this.getArmorModelHook(entitylivingbaseIn, itemstack, armorSlot, modelbase);
+                modelbase = this.getArmorModelHook(modelbase);
             }
 
             this.func_177179_a((T) modelbase, armorSlot);
             boolean flag = this.isSlotForLeggings(armorSlot);
 
-            if (!Config.isCustomItems() || CustomItems.bindCustomArmorTexture(itemstack, flag ? 2 : 1, (String) null))
+            if (!Config.isCustomItems() || CustomItems.bindCustomArmorTexture(itemstack, flag ? 2 : 1, null))
             {
                 if (Reflector.ForgeHooksClient_getArmorTexture.exists())
                 {
-                    this.renderer.bindTexture(this.getArmorResource(entitylivingbaseIn, itemstack, flag ? 2 : 1, (String)null));
+                    this.renderer.bindTexture(this.getArmorResource(entitylivingbaseIn, itemstack, flag ? 2 : 1, null));
                 }
                 else
                 {
@@ -101,7 +101,7 @@ public abstract class LayerArmorBase<T extends ModelBase> implements LayerRender
                 GlStateManager.color(this.colorR, this.colorG, this.colorB, this.alpha);
                 modelbase.render(entitylivingbaseIn, p_177182_2_, p_177182_3_, p_177182_5_, p_177182_6_, p_177182_7_, p_177182_8_);
 
-                if (!this.field_177193_i && itemstack.isItemEnchanted() && (!Config.isCustomItems() || CustomItems.renderCustomArmorEffect(entitylivingbaseIn, itemstack, modelbase, p_177182_2_, p_177182_3_, p_177182_4_, p_177182_5_, p_177182_6_, p_177182_7_, p_177182_8_)))
+                if (!this.field_177193_i && itemstack.isItemEnchanted() && (!Config.isCustomItems() || CustomItems.renderCustomArmorEffect(entitylivingbaseIn, itemstack, modelbase, p_177182_2_, p_177182_3_, p_177182_5_, p_177182_6_, p_177182_7_, p_177182_8_)))
                 {
                     this.func_177183_a(entitylivingbaseIn, modelbase, p_177182_2_, p_177182_3_, p_177182_4_, p_177182_5_, p_177182_6_, p_177182_7_, p_177182_8_);
                 }
@@ -132,7 +132,7 @@ public abstract class LayerArmorBase<T extends ModelBase> implements LayerRender
                     modelbase.render(entitylivingbaseIn, p_177182_2_, p_177182_3_, p_177182_5_, p_177182_6_, p_177182_7_, p_177182_8_);
             }
 
-            if (!this.field_177193_i && itemstack.isItemEnchanted() && (!Config.isCustomItems() || CustomItems.renderCustomArmorEffect(entitylivingbaseIn, itemstack, modelbase, p_177182_2_, p_177182_3_, p_177182_4_, p_177182_5_, p_177182_6_, p_177182_7_, p_177182_8_)))
+            if (!this.field_177193_i && itemstack.isItemEnchanted() && (!Config.isCustomItems() || CustomItems.renderCustomArmorEffect(entitylivingbaseIn, itemstack, modelbase, p_177182_2_, p_177182_3_, p_177182_5_, p_177182_6_, p_177182_7_, p_177182_8_)))
             {
                 this.func_177183_a(entitylivingbaseIn, modelbase, p_177182_2_, p_177182_3_, p_177182_4_, p_177182_5_, p_177182_6_, p_177182_7_, p_177182_8_);
             }
@@ -208,12 +208,12 @@ public abstract class LayerArmorBase<T extends ModelBase> implements LayerRender
 
     private ResourceLocation getArmorResource(ItemArmor p_177181_1_, boolean p_177181_2_)
     {
-        return this.getArmorResource(p_177181_1_, p_177181_2_, (String)null);
+        return this.getArmorResource(p_177181_1_, p_177181_2_, null);
     }
 
     private ResourceLocation getArmorResource(ItemArmor p_177178_1_, boolean p_177178_2_, String p_177178_3_)
     {
-        String s = String.format("textures/models/armor/%s_layer_%d%s.png", new Object[] {p_177178_1_.getArmorMaterial().getName(), Integer.valueOf(p_177178_2_ ? 2 : 1), p_177178_3_ == null ? "" : String.format("_%s", new Object[]{p_177178_3_})});
+        String s = String.format("textures/models/armor/%s_layer_%d%s.png", p_177178_1_.getArmorMaterial().getName(), p_177178_2_ ? 2 : 1, p_177178_3_ == null ? "" : String.format("_%s", p_177178_3_));
         ResourceLocation resourcelocation = (ResourceLocation)ARMOR_TEXTURE_RES_MAP.get(s);
 
         if (resourcelocation == null)
@@ -229,7 +229,7 @@ public abstract class LayerArmorBase<T extends ModelBase> implements LayerRender
 
     protected abstract void func_177179_a(T p_177179_1_, int p_177179_2_);
 
-    protected ModelBase getArmorModelHook(EntityLivingBase p_getArmorModelHook_1_, ItemStack p_getArmorModelHook_2_, int p_getArmorModelHook_3_, ModelBase p_getArmorModelHook_4_)
+    protected ModelBase getArmorModelHook(ModelBase p_getArmorModelHook_4_)
     {
         return p_getArmorModelHook_4_;
     }
@@ -247,8 +247,8 @@ public abstract class LayerArmorBase<T extends ModelBase> implements LayerRender
             s = s.substring(i + 1);
         }
 
-        String s2 = String.format("%s:textures/models/armor/%s_layer_%d%s.png", new Object[] {s1, s, Integer.valueOf(p_getArmorResource_3_ == 2 ? 2 : 1), p_getArmorResource_4_ == null ? "" : String.format("_%s", new Object[]{p_getArmorResource_4_})});
-        s2 = Reflector.callString(Reflector.ForgeHooksClient_getArmorTexture, new Object[] {p_getArmorResource_1_, p_getArmorResource_2_, s2, Integer.valueOf(p_getArmorResource_3_), p_getArmorResource_4_});
+        String s2 = String.format("%s:textures/models/armor/%s_layer_%d%s.png", s1, s, p_getArmorResource_3_ == 2 ? 2 : 1, p_getArmorResource_4_ == null ? "" : String.format("_%s", p_getArmorResource_4_));
+        s2 = Reflector.callString(Reflector.ForgeHooksClient_getArmorTexture, p_getArmorResource_1_, p_getArmorResource_2_, s2, p_getArmorResource_3_, p_getArmorResource_4_);
         ResourceLocation resourcelocation = (ResourceLocation)ARMOR_TEXTURE_RES_MAP.get(s2);
 
         if (resourcelocation == null)
@@ -271,45 +271,40 @@ public abstract class LayerArmorBase<T extends ModelBase> implements LayerRender
             {
                 field_178747_a[ItemArmor.ArmorMaterial.LEATHER.ordinal()] = 1;
             }
-            catch (NoSuchFieldError var5)
+            catch (NoSuchFieldError ignored)
             {
-                ;
             }
 
             try
             {
                 field_178747_a[ItemArmor.ArmorMaterial.CHAIN.ordinal()] = 2;
             }
-            catch (NoSuchFieldError var4)
+            catch (NoSuchFieldError ignored)
             {
-                ;
             }
 
             try
             {
                 field_178747_a[ItemArmor.ArmorMaterial.IRON.ordinal()] = 3;
             }
-            catch (NoSuchFieldError var3)
+            catch (NoSuchFieldError ignored)
             {
-                ;
             }
 
             try
             {
                 field_178747_a[ItemArmor.ArmorMaterial.GOLD.ordinal()] = 4;
             }
-            catch (NoSuchFieldError var2)
+            catch (NoSuchFieldError ignored)
             {
-                ;
             }
 
             try
             {
                 field_178747_a[ItemArmor.ArmorMaterial.DIAMOND.ordinal()] = 5;
             }
-            catch (NoSuchFieldError var1)
+            catch (NoSuchFieldError ignored)
             {
-                ;
             }
         }
     }

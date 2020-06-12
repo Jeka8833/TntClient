@@ -12,12 +12,12 @@ public class ModelArmorStandArmor extends ModelBiped
 
     public ModelArmorStandArmor(float modelSize)
     {
-        this(modelSize, 64, 32);
+        this(modelSize, 32);
     }
 
-    protected ModelArmorStandArmor(float modelSize, int textureWidthIn, int textureHeightIn)
+    protected ModelArmorStandArmor(float modelSize, int textureHeightIn)
     {
-        super(modelSize, 0.0F, textureWidthIn, textureHeightIn);
+        super(modelSize, 0.0F, 64, textureHeightIn);
     }
 
     /**

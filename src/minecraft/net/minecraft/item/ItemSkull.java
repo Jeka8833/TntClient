@@ -2,7 +2,7 @@ package net.minecraft.item;
 
 import com.mojang.authlib.GameProfile;
 import java.util.List;
-import java.util.UUID;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSkull;
 import net.minecraft.block.state.IBlockState;
@@ -27,7 +27,7 @@ public class ItemSkull extends Item
     {
         this.setCreativeTab(CreativeTabs.tabDecorations);
         this.setMaxDamage(0);
-        this.setHasSubtypes(true);
+        this.setHasSubtypes();
     }
 
     /**
@@ -95,7 +95,7 @@ public class ItemSkull extends Item
                                 }
                                 else if (nbttagcompound.hasKey("SkullOwner", 8) && nbttagcompound.getString("SkullOwner").length() > 0)
                                 {
-                                    gameprofile = new GameProfile((UUID)null, nbttagcompound.getString("SkullOwner"));
+                                    gameprofile = new GameProfile(null, nbttagcompound.getString("SkullOwner"));
                                 }
                             }
 
@@ -160,7 +160,7 @@ public class ItemSkull extends Item
         {
             if (stack.getTagCompound().hasKey("SkullOwner", 8))
             {
-                return StatCollector.translateToLocalFormatted("item.skull.player.name", new Object[] {stack.getTagCompound().getString("SkullOwner")});
+                return StatCollector.translateToLocalFormatted("item.skull.player.name", stack.getTagCompound().getString("SkullOwner"));
             }
 
             if (stack.getTagCompound().hasKey("SkullOwner", 10))
@@ -169,7 +169,7 @@ public class ItemSkull extends Item
 
                 if (nbttagcompound.hasKey("Name", 8))
                 {
-                    return StatCollector.translateToLocalFormatted("item.skull.player.name", new Object[] {nbttagcompound.getString("Name")});
+                    return StatCollector.translateToLocalFormatted("item.skull.player.name", nbttagcompound.getString("Name"));
                 }
             }
         }
@@ -180,20 +180,18 @@ public class ItemSkull extends Item
     /**
      * Called when an ItemStack with NBT data is read to potentially that ItemStack's NBT data
      */
-    public boolean updateItemStackNBT(NBTTagCompound nbt)
+    public void updateItemStackNBT(NBTTagCompound nbt)
     {
         super.updateItemStackNBT(nbt);
 
         if (nbt.hasKey("SkullOwner", 8) && nbt.getString("SkullOwner").length() > 0)
         {
-            GameProfile gameprofile = new GameProfile((UUID)null, nbt.getString("SkullOwner"));
+            GameProfile gameprofile = new GameProfile(null, nbt.getString("SkullOwner"));
             gameprofile = TileEntitySkull.updateGameprofile(gameprofile);
             nbt.setTag("SkullOwner", NBTUtil.writeGameProfile(new NBTTagCompound(), gameprofile));
-            return true;
         }
         else
         {
-            return false;
         }
     }
 }

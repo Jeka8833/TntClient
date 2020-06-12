@@ -24,7 +24,7 @@ public class GuiButton extends Gui
 
     /** The string displayed on this control. */
     public String displayString;
-    public int id;
+    public final int id;
 
     /** True if this control is enabled, false to disable. */
     public boolean enabled;

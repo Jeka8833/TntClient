@@ -1,7 +1,6 @@
 package net.TntClient.modules.block;
 
 import net.TntClient.event.EventTarget;
-import net.TntClient.event.events.EventUpdate;
 import net.TntClient.modules.Category;
 import net.TntClient.modules.Module;
 import net.minecraft.block.Block;
@@ -35,7 +34,7 @@ public class GlitchBlocks extends Module {
     }
 
     @EventTarget
-    public void onUpdate(EventUpdate event) {
+    public void onUpdate() {
         if (mc.thePlayer.onGround) {
             final double ang = -Math.toRadians(mc.thePlayer.rotationYaw);
             final double posX = mc.thePlayer.posX + Math.sin(ang) * 3.5;

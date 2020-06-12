@@ -20,7 +20,7 @@ public class WorldType
     public static final WorldType DEBUG_WORLD = new WorldType(5, "debug_all_block_states");
 
     /** Default (1.1) world type. */
-    public static final WorldType DEFAULT_1_1 = (new WorldType(8, "default_1_1", 0)).setCanBeCreated(false);
+    public static final WorldType DEFAULT_1_1 = (new WorldType(8, "default_1_1", 0)).setCanBeCreated();
 
     /** ID for this world type. */
     private final int worldTypeId;
@@ -86,9 +86,9 @@ public class WorldType
     /**
      * Sets canBeCreated to the provided value, and returns this.
      */
-    private WorldType setCanBeCreated(boolean enable)
+    private WorldType setCanBeCreated()
     {
-        this.canBeCreated = enable;
+        this.canBeCreated = false;
         return this;
     }
 

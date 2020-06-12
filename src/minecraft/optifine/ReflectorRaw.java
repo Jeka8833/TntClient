@@ -63,7 +63,7 @@ public class ReflectorRaw
                 }
             }
 
-            return (Field[]) list.toArray(new Field[list.size()]);
+            return (Field[]) list.toArray(new Field[0]);
         }
         catch (Exception var5)
         {
@@ -76,7 +76,7 @@ public class ReflectorRaw
         try
         {
             Field[] afield = p_getFieldsAfter_0_.getDeclaredFields();
-            List<Field> list = Arrays.<Field>asList(afield);
+            List<Field> list = Arrays.asList(afield);
             int i = list.indexOf(p_getFieldsAfter_1_);
 
             if (i < 0)

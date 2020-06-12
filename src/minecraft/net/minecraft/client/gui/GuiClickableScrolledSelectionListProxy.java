@@ -33,7 +33,7 @@ public class GuiClickableScrolledSelectionListProxy extends GuiSlot
      */
     protected boolean isSelected(int slotIndex)
     {
-        return this.field_178046_u.isSelectedItem(slotIndex);
+        return this.field_178046_u.isSelectedItem();
     }
 
     protected void drawBackground()

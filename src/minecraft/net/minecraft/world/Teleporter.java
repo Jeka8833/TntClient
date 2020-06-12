@@ -21,7 +21,7 @@ public class Teleporter
     /** A private Random() function in Teleporter */
     private final Random random;
     private final LongHashMap destinationCoordinateCache = new LongHashMap();
-    private final List<Long> destinationCoordinateKeys = Lists.<Long>newArrayList();
+    private final List<Long> destinationCoordinateKeys = Lists.newArrayList();
 
     public Teleporter(WorldServer worldIn)
     {
@@ -62,7 +62,7 @@ public class Teleporter
                 }
             }
 
-            entityIn.setLocationAndAngles((double)i, (double)j, (double)k, entityIn.rotationYaw, 0.0F);
+            entityIn.setLocationAndAngles(i, j, k, entityIn.rotationYaw, 0.0F);
             entityIn.motionX = entityIn.motionY = entityIn.motionZ = 0.0D;
         }
     }
@@ -123,8 +123,8 @@ public class Teleporter
         {
             if (flag)
             {
-                this.destinationCoordinateCache.add(l, new Teleporter.PortalPosition(blockpos, this.worldServerInstance.getTotalWorldTime()));
-                this.destinationCoordinateKeys.add(Long.valueOf(l));
+                this.destinationCoordinateCache.add(l, new PortalPosition(blockpos, this.worldServerInstance.getTotalWorldTime()));
+                this.destinationCoordinateKeys.add(l);
             }
 
             double d5 = (double)blockpos.getX() + 0.5D;
@@ -189,7 +189,7 @@ public class Teleporter
         }
     }
 
-    public boolean makePortal(Entity p_85188_1_)
+    public void makePortal(Entity p_85188_1_)
     {
         int i = 16;
         double d0 = -1.0D;
@@ -389,7 +389,6 @@ public class Teleporter
             }
         }
 
-        return true;
     }
 
     /**
@@ -405,19 +404,19 @@ public class Teleporter
 
             while (iterator.hasNext())
             {
-                Long olong = (Long)iterator.next();
-                Teleporter.PortalPosition teleporter$portalposition = (Teleporter.PortalPosition)this.destinationCoordinateCache.getValueByKey(olong.longValue());
+                Long olong = iterator.next();
+                Teleporter.PortalPosition teleporter$portalposition = (Teleporter.PortalPosition)this.destinationCoordinateCache.getValueByKey(olong);
 
                 if (teleporter$portalposition == null || teleporter$portalposition.lastUpdateTime < i)
                 {
                     iterator.remove();
-                    this.destinationCoordinateCache.remove(olong.longValue());
+                    this.destinationCoordinateCache.remove(olong);
                 }
             }
         }
     }
 
-    public class PortalPosition extends BlockPos
+    public static class PortalPosition extends BlockPos
     {
         public long lastUpdateTime;
 

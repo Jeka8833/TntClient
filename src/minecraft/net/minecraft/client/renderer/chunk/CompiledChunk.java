@@ -27,7 +27,7 @@ public class CompiledChunk
     private final boolean[] layersUsed = new boolean[EnumWorldBlockLayer.values().length];
     private final boolean[] layersStarted = new boolean[EnumWorldBlockLayer.values().length];
     private boolean empty = true;
-    private final List<TileEntity> tileEntities = Lists.<TileEntity>newArrayList();
+    private final List<TileEntity> tileEntities = Lists.newArrayList();
     private SetVisibility setVisibility = new SetVisibility();
     private WorldRenderer.State state;
 
@@ -44,7 +44,7 @@ public class CompiledChunk
 
     public boolean isLayerEmpty(EnumWorldBlockLayer layer)
     {
-        return !this.layersUsed[layer.ordinal()];
+        return this.layersUsed[layer.ordinal()];
     }
 
     public void setLayerStarted(EnumWorldBlockLayer layer)

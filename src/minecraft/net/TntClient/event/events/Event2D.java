@@ -4,7 +4,8 @@ import net.TntClient.event.Event;
 
 public class Event2D extends Event
 {
-    private float width, height;
+    private final float width;
+    private final float height;
 
     public Event2D(float width, float height)
     {

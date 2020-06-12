@@ -58,7 +58,7 @@ public class GuiGoogleTranslate extends GuiScreen {
      * Draws the screen and all the components in it.
      */
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-        this.list.drawScreen(mouseX, mouseY, partialTicks);
+        this.list.drawScreen(mouseX, mouseY);
         this.drawCenteredString(this.fontRendererObj, "Choose a language for translation", this.width / 2, 16, 16777215);
         this.drawCenteredString(this.fontRendererObj, "This is the language into which everything will be translated.", this.width / 2, this.height - 56, 8421504);
         super.drawScreen(mouseX, mouseY, partialTicks);
@@ -66,7 +66,7 @@ public class GuiGoogleTranslate extends GuiScreen {
 
     class List extends GuiSlot {
 
-        public Language[] lang;
+        public final Language[] lang;
 
         public List(Minecraft mcIn) {
             super(mcIn, GuiGoogleTranslate.this.width, GuiGoogleTranslate.this.height, 32, GuiGoogleTranslate.this.height - 65 + 4, 18);

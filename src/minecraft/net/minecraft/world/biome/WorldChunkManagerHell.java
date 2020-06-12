@@ -8,10 +8,10 @@ import net.minecraft.util.BlockPos;
 public class WorldChunkManagerHell extends WorldChunkManager
 {
     /** The biome generator object. */
-    private BiomeGenBase biomeGenerator;
+    private final BiomeGenBase biomeGenerator;
 
     /** The rainfall in the world */
-    private float rainfall;
+    private final float rainfall;
 
     public WorldChunkManagerHell(BiomeGenBase p_i45374_1_, float p_i45374_2_)
     {
@@ -44,7 +44,7 @@ public class WorldChunkManagerHell extends WorldChunkManager
     /**
      * Returns a list of rainfall values for the specified blocks. Args: listToReuse, x, z, width, length.
      */
-    public float[] getRainfall(float[] listToReuse, int x, int z, int width, int length)
+    public void getRainfall(float[] listToReuse, int x, int z, int width, int length)
     {
         if (listToReuse == null || listToReuse.length < width * length)
         {
@@ -52,7 +52,6 @@ public class WorldChunkManagerHell extends WorldChunkManager
         }
 
         Arrays.fill(listToReuse, 0, width * length, this.rainfall);
-        return listToReuse;
     }
 
     /**

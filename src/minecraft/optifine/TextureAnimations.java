@@ -75,8 +75,7 @@ public class TextureAnimations
             }
         }
 
-        TextureAnimation[] atextureanimation1 = (TextureAnimation[])list.toArray(new TextureAnimation[0]);
-        return atextureanimation1;
+        return (TextureAnimation[])list.toArray(new TextureAnimation[0]);
     }
 
     public static TextureAnimation[] getTextureAnimations(IResourcePack p_getTextureAnimations_0_)

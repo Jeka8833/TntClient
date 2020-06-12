@@ -32,25 +32,25 @@ import org.lwjgl.opengl.GL11;
 
 public class CustomItemProperties
 {
-    public String name;
-    public String basePath;
+    public final String name;
+    public final String basePath;
     public int type;
-    public int[] items;
-    public String texture;
-    public Map<String, String> mapTextures;
+    public final int[] items;
+    public final String texture;
+    public final Map<String, String> mapTextures;
     public RangeListInt damage = null;
     public boolean damagePercent = false;
     public int damageMask = 0;
-    public RangeListInt stackSize;
-    public RangeListInt enchantmentIds;
-    public RangeListInt enchantmentLevels;
-    public NbtTagValue[] nbtTagValues;
-    public int blend;
-    public float speed;
-    public float rotation;
-    public int layer;
-    public float duration;
-    public int weight ;
+    public final RangeListInt stackSize;
+    public final RangeListInt enchantmentIds;
+    public final RangeListInt enchantmentLevels;
+    public final NbtTagValue[] nbtTagValues;
+    public final int blend;
+    public final float speed;
+    public final float rotation;
+    public final int layer;
+    public final float duration;
+    public final int weight ;
     public ResourceLocation textureLocation = null;
     public Map mapTextureLocations = null;
     public TextureAtlasSprite sprite = null;
@@ -765,7 +765,7 @@ public class CustomItemProperties
 
     private static ModelBlock makeModelBlock(String[] p_makeModelBlock_0_)
     {
-        StringBuffer stringbuffer = new StringBuffer();
+        StringBuilder stringbuffer = new StringBuilder();
         stringbuffer.append("{\"parent\": \"builtin/generated\",\"textures\": {");
 
         for (int i = 0; i < p_makeModelBlock_0_.length; ++i)
@@ -777,7 +777,7 @@ public class CustomItemProperties
                 stringbuffer.append(", ");
             }
 
-            stringbuffer.append("\"layer" + i + "\": \"" + s + "\"");
+            stringbuffer.append("\"layer").append(i).append("\": \"").append(s).append("\"");
         }
 
         stringbuffer.append("}}");

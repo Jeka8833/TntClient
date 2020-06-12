@@ -3,20 +3,19 @@ package net.minecraft.world.gen;
 import java.util.Random;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkPrimer;
-import net.minecraft.world.chunk.IChunkProvider;
 
 public class MapGenBase
 {
     /** The number of Chunks to gen-check in any given direction. */
-    protected int range = 8;
+    protected final int range = 8;
 
     /** The RNG used by the MapGen classes. */
-    protected Random rand = new Random();
+    protected final Random rand = new Random();
 
     /** This world object. */
     protected World worldObj;
 
-    public void generate(IChunkProvider chunkProviderIn, World worldIn, int x, int z, ChunkPrimer chunkPrimerIn)
+    public void generate(World worldIn, int x, int z, ChunkPrimer chunkPrimerIn)
     {
         int i = this.range;
         this.worldObj = worldIn;

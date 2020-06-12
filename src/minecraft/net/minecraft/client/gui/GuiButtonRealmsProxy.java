@@ -5,7 +5,7 @@ import net.minecraft.realms.RealmsButton;
 
 public class GuiButtonRealmsProxy extends GuiButton
 {
-    private RealmsButton realmsButton;
+    private final RealmsButton realmsButton;
 
     public GuiButtonRealmsProxy(RealmsButton realmsButtonIn, int buttonId, int x, int y, String text)
     {
@@ -57,7 +57,7 @@ public class GuiButtonRealmsProxy extends GuiButton
     {
         if (super.mousePressed(mc, mouseX, mouseY))
         {
-            this.realmsButton.clicked(mouseX, mouseY);
+            this.realmsButton.clicked(mouseX);
         }
 
         return super.mousePressed(mc, mouseX, mouseY);
@@ -68,7 +68,7 @@ public class GuiButtonRealmsProxy extends GuiButton
      */
     public void mouseReleased(int mouseX, int mouseY)
     {
-        this.realmsButton.released(mouseX, mouseY);
+        this.realmsButton.released();
     }
 
     /**
@@ -76,7 +76,7 @@ public class GuiButtonRealmsProxy extends GuiButton
      */
     public void mouseDragged(Minecraft mc, int mouseX, int mouseY)
     {
-        this.realmsButton.renderBg(mouseX, mouseY);
+        this.realmsButton.renderBg(mouseX);
     }
 
     public RealmsButton getRealmsButton()

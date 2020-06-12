@@ -4,7 +4,7 @@ import org.lwjgl.opengl.ARBShaderObjects;
 
 public abstract class ShaderUniformBase
 {
-    private String name;
+    private final String name;
     private int program = -1;
     private int location = -1;
 
@@ -18,7 +18,7 @@ public abstract class ShaderUniformBase
         if (this.program != program)
         {
             this.program = program;
-            this.location = ARBShaderObjects.glGetUniformLocationARB(program, (CharSequence)this.name);
+            this.location = ARBShaderObjects.glGetUniformLocationARB(program, this.name);
             this.onProgramChanged();
         }
     }

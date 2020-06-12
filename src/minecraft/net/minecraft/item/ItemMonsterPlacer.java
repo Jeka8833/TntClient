@@ -9,7 +9,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.stats.StatList;
@@ -27,7 +26,7 @@ public class ItemMonsterPlacer extends Item
 {
     public ItemMonsterPlacer()
     {
-        this.setHasSubtypes(true);
+        this.setHasSubtypes();
         this.setCreativeTab(CreativeTabs.tabMisc);
     }
 
@@ -46,7 +45,7 @@ public class ItemMonsterPlacer extends Item
 
     public int getColorFromItemStack(ItemStack stack, int renderPass)
     {
-        EntityList.EntityEggInfo entitylist$entityegginfo = (EntityList.EntityEggInfo)EntityList.entityEggs.get(Integer.valueOf(stack.getMetadata()));
+        EntityList.EntityEggInfo entitylist$entityegginfo = EntityList.entityEggs.get(stack.getMetadata());
         return entitylist$entityegginfo != null ? (renderPass == 0 ? entitylist$entityegginfo.primaryColor : entitylist$entityegginfo.secondaryColor) : 16777215;
     }
 
@@ -127,39 +126,27 @@ public class ItemMonsterPlacer extends Item
         {
             MovingObjectPosition movingobjectposition = this.getMovingObjectPositionFromPlayer(worldIn, playerIn, true);
 
-            if (movingobjectposition == null)
-            {
-                return itemStackIn;
-            }
-            else
-            {
-                if (movingobjectposition.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK)
-                {
+            if (movingobjectposition != null) {
+                if (movingobjectposition.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
                     BlockPos blockpos = movingobjectposition.getBlockPos();
 
-                    if (!worldIn.isBlockModifiable(playerIn, blockpos))
-                    {
+                    if (worldIn.isBlockModifiable(playerIn, blockpos)) {
                         return itemStackIn;
                     }
 
-                    if (!playerIn.canPlayerEdit(blockpos, movingobjectposition.sideHit, itemStackIn))
-                    {
+                    if (!playerIn.canPlayerEdit(blockpos, movingobjectposition.sideHit, itemStackIn)) {
                         return itemStackIn;
                     }
 
-                    if (worldIn.getBlockState(blockpos).getBlock() instanceof BlockLiquid)
-                    {
-                        Entity entity = spawnCreature(worldIn, itemStackIn.getMetadata(), (double)blockpos.getX() + 0.5D, (double)blockpos.getY() + 0.5D, (double)blockpos.getZ() + 0.5D);
+                    if (worldIn.getBlockState(blockpos).getBlock() instanceof BlockLiquid) {
+                        Entity entity = spawnCreature(worldIn, itemStackIn.getMetadata(), (double) blockpos.getX() + 0.5D, (double) blockpos.getY() + 0.5D, (double) blockpos.getZ() + 0.5D);
 
-                        if (entity != null)
-                        {
-                            if (entity instanceof EntityLivingBase && itemStackIn.hasDisplayName())
-                            {
-                                ((EntityLiving)entity).setCustomNameTag(itemStackIn.getDisplayName());
+                        if (entity != null) {
+                            if (entity instanceof EntityLivingBase && itemStackIn.hasDisplayName()) {
+                                entity.setCustomNameTag(itemStackIn.getDisplayName());
                             }
 
-                            if (!playerIn.capabilities.isCreativeMode)
-                            {
+                            if (!playerIn.capabilities.isCreativeMode) {
                                 --itemStackIn.stackSize;
                             }
 
@@ -168,8 +155,8 @@ public class ItemMonsterPlacer extends Item
                     }
                 }
 
-                return itemStackIn;
             }
+            return itemStackIn;
         }
     }
 
@@ -179,7 +166,7 @@ public class ItemMonsterPlacer extends Item
      */
     public static Entity spawnCreature(World worldIn, int entityID, double x, double y, double z)
     {
-        if (!EntityList.entityEggs.containsKey(Integer.valueOf(entityID)))
+        if (!EntityList.entityEggs.containsKey(entityID))
         {
             return null;
         }
@@ -197,7 +184,7 @@ public class ItemMonsterPlacer extends Item
                     entity.setLocationAndAngles(x, y, z, MathHelper.wrapAngleTo180_float(worldIn.rand.nextFloat() * 360.0F), 0.0F);
                     entityliving.rotationYawHead = entityliving.rotationYaw;
                     entityliving.renderYawOffset = entityliving.rotationYaw;
-                    entityliving.onInitialSpawn(worldIn.getDifficultyForLocation(new BlockPos(entityliving)), (IEntityLivingData)null);
+                    entityliving.onInitialSpawn(worldIn.getDifficultyForLocation(new BlockPos(entityliving)), null);
                     worldIn.spawnEntityInWorld(entity);
                     entityliving.playLivingSound();
                 }

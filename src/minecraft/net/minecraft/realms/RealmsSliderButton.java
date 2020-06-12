@@ -14,10 +14,10 @@ public class RealmsSliderButton extends RealmsButton
 
     public RealmsSliderButton(int p_i1056_1_, int p_i1056_2_, int p_i1056_3_, int p_i1056_4_, int p_i1056_5_, int p_i1056_6_)
     {
-        this(p_i1056_1_, p_i1056_2_, p_i1056_3_, p_i1056_4_, p_i1056_6_, 0, 1.0F, (float)p_i1056_5_);
+        this(p_i1056_1_, p_i1056_2_, p_i1056_3_, p_i1056_4_, 0, 1.0F, (float)p_i1056_5_);
     }
 
-    public RealmsSliderButton(int p_i1057_1_, int p_i1057_2_, int p_i1057_3_, int p_i1057_4_, int p_i1057_5_, int p_i1057_6_, float p_i1057_7_, float p_i1057_8_)
+    public RealmsSliderButton(int p_i1057_1_, int p_i1057_2_, int p_i1057_3_, int p_i1057_4_, int p_i1057_6_, float p_i1057_7_, float p_i1057_8_)
     {
         super(p_i1057_1_, p_i1057_2_, p_i1057_3_, p_i1057_4_, 20, "");
         this.value = 1.0F;
@@ -63,7 +63,7 @@ public class RealmsSliderButton extends RealmsButton
         return 0;
     }
 
-    public void renderBg(int p_renderBg_1_, int p_renderBg_2_)
+    public void renderBg(int p_renderBg_1_)
     {
         if (this.getProxy().visible)
         {
@@ -84,7 +84,7 @@ public class RealmsSliderButton extends RealmsButton
         }
     }
 
-    public void clicked(int p_clicked_1_, int p_clicked_2_)
+    public void clicked(int p_clicked_1_)
     {
         this.value = (float)(p_clicked_1_ - (this.getProxy().xPosition + 4)) / (float)(this.getProxy().getButtonWidth() - 8);
         this.value = MathHelper.clamp_float(this.value, 0.0F, 1.0F);
@@ -97,7 +97,7 @@ public class RealmsSliderButton extends RealmsButton
     {
     }
 
-    public void released(int p_released_1_, int p_released_2_)
+    public void released()
     {
         this.sliding = false;
     }

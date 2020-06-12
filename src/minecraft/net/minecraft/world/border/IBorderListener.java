@@ -12,7 +12,7 @@ public interface IBorderListener
 
     void onWarningDistanceChanged(WorldBorder border, int newDistance);
 
-    void onDamageAmountChanged(WorldBorder border, double newAmount);
+    void onDamageAmountChanged(double newAmount);
 
-    void onDamageBufferChanged(WorldBorder border, double newSize);
+    void onDamageBufferChanged(double newSize);
 }

@@ -60,15 +60,9 @@ public class SaveHandler implements ISaveHandler, IPlayerFileData
         try
         {
             File file1 = new File(this.worldDirectory, "session.lock");
-            DataOutputStream dataoutputstream = new DataOutputStream(new FileOutputStream(file1));
 
-            try
-            {
+            try (DataOutputStream dataoutputstream = new DataOutputStream(new FileOutputStream(file1))) {
                 dataoutputstream.writeLong(this.initializationTime);
-            }
-            finally
-            {
-                dataoutputstream.close();
             }
         }
         catch (IOException ioexception)
@@ -94,18 +88,11 @@ public class SaveHandler implements ISaveHandler, IPlayerFileData
         try
         {
             File file1 = new File(this.worldDirectory, "session.lock");
-            DataInputStream datainputstream = new DataInputStream(new FileInputStream(file1));
 
-            try
-            {
-                if (datainputstream.readLong() != this.initializationTime)
-                {
+            try (DataInputStream datainputstream = new DataInputStream(new FileInputStream(file1))) {
+                if (datainputstream.readLong() != this.initializationTime) {
                     throw new MinecraftException("The save is being accessed from another location, aborting");
                 }
-            }
-            finally
-            {
-                datainputstream.close();
             }
         }
         catch (IOException var7)

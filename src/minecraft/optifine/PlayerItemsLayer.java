@@ -11,7 +11,7 @@ import net.minecraft.entity.EntityLivingBase;
 
 public class PlayerItemsLayer implements LayerRenderer
 {
-    private RenderPlayer renderPlayer;
+    private final RenderPlayer renderPlayer;
 
     public PlayerItemsLayer(RenderPlayer p_i76_1_)
     {

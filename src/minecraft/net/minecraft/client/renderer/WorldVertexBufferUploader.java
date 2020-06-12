@@ -32,7 +32,7 @@ public class WorldVertexBufferUploader
 
                 if (flag)
                 {
-                    Reflector.callVoid(vertexformatelement$enumusage, Reflector.ForgeVertexFormatElementEnumUseage_preDraw, new Object[] {vertexformat, Integer.valueOf(j), Integer.valueOf(i), bytebuffer});
+                    Reflector.callVoid(vertexformatelement$enumusage, Reflector.ForgeVertexFormatElementEnumUseage_preDraw, vertexformat, j, i, bytebuffer);
                 }
                 else
                 {
@@ -88,7 +88,7 @@ public class WorldVertexBufferUploader
 
                 if (flag1)
                 {
-                    Reflector.callVoid(vertexformatelement$enumusage1, Reflector.ForgeVertexFormatElementEnumUseage_postDraw, new Object[] {vertexformat, Integer.valueOf(i1), Integer.valueOf(i), bytebuffer});
+                    Reflector.callVoid(vertexformatelement$enumusage1, Reflector.ForgeVertexFormatElementEnumUseage_postDraw, vertexformat, i1, i, bytebuffer);
                 }
                 else
                 {
@@ -132,36 +132,32 @@ public class WorldVertexBufferUploader
             {
                 field_178958_a[VertexFormatElement.EnumUsage.POSITION.ordinal()] = 1;
             }
-            catch (NoSuchFieldError var4)
+            catch (NoSuchFieldError ignored)
             {
-                ;
             }
 
             try
             {
                 field_178958_a[VertexFormatElement.EnumUsage.UV.ordinal()] = 2;
             }
-            catch (NoSuchFieldError var3)
+            catch (NoSuchFieldError ignored)
             {
-                ;
             }
 
             try
             {
                 field_178958_a[VertexFormatElement.EnumUsage.COLOR.ordinal()] = 3;
             }
-            catch (NoSuchFieldError var2)
+            catch (NoSuchFieldError ignored)
             {
-                ;
             }
 
             try
             {
                 field_178958_a[VertexFormatElement.EnumUsage.NORMAL.ordinal()] = 4;
             }
-            catch (NoSuchFieldError var1)
+            catch (NoSuchFieldError ignored)
             {
-                ;
             }
         }
     }

@@ -36,29 +36,19 @@ public class ReflectorClass
 
     public Class getTargetClass()
     {
-        if (this.checked)
-        {
-            return this.targetClass;
-        }
-        else
-        {
+        if (!this.checked) {
             this.checked = true;
 
-            try
-            {
+            try {
                 this.targetClass = Class.forName(this.targetClassName);
-            }
-            catch (ClassNotFoundException var2)
-            {
+            } catch (ClassNotFoundException var2) {
                 Config.log("(Reflector) Class not present: " + this.targetClassName);
-            }
-            catch (Throwable throwable)
-            {
+            } catch (Throwable throwable) {
                 throwable.printStackTrace();
             }
 
-            return this.targetClass;
         }
+        return this.targetClass;
     }
 
     public boolean exists()

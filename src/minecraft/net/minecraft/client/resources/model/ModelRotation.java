@@ -17,22 +17,22 @@ import org.lwjgl.util.vector.Vector3f;
 
 public enum ModelRotation implements IModelState, ITransformation
 {
-    X0_Y0("X0_Y0", 0, 0, 0),
-    X0_Y90("X0_Y90", 1, 0, 90),
-    X0_Y180("X0_Y180", 2, 0, 180),
-    X0_Y270("X0_Y270", 3, 0, 270),
-    X90_Y0("X90_Y0", 4, 90, 0),
-    X90_Y90("X90_Y90", 5, 90, 90),
-    X90_Y180("X90_Y180", 6, 90, 180),
-    X90_Y270("X90_Y270", 7, 90, 270),
-    X180_Y0("X180_Y0", 8, 180, 0),
-    X180_Y90("X180_Y90", 9, 180, 90),
-    X180_Y180("X180_Y180", 10, 180, 180),
-    X180_Y270("X180_Y270", 11, 180, 270),
-    X270_Y0("X270_Y0", 12, 270, 0),
-    X270_Y90("X270_Y90", 13, 270, 90),
-    X270_Y180("X270_Y180", 14, 270, 180),
-    X270_Y270("X270_Y270", 15, 270, 270);
+    X0_Y0(0, 0),
+    X0_Y90(0, 90),
+    X0_Y180(0, 180),
+    X0_Y270(0, 270),
+    X90_Y0(90, 0),
+    X90_Y90(90, 90),
+    X90_Y180(90, 180),
+    X90_Y270(90, 270),
+    X180_Y0(180, 0),
+    X180_Y90(180, 90),
+    X180_Y180(180, 180),
+    X180_Y270(180, 270),
+    X270_Y0(270, 0),
+    X270_Y90(270, 90),
+    X270_Y180(270, 180),
+    X270_Y270(270, 270);
 
     private static final Map mapRotations = Maps.newHashMap();
     private final int combinedXY;
@@ -47,7 +47,7 @@ public enum ModelRotation implements IModelState, ITransformation
         return p_177521_0_ * 360 + p_177521_1_;
     }
 
-    private ModelRotation(String p_i13_3_, int p_i13_4_, int p_i13_5_, int p_i13_6_)
+    ModelRotation(int p_i13_5_, int p_i13_6_)
     {
         this.combinedXY = combineXY(p_i13_5_, p_i13_6_);
         this.matrix4d = new Matrix4f();
@@ -113,7 +113,7 @@ public enum ModelRotation implements IModelState, ITransformation
 
     public static ModelRotation getModelRotation(int p_177524_0_, int p_177524_1_)
     {
-        return (ModelRotation)mapRotations.get(Integer.valueOf(combineXY(MathHelper.normalizeAngle(p_177524_0_, 360), MathHelper.normalizeAngle(p_177524_1_, 360))));
+        return (ModelRotation)mapRotations.get(combineXY(MathHelper.normalizeAngle(p_177524_0_, 360), MathHelper.normalizeAngle(p_177524_1_, 360)));
     }
 
     public Optional<TRSRTransformation> apply(Optional <? extends IModelPart > p_apply_1_)
@@ -139,7 +139,7 @@ public enum ModelRotation implements IModelState, ITransformation
     static {
         for (ModelRotation modelrotation : values())
         {
-            mapRotations.put(Integer.valueOf(modelrotation.combinedXY), modelrotation);
+            mapRotations.put(modelrotation.combinedXY, modelrotation);
         }
     }
 }

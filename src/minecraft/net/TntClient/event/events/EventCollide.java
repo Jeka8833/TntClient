@@ -7,12 +7,12 @@ import net.minecraft.entity.Entity;
 
 public class EventCollide extends Event
 {
-    private Entity entity;
-    private double posX;
-    private double posY;
-    private double posZ;
+    private final Entity entity;
+    private final double posX;
+    private final double posY;
+    private final double posZ;
     private AxisAlignedBB boundingBox;
-    private Block block;
+    private final Block block;
 
     public EventCollide(Entity entity, double posX, double posY, double posZ, AxisAlignedBB boundingBox, Block block)
     {

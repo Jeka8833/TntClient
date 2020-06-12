@@ -5,7 +5,7 @@ import java.lang.reflect.Field;
 public class FieldLocatorName implements IFieldLocator
 {
     private ReflectorClass reflectorClass;
-    private String targetFieldName;
+    private final String targetFieldName;
 
     public FieldLocatorName(ReflectorClass p_i38_1_, String p_i38_2_)
     {

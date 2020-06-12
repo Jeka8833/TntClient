@@ -2,7 +2,6 @@ package net.minecraft.block;
 
 import java.util.Random;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockState;
@@ -38,7 +37,7 @@ public class BlockDispenser extends BlockContainer
     protected BlockDispenser()
     {
         super(Material.rock);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(TRIGGERED, Boolean.valueOf(false)));
+        this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(TRIGGERED, Boolean.FALSE));
         this.setCreativeTab(CreativeTabs.tabRedstone);
     }
 
@@ -60,7 +59,7 @@ public class BlockDispenser extends BlockContainer
     {
         if (!worldIn.isRemote)
         {
-            EnumFacing enumfacing = (EnumFacing)state.getValue(FACING);
+            EnumFacing enumfacing = state.getValue(FACING);
             boolean flag = worldIn.getBlockState(pos.north()).getBlock().isFullBlock();
             boolean flag1 = worldIn.getBlockState(pos.south()).getBlock().isFullBlock();
 
@@ -87,42 +86,33 @@ public class BlockDispenser extends BlockContainer
                 }
             }
 
-            worldIn.setBlockState(pos, state.withProperty(FACING, enumfacing).withProperty(TRIGGERED, Boolean.valueOf(false)), 2);
+            worldIn.setBlockState(pos, state.withProperty(FACING, enumfacing).withProperty(TRIGGERED, Boolean.FALSE), 2);
         }
     }
 
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ)
     {
-        if (worldIn.isRemote)
-        {
-            return true;
-        }
-        else
-        {
+        if (!worldIn.isRemote) {
             TileEntity tileentity = worldIn.getTileEntity(pos);
 
-            if (tileentity instanceof TileEntityDispenser)
-            {
-                playerIn.displayGUIChest((TileEntityDispenser)tileentity);
+            if (tileentity instanceof TileEntityDispenser) {
+                playerIn.displayGUIChest((TileEntityDispenser) tileentity);
 
-                if (tileentity instanceof TileEntityDropper)
-                {
+                if (tileentity instanceof TileEntityDropper) {
                     playerIn.triggerAchievement(StatList.field_181731_O);
-                }
-                else
-                {
+                } else {
                     playerIn.triggerAchievement(StatList.field_181733_Q);
                 }
             }
 
-            return true;
         }
+        return true;
     }
 
     protected void dispense(World worldIn, BlockPos pos)
     {
         BlockSourceImpl blocksourceimpl = new BlockSourceImpl(worldIn, pos);
-        TileEntityDispenser tileentitydispenser = (TileEntityDispenser)blocksourceimpl.getBlockTileEntity();
+        TileEntityDispenser tileentitydispenser = blocksourceimpl.getBlockTileEntity();
 
         if (tileentitydispenser != null)
         {
@@ -148,7 +138,7 @@ public class BlockDispenser extends BlockContainer
 
     protected IBehaviorDispenseItem getBehavior(ItemStack stack)
     {
-        return (IBehaviorDispenseItem)dispenseBehaviorRegistry.getObject(stack == null ? null : stack.getItem());
+        return dispenseBehaviorRegistry.getObject(stack == null ? null : stack.getItem());
     }
 
     /**
@@ -157,16 +147,16 @@ public class BlockDispenser extends BlockContainer
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock)
     {
         boolean flag = worldIn.isBlockPowered(pos) || worldIn.isBlockPowered(pos.up());
-        boolean flag1 = ((Boolean)state.getValue(TRIGGERED)).booleanValue();
+        boolean flag1 = state.getValue(TRIGGERED);
 
         if (flag && !flag1)
         {
             worldIn.scheduleUpdate(pos, this, this.tickRate(worldIn));
-            worldIn.setBlockState(pos, state.withProperty(TRIGGERED, Boolean.valueOf(true)), 4);
+            worldIn.setBlockState(pos, state.withProperty(TRIGGERED, Boolean.TRUE), 4);
         }
         else if (!flag && flag1)
         {
-            worldIn.setBlockState(pos, state.withProperty(TRIGGERED, Boolean.valueOf(false)), 4);
+            worldIn.setBlockState(pos, state.withProperty(TRIGGERED, Boolean.FALSE), 4);
         }
     }
 
@@ -181,7 +171,7 @@ public class BlockDispenser extends BlockContainer
     /**
      * Returns a new instance of a block's tile entity class. Called on placing the block.
      */
-    public TileEntity createNewTileEntity(World worldIn, int meta)
+    public TileEntity createNewTileEntity(int meta)
     {
         return new TileEntityDispenser();
     }
@@ -192,7 +182,7 @@ public class BlockDispenser extends BlockContainer
      */
     public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
     {
-        return this.getDefaultState().withProperty(FACING, BlockPistonBase.getFacingFromEntity(worldIn, pos, placer)).withProperty(TRIGGERED, Boolean.valueOf(false));
+        return this.getDefaultState().withProperty(FACING, BlockPistonBase.getFacingFromEntity(pos, placer)).withProperty(TRIGGERED, Boolean.FALSE);
     }
 
     /**
@@ -200,7 +190,7 @@ public class BlockDispenser extends BlockContainer
      */
     public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack)
     {
-        worldIn.setBlockState(pos, state.withProperty(FACING, BlockPistonBase.getFacingFromEntity(worldIn, pos, placer)), 2);
+        worldIn.setBlockState(pos, state.withProperty(FACING, BlockPistonBase.getFacingFromEntity(pos, placer)), 2);
 
         if (stack.hasDisplayName())
         {
@@ -277,7 +267,7 @@ public class BlockDispenser extends BlockContainer
      */
     public IBlockState getStateFromMeta(int meta)
     {
-        return this.getDefaultState().withProperty(FACING, getFacing(meta)).withProperty(TRIGGERED, Boolean.valueOf((meta & 8) > 0));
+        return this.getDefaultState().withProperty(FACING, getFacing(meta)).withProperty(TRIGGERED, (meta & 8) > 0);
     }
 
     /**
@@ -286,9 +276,9 @@ public class BlockDispenser extends BlockContainer
     public int getMetaFromState(IBlockState state)
     {
         int i = 0;
-        i = i | ((EnumFacing)state.getValue(FACING)).getIndex();
+        i = i | state.getValue(FACING).getIndex();
 
-        if (((Boolean)state.getValue(TRIGGERED)).booleanValue())
+        if (state.getValue(TRIGGERED))
         {
             i |= 8;
         }
@@ -298,6 +288,6 @@ public class BlockDispenser extends BlockContainer
 
     protected BlockState createBlockState()
     {
-        return new BlockState(this, new IProperty[] {FACING, TRIGGERED});
+        return new BlockState(this, FACING, TRIGGERED);
     }
 }

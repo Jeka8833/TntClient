@@ -9,8 +9,8 @@ import net.minecraft.client.network.LanServerDetector;
 public class ServerSelectionList extends GuiListExtended
 {
     private final GuiMultiplayer owner;
-    private final List<ServerListEntryNormal> field_148198_l = Lists.<ServerListEntryNormal>newArrayList();
-    private final List<ServerListEntryLanDetected> field_148199_m = Lists.<ServerListEntryLanDetected>newArrayList();
+    private final List<ServerListEntryNormal> field_148198_l = Lists.newArrayList();
+    private final List<ServerListEntryLanDetected> field_148199_m = Lists.newArrayList();
     private final GuiListExtended.IGuiListEntry lanScanEntry = new ServerListEntryLanScan();
     private int selectedSlotIndex = -1;
 
@@ -27,7 +27,7 @@ public class ServerSelectionList extends GuiListExtended
     {
         if (index < this.field_148198_l.size())
         {
-            return (GuiListExtended.IGuiListEntry)this.field_148198_l.get(index);
+            return this.field_148198_l.get(index);
         }
         else
         {
@@ -40,7 +40,7 @@ public class ServerSelectionList extends GuiListExtended
             else
             {
                 --index;
-                return (GuiListExtended.IGuiListEntry)this.field_148199_m.get(index);
+                return this.field_148199_m.get(index);
             }
         }
     }

@@ -37,13 +37,13 @@ public class EffectRenderer
 
     /** Reference to the World object. */
     protected World worldObj;
-    private List[][] fxLayers = new List[4][];
-    private List particleEmitters = Lists.newArrayList();
-    private TextureManager renderer;
+    private final List[][] fxLayers = new List[4][];
+    private final List particleEmitters = Lists.newArrayList();
+    private final TextureManager renderer;
 
     /** RNG. */
-    private Random rand = new Random();
-    private Map particleTypes = Maps.newHashMap();
+    private final Random rand = new Random();
+    private final Map particleTypes = Maps.newHashMap();
     private static final String __OBFID = "CL_00000915";
 
     public EffectRenderer(World worldIn, TextureManager rendererIn)
@@ -111,7 +111,7 @@ public class EffectRenderer
 
     public void registerParticle(int id, IParticleFactory particleFactory)
     {
-        this.particleTypes.put(Integer.valueOf(id), particleFactory);
+        this.particleTypes.put(id, particleFactory);
     }
 
     public void emitParticleAtEntity(Entity entityIn, EnumParticleTypes particleTypes)
@@ -124,11 +124,11 @@ public class EffectRenderer
      */
     public EntityFX spawnEffectParticle(int particleId, double p_178927_2_, double p_178927_4_, double p_178927_6_, double p_178927_8_, double p_178927_10_, double p_178927_12_, int... p_178927_14_)
     {
-        IParticleFactory iparticlefactory = (IParticleFactory)this.particleTypes.get(Integer.valueOf(particleId));
+        IParticleFactory iparticlefactory = (IParticleFactory)this.particleTypes.get(particleId);
 
         if (iparticlefactory != null)
         {
-            EntityFX entityfx = iparticlefactory.getEntityFX(particleId, this.worldObj, p_178927_2_, p_178927_4_, p_178927_6_, p_178927_8_, p_178927_10_, p_178927_12_, p_178927_14_);
+            EntityFX entityfx = iparticlefactory.getEntityFX(this.worldObj, p_178927_2_, p_178927_4_, p_178927_6_, p_178927_8_, p_178927_10_, p_178927_12_, p_178927_14_);
 
             if (entityfx != null)
             {
@@ -384,8 +384,8 @@ public class EffectRenderer
         if (Reflector.ForgeBlock_addDestroyEffects.exists() && Reflector.ForgeBlock_isAir.exists())
         {
             Block block = state.getBlock();
-            Reflector.callBoolean(block, Reflector.ForgeBlock_isAir, new Object[] {this.worldObj, pos});
-            flag = !Reflector.callBoolean(block, Reflector.ForgeBlock_isAir, new Object[] {this.worldObj, pos}) && !Reflector.callBoolean(block, Reflector.ForgeBlock_addDestroyEffects, new Object[] {this.worldObj, pos, this});
+            Reflector.callBoolean(block, Reflector.ForgeBlock_isAir, this.worldObj, pos);
+            flag = !Reflector.callBoolean(block, Reflector.ForgeBlock_isAir, this.worldObj, pos) && !Reflector.callBoolean(block, Reflector.ForgeBlock_addDestroyEffects, this.worldObj, pos, this);
         }
         else
         {
@@ -519,7 +519,7 @@ public class EffectRenderer
     public void addBlockHitEffects(BlockPos p_addBlockHitEffects_1_, MovingObjectPosition p_addBlockHitEffects_2_)
     {
         Block block = this.worldObj.getBlockState(p_addBlockHitEffects_1_).getBlock();
-        boolean flag = Reflector.callBoolean(block, Reflector.ForgeBlock_addHitEffects, new Object[] {this.worldObj, p_addBlockHitEffects_2_, this});
+        boolean flag = Reflector.callBoolean(block, Reflector.ForgeBlock_addHitEffects, this.worldObj, p_addBlockHitEffects_2_, this);
 
         if (block != null && !flag)
         {

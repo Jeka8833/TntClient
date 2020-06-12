@@ -6,15 +6,15 @@ import net.minecraft.entity.Entity;
 public class ModelEnderCrystal extends ModelBase
 {
     /** The cube model for the Ender Crystal. */
-    private ModelRenderer cube;
+    private final ModelRenderer cube;
 
     /** The glass model for the Ender Crystal. */
-    private ModelRenderer glass = new ModelRenderer(this, "glass");
+    private final ModelRenderer glass = new ModelRenderer(this, "glass");
 
     /** The base model for the Ender Crystal. */
     private ModelRenderer base;
 
-    public ModelEnderCrystal(float p_i1170_1_, boolean p_i1170_2_)
+    public ModelEnderCrystal(boolean p_i1170_2_)
     {
         this.glass.setTextureOffset(0, 0).addBox(-4.0F, -4.0F, -4.0F, 8, 8, 8);
         this.cube = new ModelRenderer(this, "cube");

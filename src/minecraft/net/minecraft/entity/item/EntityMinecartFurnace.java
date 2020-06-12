@@ -38,7 +38,7 @@ public class EntityMinecartFurnace extends EntityMinecart
     protected void entityInit()
     {
         super.entityInit();
-        this.dataWatcher.addObject(16, new Byte((byte)0));
+        this.dataWatcher.addObject(16, (byte) 0);
     }
 
     /**
@@ -62,7 +62,7 @@ public class EntityMinecartFurnace extends EntityMinecart
 
         if (this.isMinecartPowered() && this.rand.nextInt(4) == 0)
         {
-            this.worldObj.spawnParticle(EnumParticleTypes.SMOKE_LARGE, this.posX, this.posY + 0.8D, this.posZ, 0.0D, 0.0D, 0.0D, new int[0]);
+            this.worldObj.spawnParticle(EnumParticleTypes.SMOKE_LARGE, this.posX, this.posY + 0.8D, this.posZ, 0.0D, 0.0D, 0.0D);
         }
     }
 
@@ -91,7 +91,7 @@ public class EntityMinecartFurnace extends EntityMinecart
 
         if (d0 > 1.0E-4D && this.motionX * this.motionX + this.motionZ * this.motionZ > 0.001D)
         {
-            d0 = (double)MathHelper.sqrt_double(d0);
+            d0 = MathHelper.sqrt_double(d0);
             this.pushX /= d0;
             this.pushZ /= d0;
 
@@ -115,7 +115,7 @@ public class EntityMinecartFurnace extends EntityMinecart
 
         if (d0 > 1.0E-4D)
         {
-            d0 = (double)MathHelper.sqrt_double(d0);
+            d0 = MathHelper.sqrt_double(d0);
             this.pushX /= d0;
             this.pushZ /= d0;
             double d1 = 1.0D;
@@ -146,7 +146,7 @@ public class EntityMinecartFurnace extends EntityMinecart
         {
             if (!playerIn.capabilities.isCreativeMode && --itemstack.stackSize == 0)
             {
-                playerIn.inventory.setInventorySlotContents(playerIn.inventory.currentItem, (ItemStack)null);
+                playerIn.inventory.setInventorySlotContents(playerIn.inventory.currentItem, null);
             }
 
             this.fuel += 3600;
@@ -154,7 +154,7 @@ public class EntityMinecartFurnace extends EntityMinecart
 
         this.pushX = this.posX - playerIn.posX;
         this.pushZ = this.posZ - playerIn.posZ;
-        return true;
+        return false;
     }
 
     /**
@@ -188,11 +188,11 @@ public class EntityMinecartFurnace extends EntityMinecart
     {
         if (p_94107_1_)
         {
-            this.dataWatcher.updateObject(16, Byte.valueOf((byte)(this.dataWatcher.getWatchableObjectByte(16) | 1)));
+            this.dataWatcher.updateObject(16, (byte) (this.dataWatcher.getWatchableObjectByte(16) | 1));
         }
         else
         {
-            this.dataWatcher.updateObject(16, Byte.valueOf((byte)(this.dataWatcher.getWatchableObjectByte(16) & -2)));
+            this.dataWatcher.updateObject(16, (byte) (this.dataWatcher.getWatchableObjectByte(16) & -2));
         }
     }
 

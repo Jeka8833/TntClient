@@ -1,6 +1,5 @@
 package net.minecraft.entity.passive;
 
-import com.google.common.base.Predicate;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
@@ -38,7 +37,7 @@ public class EntityOcelot extends EntityTameable
     /**
      * The tempt AI task for this mob, used to prevent taming while it is fleeing.
      */
-    private EntityAITempt aiTempt;
+    private final EntityAITempt aiTempt;
 
     public EntityOcelot(World worldIn)
     {
@@ -55,13 +54,13 @@ public class EntityOcelot extends EntityTameable
         this.tasks.addTask(9, new EntityAIMate(this, 0.8D));
         this.tasks.addTask(10, new EntityAIWander(this, 0.8D));
         this.tasks.addTask(11, new EntityAIWatchClosest(this, EntityPlayer.class, 10.0F));
-        this.targetTasks.addTask(1, new EntityAITargetNonTamed(this, EntityChicken.class, false, (Predicate)null));
+        this.targetTasks.addTask(1, new EntityAITargetNonTamed(this, EntityChicken.class, false, null));
     }
 
     protected void entityInit()
     {
         super.entityInit();
-        this.dataWatcher.addObject(18, Byte.valueOf((byte)0));
+        this.dataWatcher.addObject(18, (byte) 0);
     }
 
     public void updateAITasks()
@@ -218,7 +217,7 @@ public class EntityOcelot extends EntityTameable
 
             if (itemstack.stackSize <= 0)
             {
-                player.inventory.setInventorySlotContents(player.inventory.currentItem, (ItemStack)null);
+                player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
             }
 
             if (!this.worldObj.isRemote)
@@ -288,7 +287,7 @@ public class EntityOcelot extends EntityTameable
         else
         {
             EntityOcelot entityocelot = (EntityOcelot)otherAnimal;
-            return !entityocelot.isTamed() ? false : this.isInLove() && entityocelot.isInLove();
+            return entityocelot.isTamed() && (this.isInLove() && entityocelot.isInLove());
         }
     }
 
@@ -299,7 +298,7 @@ public class EntityOcelot extends EntityTameable
 
     public void setTameSkin(int skinId)
     {
-        this.dataWatcher.updateObject(18, Byte.valueOf((byte)skinId));
+        this.dataWatcher.updateObject(18, (byte) skinId);
     }
 
     /**
@@ -315,7 +314,7 @@ public class EntityOcelot extends EntityTameable
      */
     public boolean isNotColliding()
     {
-        if (this.worldObj.checkNoEntityCollision(this.getEntityBoundingBox(), this) && this.worldObj.getCollidingBoundingBoxes(this, this.getEntityBoundingBox()).isEmpty() && !this.worldObj.isAnyLiquid(this.getEntityBoundingBox()))
+        if (this.worldObj.checkNoEntityCollision(this.getEntityBoundingBox(), this) && this.worldObj.getCollidingBoundingBoxes(this, this.getEntityBoundingBox()).isEmpty() && this.worldObj.isAnyLiquid(this.getEntityBoundingBox()))
         {
             BlockPos blockpos = new BlockPos(this.posX, this.getEntityBoundingBox().minY, this.posZ);
 
@@ -326,10 +325,7 @@ public class EntityOcelot extends EntityTameable
 
             Block block = this.worldObj.getBlockState(blockpos.down()).getBlock();
 
-            if (block == Blocks.grass || block.getMaterial() == Material.leaves)
-            {
-                return true;
-            }
+            return block == Blocks.grass || block.getMaterial() == Material.leaves;
         }
 
         return false;

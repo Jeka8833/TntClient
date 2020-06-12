@@ -34,7 +34,7 @@ public class DynamicTexture extends AbstractTexture
 
         if (Config.isShaders())
         {
-            ShadersTex.initDynamicTexture(this.getGlTextureId(), textureWidth, textureHeight, this);
+            ShadersTex.initDynamicTexture(textureWidth, textureHeight, this);
             this.shadersInitialized = true;
         }
         else
@@ -53,11 +53,11 @@ public class DynamicTexture extends AbstractTexture
         {
             if (!this.shadersInitialized)
             {
-                ShadersTex.initDynamicTexture(this.getGlTextureId(), this.width, this.height, this);
+                ShadersTex.initDynamicTexture(this.width, this.height, this);
                 this.shadersInitialized = true;
             }
 
-            ShadersTex.updateDynamicTexture(this.getGlTextureId(), this.dynamicTextureData, this.width, this.height, this);
+            ShadersTex.updateDynamicTexture(this.dynamicTextureData, this.width, this.height, this);
         }
         else
         {

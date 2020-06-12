@@ -28,7 +28,7 @@ public class CommandPlaySound extends CommandBase
     /**
      * Gets the usage string for the command.
      */
-    public String getCommandUsage(ICommandSender sender)
+    public String getCommandUsage()
     {
         return "commands.playsound.usage";
     }
@@ -40,7 +40,7 @@ public class CommandPlaySound extends CommandBase
     {
         if (args.length < 2)
         {
-            throw new WrongUsageException(this.getCommandUsage(sender), new Object[0]);
+            throw new WrongUsageException(this.getCommandUsage());
         }
         else
         {
@@ -97,7 +97,7 @@ public class CommandPlaySound extends CommandBase
             {
                 if (d5 <= 0.0D)
                 {
-                    throw new CommandException("commands.playsound.playerTooFar", new Object[] {entityplayermp.getName()});
+                    throw new CommandException("commands.playsound.playerTooFar", entityplayermp.getName());
                 }
 
                 double d8 = d0 - entityplayermp.posX;
@@ -116,11 +116,11 @@ public class CommandPlaySound extends CommandBase
             }
 
             entityplayermp.playerNetServerHandler.sendPacket(new S29PacketSoundEffect(s, d0, d1, d2, (float)d3, (float)d4));
-            notifyOperators(sender, this, "commands.playsound.success", new Object[] {s, entityplayermp.getName()});
+            notifyOperators(sender, this, "commands.playsound.success", s, entityplayermp.getName());
         }
     }
 
-    public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos)
+    public List<String> addTabCompletionOptions(String[] args, BlockPos pos)
     {
         return args.length == 2 ? getListOfStringsMatchingLastWord(args, MinecraftServer.getServer().getAllUsernames()) : (args.length > 2 && args.length <= 5 ? func_175771_a(args, 2, pos) : null);
     }

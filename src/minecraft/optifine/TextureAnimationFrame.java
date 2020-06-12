@@ -2,8 +2,8 @@ package optifine;
 
 public class TextureAnimationFrame
 {
-    public int index;
-    public int duration;
+    public final int index;
+    public final int duration;
     public int counter = 0;
 
     public TextureAnimationFrame(int p_i96_1_, int p_i96_2_)

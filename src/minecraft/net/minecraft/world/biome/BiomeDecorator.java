@@ -34,13 +34,13 @@ public class BiomeDecorator
     protected ChunkProviderSettings chunkProviderSettings;
 
     /** The clay generator. */
-    protected WorldGenerator clayGen = new WorldGenClay(4);
+    protected final WorldGenerator clayGen = new WorldGenClay(4);
 
     /** The sand generator. */
-    protected WorldGenerator sandGen = new WorldGenSand(Blocks.sand, 7);
+    protected final WorldGenerator sandGen = new WorldGenSand(Blocks.sand, 7);
 
     /** The gravel generator. */
-    protected WorldGenerator gravelAsSandGen = new WorldGenSand(Blocks.gravel, 6);
+    protected final WorldGenerator gravelAsSandGen = new WorldGenSand(Blocks.gravel, 6);
 
     /** The dirt generator. */
     protected WorldGenerator dirtGen;
@@ -58,25 +58,25 @@ public class BiomeDecorator
 
     /** Field that holds Lapis WorldGenMinable */
     protected WorldGenerator lapisGen;
-    protected WorldGenFlowers yellowFlowerGen = new WorldGenFlowers(Blocks.yellow_flower, BlockFlower.EnumFlowerType.DANDELION);
+    protected final WorldGenFlowers yellowFlowerGen = new WorldGenFlowers(Blocks.yellow_flower, BlockFlower.EnumFlowerType.DANDELION);
 
     /** Field that holds mushroomBrown WorldGenFlowers */
-    protected WorldGenerator mushroomBrownGen = new GeneratorBushFeature(Blocks.brown_mushroom);
+    protected final WorldGenerator mushroomBrownGen = new GeneratorBushFeature(Blocks.brown_mushroom);
 
     /** Field that holds mushroomRed WorldGenFlowers */
-    protected WorldGenerator mushroomRedGen = new GeneratorBushFeature(Blocks.red_mushroom);
+    protected final WorldGenerator mushroomRedGen = new GeneratorBushFeature(Blocks.red_mushroom);
 
     /** Field that holds big mushroom generator */
-    protected WorldGenerator bigMushroomGen = new WorldGenBigMushroom();
+    protected final WorldGenerator bigMushroomGen = new WorldGenBigMushroom();
 
     /** Field that holds WorldGenReed */
-    protected WorldGenerator reedGen = new WorldGenReed();
+    protected final WorldGenerator reedGen = new WorldGenReed();
 
     /** Field that holds WorldGenCactus */
-    protected WorldGenerator cactusGen = new WorldGenCactus();
+    protected final WorldGenerator cactusGen = new WorldGenCactus();
 
     /** The water lily generation! */
-    protected WorldGenerator waterlilyGen = new WorldGenWaterlily();
+    protected final WorldGenerator waterlilyGen = new WorldGenWaterlily();
 
     /** Amount of waterlilys per chunk. */
     protected int waterlilyPerChunk;
@@ -136,7 +136,7 @@ public class BiomeDecorator
     protected int bigMushroomsPerChunk;
 
     /** True if decorator should generate surface lava & water */
-    public boolean generateLakes = true;
+    public final boolean generateLakes = true;
 
     public void decorate(World worldIn, Random random, BiomeGenBase p_180292_3_, BlockPos p_180292_4_)
     {

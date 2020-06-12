@@ -6,7 +6,9 @@ public class EventPreMotionUpdate extends Event
 {
     private float yaw, pitch;
     private boolean ground;
-    public double x, y, z;
+    public final double x;
+    public final double y;
+    public final double z;
 
     public EventPreMotionUpdate(float yaw, float pitch, boolean ground, double x, double y, double z)
     {

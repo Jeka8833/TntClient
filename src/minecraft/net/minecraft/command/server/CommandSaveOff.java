@@ -19,7 +19,7 @@ public class CommandSaveOff extends CommandBase
     /**
      * Gets the usage string for the command.
      */
-    public String getCommandUsage(ICommandSender sender)
+    public String getCommandUsage()
     {
         return "commands.save-off.usage";
     }
@@ -48,11 +48,11 @@ public class CommandSaveOff extends CommandBase
 
         if (flag)
         {
-            notifyOperators(sender, this, "commands.save.disabled", new Object[0]);
+            notifyOperators(sender, this, "commands.save.disabled");
         }
         else
         {
-            throw new CommandException("commands.save-off.alreadyOff", new Object[0]);
+            throw new CommandException("commands.save-off.alreadyOff");
         }
     }
 }

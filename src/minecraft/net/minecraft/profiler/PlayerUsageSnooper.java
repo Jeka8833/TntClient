@@ -15,8 +15,8 @@ import net.minecraft.util.HttpUtil;
 
 public class PlayerUsageSnooper
 {
-    private final Map<String, Object> field_152773_a = Maps.<String, Object>newHashMap();
-    private final Map<String, Object> field_152774_b = Maps.<String, Object>newHashMap();
+    private final Map<String, Object> field_152773_a = Maps.newHashMap();
+    private final Map<String, Object> field_152774_b = Maps.newHashMap();
     private final String uniqueID = UUID.randomUUID().toString();
 
     /** URL of the server to send the report to */
@@ -66,14 +66,14 @@ public class PlayerUsageSnooper
 
                         synchronized (PlayerUsageSnooper.this.syncLock)
                         {
-                            map = Maps.<String, Object>newHashMap(PlayerUsageSnooper.this.field_152774_b);
+                            map = Maps.newHashMap(PlayerUsageSnooper.this.field_152774_b);
 
                             if (PlayerUsageSnooper.this.selfCounter == 0)
                             {
                                 map.putAll(PlayerUsageSnooper.this.field_152773_a);
                             }
 
-                            map.put("snooper_count", Integer.valueOf(PlayerUsageSnooper.this.selfCounter++));
+                            map.put("snooper_count", PlayerUsageSnooper.this.selfCounter++);
                             map.put("snooper_token", PlayerUsageSnooper.this.uniqueID);
                         }
 
@@ -111,15 +111,15 @@ public class PlayerUsageSnooper
             }
         }
 
-        this.addClientStat("jvm_args", Integer.valueOf(i));
+        this.addClientStat("jvm_args", i);
     }
 
     public void addMemoryStatsToSnooper()
     {
-        this.addStatToSnooper("memory_total", Long.valueOf(Runtime.getRuntime().totalMemory()));
-        this.addStatToSnooper("memory_max", Long.valueOf(Runtime.getRuntime().maxMemory()));
-        this.addStatToSnooper("memory_free", Long.valueOf(Runtime.getRuntime().freeMemory()));
-        this.addStatToSnooper("cpu_cores", Integer.valueOf(Runtime.getRuntime().availableProcessors()));
+        this.addStatToSnooper("memory_total", Runtime.getRuntime().totalMemory());
+        this.addStatToSnooper("memory_max", Runtime.getRuntime().maxMemory());
+        this.addStatToSnooper("memory_free", Runtime.getRuntime().freeMemory());
+        this.addStatToSnooper("cpu_cores", Runtime.getRuntime().availableProcessors());
         this.playerStatsCollector.addServerStatsToSnooper(this);
     }
 
@@ -141,7 +141,7 @@ public class PlayerUsageSnooper
 
     public Map<String, String> getCurrentStats()
     {
-        Map<String, String> map = Maps.<String, String>newLinkedHashMap();
+        Map<String, String> map = Maps.newLinkedHashMap();
 
         synchronized (this.syncLock)
         {

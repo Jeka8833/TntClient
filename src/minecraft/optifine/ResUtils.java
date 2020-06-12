@@ -2,12 +2,7 @@ package optifine;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Enumeration;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import net.minecraft.client.resources.AbstractResourcePack;
@@ -125,11 +120,7 @@ public class ResUtils
                     String s1 = p_collectFilesFolder_1_ + file1.getName() + "/";
                     String[] astring = collectFilesFolder(file1, s1, p_collectFilesFolder_2_, p_collectFilesFolder_3_);
 
-                    for (int j = 0; j < astring.length; ++j)
-                    {
-                        String s2 = astring[j];
-                        list.add(s2);
-                    }
+                    Collections.addAll(list, astring);
                 }
             }
 

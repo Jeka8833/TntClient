@@ -10,13 +10,13 @@ import org.apache.logging.log4j.Logger;
 public class EntityAITasks
 {
     private static final Logger logger = LogManager.getLogger();
-    private List<EntityAITasks.EntityAITaskEntry> taskEntries = Lists.<EntityAITasks.EntityAITaskEntry>newArrayList();
-    private List<EntityAITasks.EntityAITaskEntry> executingTaskEntries = Lists.<EntityAITasks.EntityAITaskEntry>newArrayList();
+    private final List<EntityAITasks.EntityAITaskEntry> taskEntries = Lists.newArrayList();
+    private final List<EntityAITasks.EntityAITaskEntry> executingTaskEntries = Lists.newArrayList();
 
     /** Instance of Profiler. */
     private final Profiler theProfiler;
     private int tickCount;
-    private int tickRate = 3;
+    private final int tickRate = 3;
 
     public EntityAITasks(Profiler profilerIn)
     {
@@ -28,7 +28,7 @@ public class EntityAITasks
      */
     public void addTask(int priority, EntityAIBase task)
     {
-        this.taskEntries.add(new EntityAITasks.EntityAITaskEntry(priority, task));
+        this.taskEntries.add(new EntityAITaskEntry(priority, task));
     }
 
     /**
@@ -40,7 +40,7 @@ public class EntityAITasks
 
         while (iterator.hasNext())
         {
-            EntityAITasks.EntityAITaskEntry entityaitasks$entityaitaskentry = (EntityAITasks.EntityAITaskEntry)iterator.next();
+            EntityAITasks.EntityAITaskEntry entityaitasks$entityaitaskentry = iterator.next();
             EntityAIBase entityaibase = entityaitasks$entityaitaskentry.action;
 
             if (entityaibase == task)
@@ -84,7 +84,7 @@ public class EntityAITasks
                         break;
                     }
 
-                    if (!this.canUse(entityaitasks$entityaitaskentry) || !this.canContinue(entityaitasks$entityaitaskentry))
+                    if (!this.canUse(entityaitasks$entityaitaskentry) || this.canContinue(entityaitasks$entityaitaskentry))
                     {
                         entityaitasks$entityaitaskentry.action.resetTask();
                         this.executingTaskEntries.remove(entityaitasks$entityaitaskentry);
@@ -105,9 +105,9 @@ public class EntityAITasks
 
             while (iterator1.hasNext())
             {
-                EntityAITasks.EntityAITaskEntry entityaitasks$entityaitaskentry1 = (EntityAITasks.EntityAITaskEntry)iterator1.next();
+                EntityAITasks.EntityAITaskEntry entityaitasks$entityaitaskentry1 = iterator1.next();
 
-                if (!this.canContinue(entityaitasks$entityaitaskentry1))
+                if (this.canContinue(entityaitasks$entityaitaskentry1))
                 {
                     entityaitasks$entityaitaskentry1.action.resetTask();
                     iterator1.remove();
@@ -131,8 +131,7 @@ public class EntityAITasks
      */
     private boolean canContinue(EntityAITasks.EntityAITaskEntry taskEntry)
     {
-        boolean flag = taskEntry.action.continueExecuting();
-        return flag;
+        return !taskEntry.action.continueExecuting();
     }
 
     /**
@@ -170,10 +169,10 @@ public class EntityAITasks
         return (taskEntry1.action.getMutexBits() & taskEntry2.action.getMutexBits()) == 0;
     }
 
-    class EntityAITaskEntry
+    static class EntityAITaskEntry
     {
-        public EntityAIBase action;
-        public int priority;
+        public final EntityAIBase action;
+        public final int priority;
 
         public EntityAITaskEntry(int priorityIn, EntityAIBase task)
         {

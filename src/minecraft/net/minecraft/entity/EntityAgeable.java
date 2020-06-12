@@ -57,7 +57,7 @@ public abstract class EntityAgeable extends EntityCreature
 
                             if (itemstack.stackSize <= 0)
                             {
-                                player.inventory.setInventorySlotContents(player.inventory.currentItem, (ItemStack)null);
+                                player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
                             }
                         }
                     }
@@ -75,7 +75,7 @@ public abstract class EntityAgeable extends EntityCreature
     protected void entityInit()
     {
         super.entityInit();
-        this.dataWatcher.addObject(12, Byte.valueOf((byte)0));
+        this.dataWatcher.addObject(12, (byte) 0);
     }
 
     /**
@@ -138,7 +138,7 @@ public abstract class EntityAgeable extends EntityCreature
      */
     public void setGrowingAge(int age)
     {
-        this.dataWatcher.updateObject(12, Byte.valueOf((byte)MathHelper.clamp_int(age, -1, 1)));
+        this.dataWatcher.updateObject(12, (byte) MathHelper.clamp_int(age, -1, 1));
         this.growingAge = age;
         this.setScaleForAge(this.isChild());
     }
@@ -177,7 +177,7 @@ public abstract class EntityAgeable extends EntityCreature
             {
                 if (this.field_175503_c % 4 == 0)
                 {
-                    this.worldObj.spawnParticle(EnumParticleTypes.VILLAGER_HAPPY, this.posX + (double)(this.rand.nextFloat() * this.width * 2.0F) - (double)this.width, this.posY + 0.5D + (double)(this.rand.nextFloat() * this.height), this.posZ + (double)(this.rand.nextFloat() * this.width * 2.0F) - (double)this.width, 0.0D, 0.0D, 0.0D, new int[0]);
+                    this.worldObj.spawnParticle(EnumParticleTypes.VILLAGER_HAPPY, this.posX + (double)(this.rand.nextFloat() * this.width * 2.0F) - (double)this.width, this.posY + 0.5D + (double)(this.rand.nextFloat() * this.height), this.posZ + (double)(this.rand.nextFloat() * this.width * 2.0F) - (double)this.width, 0.0D, 0.0D, 0.0D);
                 }
 
                 --this.field_175503_c;

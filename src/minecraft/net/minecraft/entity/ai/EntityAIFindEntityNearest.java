@@ -15,11 +15,11 @@ import org.apache.logging.log4j.Logger;
 public class EntityAIFindEntityNearest extends EntityAIBase
 {
     private static final Logger field_179444_a = LogManager.getLogger();
-    private EntityLiving field_179442_b;
+    private final EntityLiving field_179442_b;
     private final Predicate<EntityLivingBase> field_179443_c;
     private final EntityAINearestAttackableTarget.Sorter field_179440_d;
     private EntityLivingBase field_179441_e;
-    private Class <? extends EntityLivingBase > field_179439_f;
+    private final Class <? extends EntityLivingBase > field_179439_f;
 
     public EntityAIFindEntityNearest(EntityLiving p_i45884_1_, Class <? extends EntityLivingBase > p_i45884_2_)
     {
@@ -42,7 +42,7 @@ public class EntityAIFindEntityNearest extends EntityAIBase
                     d0 *= 0.800000011920929D;
                 }
 
-                return p_apply_1_.isInvisible() ? false : ((double)p_apply_1_.getDistanceToEntity(EntityAIFindEntityNearest.this.field_179442_b) > d0 ? false : EntityAITarget.isSuitableTarget(EntityAIFindEntityNearest.this.field_179442_b, p_apply_1_, false, true));
+                return !p_apply_1_.isInvisible() && (!((double) p_apply_1_.getDistanceToEntity(EntityAIFindEntityNearest.this.field_179442_b) > d0) && EntityAITarget.isSuitableTarget(EntityAIFindEntityNearest.this.field_179442_b, p_apply_1_, false, true));
             }
         };
         this.field_179440_d = new EntityAINearestAttackableTarget.Sorter(p_i45884_1_);
@@ -54,8 +54,8 @@ public class EntityAIFindEntityNearest extends EntityAIBase
     public boolean shouldExecute()
     {
         double d0 = this.func_179438_f();
-        List<EntityLivingBase> list = this.field_179442_b.worldObj.<EntityLivingBase>getEntitiesWithinAABB(this.field_179439_f, this.field_179442_b.getEntityBoundingBox().expand(d0, 4.0D, d0), this.field_179443_c);
-        Collections.sort(list, this.field_179440_d);
+        List<EntityLivingBase> list = this.field_179442_b.worldObj.getEntitiesWithinAABB(this.field_179439_f, this.field_179442_b.getEntityBoundingBox().expand(d0, 4.0D, d0), this.field_179443_c);
+        list.sort(this.field_179440_d);
 
         if (list.isEmpty())
         {
@@ -63,7 +63,7 @@ public class EntityAIFindEntityNearest extends EntityAIBase
         }
         else
         {
-            this.field_179441_e = (EntityLivingBase)list.get(0);
+            this.field_179441_e = list.get(0);
             return true;
         }
     }
@@ -86,7 +86,7 @@ public class EntityAIFindEntityNearest extends EntityAIBase
         else
         {
             double d0 = this.func_179438_f();
-            return this.field_179442_b.getDistanceSqToEntity(entitylivingbase) > d0 * d0 ? false : !(entitylivingbase instanceof EntityPlayerMP) || !((EntityPlayerMP)entitylivingbase).theItemInWorldManager.isCreative();
+            return !(this.field_179442_b.getDistanceSqToEntity(entitylivingbase) > d0 * d0) && (!(entitylivingbase instanceof EntityPlayerMP) || !((EntityPlayerMP) entitylivingbase).theItemInWorldManager.isCreative());
         }
     }
 
@@ -104,7 +104,7 @@ public class EntityAIFindEntityNearest extends EntityAIBase
      */
     public void resetTask()
     {
-        this.field_179442_b.setAttackTarget((EntityLivingBase)null);
+        this.field_179442_b.setAttackTarget(null);
         super.startExecuting();
     }
 

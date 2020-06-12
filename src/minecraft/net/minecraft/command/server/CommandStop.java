@@ -18,7 +18,7 @@ public class CommandStop extends CommandBase
     /**
      * Gets the usage string for the command.
      */
-    public String getCommandUsage(ICommandSender sender)
+    public String getCommandUsage()
     {
         return "commands.stop.usage";
     }
@@ -30,7 +30,7 @@ public class CommandStop extends CommandBase
     {
         if (MinecraftServer.getServer().worldServers != null)
         {
-            notifyOperators(sender, this, "commands.stop.start", new Object[0]);
+            notifyOperators(sender, this, "commands.stop.start");
         }
 
         MinecraftServer.getServer().initiateShutdown();

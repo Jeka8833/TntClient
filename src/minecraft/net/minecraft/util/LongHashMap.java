@@ -14,15 +14,6 @@ public class LongHashMap
      */
     private int capacity = 3072;
 
-    /**
-     * percent of the hasharray that can be used without hash colliding probably
-     */
-    private final float percentUseable = 0.75F;
-
-    /** count of times elements have been added/removed */
-    private transient volatile int modCount;
-    private static final String __OBFID = "CL_00001492";
-
     public LongHashMap()
     {
         this.mask = this.hashArray.length - 1;
@@ -34,15 +25,6 @@ public class LongHashMap
     private static int getHashedKey(long originalKey)
     {
         return (int)(originalKey ^ originalKey >>> 27);
-    }
-
-    /**
-     * the hash function
-     */
-    private static int hash(int integer)
-    {
-        integer = integer ^ integer >>> 20 ^ integer >>> 12;
-        return integer ^ integer >>> 7 ^ integer >>> 4;
     }
 
     /**
@@ -63,9 +45,8 @@ public class LongHashMap
      */
     public Object getValueByKey(long p_76164_1_)
     {
-        int i = getHashedKey(p_76164_1_);
 
-        for (LongHashMap.Entry longhashmap$entry = this.hashArray[getHashIndex(i, this.mask)]; longhashmap$entry != null; longhashmap$entry = longhashmap$entry.nextEntry)
+        for (LongHashMap.Entry longhashmap$entry = this.hashArray[getHashIndex(getHashedKey(p_76164_1_), this.mask)]; longhashmap$entry != null; longhashmap$entry = longhashmap$entry.nextEntry)
         {
             if (longhashmap$entry.key == p_76164_1_)
             {
@@ -113,7 +94,6 @@ public class LongHashMap
             }
         }
 
-        ++this.modCount;
         this.createKey(i, p_76163_1_, p_76163_3_, j);
     }
 
@@ -177,10 +157,9 @@ public class LongHashMap
     /**
      * calls the removeKey method and returns removed object
      */
-    public Object remove(long p_76159_1_)
+    public void remove(long p_76159_1_)
     {
         LongHashMap.Entry longhashmap$entry = this.removeKey(p_76159_1_);
-        return longhashmap$entry == null ? null : longhashmap$entry.value;
     }
 
     /**
@@ -200,7 +179,6 @@ public class LongHashMap
 
             if (longhashmap$entry1.key == p_76152_1_)
             {
-                ++this.modCount;
                 --this.numHashElements;
 
                 if (longhashmap$entry == longhashmap$entry1)
@@ -218,7 +196,7 @@ public class LongHashMap
             longhashmap$entry = longhashmap$entry1;
         }
 
-        return longhashmap$entry1;
+        return null;
     }
 
     /**
@@ -235,28 +213,12 @@ public class LongHashMap
         }
     }
 
-    public double getKeyDistribution()
-    {
-        int i = 0;
-
-        for (int j = 0; j < this.hashArray.length; ++j)
-        {
-            if (this.hashArray[j] != null)
-            {
-                ++i;
-            }
-        }
-
-        return 1.0D * (double)i / (double)this.numHashElements;
-    }
-
     static class Entry
     {
         final long key;
         Object value;
         LongHashMap.Entry nextEntry;
         final int hash;
-        private static final String __OBFID = "CL_00001493";
 
         Entry(int p_i1553_1_, long p_i1553_2_, Object p_i1553_4_, LongHashMap.Entry p_i1553_5_)
         {
@@ -278,29 +240,20 @@ public class LongHashMap
 
         public final boolean equals(Object p_equals_1_)
         {
-            if (!(p_equals_1_ instanceof LongHashMap.Entry))
-            {
-                return false;
-            }
-            else
-            {
-                LongHashMap.Entry longhashmap$entry = (LongHashMap.Entry)p_equals_1_;
-                Long olong = Long.valueOf(this.getKey());
-                Long olong1 = Long.valueOf(longhashmap$entry.getKey());
+            if (p_equals_1_ instanceof Entry) {
+                Entry longhashmap$entry = (Entry) p_equals_1_;
+                Long olong = this.getKey();
+                Long olong1 = longhashmap$entry.getKey();
 
-                if (olong == olong1 || olong != null && olong.equals(olong1))
-                {
+                if (olong == olong1 || olong.equals(olong1)) {
                     Object object = this.getValue();
                     Object object1 = longhashmap$entry.getValue();
 
-                    if (object == object1 || object != null && object.equals(object1))
-                    {
-                        return true;
-                    }
+                    return object == object1 || object != null && object.equals(object1);
                 }
 
-                return false;
             }
+            return false;
         }
 
         public final int hashCode()

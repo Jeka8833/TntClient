@@ -7,7 +7,7 @@ import net.minecraft.village.Village;
 
 public class EntityAIDefendVillage extends EntityAITarget
 {
-    EntityIronGolem irongolem;
+    final EntityIronGolem irongolem;
 
     /**
      * The aggressor of the iron golem's village which is now the golem's attack target.
@@ -40,12 +40,12 @@ public class EntityAIDefendVillage extends EntityAITarget
             {
                 return false;
             }
-            else if (!this.isSuitableTarget(this.villageAgressorTarget, false))
+            else if (!this.isSuitableTarget(this.villageAgressorTarget))
             {
                 if (this.taskOwner.getRNG().nextInt(20) == 0)
                 {
                     this.villageAgressorTarget = village.getNearestTargetPlayer(this.irongolem);
-                    return this.isSuitableTarget(this.villageAgressorTarget, false);
+                    return this.isSuitableTarget(this.villageAgressorTarget);
                 }
                 else
                 {

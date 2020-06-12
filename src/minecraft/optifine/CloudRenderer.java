@@ -8,12 +8,12 @@ import org.lwjgl.opengl.GL11;
 
 public class CloudRenderer
 {
-    private Minecraft mc;
+    private final Minecraft mc;
     private boolean updated = false;
     private boolean renderFancy = false;
     int cloudTickCounter;
     float partialTicks;
-    private int glListClouds;
+    private final int glListClouds;
     private int cloudTickCounterUpdate = 0;
     private double cloudPlayerX = 0.0D;
     private double cloudPlayerY = 0.0D;

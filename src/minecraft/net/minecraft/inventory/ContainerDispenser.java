@@ -5,7 +5,7 @@ import net.minecraft.item.ItemStack;
 
 public class ContainerDispenser extends Container
 {
-    private IInventory dispenserInventory;
+    private final IInventory dispenserInventory;
 
     public ContainerDispenser(IInventory playerInventory, IInventory dispenserInventoryIn)
     {
@@ -35,7 +35,7 @@ public class ContainerDispenser extends Container
 
     public boolean canInteractWith(EntityPlayer playerIn)
     {
-        return this.dispenserInventory.isUseableByPlayer(playerIn);
+        return !this.dispenserInventory.isUseableByPlayer(playerIn);
     }
 
     /**
@@ -44,7 +44,7 @@ public class ContainerDispenser extends Container
     public ItemStack transferStackInSlot(EntityPlayer playerIn, int index)
     {
         ItemStack itemstack = null;
-        Slot slot = (Slot)this.inventorySlots.get(index);
+        Slot slot = this.inventorySlots.get(index);
 
         if (slot != null && slot.getHasStack())
         {
@@ -53,19 +53,19 @@ public class ContainerDispenser extends Container
 
             if (index < 9)
             {
-                if (!this.mergeItemStack(itemstack1, 9, 45, true))
+                if (this.mergeItemStack(itemstack1, 9, 45, true))
                 {
                     return null;
                 }
             }
-            else if (!this.mergeItemStack(itemstack1, 0, 9, false))
+            else if (this.mergeItemStack(itemstack1, 0, 9, false))
             {
                 return null;
             }
 
             if (itemstack1.stackSize == 0)
             {
-                slot.putStack((ItemStack)null);
+                slot.putStack(null);
             }
             else
             {

@@ -101,11 +101,11 @@ public abstract class EntityLivingBase extends Entity {
      * are.
      */
     public float limbSwing;
-    public int maxHurtResistantTime = 20;
+    public final int maxHurtResistantTime = 20;
     public float prevCameraPitch;
     public float cameraPitch;
-    public float field_70769_ao;
-    public float field_70770_ap;
+    public final float field_70769_ao;
+    public final float field_70770_ap;
     public float renderYawOffset;
     public float prevRenderYawOffset;
 
@@ -1741,7 +1741,7 @@ public abstract class EntityLivingBase extends Entity {
     }
 
     protected void collideWithNearbyEntities() {
-        List<Entity> list = this.worldObj.getEntitiesInAABBexcluding(this, this.getEntityBoundingBox().expand(0.20000000298023224D, 0.0D, 0.20000000298023224D), Predicates.<Entity>and(EntitySelectors.NOT_SPECTATING, new Predicate<Entity>() {
+        List<Entity> list = this.worldObj.getEntitiesInAABBexcluding(this, this.getEntityBoundingBox().expand(0.20000000298023224D, 0.0D, 0.20000000298023224D), Predicates.and(EntitySelectors.NOT_SPECTATING, new Predicate<Entity>() {
             public boolean apply(Entity p_apply_1_) {
                 return p_apply_1_.canBePushed();
             }

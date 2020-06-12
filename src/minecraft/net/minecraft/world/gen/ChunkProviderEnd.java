@@ -8,7 +8,6 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.IProgressUpdate;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -18,13 +17,13 @@ import net.minecraft.world.chunk.IChunkProvider;
 
 public class ChunkProviderEnd implements IChunkProvider
 {
-    private Random endRNG;
-    private NoiseGeneratorOctaves noiseGen1;
-    private NoiseGeneratorOctaves noiseGen2;
-    private NoiseGeneratorOctaves noiseGen3;
-    public NoiseGeneratorOctaves noiseGen4;
-    public NoiseGeneratorOctaves noiseGen5;
-    private World endWorld;
+    private final Random endRNG;
+    private final NoiseGeneratorOctaves noiseGen1;
+    private final NoiseGeneratorOctaves noiseGen2;
+    private final NoiseGeneratorOctaves noiseGen3;
+    public final NoiseGeneratorOctaves noiseGen4;
+    public final NoiseGeneratorOctaves noiseGen5;
+    private final World endWorld;
     private double[] densities;
 
     /** The biomes that are used to generate the chunk */
@@ -52,7 +51,7 @@ public class ChunkProviderEnd implements IChunkProvider
         int j = i + 1;
         int k = 33;
         int l = i + 1;
-        this.densities = this.initializeNoiseField(this.densities, p_180520_1_ * i, 0, p_180520_2_ * i, j, k, l);
+        this.densities = this.initializeNoiseField(this.densities, p_180520_1_ * i, p_180520_2_ * i, j, k, l);
 
         for (int i1 = 0; i1 < i; ++i1)
         {
@@ -61,13 +60,13 @@ public class ChunkProviderEnd implements IChunkProvider
                 for (int k1 = 0; k1 < 32; ++k1)
                 {
                     double d0 = 0.25D;
-                    double d1 = this.densities[((i1 + 0) * l + j1 + 0) * k + k1 + 0];
-                    double d2 = this.densities[((i1 + 0) * l + j1 + 1) * k + k1 + 0];
-                    double d3 = this.densities[((i1 + 1) * l + j1 + 0) * k + k1 + 0];
-                    double d4 = this.densities[((i1 + 1) * l + j1 + 1) * k + k1 + 0];
-                    double d5 = (this.densities[((i1 + 0) * l + j1 + 0) * k + k1 + 1] - d1) * d0;
-                    double d6 = (this.densities[((i1 + 0) * l + j1 + 1) * k + k1 + 1] - d2) * d0;
-                    double d7 = (this.densities[((i1 + 1) * l + j1 + 0) * k + k1 + 1] - d3) * d0;
+                    double d1 = this.densities[((i1) * l + j1) * k + k1];
+                    double d2 = this.densities[((i1) * l + j1 + 1) * k + k1];
+                    double d3 = this.densities[((i1 + 1) * l + j1) * k + k1];
+                    double d4 = this.densities[((i1 + 1) * l + j1 + 1) * k + k1];
+                    double d5 = (this.densities[((i1) * l + j1) * k + k1 + 1] - d1) * d0;
+                    double d6 = (this.densities[((i1) * l + j1 + 1) * k + k1 + 1] - d2) * d0;
+                    double d7 = (this.densities[((i1 + 1) * l + j1) * k + k1 + 1] - d3) * d0;
                     double d8 = (this.densities[((i1 + 1) * l + j1 + 1) * k + k1 + 1] - d4) * d0;
 
                     for (int l1 = 0; l1 < 4; ++l1)
@@ -192,7 +191,7 @@ public class ChunkProviderEnd implements IChunkProvider
      * generates a subset of the level's terrain data. Takes 7 arguments: the [empty] noise array, the position, and the
      * size.
      */
-    private double[] initializeNoiseField(double[] p_73187_1_, int p_73187_2_, int p_73187_3_, int p_73187_4_, int p_73187_5_, int p_73187_6_, int p_73187_7_)
+    private double[] initializeNoiseField(double[] p_73187_1_, int p_73187_2_, int p_73187_4_, int p_73187_5_, int p_73187_6_, int p_73187_7_)
     {
         if (p_73187_1_ == null)
         {
@@ -201,12 +200,12 @@ public class ChunkProviderEnd implements IChunkProvider
 
         double d0 = 684.412D;
         double d1 = 684.412D;
-        this.noiseData4 = this.noiseGen4.generateNoiseOctaves(this.noiseData4, p_73187_2_, p_73187_4_, p_73187_5_, p_73187_7_, 1.121D, 1.121D, 0.5D);
-        this.noiseData5 = this.noiseGen5.generateNoiseOctaves(this.noiseData5, p_73187_2_, p_73187_4_, p_73187_5_, p_73187_7_, 200.0D, 200.0D, 0.5D);
+        this.noiseData4 = this.noiseGen4.generateNoiseOctaves(this.noiseData4, p_73187_2_, p_73187_4_, p_73187_5_, p_73187_7_, 1.121D, 1.121D);
+        this.noiseData5 = this.noiseGen5.generateNoiseOctaves(this.noiseData5, p_73187_2_, p_73187_4_, p_73187_5_, p_73187_7_, 200.0D, 200.0D);
         d0 = d0 * 2.0D;
-        this.noiseData1 = this.noiseGen3.generateNoiseOctaves(this.noiseData1, p_73187_2_, p_73187_3_, p_73187_4_, p_73187_5_, p_73187_6_, p_73187_7_, d0 / 80.0D, d1 / 160.0D, d0 / 80.0D);
-        this.noiseData2 = this.noiseGen1.generateNoiseOctaves(this.noiseData2, p_73187_2_, p_73187_3_, p_73187_4_, p_73187_5_, p_73187_6_, p_73187_7_, d0, d1, d0);
-        this.noiseData3 = this.noiseGen2.generateNoiseOctaves(this.noiseData3, p_73187_2_, p_73187_3_, p_73187_4_, p_73187_5_, p_73187_6_, p_73187_7_, d0, d1, d0);
+        this.noiseData1 = this.noiseGen3.generateNoiseOctaves(this.noiseData1, p_73187_2_, 0, p_73187_4_, p_73187_5_, p_73187_6_, p_73187_7_, d0 / 80.0D, d1 / 160.0D, d0 / 80.0D);
+        this.noiseData2 = this.noiseGen1.generateNoiseOctaves(this.noiseData2, p_73187_2_, 0, p_73187_4_, p_73187_5_, p_73187_6_, p_73187_7_, d0, d1, d0);
+        this.noiseData3 = this.noiseGen2.generateNoiseOctaves(this.noiseData3, p_73187_2_, 0, p_73187_4_, p_73187_5_, p_73187_6_, p_73187_7_, d0, d1, d0);
         int i = 0;
 
         for (int j = 0; j < p_73187_5_; ++j)
@@ -253,7 +252,7 @@ public class ChunkProviderEnd implements IChunkProvider
 
                     if (l > p_73187_6_ / 2 - i1)
                     {
-                        double d6 = (double)((float)(l - (p_73187_6_ / 2 - i1)) / 64.0F);
+                        double d6 = (float)(l - (p_73187_6_ / 2 - i1)) / 64.0F;
                         d6 = MathHelper.clamp_double(d6, 0.0D, 1.0D);
                         d2 = d2 * (1.0D - d6) + -3000.0D * d6;
                     }
@@ -262,7 +261,7 @@ public class ChunkProviderEnd implements IChunkProvider
 
                     if (l < i1)
                     {
-                        double d7 = (double)((float)(i1 - l) / ((float)i1 - 1.0F));
+                        double d7 = (float)(i1 - l) / ((float)i1 - 1.0F);
                         d2 = d2 * (1.0D - d7) + -30.0D * d7;
                     }
 
@@ -303,9 +302,8 @@ public class ChunkProviderEnd implements IChunkProvider
      * Two modes of operation: if passed true, save all Chunks in one go.  If passed false, save up to two chunks.
      * Return true if all chunks have been saved.
      */
-    public boolean saveChunks(boolean p_73151_1_, IProgressUpdate progressCallback)
+    public void saveChunks(boolean p_73151_1_)
     {
-        return true;
     }
 
     /**
@@ -355,7 +353,7 @@ public class ChunkProviderEnd implements IChunkProvider
         return 0;
     }
 
-    public void recreateStructures(Chunk p_180514_1_, int p_180514_2_, int p_180514_3_)
+    public void recreateStructures(int p_180514_2_, int p_180514_3_)
     {
     }
 

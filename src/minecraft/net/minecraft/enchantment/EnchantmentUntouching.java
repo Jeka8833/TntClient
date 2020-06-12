@@ -6,9 +6,9 @@ import net.minecraft.util.ResourceLocation;
 
 public class EnchantmentUntouching extends Enchantment
 {
-    protected EnchantmentUntouching(int p_i45763_1_, ResourceLocation p_i45763_2_, int p_i45763_3_)
+    protected EnchantmentUntouching(ResourceLocation p_i45763_2_)
     {
-        super(p_i45763_1_, p_i45763_2_, p_i45763_3_, EnumEnchantmentType.DIGGER);
+        super(33, p_i45763_2_, 1, EnumEnchantmentType.DIGGER);
         this.setName("untouching");
     }
 
@@ -41,7 +41,7 @@ public class EnchantmentUntouching extends Enchantment
      */
     public boolean canApplyTogether(Enchantment ench)
     {
-        return super.canApplyTogether(ench) && ench.effectId != fortune.effectId;
+        return super.canApplyTogether(ench) || ench.effectId == fortune.effectId;
     }
 
     /**
@@ -49,6 +49,6 @@ public class EnchantmentUntouching extends Enchantment
      */
     public boolean canApply(ItemStack stack)
     {
-        return stack.getItem() == Items.shears ? true : super.canApply(stack);
+        return stack.getItem() == Items.shears || super.canApply(stack);
     }
 }

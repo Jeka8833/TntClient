@@ -9,21 +9,21 @@ import net.minecraft.world.Explosion;
 
 public class DamageSource
 {
-    public static DamageSource inFire = (new DamageSource("inFire")).setFireDamage();
-    public static DamageSource lightningBolt = new DamageSource("lightningBolt");
-    public static DamageSource onFire = (new DamageSource("onFire")).setDamageBypassesArmor().setFireDamage();
-    public static DamageSource lava = (new DamageSource("lava")).setFireDamage();
-    public static DamageSource inWall = (new DamageSource("inWall")).setDamageBypassesArmor();
-    public static DamageSource drown = (new DamageSource("drown")).setDamageBypassesArmor();
-    public static DamageSource starve = (new DamageSource("starve")).setDamageBypassesArmor().setDamageIsAbsolute();
-    public static DamageSource cactus = new DamageSource("cactus");
-    public static DamageSource fall = (new DamageSource("fall")).setDamageBypassesArmor();
-    public static DamageSource outOfWorld = (new DamageSource("outOfWorld")).setDamageBypassesArmor().setDamageAllowedInCreativeMode();
-    public static DamageSource generic = (new DamageSource("generic")).setDamageBypassesArmor();
-    public static DamageSource magic = (new DamageSource("magic")).setDamageBypassesArmor().setMagicDamage();
-    public static DamageSource wither = (new DamageSource("wither")).setDamageBypassesArmor();
-    public static DamageSource anvil = new DamageSource("anvil");
-    public static DamageSource fallingBlock = new DamageSource("fallingBlock");
+    public static final DamageSource inFire = (new DamageSource("inFire")).setFireDamage();
+    public static final DamageSource lightningBolt = new DamageSource("lightningBolt");
+    public static final DamageSource onFire = (new DamageSource("onFire")).setDamageBypassesArmor().setFireDamage();
+    public static final DamageSource lava = (new DamageSource("lava")).setFireDamage();
+    public static final DamageSource inWall = (new DamageSource("inWall")).setDamageBypassesArmor();
+    public static final DamageSource drown = (new DamageSource("drown")).setDamageBypassesArmor();
+    public static final DamageSource starve = (new DamageSource("starve")).setDamageBypassesArmor().setDamageIsAbsolute();
+    public static final DamageSource cactus = new DamageSource("cactus");
+    public static final DamageSource fall = (new DamageSource("fall")).setDamageBypassesArmor();
+    public static final DamageSource outOfWorld = (new DamageSource("outOfWorld")).setDamageBypassesArmor().setDamageAllowedInCreativeMode();
+    public static final DamageSource generic = (new DamageSource("generic")).setDamageBypassesArmor();
+    public static final DamageSource magic = (new DamageSource("magic")).setDamageBypassesArmor().setMagicDamage();
+    public static final DamageSource wither = (new DamageSource("wither")).setDamageBypassesArmor();
+    public static final DamageSource anvil = new DamageSource("anvil");
+    public static final DamageSource fallingBlock = new DamageSource("fallingBlock");
 
     /** This kind of damage can be blocked or not. */
     private boolean isUnblockable;
@@ -49,7 +49,7 @@ public class DamageSource
     /** Whether the damage is magic based. */
     private boolean magicDamage;
     private boolean explosion;
-    public String damageType;
+    public final String damageType;
 
     public static DamageSource causeMobDamage(EntityLivingBase mob)
     {
@@ -213,7 +213,7 @@ public class DamageSource
         EntityLivingBase entitylivingbase = p_151519_1_.func_94060_bK();
         String s = "death.attack." + this.damageType;
         String s1 = s + ".player";
-        return entitylivingbase != null && StatCollector.canTranslate(s1) ? new ChatComponentTranslation(s1, new Object[] {p_151519_1_.getDisplayName(), entitylivingbase.getDisplayName()}): new ChatComponentTranslation(s, new Object[] {p_151519_1_.getDisplayName()});
+        return entitylivingbase != null && StatCollector.canTranslate(s1) ? new ChatComponentTranslation(s1, p_151519_1_.getDisplayName(), entitylivingbase.getDisplayName()): new ChatComponentTranslation(s, p_151519_1_.getDisplayName());
     }
 
     /**

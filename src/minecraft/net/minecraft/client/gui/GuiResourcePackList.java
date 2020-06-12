@@ -17,7 +17,7 @@ public abstract class GuiResourcePackList extends GuiListExtended
         this.mc = mcIn;
         this.field_148204_l = p_i45055_4_;
         this.field_148163_i = false;
-        this.setHasListHeader(true, (int)((float)mcIn.fontRendererObj.FONT_HEIGHT * 1.5F));
+        this.setHasListHeader((int)((float)mcIn.fontRendererObj.FONT_HEIGHT * 1.5F));
     }
 
     /**
@@ -46,7 +46,7 @@ public abstract class GuiResourcePackList extends GuiListExtended
      */
     public ResourcePackListEntry getListEntry(int index)
     {
-        return (ResourcePackListEntry)this.getList().get(index);
+        return this.getList().get(index);
     }
 
     /**

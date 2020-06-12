@@ -2,10 +2,10 @@ package optifine;
 
 public class GlVersion
 {
-    private int major;
-    private int minor;
-    private int release;
-    private String suffix;
+    private final int major;
+    private final int minor;
+    private final int release;
+    private final String suffix;
 
     public GlVersion(int p_i43_1_, int p_i43_2_)
     {

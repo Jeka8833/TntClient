@@ -30,11 +30,11 @@ public class ItemWritableBook extends Item
     {
         if (nbt == null)
         {
-            return false;
+            return true;
         }
         else if (!nbt.hasKey("pages", 9))
         {
-            return false;
+            return true;
         }
         else
         {
@@ -46,16 +46,16 @@ public class ItemWritableBook extends Item
 
                 if (s == null)
                 {
-                    return false;
+                    return true;
                 }
 
                 if (s.length() > 32767)
                 {
-                    return false;
+                    return true;
                 }
             }
 
-            return true;
+            return false;
         }
     }
 }

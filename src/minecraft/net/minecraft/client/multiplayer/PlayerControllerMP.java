@@ -71,7 +71,7 @@ public class PlayerControllerMP
     {
         if (!mcIn.theWorld.extinguishFire(mcIn.thePlayer, p_178891_2_, p_178891_3_))
         {
-            p_178891_1_.onPlayerDestroyBlock(p_178891_2_, p_178891_3_);
+            p_178891_1_.onPlayerDestroyBlock(p_178891_2_);
         }
     }
 
@@ -116,13 +116,13 @@ public class PlayerControllerMP
     /**
      * Called when a player completes the destruction of a block
      */
-    public boolean onPlayerDestroyBlock(BlockPos pos, EnumFacing side)
+    public void onPlayerDestroyBlock(BlockPos pos)
     {
         if (this.currentGameType.isAdventure())
         {
             if (this.currentGameType == WorldSettings.GameType.SPECTATOR)
             {
-                return false;
+                return;
             }
 
             if (!this.mc.thePlayer.isAllowEdit())
@@ -132,19 +132,18 @@ public class PlayerControllerMP
 
                 if (itemstack == null)
                 {
-                    return false;
+                    return;
                 }
 
                 if (!itemstack.canDestroy(block))
                 {
-                    return false;
+                    return;
                 }
             }
         }
 
         if (this.currentGameType.isCreative() && this.mc.thePlayer.getHeldItem() != null && this.mc.thePlayer.getHeldItem().getItem() instanceof ItemSword)
         {
-            return false;
         }
         else
         {
@@ -154,7 +153,6 @@ public class PlayerControllerMP
 
             if (block1.getMaterial() == Material.air)
             {
-                return false;
             }
             else
             {
@@ -183,7 +181,6 @@ public class PlayerControllerMP
                     }
                 }
 
-                return flag;
             }
         }
     }
@@ -247,7 +244,7 @@ public class PlayerControllerMP
 
                 if (flag && block1.getPlayerRelativeBlockHardness(this.mc.thePlayer) >= 1.0F)
                 {
-                    this.onPlayerDestroyBlock(loc, face);
+                    this.onPlayerDestroyBlock(loc);
                 }
                 else
                 {
@@ -318,7 +315,7 @@ public class PlayerControllerMP
                 {
                     this.isHittingBlock = false;
                     this.netClientHandler.addToSendQueue(new C07PacketPlayerDigging(C07PacketPlayerDigging.Action.STOP_DESTROY_BLOCK, posBlock, directionFacing));
-                    this.onPlayerDestroyBlock(posBlock, directionFacing);
+                    this.onPlayerDestroyBlock(posBlock);
                     this.curBlockDamageMP = 0.0F;
                     this.stepSoundTickCounter = 0.0F;
                     this.blockHitDelay = 5;
@@ -410,7 +407,7 @@ public class PlayerControllerMP
                 {
                     ItemBlock itemblock = (ItemBlock)heldStack.getItem();
 
-                    if (!itemblock.canPlaceBlockOnSide(worldIn, hitPos, side, player, heldStack))
+                    if (itemblock.canPlaceBlockOnSide(worldIn, hitPos, side, player, heldStack))
                     {
                         return false;
                     }
@@ -520,12 +517,11 @@ public class PlayerControllerMP
     /**
      * Handles slot clicks sends a packet to the server.
      */
-    public ItemStack windowClick(int windowId, int slotId, int mouseButtonClicked, int mode, EntityPlayer playerIn)
+    public void windowClick(int windowId, int slotId, int mouseButtonClicked, int mode, EntityPlayer playerIn)
     {
-        short short1 = playerIn.openContainer.getNextTransactionID(playerIn.inventory);
+        short short1 = playerIn.openContainer.getNextTransactionID();
         ItemStack itemstack = playerIn.openContainer.slotClick(slotId, mouseButtonClicked, mode, playerIn);
         this.netClientHandler.addToSendQueue(new C0EPacketClickWindow(windowId, slotId, mouseButtonClicked, mode, itemstack, short1));
-        return itemstack;
     }
 
     /**

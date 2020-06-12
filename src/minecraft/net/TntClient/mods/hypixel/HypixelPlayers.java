@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 public class HypixelPlayers {
 
     private static final Minecraft mc = Minecraft.getMinecraft();
-    public static Map<String, PlayerInfo> playerInfoMap = new HashMap<>();
+    public static final Map<String, PlayerInfo> playerInfoMap = new HashMap<>();
     public static List<GameProfile> players;
 
     public static boolean isHypixel;

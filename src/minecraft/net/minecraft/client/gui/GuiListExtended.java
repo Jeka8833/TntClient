@@ -35,7 +35,7 @@ public abstract class GuiListExtended extends GuiSlot
 
     protected void func_178040_a(int p_178040_1_, int p_178040_2_, int p_178040_3_)
     {
-        this.getListEntry(p_178040_1_).setSelected(p_178040_1_, p_178040_2_, p_178040_3_);
+        this.getListEntry(p_178040_1_).setSelected(p_178040_3_);
     }
 
     public boolean mouseClicked(int mouseX, int mouseY, int mouseEvent)
@@ -70,7 +70,7 @@ public abstract class GuiListExtended extends GuiSlot
             int k = this.top + 4 - this.getAmountScrolled() + i * this.slotHeight + this.headerPadding;
             int l = p_148181_1_ - j;
             int i1 = p_148181_2_ - k;
-            this.getListEntry(i).mouseReleased(i, p_148181_1_, p_148181_2_, p_148181_3_, l, i1);
+            this.getListEntry(i).mouseReleased(p_148181_1_, p_148181_2_, p_148181_3_);
         }
 
         this.setEnabled(true);
@@ -84,12 +84,12 @@ public abstract class GuiListExtended extends GuiSlot
 
     public interface IGuiListEntry
     {
-        void setSelected(int p_178011_1_, int p_178011_2_, int p_178011_3_);
+        void setSelected(int p_178011_3_);
 
         void drawEntry(int slotIndex, int x, int y, int listWidth, int slotHeight, int mouseX, int mouseY, boolean isSelected);
 
         boolean mousePressed(int slotIndex, int p_148278_2_, int p_148278_3_, int p_148278_4_, int p_148278_5_, int p_148278_6_);
 
-        void mouseReleased(int slotIndex, int x, int y, int mouseEvent, int relativeX, int relativeY);
+        void mouseReleased(int x, int y, int mouseEvent);
     }
 }

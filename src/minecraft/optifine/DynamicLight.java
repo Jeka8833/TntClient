@@ -16,8 +16,8 @@ import net.minecraft.world.World;
 
 public class DynamicLight
 {
-    private Entity entity;
-    private double offsetY;
+    private final Entity entity;
+    private final double offsetY;
     private double lastPosX = -2.147483648E9D;
     private double lastPosY = -2.147483648E9D;
     private double lastPosZ = -2.147483648E9D;
@@ -25,7 +25,7 @@ public class DynamicLight
     private boolean underwater = false;
     private long timeCheckMs = 0L;
     private Set<BlockPos> setLitChunkPos = new HashSet();
-    private BlockPos.MutableBlockPos blockPosMutable = new BlockPos.MutableBlockPos();
+    private final BlockPos.MutableBlockPos blockPosMutable = new BlockPos.MutableBlockPos();
 
     public DynamicLight(Entity p_i36_1_)
     {

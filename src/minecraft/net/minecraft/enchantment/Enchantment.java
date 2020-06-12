@@ -17,7 +17,7 @@ public abstract class Enchantment
 {
     private static final Enchantment[] enchantmentsList = new Enchantment[256];
     public static final Enchantment[] enchantmentsBookList;
-    private static final Map<ResourceLocation, Enchantment> locationEnchantments = Maps.<ResourceLocation, Enchantment>newHashMap();
+    private static final Map<ResourceLocation, Enchantment> locationEnchantments = Maps.newHashMap();
     public static final Enchantment protection = new EnchantmentProtection(0, new ResourceLocation("protection"), 10, 0);
 
     /** Protection against fire */
@@ -36,30 +36,30 @@ public abstract class Enchantment
     public static final Enchantment sharpness = new EnchantmentDamage(16, new ResourceLocation("sharpness"), 10, 0);
     public static final Enchantment smite = new EnchantmentDamage(17, new ResourceLocation("smite"), 5, 1);
     public static final Enchantment baneOfArthropods = new EnchantmentDamage(18, new ResourceLocation("bane_of_arthropods"), 5, 2);
-    public static final Enchantment knockback = new EnchantmentKnockback(19, new ResourceLocation("knockback"), 5);
+    public static final Enchantment knockback = new EnchantmentKnockback(new ResourceLocation("knockback"));
 
     /** Lights mobs on fire */
-    public static final Enchantment fireAspect = new EnchantmentFireAspect(20, new ResourceLocation("fire_aspect"), 2);
+    public static final Enchantment fireAspect = new EnchantmentFireAspect(new ResourceLocation("fire_aspect"));
 
     /** Mobs have a chance to drop more loot */
-    public static final Enchantment looting = new EnchantmentLootBonus(21, new ResourceLocation("looting"), 2, EnumEnchantmentType.WEAPON);
+    public static final Enchantment looting = new EnchantmentLootBonus(21, new ResourceLocation("looting"), EnumEnchantmentType.WEAPON);
 
     /** Faster resource gathering while in use */
-    public static final Enchantment efficiency = new EnchantmentDigging(32, new ResourceLocation("efficiency"), 10);
+    public static final Enchantment efficiency = new EnchantmentDigging(new ResourceLocation("efficiency"));
 
     /**
      * Blocks mined will drop themselves, even if it should drop something else (e.g. stone will drop stone, not
      * cobblestone)
      */
-    public static final Enchantment silkTouch = new EnchantmentUntouching(33, new ResourceLocation("silk_touch"), 1);
+    public static final Enchantment silkTouch = new EnchantmentUntouching(new ResourceLocation("silk_touch"));
 
     /**
      * Sometimes, the tool's durability will not be spent when the tool is used
      */
-    public static final Enchantment unbreaking = new EnchantmentDurability(34, new ResourceLocation("unbreaking"), 5);
+    public static final Enchantment unbreaking = new EnchantmentDurability(new ResourceLocation("unbreaking"));
 
     /** Can multiply the drop rate of items from blocks */
-    public static final Enchantment fortune = new EnchantmentLootBonus(35, new ResourceLocation("fortune"), 2, EnumEnchantmentType.DIGGER);
+    public static final Enchantment fortune = new EnchantmentLootBonus(35, new ResourceLocation("fortune"), EnumEnchantmentType.DIGGER);
 
     /** Power enchantment for bows, add's extra damage to arrows. */
     public static final Enchantment power = new EnchantmentArrowDamage(48, new ResourceLocation("power"), 10);
@@ -79,8 +79,8 @@ public abstract class Enchantment
      * arrow on inventory use the bow.
      */
     public static final Enchantment infinity = new EnchantmentArrowInfinite(51, new ResourceLocation("infinity"), 1);
-    public static final Enchantment luckOfTheSea = new EnchantmentLootBonus(61, new ResourceLocation("luck_of_the_sea"), 2, EnumEnchantmentType.FISHING_ROD);
-    public static final Enchantment lure = new EnchantmentFishingSpeed(62, new ResourceLocation("lure"), 2, EnumEnchantmentType.FISHING_ROD);
+    public static final Enchantment luckOfTheSea = new EnchantmentLootBonus(61, new ResourceLocation("luck_of_the_sea"), EnumEnchantmentType.FISHING_ROD);
+    public static final Enchantment lure = new EnchantmentFishingSpeed(new ResourceLocation("lure"));
     public final int effectId;
     private final int weight;
 
@@ -120,7 +120,7 @@ public abstract class Enchantment
      */
     public static Enchantment getEnchantmentByLocation(String location)
     {
-        return (Enchantment)locationEnchantments.get(new ResourceLocation(location));
+        return locationEnchantments.get(new ResourceLocation(location));
     }
 
     public static Set<ResourceLocation> func_181077_c()
@@ -191,16 +191,15 @@ public abstract class Enchantment
      */
     public boolean canApplyTogether(Enchantment ench)
     {
-        return this != ench;
+        return this == ench;
     }
 
     /**
      * Sets the enchantment name
      */
-    public Enchantment setName(String enchName)
+    public void setName(String enchName)
     {
         this.name = enchName;
-        return this;
     }
 
     /**
@@ -245,7 +244,7 @@ public abstract class Enchantment
 
     static
     {
-        List<Enchantment> list = Lists.<Enchantment>newArrayList();
+        List<Enchantment> list = Lists.newArrayList();
 
         for (Enchantment enchantment : enchantmentsList)
         {
@@ -255,6 +254,6 @@ public abstract class Enchantment
             }
         }
 
-        enchantmentsBookList = (Enchantment[])list.toArray(new Enchantment[list.size()]);
+        enchantmentsBookList = list.toArray(new Enchantment[0]);
     }
 }

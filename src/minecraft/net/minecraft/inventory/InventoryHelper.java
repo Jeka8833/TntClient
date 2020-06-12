@@ -14,7 +14,7 @@ public class InventoryHelper
 
     public static void dropInventoryItems(World worldIn, BlockPos pos, IInventory p_180175_2_)
     {
-        func_180174_a(worldIn, (double)pos.getX(), (double)pos.getY(), (double)pos.getZ(), p_180175_2_);
+        func_180174_a(worldIn, pos.getX(), pos.getY(), pos.getZ(), p_180175_2_);
     }
 
     public static void func_180176_a(World worldIn, Entity p_180176_1_, IInventory p_180176_2_)

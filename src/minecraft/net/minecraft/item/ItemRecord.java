@@ -16,7 +16,7 @@ import net.minecraft.world.World;
 
 public class ItemRecord extends Item
 {
-    private static final Map<String, ItemRecord> RECORDS = Maps.<String, ItemRecord>newHashMap();
+    private static final Map<String, ItemRecord> RECORDS = Maps.newHashMap();
 
     /** The name of the record. */
     public final String recordName;
@@ -36,20 +36,15 @@ public class ItemRecord extends Item
     {
         IBlockState iblockstate = worldIn.getBlockState(pos);
 
-        if (iblockstate.getBlock() == Blocks.jukebox && !((Boolean)iblockstate.getValue(BlockJukebox.HAS_RECORD)).booleanValue())
+        if (iblockstate.getBlock() == Blocks.jukebox && !iblockstate.getValue(BlockJukebox.HAS_RECORD))
         {
-            if (worldIn.isRemote)
-            {
-                return true;
-            }
-            else
-            {
-                ((BlockJukebox)Blocks.jukebox).insertRecord(worldIn, pos, iblockstate, stack);
-                worldIn.playAuxSFXAtEntity((EntityPlayer)null, 1005, pos, Item.getIdFromItem(this));
+            if (!worldIn.isRemote) {
+                ((BlockJukebox) Blocks.jukebox).insertRecord(worldIn, pos, iblockstate, stack);
+                worldIn.playAuxSFXAtEntity(null, 1005, pos, Item.getIdFromItem(this));
                 --stack.stackSize;
                 playerIn.triggerAchievement(StatList.field_181740_X);
-                return true;
             }
+            return true;
         }
         else
         {
@@ -83,6 +78,6 @@ public class ItemRecord extends Item
      */
     public static ItemRecord getRecord(String name)
     {
-        return (ItemRecord)RECORDS.get(name);
+        return RECORDS.get(name);
     }
 }

@@ -43,7 +43,7 @@ import optifine.Reflector;
 public class WorldClient extends World
 {
     /** The packets that need to be sent to the server. */
-    private NetHandlerPlayClient sendQueue;
+    private final NetHandlerPlayClient sendQueue;
 
     /** The ChunkProviderClient instance */
     private ChunkProviderClient clientChunkProvider;
@@ -59,7 +59,7 @@ public class WorldClient extends World
     private final Minecraft mc = Minecraft.getMinecraft();
     private final Set previousActiveChunkSet = Sets.newHashSet();
     private static final String __OBFID = "CL_00000882";
-    private BlockPosM randomTickPosM = new BlockPosM(0, 0, 0, 3);
+    private final BlockPosM randomTickPosM = new BlockPosM(0, 0, 0, 3);
     private boolean playerUpdate = false;
 
     public WorldClient(NetHandlerPlayClient p_i45063_1_, WorldSettings p_i45063_2_, int p_i45063_3_, EnumDifficulty p_i45063_4_, Profiler p_i45063_5_)
@@ -267,7 +267,7 @@ public class WorldClient extends World
         return id == this.mc.thePlayer.getEntityId() ? this.mc.thePlayer : super.getEntityByID(id);
     }
 
-    public Entity removeEntityFromWorld(int p_73028_1_)
+    public void removeEntityFromWorld(int p_73028_1_)
     {
         Entity entity = this.entitiesById.removeObject(p_73028_1_);
 
@@ -277,16 +277,15 @@ public class WorldClient extends World
             this.removeEntity(entity);
         }
 
-        return entity;
     }
 
-    public boolean invalidateRegionAndSetBlock(BlockPos p_180503_1_, IBlockState p_180503_2_)
+    public void invalidateRegionAndSetBlock(BlockPos p_180503_1_, IBlockState p_180503_2_)
     {
         int i = p_180503_1_.getX();
         int j = p_180503_1_.getY();
         int k = p_180503_1_.getZ();
         this.invalidateBlockReceiveRegion(i, j, k, i, j, k);
-        return super.setBlockState(p_180503_1_, p_180503_2_, 3);
+        super.setBlockState(p_180503_1_, p_180503_2_, 3);
     }
 
     /**

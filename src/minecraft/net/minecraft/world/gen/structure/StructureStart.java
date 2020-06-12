@@ -10,7 +10,7 @@ import net.minecraft.world.World;
 
 public abstract class StructureStart
 {
-    protected LinkedList<StructureComponent> components = new LinkedList();
+    protected final LinkedList<StructureComponent> components = new LinkedList();
     protected StructureBoundingBox boundingBox;
     private int chunkPosX;
     private int chunkPosZ;
@@ -44,7 +44,7 @@ public abstract class StructureStart
 
         while (iterator.hasNext())
         {
-            StructureComponent structurecomponent = (StructureComponent)iterator.next();
+            StructureComponent structurecomponent = iterator.next();
 
             if (structurecomponent.getBoundingBox().intersectsWith(structurebb) && !structurecomponent.addComponentParts(worldIn, rand, structurebb))
             {
@@ -116,9 +116,9 @@ public abstract class StructureStart
     /**
      * offsets the structure Bounding Boxes up to a certain height, typically 63 - 10
      */
-    protected void markAvailableHeight(World worldIn, Random rand, int p_75067_3_)
+    protected void markAvailableHeight(World worldIn, Random rand)
     {
-        int i = worldIn.func_181545_F() - p_75067_3_;
+        int i = worldIn.func_181545_F() - 10;
         int j = this.boundingBox.getYSize() + 1;
 
         if (j < i)
@@ -135,18 +135,18 @@ public abstract class StructureStart
         }
     }
 
-    protected void setRandomHeight(World worldIn, Random rand, int p_75070_3_, int p_75070_4_)
+    protected void setRandomHeight(Random rand)
     {
-        int i = p_75070_4_ - p_75070_3_ + 1 - this.boundingBox.getYSize();
+        int i = 70 - 48 + 1 - this.boundingBox.getYSize();
         int j = 1;
 
         if (i > 1)
         {
-            j = p_75070_3_ + rand.nextInt(i);
+            j = 48 + rand.nextInt(i);
         }
         else
         {
-            j = p_75070_3_;
+            j = 48;
         }
 
         int k = j - this.boundingBox.minY;

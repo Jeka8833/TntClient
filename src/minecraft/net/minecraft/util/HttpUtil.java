@@ -52,7 +52,7 @@ public class HttpUtil
 
             try
             {
-                stringbuilder.append(URLEncoder.encode((String)entry.getKey(), "UTF-8"));
+                stringbuilder.append(URLEncoder.encode(entry.getKey(), "UTF-8"));
             }
             catch (UnsupportedEncodingException unsupportedencodingexception1)
             {
@@ -80,9 +80,9 @@ public class HttpUtil
     /**
      * Sends a POST to the given URL using the map as the POST args
      */
-    public static String postMap(URL url, Map<String, Object> data, boolean skipLoggingErrors)
+    public static void postMap(URL url, Map<String, Object> data, boolean skipLoggingErrors)
     {
-        return post(url, buildPostString(data), skipLoggingErrors);
+        post(url, buildPostString(data), skipLoggingErrors);
     }
 
     /**
@@ -112,7 +112,7 @@ public class HttpUtil
             dataoutputstream.flush();
             dataoutputstream.close();
             BufferedReader bufferedreader = new BufferedReader(new InputStreamReader(httpurlconnection.getInputStream()));
-            StringBuffer stringbuffer = new StringBuffer();
+            StringBuilder stringbuffer = new StringBuilder();
             String s;
 
             while ((s = bufferedreader.readLine()) != null)
@@ -128,7 +128,7 @@ public class HttpUtil
         {
             if (!skipLoggingErrors)
             {
-                logger.error((String)("Could not post to " + url), (Throwable)exception);
+                logger.error("Could not post to " + url, exception);
             }
 
             return "";
@@ -163,7 +163,7 @@ public class HttpUtil
 
                         for (Entry<String, String> entry : p_180192_2_.entrySet())
                         {
-                            httpurlconnection.setRequestProperty((String)entry.getKey(), (String)entry.getValue());
+                            httpurlconnection.setRequestProperty(entry.getKey(), entry.getValue());
 
                             if (p_180192_4_ != null)
                             {
@@ -177,7 +177,7 @@ public class HttpUtil
 
                         if (p_180192_4_ != null)
                         {
-                            p_180192_4_.displayLoadingString(String.format("Downloading file (%.2f MB)...", new Object[] {Float.valueOf(f1 / 1000.0F / 1000.0F)}));
+                            p_180192_4_.displayLoadingString(String.format("Downloading file (%.2f MB)...", f1 / 1000.0F / 1000.0F));
                         }
 
                         if (saveFile.exists())
@@ -253,7 +253,6 @@ public class HttpUtil
                         if (p_180192_4_ != null)
                         {
                             p_180192_4_.setDoneWorking();
-                            return;
                         }
                     }
                     catch (Throwable throwable)
@@ -277,7 +276,6 @@ public class HttpUtil
                         if (p_180192_4_ != null)
                         {
                             p_180192_4_.setDoneWorking();
-                            return;
                         }
                     }
                 }
@@ -310,9 +308,8 @@ public class HttpUtil
                     serversocket.close();
                 }
             }
-            catch (IOException var8)
+            catch (IOException ignored)
             {
-                ;
             }
         }
 

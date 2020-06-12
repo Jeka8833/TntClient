@@ -13,7 +13,7 @@ public class RealmsScrolledSelectionList
 
     public void render(int p_render_1_, int p_render_2_, float p_render_3_)
     {
-        this.proxy.drawScreen(p_render_1_, p_render_2_, p_render_3_);
+        this.proxy.drawScreen(p_render_1_, p_render_2_);
     }
 
     public int width()
@@ -49,7 +49,7 @@ public class RealmsScrolledSelectionList
     {
     }
 
-    public boolean isSelectedItem(int p_isSelectedItem_1_)
+    public boolean isSelectedItem()
     {
         return false;
     }

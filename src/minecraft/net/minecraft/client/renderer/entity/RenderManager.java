@@ -112,15 +112,15 @@ public class RenderManager
     /**
      * lists the various player skin types with their associated Renderer class instances.
      */
-    private Map skinMap = Maps.newHashMap();
-    private RenderPlayer playerRenderer;
+    private final Map skinMap = Maps.newHashMap();
+    private final RenderPlayer playerRenderer;
 
     /** Renders fonts */
     private FontRenderer textRenderer;
     private double renderPosX;
     private double renderPosY;
     private double renderPosZ;
-    public TextureManager renderEngine;
+    public final TextureManager renderEngine;
 
     /** Reference to the World object. */
     public World worldObj;
@@ -212,7 +212,7 @@ public class RenderManager
 
         if (Reflector.RenderingRegistry_loadEntityRenderers.exists())
         {
-            Reflector.call(Reflector.RenderingRegistry_loadEntityRenderers, new Object[] {this.entityRenderMap});
+            Reflector.call(Reflector.RenderingRegistry_loadEntityRenderers, this.entityRenderMap);
         }
     }
 
@@ -263,7 +263,7 @@ public class RenderManager
             IBlockState iblockstate = worldIn.getBlockState(new BlockPos(livingPlayerIn));
             Block block = iblockstate.getBlock();
 
-            if (Reflector.callBoolean(Reflector.ForgeBlock_isBed, new Object[] {worldIn, new BlockPos(livingPlayerIn), (EntityLivingBase)livingPlayerIn}))
+            if (Reflector.callBoolean(Reflector.ForgeBlock_isBed, worldIn, new BlockPos(livingPlayerIn), livingPlayerIn))
             {
                 EnumFacing enumfacing = (EnumFacing)Reflector.call(block, Reflector.ForgeBlock_getBedDirection, new Object[] {worldIn, new BlockPos(livingPlayerIn)});
                 int i = enumfacing.getHorizontalIndex();
@@ -272,7 +272,7 @@ public class RenderManager
             }
             else if (block == Blocks.bed)
             {
-                int j = ((EnumFacing)iblockstate.getValue(BlockBed.FACING)).getHorizontalIndex();
+                int j = iblockstate.getValue(BlockBed.FACING).getHorizontalIndex();
                 this.playerViewY = (float)(j * 90 + 180);
                 this.playerViewX = 0.0F;
             }
@@ -318,9 +318,9 @@ public class RenderManager
         return this.debugBoundingBox;
     }
 
-    public boolean renderEntitySimple(Entity entityIn, float partialTicks)
+    public void renderEntitySimple(Entity entityIn, float partialTicks)
     {
-        return this.renderEntityStatic(entityIn, partialTicks, false);
+        this.renderEntityStatic(entityIn, partialTicks, false);
     }
 
     public boolean shouldRender(Entity entityIn, ICamera camera, double camX, double camY, double camZ)
@@ -374,9 +374,9 @@ public class RenderManager
         }
     }
 
-    public boolean renderEntityWithPosYaw(Entity entityIn, double x, double y, double z, float entityYaw, float partialTicks)
+    public void renderEntityWithPosYaw(Entity entityIn, double x, double y, double z, float entityYaw, float partialTicks)
     {
-        return this.doRenderEntity(entityIn, x, y, z, entityYaw, partialTicks, false);
+        this.doRenderEntity(entityIn, x, y, z, entityYaw, partialTicks, false);
     }
 
     public boolean doRenderEntity(Entity entity, double x, double y, double z, float entityYaw, float partialTicks, boolean p_147939_10_)
@@ -419,7 +419,7 @@ public class RenderManager
                 {
                     try
                     {
-                        this.renderDebugBoundingBox(entity, x, y, z, entityYaw, partialTicks);
+                        this.renderDebugBoundingBox(entity, x, y, z, partialTicks);
                     }
                     catch (Throwable throwable)
                     {
@@ -427,10 +427,7 @@ public class RenderManager
                     }
                 }
             }
-            else if (this.renderEngine != null)
-            {
-                return false;
-            }
+            else return this.renderEngine == null;
 
             return true;
         }
@@ -442,8 +439,8 @@ public class RenderManager
             CrashReportCategory crashreportcategory1 = crashreport.makeCategory("Renderer details");
             crashreportcategory1.addCrashSection("Assigned renderer", render);
             crashreportcategory1.addCrashSection("Location", CrashReportCategory.getCoordinateInfo(x, y, z));
-            crashreportcategory1.addCrashSection("Rotation", Float.valueOf(entityYaw));
-            crashreportcategory1.addCrashSection("Delta", Float.valueOf(partialTicks));
+            crashreportcategory1.addCrashSection("Rotation", entityYaw);
+            crashreportcategory1.addCrashSection("Delta", partialTicks);
             throw new ReportedException(crashreport);
         }
     }
@@ -451,7 +448,7 @@ public class RenderManager
     /**
      * Renders the bounding box around an entity when F3+B is pressed
      */
-    private void renderDebugBoundingBox(Entity entityIn, double p_85094_2_, double p_85094_4_, double p_85094_6_, float p_85094_8_, float p_85094_9_)
+    private void renderDebugBoundingBox(Entity entityIn, double p_85094_2_, double p_85094_4_, double p_85094_6_, float p_85094_9_)
     {
         GlStateManager.depthMask(false);
         GlStateManager.disableTexture2D();

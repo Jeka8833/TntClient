@@ -23,7 +23,7 @@ public class RegistryNamespaced<K, V> extends RegistrySimple<K, V> implements IO
 
     protected Map<K, V> createUnderlyingMap()
     {
-        return HashBiMap.<K, V>create();
+        return HashBiMap.create();
     }
 
     public V getObject(K name)
@@ -36,7 +36,7 @@ public class RegistryNamespaced<K, V> extends RegistrySimple<K, V> implements IO
      */
     public K getNameForObject(V p_177774_1_)
     {
-        return (K)this.inverseObjectRegistry.get(p_177774_1_);
+        return this.inverseObjectRegistry.get(p_177774_1_);
     }
 
     /**

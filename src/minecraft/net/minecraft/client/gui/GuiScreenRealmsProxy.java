@@ -10,12 +10,12 @@ import net.minecraft.realms.RealmsScreen;
 
 public class GuiScreenRealmsProxy extends GuiScreen
 {
-    private RealmsScreen field_154330_a;
+    private final RealmsScreen field_154330_a;
 
     public GuiScreenRealmsProxy(RealmsScreen p_i1087_1_)
     {
         this.field_154330_a = p_i1087_1_;
-        super.buttonList = Collections.<GuiButton>synchronizedList(Lists.<GuiButton>newArrayList());
+        super.buttonList = Collections.synchronizedList(Lists.newArrayList());
     }
 
     public RealmsScreen func_154321_a()
@@ -161,7 +161,7 @@ public class GuiScreenRealmsProxy extends GuiScreen
 
     public List<RealmsButton> func_154320_j()
     {
-        List<RealmsButton> list = Lists.<RealmsButton>newArrayListWithExpectedSize(super.buttonList.size());
+        List<RealmsButton> list = Lists.newArrayListWithExpectedSize(super.buttonList.size());
 
         for (GuiButton guibutton : super.buttonList)
         {
@@ -226,7 +226,7 @@ public class GuiScreenRealmsProxy extends GuiScreen
      */
     public void keyTyped(char typedChar, int keyCode) throws IOException
     {
-        this.field_154330_a.keyPressed(typedChar, keyCode);
+        this.field_154330_a.keyPressed(keyCode);
     }
 
     public void confirmClicked(boolean result, int id)

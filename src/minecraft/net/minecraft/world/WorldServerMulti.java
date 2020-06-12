@@ -10,7 +10,7 @@ import net.minecraft.world.storage.ISaveHandler;
 
 public class WorldServerMulti extends WorldServer
 {
-    private WorldServer delegate;
+    private final WorldServer delegate;
 
     public WorldServerMulti(MinecraftServer server, ISaveHandler saveHandlerIn, int dimensionId, WorldServer delegate, Profiler profilerIn)
     {
@@ -38,11 +38,11 @@ public class WorldServerMulti extends WorldServer
             {
                 WorldServerMulti.this.getWorldBorder().setWarningDistance(newDistance);
             }
-            public void onDamageAmountChanged(WorldBorder border, double newAmount)
+            public void onDamageAmountChanged(double newAmount)
             {
                 WorldServerMulti.this.getWorldBorder().setDamageAmount(newAmount);
             }
-            public void onDamageBufferChanged(WorldBorder border, double newSize)
+            public void onDamageBufferChanged(double newSize)
             {
                 WorldServerMulti.this.getWorldBorder().setDamageBuffer(newSize);
             }

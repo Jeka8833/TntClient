@@ -29,7 +29,7 @@ public class CommandEnchant extends CommandBase
     /**
      * Gets the usage string for the command.
      */
-    public String getCommandUsage(ICommandSender sender)
+    public String getCommandUsage()
     {
         return "commands.enchant.usage";
     }
@@ -41,7 +41,7 @@ public class CommandEnchant extends CommandBase
     {
         if (args.length < 2)
         {
-            throw new WrongUsageException("commands.enchant.usage", new Object[0]);
+            throw new WrongUsageException("commands.enchant.usage");
         }
         else
         {
@@ -70,7 +70,7 @@ public class CommandEnchant extends CommandBase
 
             if (itemstack == null)
             {
-                throw new CommandException("commands.enchant.noItem", new Object[0]);
+                throw new CommandException("commands.enchant.noItem");
             }
             else
             {
@@ -78,11 +78,11 @@ public class CommandEnchant extends CommandBase
 
                 if (enchantment1 == null)
                 {
-                    throw new NumberInvalidException("commands.enchant.notFound", new Object[] {Integer.valueOf(i)});
+                    throw new NumberInvalidException("commands.enchant.notFound", i);
                 }
                 else if (!enchantment1.canApply(itemstack))
                 {
-                    throw new CommandException("commands.enchant.cantEnchant", new Object[0]);
+                    throw new CommandException("commands.enchant.cantEnchant");
                 }
                 else
                 {
@@ -105,9 +105,9 @@ public class CommandEnchant extends CommandBase
                                 {
                                     Enchantment enchantment2 = Enchantment.getEnchantmentById(l);
 
-                                    if (!enchantment2.canApplyTogether(enchantment1))
+                                    if (enchantment2.canApplyTogether(enchantment1))
                                     {
-                                        throw new CommandException("commands.enchant.cantCombine", new Object[] {enchantment1.getTranslatedName(j), enchantment2.getTranslatedName(nbttaglist.getCompoundTagAt(k).getShort("lvl"))});
+                                        throw new CommandException("commands.enchant.cantCombine", enchantment1.getTranslatedName(j), enchantment2.getTranslatedName(nbttaglist.getCompoundTagAt(k).getShort("lvl")));
                                     }
                                 }
                             }
@@ -115,14 +115,14 @@ public class CommandEnchant extends CommandBase
                     }
 
                     itemstack.addEnchantment(enchantment1, j);
-                    notifyOperators(sender, this, "commands.enchant.success", new Object[0]);
+                    notifyOperators(sender, this, "commands.enchant.success");
                     sender.setCommandStat(CommandResultStats.Type.AFFECTED_ITEMS, 1);
                 }
             }
         }
     }
 
-    public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos)
+    public List<String> addTabCompletionOptions(String[] args, BlockPos pos)
     {
         return args.length == 1 ? getListOfStringsMatchingLastWord(args, this.getListOfPlayers()) : (args.length == 2 ? getListOfStringsMatchingLastWord(args, Enchantment.func_181077_c()) : null);
     }

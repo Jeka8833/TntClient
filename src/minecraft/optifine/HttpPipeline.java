@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class HttpPipeline
 {
-    private static Map mapConnections = new HashMap();
+    private static final Map mapConnections = new HashMap();
 
     public static HttpRequest makeRequest(String p_makeRequest_0_, Proxy p_makeRequest_1_) throws IOException
     {
@@ -108,7 +108,7 @@ public class HttpPipeline
         final Map<String, Object> map = new HashMap();
         HttpListener httplistener = new HttpListener()
         {
-            public void finished(HttpRequest p_finished_1_, HttpResponse p_finished_2_)
+            public void finished(HttpResponse p_finished_2_)
             {
                 synchronized (map)
                 {
@@ -116,7 +116,7 @@ public class HttpPipeline
                     map.notifyAll();
                 }
             }
-            public void failed(HttpRequest p_failed_1_, Exception p_failed_2_)
+            public void failed(Exception p_failed_2_)
             {
                 synchronized (map)
                 {

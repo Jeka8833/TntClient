@@ -14,7 +14,7 @@ import java.util.*;
 
 public class RandomMobs
 {
-    private static Map locationProperties = new HashMap();
+    private static final Map locationProperties = new HashMap();
     private static RenderGlobal renderGlobal = null;
     private static boolean initialized = false;
     private static boolean working = false;

@@ -15,10 +15,10 @@ import org.apache.commons.lang3.StringEscapeUtils;
 
 public class NbtTagValue
 {
-    private String[] parents;
-    private String name;
+    private final String[] parents;
+    private final String name;
     private int type;
-    private String value;
+    private final String value;
 
     public NbtTagValue(String p_i69_1_, String p_i69_2_)
     {
@@ -248,7 +248,7 @@ public class NbtTagValue
 
     public String toString()
     {
-        StringBuffer stringbuffer = new StringBuffer();
+        StringBuilder stringbuffer = new StringBuilder();
 
         for (int i = 0; i < this.parents.length; ++i)
         {

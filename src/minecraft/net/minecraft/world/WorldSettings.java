@@ -54,16 +54,14 @@ public final class WorldSettings
     /**
      * Enables Commands (cheats).
      */
-    public WorldSettings enableCommands()
+    public void enableCommands()
     {
         this.commandsAllowed = true;
-        return this;
     }
 
-    public WorldSettings setWorldName(String name)
+    public void setWorldName(String name)
     {
         this.worldName = name;
-        return this;
     }
 
     /**
@@ -132,7 +130,7 @@ public final class WorldSettings
         return this.worldName;
     }
 
-    public static enum GameType
+    public enum GameType
     {
         NOT_SET(-1, ""),
         SURVIVAL(0, "survival"),
@@ -140,10 +138,10 @@ public final class WorldSettings
         ADVENTURE(2, "adventure"),
         SPECTATOR(3, "spectator");
 
-        int id;
-        String name;
+        final int id;
+        final String name;
 
-        private GameType(int typeId, String nameIn)
+        GameType(int typeId, String nameIn)
         {
             this.id = typeId;
             this.name = nameIn;

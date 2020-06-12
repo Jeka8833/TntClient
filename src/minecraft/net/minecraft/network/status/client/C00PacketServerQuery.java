@@ -26,6 +26,6 @@ public class C00PacketServerQuery implements Packet<INetHandlerStatusServer>
      */
     public void processPacket(INetHandlerStatusServer handler)
     {
-        handler.processServerQuery(this);
+        handler.processServerQuery();
     }
 }

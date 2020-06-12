@@ -31,7 +31,7 @@ public class GuiSlotRealmsProxy extends GuiSlot
      */
     protected boolean isSelected(int slotIndex)
     {
-        return this.selectionList.isSelectedItem(slotIndex);
+        return this.selectionList.isSelectedItem();
     }
 
     protected void drawBackground()

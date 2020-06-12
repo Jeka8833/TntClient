@@ -49,8 +49,7 @@ public class DefaultResourcePack implements IResourcePack
         }
     }
 
-    public InputStream getInputStreamAssets(ResourceLocation location) throws IOException, FileNotFoundException
-    {
+    public InputStream getInputStreamAssets(ResourceLocation location) throws IOException {
         File file1 = (File)this.mapAssets.get(location.toString());
         return file1 != null && file1.isFile() ? new FileInputStream(file1) : null;
     }
@@ -79,11 +78,7 @@ public class DefaultResourcePack implements IResourcePack
             FileInputStream fileinputstream = new FileInputStream((File)this.mapAssets.get("pack.mcmeta"));
             return AbstractResourcePack.readMetadata(p_135058_1_, fileinputstream, p_135058_2_);
         }
-        catch (RuntimeException var4)
-        {
-            return null;
-        }
-        catch (FileNotFoundException var5)
+        catch (RuntimeException | FileNotFoundException var4)
         {
             return null;
         }

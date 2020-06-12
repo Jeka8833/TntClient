@@ -3,7 +3,6 @@ package net.minecraft.block;
 import java.util.List;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockState;
@@ -19,13 +18,13 @@ import net.minecraft.world.World;
 
 public class BlockDirt extends Block
 {
-    public static final PropertyEnum<BlockDirt.DirtType> VARIANT = PropertyEnum.<BlockDirt.DirtType>create("variant", BlockDirt.DirtType.class);
+    public static final PropertyEnum<BlockDirt.DirtType> VARIANT = PropertyEnum.create("variant", BlockDirt.DirtType.class);
     public static final PropertyBool SNOWY = PropertyBool.create("snowy");
 
     protected BlockDirt()
     {
         super(Material.ground);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(VARIANT, BlockDirt.DirtType.DIRT).withProperty(SNOWY, Boolean.valueOf(false)));
+        this.setDefaultState(this.blockState.getBaseState().withProperty(VARIANT, BlockDirt.DirtType.DIRT).withProperty(SNOWY, Boolean.FALSE));
         this.setCreativeTab(CreativeTabs.tabBlock);
     }
 
@@ -34,7 +33,7 @@ public class BlockDirt extends Block
      */
     public MapColor getMapColor(IBlockState state)
     {
-        return ((BlockDirt.DirtType)state.getValue(VARIANT)).func_181066_d();
+        return state.getValue(VARIANT).func_181066_d();
     }
 
     /**
@@ -46,7 +45,7 @@ public class BlockDirt extends Block
         if (state.getValue(VARIANT) == BlockDirt.DirtType.PODZOL)
         {
             Block block = worldIn.getBlockState(pos.up()).getBlock();
-            state = state.withProperty(SNOWY, Boolean.valueOf(block == Blocks.snow || block == Blocks.snow_layer));
+            state = state.withProperty(SNOWY, block == Blocks.snow || block == Blocks.snow_layer);
         }
 
         return state;
@@ -65,7 +64,7 @@ public class BlockDirt extends Block
     public int getDamageValue(World worldIn, BlockPos pos)
     {
         IBlockState iblockstate = worldIn.getBlockState(pos);
-        return iblockstate.getBlock() != this ? 0 : ((BlockDirt.DirtType)iblockstate.getValue(VARIANT)).getMetadata();
+        return iblockstate.getBlock() != this ? 0 : iblockstate.getValue(VARIANT).getMetadata();
     }
 
     /**
@@ -81,12 +80,12 @@ public class BlockDirt extends Block
      */
     public int getMetaFromState(IBlockState state)
     {
-        return ((BlockDirt.DirtType)state.getValue(VARIANT)).getMetadata();
+        return state.getValue(VARIANT).getMetadata();
     }
 
     protected BlockState createBlockState()
     {
-        return new BlockState(this, new IProperty[] {VARIANT, SNOWY});
+        return new BlockState(this, VARIANT, SNOWY);
     }
 
     /**
@@ -95,7 +94,7 @@ public class BlockDirt extends Block
      */
     public int damageDropped(IBlockState state)
     {
-        BlockDirt.DirtType blockdirt$dirttype = (BlockDirt.DirtType)state.getValue(VARIANT);
+        BlockDirt.DirtType blockdirt$dirttype = state.getValue(VARIANT);
 
         if (blockdirt$dirttype == BlockDirt.DirtType.PODZOL)
         {
@@ -105,11 +104,11 @@ public class BlockDirt extends Block
         return blockdirt$dirttype.getMetadata();
     }
 
-    public static enum DirtType implements IStringSerializable
+    public enum DirtType implements IStringSerializable
     {
         DIRT(0, "dirt", "default", MapColor.dirtColor),
         COARSE_DIRT(1, "coarse_dirt", "coarse", MapColor.dirtColor),
-        PODZOL(2, "podzol", MapColor.obsidianColor);
+        PODZOL();
 
         private static final BlockDirt.DirtType[] METADATA_LOOKUP = new BlockDirt.DirtType[values().length];
         private final int metadata;
@@ -117,12 +116,12 @@ public class BlockDirt extends Block
         private final String unlocalizedName;
         private final MapColor field_181067_h;
 
-        private DirtType(int p_i46396_3_, String p_i46396_4_, MapColor p_i46396_5_)
+        DirtType()
         {
-            this(p_i46396_3_, p_i46396_4_, p_i46396_4_, p_i46396_5_);
+            this(2, "podzol", "podzol", MapColor.obsidianColor);
         }
 
-        private DirtType(int p_i46397_3_, String p_i46397_4_, String p_i46397_5_, MapColor p_i46397_6_)
+        DirtType(int p_i46397_3_, String p_i46397_4_, String p_i46397_5_, MapColor p_i46397_6_)
         {
             this.metadata = p_i46397_3_;
             this.name = p_i46397_4_;

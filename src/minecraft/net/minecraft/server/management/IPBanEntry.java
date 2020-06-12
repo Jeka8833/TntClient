@@ -7,7 +7,7 @@ public class IPBanEntry extends BanEntry<String>
 {
     public IPBanEntry(String p_i46330_1_)
     {
-        this(p_i46330_1_, (Date)null, (String)null, (Date)null, (String)null);
+        this(p_i46330_1_, null, null, null, null);
     }
 
     public IPBanEntry(String p_i1159_1_, Date startDate, String banner, Date endDate, String p_i1159_5_)
@@ -29,7 +29,7 @@ public class IPBanEntry extends BanEntry<String>
     {
         if (this.getValue() != null)
         {
-            data.addProperty("ip", (String)this.getValue());
+            data.addProperty("ip", this.getValue());
             super.onSerialization(data);
         }
     }

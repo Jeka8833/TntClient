@@ -8,11 +8,11 @@ import net.minecraft.world.pathfinder.NodeProcessor;
 public class PathFinder
 {
     /** The path being generated */
-    private Path path = new Path();
+    private final Path path = new Path();
 
     /** Selection of path points to add to the path */
-    private PathPoint[] pathOptions = new PathPoint[32];
-    private NodeProcessor nodeProcessor;
+    private final PathPoint[] pathOptions = new PathPoint[32];
+    private final NodeProcessor nodeProcessor;
 
     public PathFinder(NodeProcessor nodeProcessorIn)
     {
@@ -32,7 +32,7 @@ public class PathFinder
      */
     public PathEntity createEntityPathTo(IBlockAccess blockaccess, Entity entityIn, BlockPos targetPos, float dist)
     {
-        return this.createEntityPathTo(blockaccess, entityIn, (double)((float)targetPos.getX() + 0.5F), (double)((float)targetPos.getY() + 0.5F), (double)((float)targetPos.getZ() + 0.5F), dist);
+        return this.createEntityPathTo(blockaccess, entityIn, (float)targetPos.getX() + 0.5F, (float)targetPos.getY() + 0.5F, (float)targetPos.getZ() + 0.5F, dist);
     }
 
     /**
@@ -67,7 +67,7 @@ public class PathFinder
 
             if (pathpoint1.equals(pathpointEnd))
             {
-                return this.createEntityPath(pathpointStart, pathpointEnd);
+                return this.createEntityPath(pathpointEnd);
             }
 
             if (pathpoint1.distanceToSquared(pathpointEnd) < pathpoint.distanceToSquared(pathpointEnd))
@@ -108,14 +108,14 @@ public class PathFinder
         }
         else
         {
-            return this.createEntityPath(pathpointStart, pathpoint);
+            return this.createEntityPath(pathpoint);
         }
     }
 
     /**
      * Returns a new PathEntity for a given start and end point
      */
-    private PathEntity createEntityPath(PathPoint start, PathPoint end)
+    private PathEntity createEntityPath(PathPoint end)
     {
         int i = 1;
 

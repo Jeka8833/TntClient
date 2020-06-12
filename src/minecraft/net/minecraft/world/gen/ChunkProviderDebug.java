@@ -7,7 +7,6 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.IProgressUpdate;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -17,7 +16,7 @@ import net.minecraft.world.chunk.IChunkProvider;
 
 public class ChunkProviderDebug implements IChunkProvider
 {
-    private static final List<IBlockState> field_177464_a = Lists.<IBlockState>newArrayList();
+    private static final List<IBlockState> field_177464_a = Lists.newArrayList();
     private static final int field_177462_b;
     private static final int field_181039_c;
     private final World world;
@@ -53,7 +52,7 @@ public class ChunkProviderDebug implements IChunkProvider
 
         Chunk chunk = new Chunk(this.world, chunkprimer, x, z);
         chunk.generateSkylightMap();
-        BiomeGenBase[] abiomegenbase = this.world.getWorldChunkManager().loadBlockGeneratorData((BiomeGenBase[])null, x * 16, z * 16, 16, 16);
+        BiomeGenBase[] abiomegenbase = this.world.getWorldChunkManager().loadBlockGeneratorData(null, x * 16, z * 16, 16, 16);
         byte[] abyte = chunk.getBiomeArray();
 
         for (int i1 = 0; i1 < abyte.length; ++i1)
@@ -80,7 +79,7 @@ public class ChunkProviderDebug implements IChunkProvider
 
                 if (i < field_177464_a.size())
                 {
-                    iblockstate = (IBlockState)field_177464_a.get(i);
+                    iblockstate = field_177464_a.get(i);
                 }
             }
         }
@@ -112,9 +111,8 @@ public class ChunkProviderDebug implements IChunkProvider
      * Two modes of operation: if passed true, save all Chunks in one go.  If passed false, save up to two chunks.
      * Return true if all chunks have been saved.
      */
-    public boolean saveChunks(boolean p_73151_1_, IProgressUpdate progressCallback)
+    public void saveChunks(boolean p_73151_1_)
     {
-        return true;
     }
 
     /**
@@ -165,7 +163,7 @@ public class ChunkProviderDebug implements IChunkProvider
         return 0;
     }
 
-    public void recreateStructures(Chunk p_180514_1_, int p_180514_2_, int p_180514_3_)
+    public void recreateStructures(int p_180514_2_, int p_180514_3_)
     {
     }
 

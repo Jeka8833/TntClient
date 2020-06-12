@@ -10,9 +10,9 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.Chunk;
 
 public class ChunkCache implements IBlockAccess {
-    protected int chunkX;
-    protected int chunkZ;
-    protected Chunk[][] chunkArray;
+    protected final int chunkX;
+    protected final int chunkZ;
+    protected final Chunk[][] chunkArray;
 
     /**
      * set by !chunk.getAreLevelsEmpty
@@ -22,7 +22,7 @@ public class ChunkCache implements IBlockAccess {
     /**
      * Reference to the World object.
      */
-    protected World worldObj;
+    protected final World worldObj;
 
     public ChunkCache(World worldIn, BlockPos posFromIn, BlockPos posToIn, int subIn) {
         this.worldObj = worldIn;

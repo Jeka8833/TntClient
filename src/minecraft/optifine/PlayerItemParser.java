@@ -53,9 +53,9 @@ public class PlayerItemParser
 
                     for (Entry<String, JsonElement> entry : jsonobject1.entrySet())
                     {
-                        if (!jsonobject.has((String)entry.getKey()))
+                        if (!jsonobject.has(entry.getKey()))
                         {
-                            jsonobject.add((String)entry.getKey(), (JsonElement)entry.getValue());
+                            jsonobject.add(entry.getKey(), entry.getValue());
                         }
                     }
                 }

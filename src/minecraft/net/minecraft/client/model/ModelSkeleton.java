@@ -13,7 +13,7 @@ public class ModelSkeleton extends ModelZombie
 
     public ModelSkeleton(float p_i46303_1_, boolean p_i46303_2_)
     {
-        super(p_i46303_1_, 0.0F, 64, 32);
+        super(p_i46303_1_);
 
         if (!p_i46303_2_)
         {

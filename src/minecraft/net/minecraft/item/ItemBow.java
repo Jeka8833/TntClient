@@ -29,7 +29,7 @@ public class ItemBow extends Item
 
         if (flag || playerIn.inventory.hasItem(Items.arrow))
         {
-            int i = this.getMaxItemUseDuration(stack) - timeLeft;
+            int i = this.getMaxItemUseDuration() - timeLeft;
             float f = (float)i / 20.0F;
             f = (f * f + f * 2.0F) / 3.0F;
 
@@ -102,7 +102,7 @@ public class ItemBow extends Item
     /**
      * How long it takes to use or consume an item
      */
-    public int getMaxItemUseDuration(ItemStack stack)
+    public int getMaxItemUseDuration()
     {
         return 72000;
     }
@@ -110,7 +110,7 @@ public class ItemBow extends Item
     /**
      * returns the action that specifies what animation to play when the items is being used
      */
-    public EnumAction getItemUseAction(ItemStack stack)
+    public EnumAction getItemUseAction()
     {
         return EnumAction.BOW;
     }
@@ -122,7 +122,7 @@ public class ItemBow extends Item
     {
         if (playerIn.capabilities.isCreativeMode || playerIn.inventory.hasItem(Items.arrow))
         {
-            playerIn.setItemInUse(itemStackIn, this.getMaxItemUseDuration(itemStackIn));
+            playerIn.setItemInUse(itemStackIn, this.getMaxItemUseDuration());
         }
 
         return itemStackIn;

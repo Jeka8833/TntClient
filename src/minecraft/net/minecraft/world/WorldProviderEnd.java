@@ -39,7 +39,7 @@ public class WorldProviderEnd extends WorldProvider
     /**
      * Returns array with sunrise/sunset colors
      */
-    public float[] calcSunriseSunsetColors(float celestialAngle, float partialTicks)
+    public float[] calcSunriseSunsetColors(float celestialAngle)
     {
         return null;
     }
@@ -47,7 +47,7 @@ public class WorldProviderEnd extends WorldProvider
     /**
      * Return Vec3D with biome specific fog color
      */
-    public Vec3 getFogColor(float p_76562_1_, float p_76562_2_)
+    public Vec3 getFogColor(float p_76562_1_)
     {
         int i = 10518688;
         float f = MathHelper.cos(p_76562_1_ * (float)Math.PI * 2.0F) * 2.0F + 0.5F;
@@ -58,7 +58,7 @@ public class WorldProviderEnd extends WorldProvider
         f1 = f1 * (f * 0.0F + 0.15F);
         f2 = f2 * (f * 0.0F + 0.15F);
         f3 = f3 * (f * 0.0F + 0.15F);
-        return new Vec3((double)f1, (double)f2, (double)f3);
+        return new Vec3(f1, f2, f3);
     }
 
     public boolean isSkyColored()
@@ -111,7 +111,7 @@ public class WorldProviderEnd extends WorldProvider
     /**
      * Returns true if the given X,Z coordinate should show environmental fog.
      */
-    public boolean doesXZShowFog(int x, int z)
+    public boolean doesXZShowFog()
     {
         return true;
     }

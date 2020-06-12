@@ -67,8 +67,7 @@ public class ShaderOptionVariable extends ShaderOption
             if (s != null && s.length() > 0)
             {
                 path = StrUtils.removePrefix(path, "/shaders/");
-                ShaderOption shaderoption = new ShaderOptionVariable(s, s2, s1, astring, path);
-                return shaderoption;
+                return new ShaderOptionVariable(s, s2, s1, astring, path);
             }
             else
             {
@@ -108,7 +107,7 @@ public class ShaderOptionVariable extends ShaderOption
                 {
                     if (!Arrays.asList(astring1).contains(value))
                     {
-                        astring1 = (String[])((String[])Config.addObjectToArray(astring1, value, 0));
+                        astring1 = (String[]) Config.addObjectToArray(astring1, value, 0);
                     }
 
                     return astring1;

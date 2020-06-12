@@ -36,7 +36,7 @@ public class RangeListInt
 
     public String toString()
     {
-        StringBuffer stringbuffer = new StringBuffer();
+        StringBuilder stringbuffer = new StringBuilder();
         stringbuffer.append("[");
 
         for (int i = 0; i < this.ranges.length; ++i)

@@ -105,7 +105,7 @@ public class EntityMinecartCommandBlock extends EntityMinecart
     /**
      * Called every tick the minecart is on an activator rail. Args: x, y, z, is the rail receiving power
      */
-    public void onActivatorRailPass(int x, int y, int z, boolean receivingPower)
+    public void onActivatorRailPass(boolean receivingPower)
     {
         if (receivingPower && this.ticksExisted - this.activatorRailCooldown >= 4)
         {
@@ -120,7 +120,7 @@ public class EntityMinecartCommandBlock extends EntityMinecart
     public boolean interactFirst(EntityPlayer playerIn)
     {
         this.commandBlockLogic.tryOpenEditCommandBlock(playerIn);
-        return false;
+        return true;
     }
 
     public void onDataWatcherUpdate(int dataID)
@@ -133,9 +133,8 @@ public class EntityMinecartCommandBlock extends EntityMinecart
             {
                 this.commandBlockLogic.setLastOutput(IChatComponent.Serializer.jsonToComponent(this.getDataWatcher().getWatchableObjectString(24)));
             }
-            catch (Throwable var3)
+            catch (Throwable ignored)
             {
-                ;
             }
         }
         else if (dataID == 23)

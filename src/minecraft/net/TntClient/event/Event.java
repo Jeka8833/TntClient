@@ -8,11 +8,10 @@ public abstract class Event
 {
     private boolean cancelled;
 
-    public Event call()
+    public void call()
     {
         this.cancelled = false;
         call(this);
-        return this;
     }
 
     public boolean isCancelled()

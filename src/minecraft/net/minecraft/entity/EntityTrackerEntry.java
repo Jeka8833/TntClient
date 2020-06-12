@@ -65,11 +65,11 @@ public class EntityTrackerEntry
     private static final Logger logger = LogManager.getLogger();
 
     /** The entity that this EntityTrackerEntry tracks. */
-    public Entity trackedEntity;
-    public int trackingDistanceThreshold;
+    public final Entity trackedEntity;
+    public final int trackingDistanceThreshold;
 
     /** check for sync when ticks % updateFrequency==0 */
-    public int updateFrequency;
+    public final int updateFrequency;
 
     /** The encoded entity X position. */
     public int encodedPosX;
@@ -94,7 +94,7 @@ public class EntityTrackerEntry
     private double lastTrackedEntityPosY;
     private double lastTrackedEntityPosZ;
     private boolean firstUpdateDone;
-    private boolean sendVelocityUpdates;
+    private final boolean sendVelocityUpdates;
 
     /**
      * every 400 ticks a  full teleport packet is sent, rather than just a "move me +x" command, so that position
@@ -105,7 +105,7 @@ public class EntityTrackerEntry
     private boolean ridingEntity;
     private boolean onGround;
     public boolean playerEntitiesUpdated;
-    public Set<EntityPlayerMP> trackingPlayers = Sets.<EntityPlayerMP>newHashSet();
+    public final Set<EntityPlayerMP> trackingPlayers = Sets.newHashSet();
 
     public EntityTrackerEntry(Entity trackedEntityIn, int trackingDistanceThresholdIn, int updateFrequencyIn, boolean sendVelocityUpdatesIn)
     {
@@ -124,7 +124,7 @@ public class EntityTrackerEntry
 
     public boolean equals(Object p_equals_1_)
     {
-        return p_equals_1_ instanceof EntityTrackerEntry ? ((EntityTrackerEntry)p_equals_1_).trackedEntity.getEntityId() == this.trackedEntity.getEntityId() : false;
+        return p_equals_1_ instanceof EntityTrackerEntry && ((EntityTrackerEntry) p_equals_1_).trackedEntity.getEntityId() == this.trackedEntity.getEntityId();
     }
 
     public int hashCode()
@@ -625,7 +625,7 @@ public class EntityTrackerEntry
         }
         else
         {
-            throw new IllegalArgumentException("Don\'t know how to add " + this.trackedEntity.getClass() + "!");
+            throw new IllegalArgumentException("Don't know how to add " + this.trackedEntity.getClass() + "!");
         }
     }
 

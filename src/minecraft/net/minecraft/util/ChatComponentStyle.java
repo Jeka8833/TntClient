@@ -8,7 +8,7 @@ import java.util.List;
 
 public abstract class ChatComponentStyle implements IChatComponent
 {
-    protected List<IChatComponent> siblings = Lists.<IChatComponent>newArrayList();
+    protected final List<IChatComponent> siblings = Lists.newArrayList();
     private ChatStyle style;
 
     /**
@@ -34,7 +34,7 @@ public abstract class ChatComponentStyle implements IChatComponent
         return this.appendSibling(new ChatComponentText(text));
     }
 
-    public IChatComponent setChatStyle(ChatStyle style)
+    public void setChatStyle(ChatStyle style)
     {
         this.style = style;
 
@@ -43,7 +43,6 @@ public abstract class ChatComponentStyle implements IChatComponent
             ichatcomponent.getChatStyle().setParentStyle(this.getChatStyle());
         }
 
-        return this;
     }
 
     public ChatStyle getChatStyle()
@@ -63,7 +62,7 @@ public abstract class ChatComponentStyle implements IChatComponent
 
     public Iterator<IChatComponent> iterator()
     {
-        return Iterators.<IChatComponent>concat(Iterators.<IChatComponent>forArray(new ChatComponentStyle[] {this}), createDeepCopyIterator(this.siblings));
+        return Iterators.concat(Iterators.<IChatComponent>forArray(new ChatComponentStyle[] {this}), createDeepCopyIterator(this.siblings));
     }
 
     /**
@@ -92,7 +91,7 @@ public abstract class ChatComponentStyle implements IChatComponent
         {
             stringbuilder.append(ichatcomponent.getChatStyle().getFormattingCode());
             stringbuilder.append(ichatcomponent.getUnformattedTextForChat());
-            stringbuilder.append((Object)EnumChatFormatting.RESET);
+            stringbuilder.append(EnumChatFormatting.RESET);
         }
 
         return stringbuilder.toString();

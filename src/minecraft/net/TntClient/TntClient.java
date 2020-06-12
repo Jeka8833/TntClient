@@ -57,7 +57,7 @@ public class TntClient {
             mc.displayGuiScreen(new ListMods());
         else if (mc.currentScreen == null)
             for (Module m : Config.config.getModList())
-                if (m.keyBind == event.getKey())
+                if (!m.isBlocking && m.keyBind == event.getKey())
                     m.toggle();
     }
 }

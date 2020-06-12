@@ -236,7 +236,7 @@ public abstract class GuiSlot {
                this.func_148144_a(l2, false, this.field_148150_g, this.field_148162_h);
                this.field_148168_r = l2;
             } else if (this.field_148150_g >= i2 && this.field_148150_g <= j2 && k2 < 0) {
-               this.func_148132_a(this.field_148150_g - i2, this.field_148162_h - this.field_148153_b + (int)this.field_148169_q - 4);
+               this.func_148132_a(this.field_148150_g - i2);
             }
          }
 
@@ -259,7 +259,7 @@ public abstract class GuiSlot {
                      this.field_148168_r = i1;
                      this.field_148167_s = Minecraft.func_71386_F();
                   } else if (this.field_148150_g >= j2 && this.field_148150_g <= k2 && l2 < 0) {
-                     this.func_148132_a(this.field_148150_g - j2, this.field_148162_h - this.field_148153_b + (int)this.field_148169_q - 4);
+                     this.func_148132_a(this.field_148150_g - j2);
                      flag1 = false;
                   }
 

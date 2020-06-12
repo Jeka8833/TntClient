@@ -27,7 +27,7 @@ public class TextureManager implements ITickable, IResourceManagerReloadListener
     private final Map mapTextureObjects = Maps.newHashMap();
     private final List listTickables = Lists.newArrayList();
     private final Map mapTextureCounters = Maps.newHashMap();
-    private IResourceManager theResourceManager;
+    private final IResourceManager theResourceManager;
     private static final String __OBFID = "CL_00001064";
 
     public TextureManager(IResourceManager resourceManager)
@@ -42,7 +42,7 @@ public class TextureManager implements ITickable, IResourceManagerReloadListener
             resource = RandomMobs.getTextureLocation(resource);
         }
 
-        Object object = (ITextureObject)this.mapTextureObjects.get(resource);
+        Object object = this.mapTextureObjects.get(resource);
 
         if (object == null)
         {
@@ -60,16 +60,14 @@ public class TextureManager implements ITickable, IResourceManagerReloadListener
         }
     }
 
-    public boolean loadTickableTexture(ResourceLocation textureLocation, ITickableTextureObject textureObj)
+    public void loadTickableTexture(ResourceLocation textureLocation, ITickableTextureObject textureObj)
     {
         if (this.loadTexture(textureLocation, textureObj))
         {
             this.listTickables.add(textureObj);
-            return true;
         }
         else
         {
-            return false;
         }
     }
 
@@ -84,7 +82,7 @@ public class TextureManager implements ITickable, IResourceManagerReloadListener
         }
         catch (IOException ioexception)
         {
-            logger.warn((String)("Failed to load texture: " + textureLocation), (Throwable)ioexception);
+            logger.warn("Failed to load texture: " + textureLocation, ioexception);
             itextureobject = TextureUtil.missingTexture;
             this.mapTextureObjects.put(textureLocation, itextureobject);
             flag = false;
@@ -125,15 +123,15 @@ public class TextureManager implements ITickable, IResourceManagerReloadListener
 
         if (integer == null)
         {
-            integer = Integer.valueOf(1);
+            integer = 1;
         }
         else
         {
-            integer = Integer.valueOf(integer.intValue() + 1);
+            integer = integer.intValue() + 1;
         }
 
         this.mapTextureCounters.put(name, integer);
-        ResourceLocation resourcelocation = new ResourceLocation(String.format("dynamic/%s_%d", new Object[] {name, integer}));
+        ResourceLocation resourcelocation = new ResourceLocation(String.format("dynamic/%s_%d", name, integer));
         this.loadTexture(resourcelocation, texture);
         return resourcelocation;
     }

@@ -45,7 +45,7 @@ public class IntHashMap<V>
             }
         }
 
-        return (V)null;
+        return null;
     }
 
     /**
@@ -151,7 +151,7 @@ public class IntHashMap<V>
     public V removeObject(int p_76049_1_)
     {
         IntHashMap.Entry<V> entry = this.removeEntry(p_76049_1_);
-        return (V)(entry == null ? null : entry.valueEntry);
+        return entry == null ? null : entry.valueEntry;
     }
 
     final IntHashMap.Entry<V> removeEntry(int p_76036_1_)
@@ -244,29 +244,20 @@ public class IntHashMap<V>
 
         public final boolean equals(Object p_equals_1_)
         {
-            if (!(p_equals_1_ instanceof IntHashMap.Entry))
-            {
-                return false;
-            }
-            else
-            {
-                IntHashMap.Entry<V> entry = (IntHashMap.Entry)p_equals_1_;
-                Object object = Integer.valueOf(this.getHash());
-                Object object1 = Integer.valueOf(entry.getHash());
+            if (p_equals_1_ instanceof IntHashMap.Entry) {
+                Entry<V> entry = (Entry) p_equals_1_;
+                Object object = this.getHash();
+                Object object1 = entry.getHash();
 
-                if (object == object1 || object != null && object.equals(object1))
-                {
+                if (object == object1 || object != null && object.equals(object1)) {
                     Object object2 = this.getValue();
                     Object object3 = entry.getValue();
 
-                    if (object2 == object3 || object2 != null && object2.equals(object3))
-                    {
-                        return true;
-                    }
+                    return object2 == object3 || object2 != null && object2.equals(object3);
                 }
 
-                return false;
             }
+            return false;
         }
 
         public final int hashCode()

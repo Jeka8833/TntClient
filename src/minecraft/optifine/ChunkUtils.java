@@ -85,7 +85,7 @@ public class ChunkUtils
                 Boolean obool = (Boolean)list2.get(j);
                 Boolean obool1 = (Boolean)list3.get(j);
 
-                if (!obool.booleanValue() && obool1.booleanValue())
+                if (!obool && obool1)
                 {
                     list4.add(field3);
                     Boolean obool2 = (Boolean)list1.get(j);
@@ -95,8 +95,7 @@ public class ChunkUtils
 
             if (list4.size() == 1)
             {
-                Field field4 = (Field)list4.get(0);
-                return field4;
+                return (Field)list4.get(0);
             }
         }
         catch (Exception exception)

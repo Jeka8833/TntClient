@@ -16,12 +16,12 @@ public class RenderEnv
     private int blockId = -1;
     private int metadata = -1;
     private int breakingAnimation = -1;
-    private float[] quadBounds = new float[EnumFacing.VALUES.length * 2];
-    private BitSet boundsFlags = new BitSet(3);
-    private BlockModelRenderer.AmbientOcclusionFace aoFace = new BlockModelRenderer.AmbientOcclusionFace();
+    private final float[] quadBounds = new float[EnumFacing.VALUES.length * 2];
+    private final BitSet boundsFlags = new BitSet(3);
+    private final BlockModelRenderer.AmbientOcclusionFace aoFace = new BlockModelRenderer.AmbientOcclusionFace();
     private BlockPosM colorizerBlockPosM = null;
     private boolean[] borderFlags = null;
-    private static ThreadLocal threadLocalInstance = new ThreadLocal();
+    private static final ThreadLocal threadLocalInstance = new ThreadLocal();
 
     private RenderEnv(IBlockState p_i94_2_)
     {
@@ -36,13 +36,12 @@ public class RenderEnv
         {
             renderenv = new RenderEnv(p_getInstance_1_);
             threadLocalInstance.set(renderenv);
-            return renderenv;
         }
         else
         {
             renderenv.reset(p_getInstance_1_);
-            return renderenv;
         }
+        return renderenv;
     }
 
     private void reset(IBlockState p_reset_2_)

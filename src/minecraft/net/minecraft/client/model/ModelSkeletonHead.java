@@ -4,7 +4,7 @@ import net.minecraft.entity.Entity;
 
 public class ModelSkeletonHead extends ModelBase
 {
-    public ModelRenderer skeletonHead;
+    public final ModelRenderer skeletonHead;
 
     public ModelSkeletonHead()
     {

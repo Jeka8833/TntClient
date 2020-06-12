@@ -5,10 +5,10 @@ import net.minecraft.entity.Entity;
 public class ModelSquid extends ModelBase
 {
     /** The squid's body */
-    ModelRenderer squidBody;
+    final ModelRenderer squidBody;
 
     /** The squid's tentacles */
-    ModelRenderer[] squidTentacles = new ModelRenderer[8];
+    final ModelRenderer[] squidTentacles = new ModelRenderer[8];
 
     public ModelSquid()
     {

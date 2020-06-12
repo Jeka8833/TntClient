@@ -39,22 +39,16 @@ public class ReflectorField
 
     public Field getTargetField()
     {
-        if (this.checked)
-        {
-            return this.targetField;
-        }
-        else
-        {
+        if (!this.checked) {
             this.checked = true;
             this.targetField = this.fieldLocator.getField();
 
-            if (this.targetField != null)
-            {
+            if (this.targetField != null) {
                 this.targetField.setAccessible(true);
             }
 
-            return this.targetField;
         }
+        return this.targetField;
     }
 
     public Object getValue()

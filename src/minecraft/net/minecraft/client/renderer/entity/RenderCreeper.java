@@ -36,7 +36,7 @@ public class RenderCreeper extends RenderLiving<EntityCreeper>
     /**
      * Returns an ARGB int color back. Args: entityLiving, lightBrightness, partialTickTime
      */
-    protected int getColorMultiplier(EntityCreeper entitylivingbaseIn, float lightBrightness, float partialTickTime)
+    protected int getColorMultiplier(EntityCreeper entitylivingbaseIn, float partialTickTime)
     {
         float f = entitylivingbaseIn.getCreeperFlashIntensity(partialTickTime);
 

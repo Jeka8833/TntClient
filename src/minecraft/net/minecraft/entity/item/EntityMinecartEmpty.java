@@ -1,6 +1,5 @@
 package net.minecraft.entity.item;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 
@@ -23,11 +22,11 @@ public class EntityMinecartEmpty extends EntityMinecart
     {
         if (this.riddenByEntity != null && this.riddenByEntity instanceof EntityPlayer && this.riddenByEntity != playerIn)
         {
-            return true;
+            return false;
         }
         else if (this.riddenByEntity != null && this.riddenByEntity != playerIn)
         {
-            return false;
+            return true;
         }
         else
         {
@@ -36,20 +35,20 @@ public class EntityMinecartEmpty extends EntityMinecart
                 playerIn.mountEntity(this);
             }
 
-            return true;
+            return false;
         }
     }
 
     /**
      * Called every tick the minecart is on an activator rail. Args: x, y, z, is the rail receiving power
      */
-    public void onActivatorRailPass(int x, int y, int z, boolean receivingPower)
+    public void onActivatorRailPass(boolean receivingPower)
     {
         if (receivingPower)
         {
             if (this.riddenByEntity != null)
             {
-                this.riddenByEntity.mountEntity((Entity)null);
+                this.riddenByEntity.mountEntity(null);
             }
 
             if (this.getRollingAmplitude() == 0)

@@ -58,7 +58,7 @@ public class HttpUtils {
         return abyte1;
     }
 
-    public static String post(String p_post_0_, Map p_post_1_, byte[] p_post_2_) throws IOException {
+    public static void post(String p_post_0_, Map p_post_1_, byte[] p_post_2_) throws IOException {
         HttpURLConnection httpurlconnection = null;
         try {
             httpurlconnection = (HttpURLConnection) new URL(p_post_0_).openConnection(Minecraft.getMinecraft().getProxy());
@@ -88,7 +88,6 @@ public class HttpUtils {
             }
 
             bufferedreader.close();
-            return stringbuffer.toString();
         } finally {
             if (httpurlconnection != null)
                 httpurlconnection.disconnect();

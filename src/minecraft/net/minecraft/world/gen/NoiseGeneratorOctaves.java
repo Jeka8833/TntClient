@@ -8,8 +8,8 @@ public class NoiseGeneratorOctaves extends NoiseGenerator
     /**
      * Collection of noise generation functions.  Output is combined to produce different octaves of noise.
      */
-    private NoiseGeneratorImproved[] generatorCollection;
-    private int octaves;
+    private final NoiseGeneratorImproved[] generatorCollection;
+    private final int octaves;
 
     public NoiseGeneratorOctaves(Random p_i2111_1_, int p_i2111_2_)
     {
@@ -65,7 +65,7 @@ public class NoiseGeneratorOctaves extends NoiseGenerator
     /**
      * Bouncer function to the main one with some default arguments.
      */
-    public double[] generateNoiseOctaves(double[] p_76305_1_, int p_76305_2_, int p_76305_3_, int p_76305_4_, int p_76305_5_, double p_76305_6_, double p_76305_8_, double p_76305_10_)
+    public double[] generateNoiseOctaves(double[] p_76305_1_, int p_76305_2_, int p_76305_3_, int p_76305_4_, int p_76305_5_, double p_76305_6_, double p_76305_8_)
     {
         return this.generateNoiseOctaves(p_76305_1_, p_76305_2_, 10, p_76305_3_, p_76305_4_, 1, p_76305_5_, p_76305_6_, 1.0D, p_76305_8_);
     }

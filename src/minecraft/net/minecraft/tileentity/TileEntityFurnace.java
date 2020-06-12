@@ -126,7 +126,7 @@ public class TileEntityFurnace extends TileEntityLockable implements ITickable, 
 
         if (index == 0 && !flag)
         {
-            this.totalCookTime = this.getCookTime(stack);
+            this.totalCookTime = this.getCookTime();
             this.cookTime = 0;
             this.markDirty();
         }
@@ -274,7 +274,7 @@ public class TileEntityFurnace extends TileEntityLockable implements ITickable, 
                     if (this.cookTime == this.totalCookTime)
                     {
                         this.cookTime = 0;
-                        this.totalCookTime = this.getCookTime(this.furnaceItemStacks[0]);
+                        this.totalCookTime = this.getCookTime();
                         this.smeltItem();
                         flag1 = true;
                     }
@@ -302,7 +302,7 @@ public class TileEntityFurnace extends TileEntityLockable implements ITickable, 
         }
     }
 
-    public int getCookTime(ItemStack stack)
+    public int getCookTime()
     {
         return 200;
     }
@@ -319,7 +319,7 @@ public class TileEntityFurnace extends TileEntityLockable implements ITickable, 
         else
         {
             ItemStack itemstack = FurnaceRecipes.instance().getSmeltingResult(this.furnaceItemStacks[0]);
-            return itemstack == null ? false : (this.furnaceItemStacks[2] == null ? true : (!this.furnaceItemStacks[2].isItemEqual(itemstack) ? false : (this.furnaceItemStacks[2].stackSize < this.getInventoryStackLimit() && this.furnaceItemStacks[2].stackSize < this.furnaceItemStacks[2].getMaxStackSize() ? true : this.furnaceItemStacks[2].stackSize < itemstack.getMaxStackSize())));
+            return itemstack != null && (this.furnaceItemStacks[2] == null || (this.furnaceItemStacks[2].isItemEqual(itemstack) && (this.furnaceItemStacks[2].stackSize < this.getInventoryStackLimit() && this.furnaceItemStacks[2].stackSize < this.furnaceItemStacks[2].getMaxStackSize() || this.furnaceItemStacks[2].stackSize < itemstack.getMaxStackSize())));
         }
     }
 
@@ -403,7 +403,7 @@ public class TileEntityFurnace extends TileEntityLockable implements ITickable, 
      */
     public boolean isUseableByPlayer(EntityPlayer player)
     {
-        return this.worldObj.getTileEntity(this.pos) != this ? false : player.getDistanceSq((double)this.pos.getX() + 0.5D, (double)this.pos.getY() + 0.5D, (double)this.pos.getZ() + 0.5D) <= 64.0D;
+        return this.worldObj.getTileEntity(this.pos) == this && player.getDistanceSq((double) this.pos.getX() + 0.5D, (double) this.pos.getY() + 0.5D, (double) this.pos.getZ() + 0.5D) <= 64.0D;
     }
 
     public void openInventory(EntityPlayer player)
@@ -419,7 +419,7 @@ public class TileEntityFurnace extends TileEntityLockable implements ITickable, 
      */
     public boolean isItemValidForSlot(int index, ItemStack stack)
     {
-        return index == 2 ? false : (index != 1 ? true : isItemFuel(stack) || SlotFurnaceFuel.isBucket(stack));
+        return index != 2 && (index != 1 || (isItemFuel(stack) || SlotFurnaceFuel.isBucket(stack)));
     }
 
     public int[] getSlotsForFace(EnumFacing side)
@@ -431,7 +431,7 @@ public class TileEntityFurnace extends TileEntityLockable implements ITickable, 
      * Returns true if automation can insert the given item in the given slot from the given side. Args: slot, item,
      * side
      */
-    public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction)
+    public boolean canInsertItem(int index, ItemStack itemStackIn)
     {
         return this.isItemValidForSlot(index, itemStackIn);
     }
@@ -446,10 +446,7 @@ public class TileEntityFurnace extends TileEntityLockable implements ITickable, 
         {
             Item item = stack.getItem();
 
-            if (item != Items.water_bucket && item != Items.bucket)
-            {
-                return false;
-            }
+            return item == Items.water_bucket || item == Items.bucket;
         }
 
         return true;

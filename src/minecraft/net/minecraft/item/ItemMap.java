@@ -25,7 +25,7 @@ public class ItemMap extends ItemMapBase
 {
     protected ItemMap()
     {
-        this.setHasSubtypes(true);
+        this.setHasSubtypes();
     }
 
     public static MapData loadMapData(int mapId, World worldIn)
@@ -53,7 +53,7 @@ public class ItemMap extends ItemMapBase
             s = "map_" + stack.getMetadata();
             mapdata = new MapData(s);
             mapdata.scale = 3;
-            mapdata.calculateMapCenter((double)worldIn.getWorldInfo().getSpawnX(), (double)worldIn.getWorldInfo().getSpawnZ(), mapdata.scale);
+            mapdata.calculateMapCenter(worldIn.getWorldInfo().getSpawnX(), worldIn.getWorldInfo().getSpawnZ(), mapdata.scale);
             mapdata.dimension = (byte)worldIn.provider.getDimensionId();
             mapdata.markDirty();
             worldIn.setItemData(s, mapdata);
@@ -98,7 +98,7 @@ public class ItemMap extends ItemMapBase
                             boolean flag1 = i2 * i2 + j2 * j2 > (j1 - 2) * (j1 - 2);
                             int k2 = (j / i + k1 - 64) * i;
                             int l2 = (k / i + l1 - 64) * i;
-                            Multiset<MapColor> multiset = HashMultiset.<MapColor>create();
+                            Multiset<MapColor> multiset = HashMultiset.create();
                             Chunk chunk = worldIn.getChunkFromBlockCoords(new BlockPos(k2, 0, l2));
 
                             if (!chunk.isEmpty())
@@ -139,16 +139,11 @@ public class ItemMap extends ItemMapBase
                                             {
                                                 label541:
                                                 {
-                                                    while (true)
-                                                    {
+                                                    do {
                                                         --k4;
                                                         iblockstate = chunk.getBlockState(blockpos$mutableblockpos.func_181079_c(i4 + i3, k4, j4 + j3));
 
-                                                        if (iblockstate.getBlock().getMapColor(iblockstate) != MapColor.airColor || k4 <= 0)
-                                                        {
-                                                            break;
-                                                        }
-                                                    }
+                                                    } while (iblockstate.getBlock().getMapColor(iblockstate) == MapColor.airColor && k4 > 0);
 
                                                     if (k4 > 0 && iblockstate.getBlock().getMaterial().isLiquid())
                                                     {
@@ -188,7 +183,7 @@ public class ItemMap extends ItemMapBase
                                     i5 = 0;
                                 }
 
-                                MapColor mapcolor = (MapColor)Iterables.getFirst(Multisets.<MapColor>copyHighestCountFirst(multiset), MapColor.airColor);
+                                MapColor mapcolor = Iterables.getFirst(Multisets.copyHighestCountFirst(multiset), MapColor.airColor);
 
                                 if (mapcolor == MapColor.waterColor)
                                 {
@@ -232,7 +227,7 @@ public class ItemMap extends ItemMapBase
      * Called each tick as long the item is on a player inventory. Uses by maps to check if is on a player hand and
      * update it's contents.
      */
-    public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected)
+    public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, boolean isSelected)
     {
         if (!worldIn.isRemote)
         {
@@ -253,13 +248,13 @@ public class ItemMap extends ItemMapBase
 
     public Packet createMapDataPacket(ItemStack stack, World worldIn, EntityPlayer player)
     {
-        return this.getMapData(stack, worldIn).getMapPacket(stack, worldIn, player);
+        return this.getMapData(stack, worldIn).getMapPacket(stack, player);
     }
 
     /**
      * Called when item is crafted/smelted. Used only by maps so far.
      */
-    public void onCreated(ItemStack stack, World worldIn, EntityPlayer playerIn)
+    public void onCreated(ItemStack stack, World worldIn)
     {
         if (stack.hasTagCompound() && stack.getTagCompound().getBoolean("map_is_scaling"))
         {
@@ -273,7 +268,7 @@ public class ItemMap extends ItemMapBase
                 mapdata1.scale = 4;
             }
 
-            mapdata1.calculateMapCenter((double)mapdata.xCenter, (double)mapdata.zCenter, mapdata1.scale);
+            mapdata1.calculateMapCenter(mapdata.xCenter, mapdata.zCenter, mapdata1.scale);
             mapdata1.dimension = mapdata.dimension;
             mapdata1.markDirty();
             worldIn.setItemData("map_" + stack.getMetadata(), mapdata1);

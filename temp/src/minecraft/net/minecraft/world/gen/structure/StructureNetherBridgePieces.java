@@ -1051,7 +1051,7 @@ public class StructureNetherBridgePieces {
                StructureNetherBridgePieces.PieceWeight lvt_15_1_ = (StructureNetherBridgePieces.PieceWeight)lvt_14_1_.next();
                lvt_13_1_ -= lvt_15_1_.field_78826_b;
                if (lvt_13_1_ < 0) {
-                  if (!lvt_15_1_.func_78822_a(p_175871_9_) || lvt_15_1_ == p_175871_1_.field_74970_a && !lvt_15_1_.field_78825_e) {
+                  if (!lvt_15_1_.func_78822_a() || lvt_15_1_ == p_175871_1_.field_74970_a && !lvt_15_1_.field_78825_e) {
                      break;
                   }
 

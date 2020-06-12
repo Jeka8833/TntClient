@@ -55,9 +55,9 @@ public class RealmsVertexFormat
         return new RealmsVertexFormatElement(this.v.getElement(p_getElement_1_));
     }
 
-    public RealmsVertexFormat addElement(RealmsVertexFormatElement p_addElement_1_)
+    public void addElement(RealmsVertexFormatElement p_addElement_1_)
     {
-        return this.from(this.v.func_181721_a(p_addElement_1_.getVertexFormatElement()));
+        this.from(this.v.func_181721_a(p_addElement_1_.getVertexFormatElement()));
     }
 
     public int getColorOffset()

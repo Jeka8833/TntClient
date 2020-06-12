@@ -64,7 +64,7 @@ public abstract class StructureComponent
      * net.minecraft.world.gen.structure.StructureComponent#coordBaseMode coordBase} and {@link
      * net.minecraft.world.gen.structure.StructureComponent#componentType componentType})
      */
-    public void readStructureBaseNBT(World worldIn, NBTTagCompound tagCompound)
+    public void readStructureBaseNBT(NBTTagCompound tagCompound)
     {
         if (tagCompound.hasKey("BB"))
         {
@@ -666,7 +666,7 @@ public abstract class StructureComponent
                 {
                     if (!alwaysReplace || this.getBlockStateFromPos(worldIn, j, i, k, boundingboxIn).getBlock().getMaterial() != Material.air)
                     {
-                        blockselector.selectBlocks(rand, j, i, k, i == minY || i == maxY || j == minX || j == maxX || k == minZ || k == maxZ);
+                        blockselector.selectBlocks(rand, i == minY || i == maxY || j == minX || j == maxX || k == minZ || k == maxZ);
                         this.setBlockState(worldIn, blockselector.getBlockState(), j, i, k, boundingboxIn);
                     }
                 }
@@ -674,7 +674,7 @@ public abstract class StructureComponent
         }
     }
 
-    protected void func_175805_a(World worldIn, StructureBoundingBox boundingboxIn, Random rand, float chance, int minX, int minY, int minZ, int maxX, int maxY, int maxZ, IBlockState blockstate1, IBlockState blockstate2, boolean p_175805_13_)
+    protected void func_175805_a(World worldIn, StructureBoundingBox boundingboxIn, Random rand, float chance, int minX, int minY, int minZ, int maxX, int maxY, int maxZ, IBlockState blockstate1, IBlockState blockstate2)
     {
         for (int i = minY; i <= maxY; ++i)
         {
@@ -682,7 +682,7 @@ public abstract class StructureComponent
             {
                 for (int k = minZ; k <= maxZ; ++k)
                 {
-                    if (rand.nextFloat() <= chance && (!p_175805_13_ || this.getBlockStateFromPos(worldIn, j, i, k, boundingboxIn).getBlock().getMaterial() != Material.air))
+                    if (rand.nextFloat() <= chance && (!false || this.getBlockStateFromPos(worldIn, j, i, k, boundingboxIn).getBlock().getMaterial() != Material.air))
                     {
                         if (i != minY && i != maxY && j != minX && j != maxX && k != minZ && k != maxZ)
                         {
@@ -706,7 +706,7 @@ public abstract class StructureComponent
         }
     }
 
-    protected void randomlyRareFillWithBlocks(World worldIn, StructureBoundingBox boundingboxIn, int minX, int minY, int minZ, int maxX, int maxY, int maxZ, IBlockState blockstateIn, boolean p_180777_10_)
+    protected void randomlyRareFillWithBlocks(World worldIn, StructureBoundingBox boundingboxIn, int minX, int minY, int minZ, int maxX, int maxY, int maxZ, IBlockState blockstateIn)
     {
         float f = (float)(maxX - minX + 1);
         float f1 = (float)(maxY - minY + 1);
@@ -726,7 +726,7 @@ public abstract class StructureComponent
                 {
                     float f7 = ((float)k - f4) / (f2 * 0.5F);
 
-                    if (!p_180777_10_ || this.getBlockStateFromPos(worldIn, j, i, k, boundingboxIn).getBlock().getMaterial() != Material.air)
+                    if (!false || this.getBlockStateFromPos(worldIn, j, i, k, boundingboxIn).getBlock().getMaterial() != Material.air)
                     {
                         float f8 = f6 * f6 + f5 * f5 + f7 * f7;
 
@@ -799,9 +799,9 @@ public abstract class StructureComponent
         }
     }
 
-    protected boolean generateDispenserContents(World worldIn, StructureBoundingBox boundingBoxIn, Random rand, int x, int y, int z, int meta, List<WeightedRandomChestContent> listIn, int max)
+    protected boolean generateDispenserContents(World worldIn, StructureBoundingBox boundingBoxIn, Random rand, int x, int z, int meta, List<WeightedRandomChestContent> listIn)
     {
-        BlockPos blockpos = new BlockPos(this.getXWithOffset(x, z), this.getYWithOffset(y), this.getZWithOffset(x, z));
+        BlockPos blockpos = new BlockPos(this.getXWithOffset(x, z), this.getYWithOffset(-2), this.getZWithOffset(x, z));
 
         if (boundingBoxIn.isVecInside(blockpos) && worldIn.getBlockState(blockpos).getBlock() != Blocks.dispenser)
         {
@@ -810,7 +810,7 @@ public abstract class StructureComponent
 
             if (tileentity instanceof TileEntityDispenser)
             {
-                WeightedRandomChestContent.generateDispenserContents(rand, listIn, (TileEntityDispenser)tileentity, max);
+                WeightedRandomChestContent.generateDispenserContents(rand, listIn, (TileEntityDispenser)tileentity, 2);
             }
 
             return true;
@@ -824,9 +824,9 @@ public abstract class StructureComponent
     /**
      * Places door on given position
      */
-    protected void placeDoorCurrentPosition(World worldIn, StructureBoundingBox boundingBoxIn, Random rand, int x, int y, int z, EnumFacing facing)
+    protected void placeDoorCurrentPosition(World worldIn, StructureBoundingBox boundingBoxIn, int x, int z, EnumFacing facing)
     {
-        BlockPos blockpos = new BlockPos(this.getXWithOffset(x, z), this.getYWithOffset(y), this.getZWithOffset(x, z));
+        BlockPos blockpos = new BlockPos(this.getXWithOffset(x, z), this.getYWithOffset(1), this.getZWithOffset(x, z));
 
         if (boundingBoxIn.isVecInside(blockpos))
         {
@@ -843,7 +843,7 @@ public abstract class StructureComponent
     {
         protected IBlockState blockstate = Blocks.air.getDefaultState();
 
-        public abstract void selectBlocks(Random rand, int x, int y, int z, boolean p_75062_5_);
+        public abstract void selectBlocks(Random rand, boolean p_75062_5_);
 
         public IBlockState getBlockState()
         {

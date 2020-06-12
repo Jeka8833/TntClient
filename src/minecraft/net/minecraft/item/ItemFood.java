@@ -76,7 +76,7 @@ public class ItemFood extends Item
     /**
      * How long it takes to use or consume an item
      */
-    public int getMaxItemUseDuration(ItemStack stack)
+    public int getMaxItemUseDuration()
     {
         return 32;
     }
@@ -84,7 +84,7 @@ public class ItemFood extends Item
     /**
      * returns the action that specifies what animation to play when the items is being used
      */
-    public EnumAction getItemUseAction(ItemStack stack)
+    public EnumAction getItemUseAction()
     {
         return EnumAction.EAT;
     }
@@ -96,7 +96,7 @@ public class ItemFood extends Item
     {
         if (playerIn.canEat(this.alwaysEdible))
         {
-            playerIn.setItemInUse(itemStackIn, this.getMaxItemUseDuration(itemStackIn));
+            playerIn.setItemInUse(itemStackIn, this.getMaxItemUseDuration());
         }
 
         return itemStackIn;

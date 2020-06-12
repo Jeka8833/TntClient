@@ -29,7 +29,7 @@ import shadersmod.common.SMCLog;
 
 public class SimpleShaderTexture extends AbstractTexture
 {
-    private String texturePath;
+    private final String texturePath;
     private static final IMetadataSerializer METADATA_SERIALIZER = makeMetadataSerializer();
 
     public SimpleShaderTexture(String texturePath)
@@ -69,14 +69,13 @@ public class SimpleShaderTexture extends AbstractTexture
 
         if (inputstream != null)
         {
-            IMetadataSerializer imetadataserializer = METADATA_SERIALIZER;
             BufferedReader bufferedreader = new BufferedReader(new InputStreamReader(inputstream));
             TextureMetadataSection texturemetadatasection1;
 
             try
             {
-                JsonObject jsonobject = (new JsonParser()).parse((Reader)bufferedreader).getAsJsonObject();
-                TextureMetadataSection texturemetadatasection = (TextureMetadataSection)imetadataserializer.parseMetadataSection(s1, jsonobject);
+                JsonObject jsonobject = (new JsonParser()).parse(bufferedreader).getAsJsonObject();
+                TextureMetadataSection texturemetadatasection = METADATA_SERIALIZER.parseMetadataSection(s1, jsonobject);
 
                 if (texturemetadatasection == null)
                 {
@@ -93,7 +92,7 @@ public class SimpleShaderTexture extends AbstractTexture
             }
             finally
             {
-                IOUtils.closeQuietly((Reader)bufferedreader);
+                IOUtils.closeQuietly(bufferedreader);
                 IOUtils.closeQuietly(inputstream);
             }
 

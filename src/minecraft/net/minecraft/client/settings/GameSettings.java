@@ -130,7 +130,7 @@ public class GameSettings {
     public float chatHeightFocused = 1.0F;
     public boolean showInventoryAchievementHint = true;
     public int mipmapLevels = 4;
-    private Map mapSoundLevels = Maps.newEnumMap(SoundCategory.class);
+    private final Map mapSoundLevels = Maps.newEnumMap(SoundCategory.class);
     public float streamBytesPerPixel = 0.5F;
     public float streamMicVolume = 1.0F;
     public float streamGameVolume = 1.0F;
@@ -144,31 +144,31 @@ public class GameSettings {
     public int streamMicToggleBehavior = 0;
     public boolean field_181150_U = true;
     public boolean field_181151_V = true;
-    public KeyBinding keyBindForward = new KeyBinding("key.forward", 17, "key.categories.movement");
-    public KeyBinding keyBindLeft = new KeyBinding("key.left", 30, "key.categories.movement");
-    public KeyBinding keyBindBack = new KeyBinding("key.back", 31, "key.categories.movement");
-    public KeyBinding keyBindRight = new KeyBinding("key.right", 32, "key.categories.movement");
-    public KeyBinding keyBindJump = new KeyBinding("key.jump", 57, "key.categories.movement");
-    public KeyBinding keyBindSneak = new KeyBinding("key.sneak", 42, "key.categories.movement");
-    public KeyBinding keyBindSprint = new KeyBinding("key.sprint", 29, "key.categories.movement");
-    public KeyBinding keyBindInventory = new KeyBinding("key.inventory", 18, "key.categories.inventory");
-    public KeyBinding keyBindUseItem = new KeyBinding("key.use", -99, "key.categories.gameplay");
-    public KeyBinding keyBindDrop = new KeyBinding("key.drop", 16, "key.categories.gameplay");
-    public KeyBinding keyBindAttack = new KeyBinding("key.attack", -100, "key.categories.gameplay");
-    public KeyBinding keyBindPickBlock = new KeyBinding("key.pickItem", -98, "key.categories.gameplay");
-    public KeyBinding keyBindChat = new KeyBinding("key.chat", 20, "key.categories.multiplayer");
-    public KeyBinding keyBindPlayerList = new KeyBinding("key.playerlist", 15, "key.categories.multiplayer");
-    public KeyBinding keyBindCommand = new KeyBinding("key.command", 53, "key.categories.multiplayer");
-    public KeyBinding keyBindScreenshot = new KeyBinding("key.screenshot", 60, "key.categories.misc");
-    public KeyBinding keyBindTogglePerspective = new KeyBinding("key.togglePerspective", 63, "key.categories.misc");
-    public KeyBinding keyBindSmoothCamera = new KeyBinding("key.smoothCamera", 0, "key.categories.misc");
-    public KeyBinding keyBindFullscreen = new KeyBinding("key.fullscreen", 87, "key.categories.misc");
-    public KeyBinding keyBindSpectatorOutlines = new KeyBinding("key.spectatorOutlines", 0, "key.categories.misc");
-    public KeyBinding keyBindStreamStartStop = new KeyBinding("key.streamStartStop", 64, "key.categories.stream");
-    public KeyBinding keyBindStreamPauseUnpause = new KeyBinding("key.streamPauseUnpause", 65, "key.categories.stream");
-    public KeyBinding keyBindStreamCommercials = new KeyBinding("key.streamCommercial", 0, "key.categories.stream");
-    public KeyBinding keyBindStreamToggleMic = new KeyBinding("key.streamToggleMic", 0, "key.categories.stream");
-    public KeyBinding[] keyBindsHotbar = new KeyBinding[]{new KeyBinding("key.hotbar.1", 2, "key.categories.inventory"), new KeyBinding("key.hotbar.2", 3, "key.categories.inventory"), new KeyBinding("key.hotbar.3", 4, "key.categories.inventory"), new KeyBinding("key.hotbar.4", 5, "key.categories.inventory"), new KeyBinding("key.hotbar.5", 6, "key.categories.inventory"), new KeyBinding("key.hotbar.6", 7, "key.categories.inventory"), new KeyBinding("key.hotbar.7", 8, "key.categories.inventory"), new KeyBinding("key.hotbar.8", 9, "key.categories.inventory"), new KeyBinding("key.hotbar.9", 10, "key.categories.inventory")};
+    public final KeyBinding keyBindForward = new KeyBinding("key.forward", 17, "key.categories.movement");
+    public final KeyBinding keyBindLeft = new KeyBinding("key.left", 30, "key.categories.movement");
+    public final KeyBinding keyBindBack = new KeyBinding("key.back", 31, "key.categories.movement");
+    public final KeyBinding keyBindRight = new KeyBinding("key.right", 32, "key.categories.movement");
+    public final KeyBinding keyBindJump = new KeyBinding("key.jump", 57, "key.categories.movement");
+    public final KeyBinding keyBindSneak = new KeyBinding("key.sneak", 42, "key.categories.movement");
+    public final KeyBinding keyBindSprint = new KeyBinding("key.sprint", 29, "key.categories.movement");
+    public final KeyBinding keyBindInventory = new KeyBinding("key.inventory", 18, "key.categories.inventory");
+    public final KeyBinding keyBindUseItem = new KeyBinding("key.use", -99, "key.categories.gameplay");
+    public final KeyBinding keyBindDrop = new KeyBinding("key.drop", 16, "key.categories.gameplay");
+    public final KeyBinding keyBindAttack = new KeyBinding("key.attack", -100, "key.categories.gameplay");
+    public final KeyBinding keyBindPickBlock = new KeyBinding("key.pickItem", -98, "key.categories.gameplay");
+    public final KeyBinding keyBindChat = new KeyBinding("key.chat", 20, "key.categories.multiplayer");
+    public final KeyBinding keyBindPlayerList = new KeyBinding("key.playerlist", 15, "key.categories.multiplayer");
+    public final KeyBinding keyBindCommand = new KeyBinding("key.command", 53, "key.categories.multiplayer");
+    public final KeyBinding keyBindScreenshot = new KeyBinding("key.screenshot", 60, "key.categories.misc");
+    public final KeyBinding keyBindTogglePerspective = new KeyBinding("key.togglePerspective", 63, "key.categories.misc");
+    public final KeyBinding keyBindSmoothCamera = new KeyBinding("key.smoothCamera", 0, "key.categories.misc");
+    public final KeyBinding keyBindFullscreen = new KeyBinding("key.fullscreen", 87, "key.categories.misc");
+    public final KeyBinding keyBindSpectatorOutlines = new KeyBinding("key.spectatorOutlines", 0, "key.categories.misc");
+    public final KeyBinding keyBindStreamStartStop = new KeyBinding("key.streamStartStop", 64, "key.categories.stream");
+    public final KeyBinding keyBindStreamPauseUnpause = new KeyBinding("key.streamPauseUnpause", 65, "key.categories.stream");
+    public final KeyBinding keyBindStreamCommercials = new KeyBinding("key.streamCommercial", 0, "key.categories.stream");
+    public final KeyBinding keyBindStreamToggleMic = new KeyBinding("key.streamToggleMic", 0, "key.categories.stream");
+    public final KeyBinding[] keyBindsHotbar = new KeyBinding[]{new KeyBinding("key.hotbar.1", 2, "key.categories.inventory"), new KeyBinding("key.hotbar.2", 3, "key.categories.inventory"), new KeyBinding("key.hotbar.3", 4, "key.categories.inventory"), new KeyBinding("key.hotbar.4", 5, "key.categories.inventory"), new KeyBinding("key.hotbar.5", 6, "key.categories.inventory"), new KeyBinding("key.hotbar.6", 7, "key.categories.inventory"), new KeyBinding("key.hotbar.7", 8, "key.categories.inventory"), new KeyBinding("key.hotbar.8", 9, "key.categories.inventory"), new KeyBinding("key.hotbar.9", 10, "key.categories.inventory")};
     public KeyBinding[] keyBindings;
     protected Minecraft mc;
     private File optionsFile;
@@ -292,7 +292,7 @@ public class GameSettings {
     private File optionsFileOF;
 
     public GameSettings(Minecraft mcIn, File p_i46326_2_) {
-        this.keyBindings = (KeyBinding[]) ((KeyBinding[]) ArrayUtils.addAll(new KeyBinding[]{this.keyBindAttack, this.keyBindUseItem, this.keyBindForward, this.keyBindLeft, this.keyBindBack, this.keyBindRight, this.keyBindJump, this.keyBindSneak, this.keyBindSprint, this.keyBindDrop, this.keyBindInventory, this.keyBindChat, this.keyBindPlayerList, this.keyBindPickBlock, this.keyBindCommand, this.keyBindScreenshot, this.keyBindTogglePerspective, this.keyBindSmoothCamera, this.keyBindStreamStartStop, this.keyBindStreamPauseUnpause, this.keyBindStreamCommercials, this.keyBindStreamToggleMic, this.keyBindFullscreen, this.keyBindSpectatorOutlines}, this.keyBindsHotbar));
+        this.keyBindings = ArrayUtils.addAll(new KeyBinding[]{this.keyBindAttack, this.keyBindUseItem, this.keyBindForward, this.keyBindLeft, this.keyBindBack, this.keyBindRight, this.keyBindJump, this.keyBindSneak, this.keyBindSprint, this.keyBindDrop, this.keyBindInventory, this.keyBindChat, this.keyBindPlayerList, this.keyBindPickBlock, this.keyBindCommand, this.keyBindScreenshot, this.keyBindTogglePerspective, this.keyBindSmoothCamera, this.keyBindStreamStartStop, this.keyBindStreamPauseUnpause, this.keyBindStreamCommercials, this.keyBindStreamToggleMic, this.keyBindFullscreen, this.keyBindSpectatorOutlines}, this.keyBindsHotbar);
         this.difficulty = EnumDifficulty.NORMAL;
         this.lastServer = "";
         this.fovSetting = 70.0F;
@@ -303,7 +303,7 @@ public class GameSettings {
         this.optionsFileOF = new File(p_i46326_2_, "optionsof.txt");
         this.limitFramerate = (int) GameSettings.Options.FRAMERATE_LIMIT.getValueMax();
         this.ofKeyBindZoom = new KeyBinding("of.key.zoom", 46, "key.categories.misc");
-        this.keyBindings = (KeyBinding[]) ((KeyBinding[]) ArrayUtils.add(this.keyBindings, this.ofKeyBindZoom));
+        this.keyBindings = ArrayUtils.add(this.keyBindings, this.ofKeyBindZoom);
         GameSettings.Options.RENDER_DISTANCE.setValueMax(32.0F);
         this.renderDistanceChunks = 8;
         this.loadOptions();
@@ -311,7 +311,7 @@ public class GameSettings {
     }
 
     public GameSettings() {
-        this.keyBindings = (KeyBinding[]) ((KeyBinding[]) ArrayUtils.addAll(new KeyBinding[]{this.keyBindAttack, this.keyBindUseItem, this.keyBindForward, this.keyBindLeft, this.keyBindBack, this.keyBindRight, this.keyBindJump, this.keyBindSneak, this.keyBindSprint, this.keyBindDrop, this.keyBindInventory, this.keyBindChat, this.keyBindPlayerList, this.keyBindPickBlock, this.keyBindCommand, this.keyBindScreenshot, this.keyBindTogglePerspective, this.keyBindSmoothCamera, this.keyBindStreamStartStop, this.keyBindStreamPauseUnpause, this.keyBindStreamCommercials, this.keyBindStreamToggleMic, this.keyBindFullscreen, this.keyBindSpectatorOutlines}, this.keyBindsHotbar));
+        this.keyBindings = ArrayUtils.addAll(new KeyBinding[]{this.keyBindAttack, this.keyBindUseItem, this.keyBindForward, this.keyBindLeft, this.keyBindBack, this.keyBindRight, this.keyBindJump, this.keyBindSneak, this.keyBindSprint, this.keyBindDrop, this.keyBindInventory, this.keyBindChat, this.keyBindPlayerList, this.keyBindPickBlock, this.keyBindCommand, this.keyBindScreenshot, this.keyBindTogglePerspective, this.keyBindSmoothCamera, this.keyBindStreamStartStop, this.keyBindStreamPauseUnpause, this.keyBindStreamCommercials, this.keyBindStreamToggleMic, this.keyBindFullscreen, this.keyBindSpectatorOutlines}, this.keyBindsHotbar);
         this.difficulty = EnumDifficulty.NORMAL;
         this.lastServer = "";
         this.fovSetting = 70.0F;
@@ -323,7 +323,7 @@ public class GameSettings {
      * Represents a key or mouse button as a string. Args: key
      */
     public static String getKeyDisplayString(int p_74298_0_) {
-        return p_74298_0_ < 0 ? I18n.format("key.mouseButton", new Object[]{Integer.valueOf(p_74298_0_ + 101)}) : (p_74298_0_ < 256 ? Keyboard.getKeyName(p_74298_0_) : String.format("%c", new Object[]{Character.valueOf((char) (p_74298_0_ - 256))}).toUpperCase());
+        return p_74298_0_ < 0 ? I18n.format("key.mouseButton", p_74298_0_ + 101) : (p_74298_0_ < 256 ? Keyboard.getKeyName(p_74298_0_) : String.format("%c", (char) (p_74298_0_ - 256)).toUpperCase());
     }
 
     /**
@@ -331,7 +331,7 @@ public class GameSettings {
      */
     public static boolean isKeyDown(KeyBinding p_100015_0_) {
         int i = p_100015_0_.getKeyCode();
-        return i >= -100 && i <= 255 ? (p_100015_0_.getKeyCode() == 0 ? false : (p_100015_0_.getKeyCode() < 0 ? Mouse.isButtonDown(p_100015_0_.getKeyCode() + 100) : Keyboard.isKeyDown(p_100015_0_.getKeyCode()))) : false;
+        return (i >= -100 && i <= 255) && (p_100015_0_.getKeyCode() != 0 && (p_100015_0_.getKeyCode() < 0 ? Mouse.isButtonDown(p_100015_0_.getKeyCode() + 100) : Keyboard.isKeyDown(p_100015_0_.getKeyCode())));
     }
 
     /**
@@ -446,7 +446,7 @@ public class GameSettings {
      * For non-float options. Toggles the option on/off, or cycles through the list i.e. render distances.
      */
     public void setOptionValue(GameSettings.Options p_74306_1_, int p_74306_2_) {
-        this.setOptionValueOF(p_74306_1_, p_74306_2_);
+        this.setOptionValueOF(p_74306_1_);
 
         if (p_74306_1_ == GameSettings.Options.INVERT_MOUSE) {
             this.invertMouse = !this.invertMouse;
@@ -647,7 +647,7 @@ public class GameSettings {
             p_74299_1_ = 0;
         }
 
-        return I18n.format(p_74299_0_[p_74299_1_], new Object[0]);
+        return I18n.format(p_74299_0_[p_74299_1_]);
     }
 
     /**
@@ -659,19 +659,19 @@ public class GameSettings {
         if (s != null) {
             return s;
         } else {
-            String s1 = I18n.format(p_74297_1_.getEnumString(), new Object[0]) + ": ";
+            String s1 = I18n.format(p_74297_1_.getEnumString()) + ": ";
 
             if (p_74297_1_.getEnumFloat()) {
                 float f1 = this.getOptionFloatValue(p_74297_1_);
                 float f = p_74297_1_.normalizeValue(f1);
-                return p_74297_1_ == GameSettings.Options.SENSITIVITY ? (f == 0.0F ? s1 + I18n.format("options.sensitivity.min", new Object[0]) : (f == 1.0F ? s1 + I18n.format("options.sensitivity.max", new Object[0]) : s1 + (int) (f * 200.0F) + "%")) : (p_74297_1_ == GameSettings.Options.FOV ? (f1 == 70.0F ? s1 + I18n.format("options.fov.min", new Object[0]) : (f1 == 110.0F ? s1 + I18n.format("options.fov.max", new Object[0]) : s1 + (int) f1)) : (p_74297_1_ == GameSettings.Options.FRAMERATE_LIMIT ? (f1 == p_74297_1_.valueMax ? s1 + I18n.format("options.framerateLimit.max", new Object[0]) : s1 + (int) f1 + " fps") : (p_74297_1_ == GameSettings.Options.RENDER_CLOUDS ? (f1 == p_74297_1_.valueMin ? s1 + I18n.format("options.cloudHeight.min", new Object[0]) : s1 + ((int) f1 + 128)) : (p_74297_1_ == GameSettings.Options.GAMMA ? (f == 0.0F ? s1 + I18n.format("options.gamma.min", new Object[0]) : (f == 1.0F ? s1 + I18n.format("options.gamma.max", new Object[0]) : s1 + "+" + (int) (f * 100.0F) + "%")) : (p_74297_1_ == GameSettings.Options.SATURATION ? s1 + (int) (f * 400.0F) + "%" : (p_74297_1_ == GameSettings.Options.CHAT_OPACITY ? s1 + (int) (f * 90.0F + 10.0F) + "%" : (p_74297_1_ == GameSettings.Options.CHAT_HEIGHT_UNFOCUSED ? s1 + GuiNewChat.calculateChatboxHeight(f) + "px" : (p_74297_1_ == GameSettings.Options.CHAT_HEIGHT_FOCUSED ? s1 + GuiNewChat.calculateChatboxHeight(f) + "px" : (p_74297_1_ == GameSettings.Options.CHAT_WIDTH ? s1 + GuiNewChat.calculateChatboxWidth(f) + "px" : (p_74297_1_ == GameSettings.Options.RENDER_DISTANCE ? s1 + (int) f1 + " chunks" : (p_74297_1_ == GameSettings.Options.MIPMAP_LEVELS ? (f1 == 0.0F ? s1 + I18n.format("options.off", new Object[0]) : s1 + (int) f1) : (p_74297_1_ == GameSettings.Options.STREAM_FPS ? s1 + TwitchStream.formatStreamFps(f) + " fps" : (p_74297_1_ == GameSettings.Options.STREAM_KBPS ? s1 + TwitchStream.formatStreamKbps(f) + " Kbps" : (p_74297_1_ == GameSettings.Options.STREAM_BYTES_PER_PIXEL ? s1 + String.format("%.3f bpp", new Object[]{Float.valueOf(TwitchStream.formatStreamBps(f))}) : (f == 0.0F ? s1 + I18n.format("options.off", new Object[0]) : s1 + (int) (f * 100.0F) + "%")))))))))))))));
+                return p_74297_1_ == GameSettings.Options.SENSITIVITY ? (f == 0.0F ? s1 + I18n.format("options.sensitivity.min") : (f == 1.0F ? s1 + I18n.format("options.sensitivity.max") : s1 + (int) (f * 200.0F) + "%")) : (p_74297_1_ == GameSettings.Options.FOV ? (f1 == 70.0F ? s1 + I18n.format("options.fov.min") : (f1 == 110.0F ? s1 + I18n.format("options.fov.max") : s1 + (int) f1)) : (p_74297_1_ == GameSettings.Options.FRAMERATE_LIMIT ? (f1 == p_74297_1_.valueMax ? s1 + I18n.format("options.framerateLimit.max") : s1 + (int) f1 + " fps") : (p_74297_1_ == GameSettings.Options.RENDER_CLOUDS ? (f1 == p_74297_1_.valueMin ? s1 + I18n.format("options.cloudHeight.min") : s1 + ((int) f1 + 128)) : (p_74297_1_ == GameSettings.Options.GAMMA ? (f == 0.0F ? s1 + I18n.format("options.gamma.min") : (f == 1.0F ? s1 + I18n.format("options.gamma.max") : s1 + "+" + (int) (f * 100.0F) + "%")) : (p_74297_1_ == GameSettings.Options.SATURATION ? s1 + (int) (f * 400.0F) + "%" : (p_74297_1_ == GameSettings.Options.CHAT_OPACITY ? s1 + (int) (f * 90.0F + 10.0F) + "%" : (p_74297_1_ == GameSettings.Options.CHAT_HEIGHT_UNFOCUSED ? s1 + GuiNewChat.calculateChatboxHeight(f) + "px" : (p_74297_1_ == GameSettings.Options.CHAT_HEIGHT_FOCUSED ? s1 + GuiNewChat.calculateChatboxHeight(f) + "px" : (p_74297_1_ == GameSettings.Options.CHAT_WIDTH ? s1 + GuiNewChat.calculateChatboxWidth(f) + "px" : (p_74297_1_ == GameSettings.Options.RENDER_DISTANCE ? s1 + (int) f1 + " chunks" : (p_74297_1_ == GameSettings.Options.MIPMAP_LEVELS ? (f1 == 0.0F ? s1 + I18n.format("options.off") : s1 + (int) f1) : (p_74297_1_ == GameSettings.Options.STREAM_FPS ? s1 + TwitchStream.formatStreamFps(f) + " fps" : (p_74297_1_ == GameSettings.Options.STREAM_KBPS ? s1 + TwitchStream.formatStreamKbps(f) + " Kbps" : (p_74297_1_ == GameSettings.Options.STREAM_BYTES_PER_PIXEL ? s1 + String.format("%.3f bpp", TwitchStream.formatStreamBps(f)) : (f == 0.0F ? s1 + I18n.format("options.off") : s1 + (int) (f * 100.0F) + "%")))))))))))))));
             } else if (p_74297_1_.getEnumBoolean()) {
                 boolean flag = this.getOptionOrdinalValue(p_74297_1_);
-                return flag ? s1 + I18n.format("options.on", new Object[0]) : s1 + I18n.format("options.off", new Object[0]);
+                return flag ? s1 + I18n.format("options.on") : s1 + I18n.format("options.off");
             } else if (p_74297_1_ == GameSettings.Options.GUI_SCALE) {
                 return s1 + getTranslation(GUISCALES, this.guiScale);
             } else if (p_74297_1_ == GameSettings.Options.CHAT_VISIBILITY) {
-                return s1 + I18n.format(this.chatVisibility.getResourceKey(), new Object[0]);
+                return s1 + I18n.format(this.chatVisibility.getResourceKey());
             } else if (p_74297_1_ == GameSettings.Options.PARTICLES) {
                 return s1 + getTranslation(PARTICLES, this.particleSetting);
             } else if (p_74297_1_ == GameSettings.Options.AMBIENT_OCCLUSION) {
@@ -688,10 +688,10 @@ public class GameSettings {
                 return s1 + getTranslation(field_181149_aW, this.clouds);
             } else if (p_74297_1_ == GameSettings.Options.GRAPHICS) {
                 if (this.fancyGraphics) {
-                    return s1 + I18n.format("options.graphics.fancy", new Object[0]);
+                    return s1 + I18n.format("options.graphics.fancy");
                 } else {
                     String s2 = "options.graphics.fast";
-                    return s1 + I18n.format("options.graphics.fast", new Object[0]);
+                    return s1 + I18n.format("options.graphics.fast");
                 }
             } else {
                 return s1;
@@ -792,17 +792,21 @@ public class GameSettings {
                     }
 
                     if (astring[0].equals("renderClouds")) {
-                        if (astring[1].equals("true")) {
-                            this.clouds = 2;
-                        } else if (astring[1].equals("false")) {
-                            this.clouds = 0;
-                        } else if (astring[1].equals("fast")) {
-                            this.clouds = 1;
+                        switch (astring[1]) {
+                            case "true":
+                                this.clouds = 2;
+                                break;
+                            case "false":
+                                this.clouds = 0;
+                                break;
+                            case "fast":
+                                this.clouds = 1;
+                                break;
                         }
                     }
 
                     if (astring[0].equals("resourcePacks")) {
-                        this.resourcePacks = (List) gson.fromJson((String) s.substring(s.indexOf(58) + 1), typeListString);
+                        this.resourcePacks = gson.fromJson(s.substring(s.indexOf(58) + 1), typeListString);
 
                         if (this.resourcePacks == null) {
                             this.resourcePacks = Lists.newArrayList();
@@ -810,7 +814,7 @@ public class GameSettings {
                     }
 
                     if (astring[0].equals("incompatibleResourcePacks")) {
-                        this.field_183018_l = (List) gson.fromJson((String) s.substring(s.indexOf(58) + 1), typeListString);
+                        this.field_183018_l = gson.fromJson(s.substring(s.indexOf(58) + 1), typeListString);
 
                         if (this.field_183018_l == null) {
                             this.field_183018_l = Lists.newArrayList();
@@ -986,7 +990,7 @@ public class GameSettings {
 
                     for (SoundCategory soundcategory : SoundCategory.values()) {
                         if (astring[0].equals("soundCategory_" + soundcategory.getCategoryName())) {
-                            this.mapSoundLevels.put(soundcategory, Float.valueOf(this.parseFloat(astring[1])));
+                            this.mapSoundLevels.put(soundcategory, this.parseFloat(astring[1]));
                         }
                     }
 
@@ -1004,7 +1008,7 @@ public class GameSettings {
             KeyBinding.resetKeyBindingArrayAndHash();
             bufferedreader.close();
         } catch (Exception exception1) {
-            logger.error((String) "Failed to load options", (Throwable) exception1);
+            logger.error("Failed to load options", exception1);
         }
 
         this.loadOfOptions();
@@ -1022,9 +1026,9 @@ public class GameSettings {
      */
     public void saveOptions() {
         if (Reflector.FMLClientHandler.exists()) {
-            Object object = Reflector.call(Reflector.FMLClientHandler_instance, new Object[0]);
+            Object object = Reflector.call(Reflector.FMLClientHandler_instance);
 
-            if (object != null && Reflector.callBoolean(object, Reflector.FMLClientHandler_isLoading, new Object[0])) {
+            if (object != null && Reflector.callBoolean(object, Reflector.FMLClientHandler_isLoading)) {
                 return;
             }
         }
@@ -1060,8 +1064,8 @@ public class GameSettings {
                     printwriter.println("renderClouds:true");
             }
 
-            printwriter.println("resourcePacks:" + gson.toJson((Object) this.resourcePacks));
-            printwriter.println("incompatibleResourcePacks:" + gson.toJson((Object) this.field_183018_l));
+            printwriter.println("resourcePacks:" + gson.toJson(this.resourcePacks));
+            printwriter.println("incompatibleResourcePacks:" + gson.toJson(this.field_183018_l));
             printwriter.println("lastServer:" + this.lastServer);
             printwriter.println("lang:" + this.language);
             printwriter.println("chatVisibility:" + this.chatVisibility.getChatVisibility());
@@ -1117,7 +1121,7 @@ public class GameSettings {
 
             printwriter.close();
         } catch (Exception exception) {
-            logger.error((String) "Failed to save options", (Throwable) exception);
+            logger.error("Failed to save options", exception);
         }
 
         this.saveOfOptions();
@@ -1125,12 +1129,12 @@ public class GameSettings {
     }
 
     public float getSoundLevel(SoundCategory p_151438_1_) {
-        return this.mapSoundLevels.containsKey(p_151438_1_) ? ((Float) this.mapSoundLevels.get(p_151438_1_)).floatValue() : 1.0F;
+        return this.mapSoundLevels.containsKey(p_151438_1_) ? (Float) this.mapSoundLevels.get(p_151438_1_) : 1.0F;
     }
 
     public void setSoundLevel(SoundCategory p_151439_1_, float p_151439_2_) {
         this.mc.getSoundHandler().setSoundLevel(p_151439_1_, p_151439_2_);
-        this.mapSoundLevels.put(p_151439_1_, Float.valueOf(p_151439_2_));
+        this.mapSoundLevels.put(p_151439_1_, p_151439_2_);
     }
 
     /**
@@ -1220,7 +1224,6 @@ public class GameSettings {
             }
 
             for (this.ofAfLevel = 1; this.ofAfLevel * 2 <= k; this.ofAfLevel *= 2) {
-                ;
             }
 
             this.ofAfLevel = Config.limit(this.ofAfLevel, 1, 16);
@@ -1234,7 +1237,7 @@ public class GameSettings {
         }
     }
 
-    private void setOptionValueOF(GameSettings.Options p_setOptionValueOF_1_, int p_setOptionValueOF_2_) {
+    private void setOptionValueOF(Options p_setOptionValueOF_1_) {
         if (p_setOptionValueOF_1_ == GameSettings.Options.FOG_FANCY) {
             switch (this.ofFogType) {
                 case 1:
@@ -1619,7 +1622,7 @@ public class GameSettings {
     }
 
     private String getKeyBindingOF(GameSettings.Options p_getKeyBindingOF_1_) {
-        String s = I18n.format(p_getKeyBindingOF_1_.getEnumString(), new Object[0]) + ": ";
+        String s = I18n.format(p_getKeyBindingOF_1_.getEnumString()) + ": ";
 
         if (s == null) {
             s = p_getKeyBindingOF_1_.getEnumString();
@@ -1627,21 +1630,21 @@ public class GameSettings {
 
         if (p_getKeyBindingOF_1_ == GameSettings.Options.RENDER_DISTANCE) {
             int l = (int) this.getOptionFloatValue(p_getKeyBindingOF_1_);
-            String s1 = I18n.format("options.renderDistance.tiny", new Object[0]);
+            String s1 = I18n.format("options.renderDistance.tiny");
             int i = 2;
 
             if (l >= 4) {
-                s1 = I18n.format("options.renderDistance.short", new Object[0]);
+                s1 = I18n.format("options.renderDistance.short");
                 i = 4;
             }
 
             if (l >= 8) {
-                s1 = I18n.format("options.renderDistance.normal", new Object[0]);
+                s1 = I18n.format("options.renderDistance.normal");
                 i = 8;
             }
 
             if (l >= 16) {
-                s1 = I18n.format("options.renderDistance.far", new Object[0]);
+                s1 = I18n.format("options.renderDistance.far");
                 i = 16;
             }
 
@@ -1907,7 +1910,7 @@ public class GameSettings {
             return this.heldItemTooltips ? s + Lang.getOn() : s + Lang.getOff();
         } else if (p_getKeyBindingOF_1_ == GameSettings.Options.FRAMERATE_LIMIT) {
             float f = this.getOptionFloatValue(p_getKeyBindingOF_1_);
-            return f == 0.0F ? s + Lang.get("of.options.framerateLimit.vsync") : (f == p_getKeyBindingOF_1_.valueMax ? s + I18n.format("options.framerateLimit.max", new Object[0]) : s + (int) f + " fps");
+            return f == 0.0F ? s + Lang.get("of.options.framerateLimit.vsync") : (f == p_getKeyBindingOF_1_.valueMax ? s + I18n.format("options.framerateLimit.max") : s + (int) f + " fps");
         } else {
             return null;
         }
@@ -1933,17 +1936,17 @@ public class GameSettings {
                     String[] astring = s.split(":");
 
                     if (astring[0].equals("ofRenderDistanceChunks") && astring.length >= 2) {
-                        this.renderDistanceChunks = Integer.valueOf(astring[1]).intValue();
+                        this.renderDistanceChunks = Integer.valueOf(astring[1]);
                         this.renderDistanceChunks = Config.limit(this.renderDistanceChunks, 2, 32);
                     }
 
                     if (astring[0].equals("ofFogType") && astring.length >= 2) {
-                        this.ofFogType = Integer.valueOf(astring[1]).intValue();
+                        this.ofFogType = Integer.valueOf(astring[1]);
                         this.ofFogType = Config.limit(this.ofFogType, 1, 3);
                     }
 
                     if (astring[0].equals("ofFogStart") && astring.length >= 2) {
-                        this.ofFogStart = Float.valueOf(astring[1]).floatValue();
+                        this.ofFogStart = Float.valueOf(astring[1]);
 
                         if (this.ofFogStart < 0.2F) {
                             this.ofFogStart = 0.2F;
@@ -1955,250 +1958,250 @@ public class GameSettings {
                     }
 
                     if (astring[0].equals("ofMipmapType") && astring.length >= 2) {
-                        this.ofMipmapType = Integer.valueOf(astring[1]).intValue();
+                        this.ofMipmapType = Integer.valueOf(astring[1]);
                         this.ofMipmapType = Config.limit(this.ofMipmapType, 0, 3);
                     }
 
                     if (astring[0].equals("ofOcclusionFancy") && astring.length >= 2) {
-                        this.ofOcclusionFancy = Boolean.valueOf(astring[1]).booleanValue();
+                        this.ofOcclusionFancy = Boolean.valueOf(astring[1]);
                     }
 
                     if (astring[0].equals("ofSmoothFps") && astring.length >= 2) {
-                        this.ofSmoothFps = Boolean.valueOf(astring[1]).booleanValue();
+                        this.ofSmoothFps = Boolean.valueOf(astring[1]);
                     }
 
                     if (astring[0].equals("ofSmoothWorld") && astring.length >= 2) {
-                        this.ofSmoothWorld = Boolean.valueOf(astring[1]).booleanValue();
+                        this.ofSmoothWorld = Boolean.valueOf(astring[1]);
                     }
 
                     if (astring[0].equals("ofAoLevel") && astring.length >= 2) {
-                        this.ofAoLevel = Float.valueOf(astring[1]).floatValue();
+                        this.ofAoLevel = Float.valueOf(astring[1]);
                         this.ofAoLevel = Config.limit(this.ofAoLevel, 0.0F, 1.0F);
                     }
 
                     if (astring[0].equals("ofClouds") && astring.length >= 2) {
-                        this.ofClouds = Integer.valueOf(astring[1]).intValue();
+                        this.ofClouds = Integer.valueOf(astring[1]);
                         this.ofClouds = Config.limit(this.ofClouds, 0, 3);
                         this.updateRenderClouds();
                     }
 
                     if (astring[0].equals("ofCloudsHeight") && astring.length >= 2) {
-                        this.ofCloudsHeight = Float.valueOf(astring[1]).floatValue();
+                        this.ofCloudsHeight = Float.valueOf(astring[1]);
                         this.ofCloudsHeight = Config.limit(this.ofCloudsHeight, 0.0F, 1.0F);
                     }
 
                     if (astring[0].equals("ofTrees") && astring.length >= 2) {
-                        this.ofTrees = Integer.valueOf(astring[1]).intValue();
+                        this.ofTrees = Integer.valueOf(astring[1]);
                         this.ofTrees = limit(this.ofTrees, OF_TREES_VALUES);
                     }
 
                     if (astring[0].equals("ofDroppedItems") && astring.length >= 2) {
-                        this.ofDroppedItems = Integer.valueOf(astring[1]).intValue();
+                        this.ofDroppedItems = Integer.valueOf(astring[1]);
                         this.ofDroppedItems = Config.limit(this.ofDroppedItems, 0, 2);
                     }
 
                     if (astring[0].equals("ofRain") && astring.length >= 2) {
-                        this.ofRain = Integer.valueOf(astring[1]).intValue();
+                        this.ofRain = Integer.valueOf(astring[1]);
                         this.ofRain = Config.limit(this.ofRain, 0, 3);
                     }
 
                     if (astring[0].equals("ofAnimatedWater") && astring.length >= 2) {
-                        this.ofAnimatedWater = Integer.valueOf(astring[1]).intValue();
+                        this.ofAnimatedWater = Integer.valueOf(astring[1]);
                         this.ofAnimatedWater = Config.limit(this.ofAnimatedWater, 0, 2);
                     }
 
                     if (astring[0].equals("ofAnimatedLava") && astring.length >= 2) {
-                        this.ofAnimatedLava = Integer.valueOf(astring[1]).intValue();
+                        this.ofAnimatedLava = Integer.valueOf(astring[1]);
                         this.ofAnimatedLava = Config.limit(this.ofAnimatedLava, 0, 2);
                     }
 
                     if (astring[0].equals("ofAnimatedFire") && astring.length >= 2) {
-                        this.ofAnimatedFire = Boolean.valueOf(astring[1]).booleanValue();
+                        this.ofAnimatedFire = Boolean.valueOf(astring[1]);
                     }
 
                     if (astring[0].equals("ofAnimatedPortal") && astring.length >= 2) {
-                        this.ofAnimatedPortal = Boolean.valueOf(astring[1]).booleanValue();
+                        this.ofAnimatedPortal = Boolean.valueOf(astring[1]);
                     }
 
                     if (astring[0].equals("ofAnimatedRedstone") && astring.length >= 2) {
-                        this.ofAnimatedRedstone = Boolean.valueOf(astring[1]).booleanValue();
+                        this.ofAnimatedRedstone = Boolean.valueOf(astring[1]);
                     }
 
                     if (astring[0].equals("ofAnimatedExplosion") && astring.length >= 2) {
-                        this.ofAnimatedExplosion = Boolean.valueOf(astring[1]).booleanValue();
+                        this.ofAnimatedExplosion = Boolean.valueOf(astring[1]);
                     }
 
                     if (astring[0].equals("ofAnimatedFlame") && astring.length >= 2) {
-                        this.ofAnimatedFlame = Boolean.valueOf(astring[1]).booleanValue();
+                        this.ofAnimatedFlame = Boolean.valueOf(astring[1]);
                     }
 
                     if (astring[0].equals("ofAnimatedSmoke") && astring.length >= 2) {
-                        this.ofAnimatedSmoke = Boolean.valueOf(astring[1]).booleanValue();
+                        this.ofAnimatedSmoke = Boolean.valueOf(astring[1]);
                     }
 
                     if (astring[0].equals("ofVoidParticles") && astring.length >= 2) {
-                        this.ofVoidParticles = Boolean.valueOf(astring[1]).booleanValue();
+                        this.ofVoidParticles = Boolean.valueOf(astring[1]);
                     }
 
                     if (astring[0].equals("ofWaterParticles") && astring.length >= 2) {
-                        this.ofWaterParticles = Boolean.valueOf(astring[1]).booleanValue();
+                        this.ofWaterParticles = Boolean.valueOf(astring[1]);
                     }
 
                     if (astring[0].equals("ofPortalParticles") && astring.length >= 2) {
-                        this.ofPortalParticles = Boolean.valueOf(astring[1]).booleanValue();
+                        this.ofPortalParticles = Boolean.valueOf(astring[1]);
                     }
 
                     if (astring[0].equals("ofPotionParticles") && astring.length >= 2) {
-                        this.ofPotionParticles = Boolean.valueOf(astring[1]).booleanValue();
+                        this.ofPotionParticles = Boolean.valueOf(astring[1]);
                     }
 
                     if (astring[0].equals("ofFireworkParticles") && astring.length >= 2) {
-                        this.ofFireworkParticles = Boolean.valueOf(astring[1]).booleanValue();
+                        this.ofFireworkParticles = Boolean.valueOf(astring[1]);
                     }
 
                     if (astring[0].equals("ofDrippingWaterLava") && astring.length >= 2) {
-                        this.ofDrippingWaterLava = Boolean.valueOf(astring[1]).booleanValue();
+                        this.ofDrippingWaterLava = Boolean.valueOf(astring[1]);
                     }
 
                     if (astring[0].equals("ofAnimatedTerrain") && astring.length >= 2) {
-                        this.ofAnimatedTerrain = Boolean.valueOf(astring[1]).booleanValue();
+                        this.ofAnimatedTerrain = Boolean.valueOf(astring[1]);
                     }
 
                     if (astring[0].equals("ofAnimatedTextures") && astring.length >= 2) {
-                        this.ofAnimatedTextures = Boolean.valueOf(astring[1]).booleanValue();
+                        this.ofAnimatedTextures = Boolean.valueOf(astring[1]);
                     }
 
                     if (astring[0].equals("ofRainSplash") && astring.length >= 2) {
-                        this.ofRainSplash = Boolean.valueOf(astring[1]).booleanValue();
+                        this.ofRainSplash = Boolean.valueOf(astring[1]);
                     }
 
                     if (astring[0].equals("ofLagometer") && astring.length >= 2) {
-                        this.ofLagometer = Boolean.valueOf(astring[1]).booleanValue();
+                        this.ofLagometer = Boolean.valueOf(astring[1]);
                     }
 
                     if (astring[0].equals("ofShowFps") && astring.length >= 2) {
-                        this.ofShowFps = Boolean.valueOf(astring[1]).booleanValue();
+                        this.ofShowFps = Boolean.valueOf(astring[1]);
                     }
 
                     if (astring[0].equals("ofAutoSaveTicks") && astring.length >= 2) {
-                        this.ofAutoSaveTicks = Integer.valueOf(astring[1]).intValue();
+                        this.ofAutoSaveTicks = Integer.valueOf(astring[1]);
                         this.ofAutoSaveTicks = Config.limit(this.ofAutoSaveTicks, 40, 40000);
                     }
 
                     if (astring[0].equals("ofBetterGrass") && astring.length >= 2) {
-                        this.ofBetterGrass = Integer.valueOf(astring[1]).intValue();
+                        this.ofBetterGrass = Integer.valueOf(astring[1]);
                         this.ofBetterGrass = Config.limit(this.ofBetterGrass, 1, 3);
                     }
 
                     if (astring[0].equals("ofConnectedTextures") && astring.length >= 2) {
-                        this.ofConnectedTextures = Integer.valueOf(astring[1]).intValue();
+                        this.ofConnectedTextures = Integer.valueOf(astring[1]);
                         this.ofConnectedTextures = Config.limit(this.ofConnectedTextures, 1, 3);
                     }
 
                     if (astring[0].equals("ofWeather") && astring.length >= 2) {
-                        this.ofWeather = Boolean.valueOf(astring[1]).booleanValue();
+                        this.ofWeather = Boolean.valueOf(astring[1]);
                     }
 
                     if (astring[0].equals("ofSky") && astring.length >= 2) {
-                        this.ofSky = Boolean.valueOf(astring[1]).booleanValue();
+                        this.ofSky = Boolean.valueOf(astring[1]);
                     }
 
                     if (astring[0].equals("ofStars") && astring.length >= 2) {
-                        this.ofStars = Boolean.valueOf(astring[1]).booleanValue();
+                        this.ofStars = Boolean.valueOf(astring[1]);
                     }
 
                     if (astring[0].equals("ofSunMoon") && astring.length >= 2) {
-                        this.ofSunMoon = Boolean.valueOf(astring[1]).booleanValue();
+                        this.ofSunMoon = Boolean.valueOf(astring[1]);
                     }
 
                     if (astring[0].equals("ofVignette") && astring.length >= 2) {
-                        this.ofVignette = Integer.valueOf(astring[1]).intValue();
+                        this.ofVignette = Integer.valueOf(astring[1]);
                         this.ofVignette = Config.limit(this.ofVignette, 0, 2);
                     }
 
                     if (astring[0].equals("ofChunkUpdates") && astring.length >= 2) {
-                        this.ofChunkUpdates = Integer.valueOf(astring[1]).intValue();
+                        this.ofChunkUpdates = Integer.valueOf(astring[1]);
                         this.ofChunkUpdates = Config.limit(this.ofChunkUpdates, 1, 5);
                     }
 
                     if (astring[0].equals("ofChunkUpdatesDynamic") && astring.length >= 2) {
-                        this.ofChunkUpdatesDynamic = Boolean.valueOf(astring[1]).booleanValue();
+                        this.ofChunkUpdatesDynamic = Boolean.valueOf(astring[1]);
                     }
 
                     if (astring[0].equals("ofTime") && astring.length >= 2) {
-                        this.ofTime = Integer.valueOf(astring[1]).intValue();
+                        this.ofTime = Integer.valueOf(astring[1]);
                         this.ofTime = Config.limit(this.ofTime, 0, 2);
                     }
 
                     if (astring[0].equals("ofClearWater") && astring.length >= 2) {
-                        this.ofClearWater = Boolean.valueOf(astring[1]).booleanValue();
+                        this.ofClearWater = Boolean.valueOf(astring[1]);
                         this.updateWaterOpacity();
                     }
 
                     if (astring[0].equals("ofAaLevel") && astring.length >= 2) {
-                        this.ofAaLevel = Integer.valueOf(astring[1]).intValue();
+                        this.ofAaLevel = Integer.valueOf(astring[1]);
                         this.ofAaLevel = Config.limit(this.ofAaLevel, 0, 16);
                     }
 
                     if (astring[0].equals("ofAfLevel") && astring.length >= 2) {
-                        this.ofAfLevel = Integer.valueOf(astring[1]).intValue();
+                        this.ofAfLevel = Integer.valueOf(astring[1]);
                         this.ofAfLevel = Config.limit(this.ofAfLevel, 1, 16);
                     }
 
                     if (astring[0].equals("ofProfiler") && astring.length >= 2) {
-                        this.ofProfiler = Boolean.valueOf(astring[1]).booleanValue();
+                        this.ofProfiler = Boolean.valueOf(astring[1]);
                     }
 
                     if (astring[0].equals("ofBetterSnow") && astring.length >= 2) {
-                        this.ofBetterSnow = Boolean.valueOf(astring[1]).booleanValue();
+                        this.ofBetterSnow = Boolean.valueOf(astring[1]);
                     }
 
                     if (astring[0].equals("ofSwampColors") && astring.length >= 2) {
-                        this.ofSwampColors = Boolean.valueOf(astring[1]).booleanValue();
+                        this.ofSwampColors = Boolean.valueOf(astring[1]);
                     }
 
                     if (astring[0].equals("ofRandomMobs") && astring.length >= 2) {
-                        this.ofRandomMobs = Boolean.valueOf(astring[1]).booleanValue();
+                        this.ofRandomMobs = Boolean.valueOf(astring[1]);
                     }
 
                     if (astring[0].equals("ofSmoothBiomes") && astring.length >= 2) {
-                        this.ofSmoothBiomes = Boolean.valueOf(astring[1]).booleanValue();
+                        this.ofSmoothBiomes = Boolean.valueOf(astring[1]);
                     }
 
                     if (astring[0].equals("ofCustomFonts") && astring.length >= 2) {
-                        this.ofCustomFonts = Boolean.valueOf(astring[1]).booleanValue();
+                        this.ofCustomFonts = Boolean.valueOf(astring[1]);
                     }
 
                     if (astring[0].equals("ofCustomColors") && astring.length >= 2) {
-                        this.ofCustomColors = Boolean.valueOf(astring[1]).booleanValue();
+                        this.ofCustomColors = Boolean.valueOf(astring[1]);
                     }
 
                     if (astring[0].equals("ofCustomItems") && astring.length >= 2) {
-                        this.ofCustomItems = Boolean.valueOf(astring[1]).booleanValue();
+                        this.ofCustomItems = Boolean.valueOf(astring[1]);
                     }
 
                     if (astring[0].equals("ofCustomSky") && astring.length >= 2) {
-                        this.ofCustomSky = Boolean.valueOf(astring[1]).booleanValue();
+                        this.ofCustomSky = Boolean.valueOf(astring[1]);
                     }
 
                     if (astring[0].equals("ofShowCapes") && astring.length >= 2) {
-                        this.ofShowCapes = Boolean.valueOf(astring[1]).booleanValue();
+                        this.ofShowCapes = Boolean.valueOf(astring[1]);
                     }
 
                     if (astring[0].equals("ofNaturalTextures") && astring.length >= 2) {
-                        this.ofNaturalTextures = Boolean.valueOf(astring[1]).booleanValue();
+                        this.ofNaturalTextures = Boolean.valueOf(astring[1]);
                     }
 
                     if (astring[0].equals("ofLazyChunkLoading") && astring.length >= 2) {
-                        this.ofLazyChunkLoading = Boolean.valueOf(astring[1]).booleanValue();
+                        this.ofLazyChunkLoading = Boolean.valueOf(astring[1]);
                     }
 
                     if (astring[0].equals("ofDynamicFov") && astring.length >= 2) {
-                        this.ofDynamicFov = Boolean.valueOf(astring[1]).booleanValue();
+                        this.ofDynamicFov = Boolean.valueOf(astring[1]);
                     }
 
                     if (astring[0].equals("ofDynamicLights") && astring.length >= 2) {
-                        this.ofDynamicLights = Integer.valueOf(astring[1]).intValue();
+                        this.ofDynamicLights = Integer.valueOf(astring[1]);
                         this.ofDynamicLights = limit(this.ofDynamicLights, OF_DYNAMIC_LIGHTS);
                     }
 
@@ -2207,16 +2210,16 @@ public class GameSettings {
                     }
 
                     if (astring[0].equals("ofFastMath") && astring.length >= 2) {
-                        this.ofFastMath = Boolean.valueOf(astring[1]).booleanValue();
+                        this.ofFastMath = Boolean.valueOf(astring[1]);
                         MathHelper.fastMath = this.ofFastMath;
                     }
 
                     if (astring[0].equals("ofFastRender") && astring.length >= 2) {
-                        this.ofFastRender = Boolean.valueOf(astring[1]).booleanValue();
+                        this.ofFastRender = Boolean.valueOf(astring[1]);
                     }
 
                     if (astring[0].equals("ofTranslucentBlocks") && astring.length >= 2) {
-                        this.ofTranslucentBlocks = Integer.valueOf(astring[1]).intValue();
+                        this.ofTranslucentBlocks = Integer.valueOf(astring[1]);
                         this.ofTranslucentBlocks = Config.limit(this.ofTranslucentBlocks, 0, 2);
                     }
 
@@ -2498,118 +2501,101 @@ public class GameSettings {
         static {
             try {
                 field_151477_a[GameSettings.Options.INVERT_MOUSE.ordinal()] = 1;
-            } catch (NoSuchFieldError var17) {
-                ;
+            } catch (NoSuchFieldError ignored) {
             }
 
             try {
                 field_151477_a[GameSettings.Options.VIEW_BOBBING.ordinal()] = 2;
-            } catch (NoSuchFieldError var16) {
-                ;
+            } catch (NoSuchFieldError ignored) {
             }
 
             try {
                 field_151477_a[GameSettings.Options.ANAGLYPH.ordinal()] = 3;
-            } catch (NoSuchFieldError var15) {
-                ;
+            } catch (NoSuchFieldError ignored) {
             }
 
             try {
                 field_151477_a[GameSettings.Options.FBO_ENABLE.ordinal()] = 4;
-            } catch (NoSuchFieldError var14) {
-                ;
+            } catch (NoSuchFieldError ignored) {
             }
 
             try {
                 field_151477_a[GameSettings.Options.CHAT_COLOR.ordinal()] = 5;
-            } catch (NoSuchFieldError var13) {
-                ;
+            } catch (NoSuchFieldError ignored) {
             }
 
             try {
                 field_151477_a[GameSettings.Options.CHAT_LINKS.ordinal()] = 6;
-            } catch (NoSuchFieldError var12) {
-                ;
+            } catch (NoSuchFieldError ignored) {
             }
 
             try {
                 field_151477_a[GameSettings.Options.CHAT_LINKS_PROMPT.ordinal()] = 7;
-            } catch (NoSuchFieldError var11) {
-                ;
+            } catch (NoSuchFieldError ignored) {
             }
 
             try {
                 field_151477_a[GameSettings.Options.SNOOPER_ENABLED.ordinal()] = 8;
-            } catch (NoSuchFieldError var10) {
-                ;
+            } catch (NoSuchFieldError ignored) {
             }
 
             try {
                 field_151477_a[GameSettings.Options.USE_FULLSCREEN.ordinal()] = 9;
-            } catch (NoSuchFieldError var9) {
-                ;
+            } catch (NoSuchFieldError ignored) {
             }
 
             try {
                 field_151477_a[GameSettings.Options.ENABLE_VSYNC.ordinal()] = 10;
-            } catch (NoSuchFieldError var8) {
-                ;
+            } catch (NoSuchFieldError ignored) {
             }
 
             try {
                 field_151477_a[GameSettings.Options.USE_VBO.ordinal()] = 11;
-            } catch (NoSuchFieldError var7) {
-                ;
+            } catch (NoSuchFieldError ignored) {
             }
 
             try {
                 field_151477_a[GameSettings.Options.TOUCHSCREEN.ordinal()] = 12;
-            } catch (NoSuchFieldError var6) {
-                ;
+            } catch (NoSuchFieldError ignored) {
             }
 
             try {
                 field_151477_a[GameSettings.Options.STREAM_SEND_METADATA.ordinal()] = 13;
-            } catch (NoSuchFieldError var5) {
-                ;
+            } catch (NoSuchFieldError ignored) {
             }
 
             try {
                 field_151477_a[GameSettings.Options.FORCE_UNICODE_FONT.ordinal()] = 14;
-            } catch (NoSuchFieldError var4) {
-                ;
+            } catch (NoSuchFieldError ignored) {
             }
 
             try {
                 field_151477_a[GameSettings.Options.BLOCK_ALTERNATIVES.ordinal()] = 15;
-            } catch (NoSuchFieldError var3) {
-                ;
+            } catch (NoSuchFieldError ignored) {
             }
 
             try {
                 field_151477_a[GameSettings.Options.REDUCED_DEBUG_INFO.ordinal()] = 16;
-            } catch (NoSuchFieldError var2) {
-                ;
+            } catch (NoSuchFieldError ignored) {
             }
 
             try {
                 field_151477_a[GameSettings.Options.ENTITY_SHADOWS.ordinal()] = 17;
-            } catch (NoSuchFieldError var1) {
-                ;
+            } catch (NoSuchFieldError ignored) {
             }
         }
     }
 
-    public static enum Options {
+    public enum Options {
         INVERT_MOUSE("INVERT_MOUSE", 0, "options.invertMouse", false, true),
         SENSITIVITY("SENSITIVITY", 1, "options.sensitivity", true, false),
-        FOV("FOV", 2, "options.fov", true, false, 30.0F, 110.0F, 1.0F),
+        FOV("options.fov", true, false, 30.0F, 110.0F, 1.0F),
         GAMMA("GAMMA", 3, "options.gamma", true, false),
         SATURATION("SATURATION", 4, "options.saturation", true, false),
-        RENDER_DISTANCE("RENDER_DISTANCE", 5, "options.renderDistance", true, false, 2.0F, 16.0F, 1.0F),
+        RENDER_DISTANCE("options.renderDistance", true, false, 2.0F, 16.0F, 1.0F),
         VIEW_BOBBING("VIEW_BOBBING", 6, "options.viewBobbing", false, true),
         ANAGLYPH("ANAGLYPH", 7, "options.anaglyph", false, true),
-        FRAMERATE_LIMIT("FRAMERATE_LIMIT", 8, "options.framerateLimit", true, false, 0.0F, 260.0F, 5.0F),
+        FRAMERATE_LIMIT("options.framerateLimit", true, false, 0.0F, 260.0F, 5.0F),
         FBO_ENABLE("FBO_ENABLE", 9, "options.fboEnable", false, true),
         RENDER_CLOUDS("RENDER_CLOUDS", 10, "options.renderClouds", false, false),
         GRAPHICS("GRAPHICS", 11, "options.graphics", false, false),
@@ -2630,7 +2616,7 @@ public class GameSettings {
         CHAT_WIDTH("CHAT_WIDTH", 26, "options.chat.width", true, false),
         CHAT_HEIGHT_FOCUSED("CHAT_HEIGHT_FOCUSED", 27, "options.chat.height.focused", true, false),
         CHAT_HEIGHT_UNFOCUSED("CHAT_HEIGHT_UNFOCUSED", 28, "options.chat.height.unfocused", true, false),
-        MIPMAP_LEVELS("MIPMAP_LEVELS", 29, "options.mipmapLevels", true, false, 0.0F, 4.0F, 1.0F),
+        MIPMAP_LEVELS("options.mipmapLevels", true, false, 0.0F, 4.0F, 1.0F),
         FORCE_UNICODE_FONT("FORCE_UNICODE_FONT", 30, "options.forceUnicodeFont", false, true),
         STREAM_BYTES_PER_PIXEL("STREAM_BYTES_PER_PIXEL", 31, "options.stream.bytesPerPixel", true, false),
         STREAM_VOLUME_MIC("STREAM_VOLUME_MIC", 32, "options.stream.micVolumne", true, false),
@@ -2647,7 +2633,7 @@ public class GameSettings {
         ENTITY_SHADOWS("ENTITY_SHADOWS", 43, "options.entityShadows", false, true),
         FOG_FANCY("", 999, "of.options.FOG_FANCY", false, false),
         FOG_START("", 999, "of.options.FOG_START", false, false),
-        MIPMAP_TYPE("", 999, "of.options.MIPMAP_TYPE", true, false, 0.0F, 3.0F, 1.0F),
+        MIPMAP_TYPE("of.options.MIPMAP_TYPE", true, false, 0.0F, 3.0F, 1.0F),
         SMOOTH_FPS("", 999, "of.options.SMOOTH_FPS", false, false),
         CLOUDS("", 999, "of.options.CLOUDS", false, false),
         CLOUD_HEIGHT("", 999, "of.options.CLOUD_HEIGHT", true, false),
@@ -2695,8 +2681,8 @@ public class GameSettings {
         SHOW_CAPES("", 999, "of.options.SHOW_CAPES", false, false),
         CONNECTED_TEXTURES("", 999, "of.options.CONNECTED_TEXTURES", false, false),
         CUSTOM_ITEMS("", 999, "of.options.CUSTOM_ITEMS", false, false),
-        AA_LEVEL("", 999, "of.options.AA_LEVEL", true, false, 0.0F, 16.0F, 1.0F),
-        AF_LEVEL("", 999, "of.options.AF_LEVEL", true, false, 1.0F, 16.0F, 1.0F),
+        AA_LEVEL("of.options.AA_LEVEL", true, false, 0.0F, 16.0F, 1.0F),
+        AF_LEVEL("of.options.AF_LEVEL", true, false, 1.0F, 16.0F, 1.0F),
         ANIMATED_TEXTURES("", 999, "of.options.ANIMATED_TEXTURES", false, false),
         NATURAL_TEXTURES("", 999, "of.options.NATURAL_TEXTURES", false, false),
         HELD_ITEM_TOOLTIPS("", 999, "of.options.HELD_ITEM_TOOLTIPS", false, false),
@@ -2713,7 +2699,7 @@ public class GameSettings {
         private final boolean enumBoolean;
         private final String enumString;
         private final float valueStep;
-        private float valueMin;
+        private final float valueMin;
         private float valueMax;
         private static final GameSettings.Options[] $VALUES = new GameSettings.Options[]{INVERT_MOUSE, SENSITIVITY, FOV, GAMMA, SATURATION, RENDER_DISTANCE, VIEW_BOBBING, ANAGLYPH, FRAMERATE_LIMIT, FBO_ENABLE, RENDER_CLOUDS, GRAPHICS, AMBIENT_OCCLUSION, GUI_SCALE, PARTICLES, CHAT_VISIBILITY, CHAT_COLOR, CHAT_LINKS, CHAT_OPACITY, CHAT_LINKS_PROMPT, SNOOPER_ENABLED, USE_FULLSCREEN, ENABLE_VSYNC, USE_VBO, TOUCHSCREEN, CHAT_SCALE, CHAT_WIDTH, CHAT_HEIGHT_FOCUSED, CHAT_HEIGHT_UNFOCUSED, MIPMAP_LEVELS, FORCE_UNICODE_FONT, STREAM_BYTES_PER_PIXEL, STREAM_VOLUME_MIC, STREAM_VOLUME_SYSTEM, STREAM_KBPS, STREAM_FPS, STREAM_COMPRESSION, STREAM_SEND_METADATA, STREAM_CHAT_ENABLED, STREAM_CHAT_USER_FILTER, STREAM_MIC_TOGGLE_BEHAVIOR, BLOCK_ALTERNATIVES, REDUCED_DEBUG_INFO, ENTITY_SHADOWS};
         private static final String __OBFID = "CL_00000653";
@@ -2728,11 +2714,11 @@ public class GameSettings {
             return null;
         }
 
-        private Options(String p_i0_3_, int p_i0_4_, String p_i0_5_, boolean p_i0_6_, boolean p_i0_7_) {
-            this(p_i0_3_, p_i0_4_, p_i0_5_, p_i0_6_, p_i0_7_, 0.0F, 1.0F, 0.0F);
+        Options(String p_i0_3_, int p_i0_4_, String p_i0_5_, boolean p_i0_6_, boolean p_i0_7_) {
+            this(p_i0_5_, p_i0_6_, p_i0_7_, 0.0F, 1.0F, 0.0F);
         }
 
-        private Options(String p_i1_3_, int p_i1_4_, String p_i1_5_, boolean p_i1_6_, boolean p_i1_7_, float p_i1_8_, float p_i1_9_, float p_i1_10_) {
+        Options(String p_i1_5_, boolean p_i1_6_, boolean p_i1_7_, float p_i1_8_, float p_i1_9_, float p_i1_10_) {
             this.enumString = p_i1_5_;
             this.enumFloat = p_i1_6_;
             this.enumBoolean = p_i1_7_;

@@ -15,9 +15,9 @@ import optifine.StrUtils;
 
 public class GuiShaderOptions extends GuiScreenOF
 {
-    private GuiScreen prevScreen;
+    private final GuiScreen prevScreen;
     protected String title;
-    private GameSettings settings;
+    private final GameSettings settings;
     private int lastMouseX;
     private int lastMouseY;
     private long mouseStillTime;
@@ -58,7 +58,7 @@ public class GuiShaderOptions extends GuiScreenOF
      */
     public void initGui()
     {
-        this.title = I18n.format("of.options.shaderOptionsTitle", new Object[0]);
+        this.title = I18n.format("of.options.shaderOptionsTitle");
         int i = 100;
         int j = 0;
         int k = 30;
@@ -97,8 +97,8 @@ public class GuiShaderOptions extends GuiScreenOF
             }
         }
 
-        this.buttonList.add(new GuiButton(201, this.width / 2 - j1 - 20, this.height / 6 + 168 + 11, j1, k1, I18n.format("controls.reset", new Object[0])));
-        this.buttonList.add(new GuiButton(200, this.width / 2 + 20, this.height / 6 + 168 + 11, j1, k1, I18n.format("gui.done", new Object[0])));
+        this.buttonList.add(new GuiButton(201, this.width / 2 - j1 - 20, this.height / 6 + 168 + 11, j1, k1, I18n.format("controls.reset")));
+        this.buttonList.add(new GuiButton(200, this.width / 2 + 20, this.height / 6 + 168 + 11, j1, k1, I18n.format("gui.done")));
     }
 
     private String getButtonText(ShaderOption so, int btnWidth)
@@ -116,7 +116,6 @@ public class GuiShaderOptions extends GuiScreenOF
 
             for (int i = fontrenderer.getStringWidth(": " + Lang.getOff()) + 5; fontrenderer.getStringWidth(s) + i >= btnWidth && s.length() > 0; s = s.substring(0, s.length() - 1))
             {
-                ;
             }
 
             String s1 = so.isChanged() ? so.getValueColor(so.getValue()) : "";
@@ -341,7 +340,7 @@ public class GuiShaderOptions extends GuiScreenOF
 
             if (so.getPaths() != null && this.settings.advancedItemTooltips)
             {
-                s3 = "\u00a78" + Lang.get("of.general.from") + ": " + Config.arrayToString((Object[])so.getPaths());
+                s3 = "\u00a78" + Lang.get("of.general.from") + ": " + Config.arrayToString(so.getPaths());
             }
 
             String s4 = null;
@@ -354,7 +353,7 @@ public class GuiShaderOptions extends GuiScreenOF
 
             List<String> list = new ArrayList();
             list.add(s);
-            list.addAll(Arrays.<String>asList(astring));
+            list.addAll(Arrays.asList(astring));
 
             if (s2 != null)
             {
@@ -371,8 +370,7 @@ public class GuiShaderOptions extends GuiScreenOF
                 list.add(s4);
             }
 
-            String[] astring1 = this.makeTooltipLines(width, list);
-            return astring1;
+            return this.makeTooltipLines(width, list);
         }
     }
 
@@ -404,7 +402,7 @@ public class GuiShaderOptions extends GuiScreenOF
 
         for (int i = 0; i < args.size(); ++i)
         {
-            String s = (String)args.get(i);
+            String s = args.get(i);
 
             if (s != null && s.length() > 0)
             {
@@ -415,7 +413,6 @@ public class GuiShaderOptions extends GuiScreenOF
             }
         }
 
-        String[] astring = (String[])((String[])list.toArray(new String[list.size()]));
-        return astring;
+        return list.toArray(new String[0]);
     }
 }

@@ -39,7 +39,7 @@ public class CustomItems {
     private static CustomItemProperties[][] itemProperties = null;
     private static CustomItemProperties[][] enchantmentProperties = null;
     private static Map mapPotionIds = null;
-    private static ItemModelGenerator itemModelGenerator = new ItemModelGenerator();
+    private static final ItemModelGenerator itemModelGenerator = new ItemModelGenerator();
     private static boolean useGlint = true;
     private static final int[][] EMPTY_INT2_ARRAY = new int[0][];
 
@@ -83,7 +83,7 @@ public class CustomItems {
             properties.load(inputstream);
             inputstream.close();
             useGlint = Config.parseBoolean(properties.getProperty("useGlint"), true);
-        } catch (FileNotFoundException var4) {
+        } catch (FileNotFoundException ignored) {
         } catch (IOException ioexception) {
             ioexception.printStackTrace();
         }
@@ -162,12 +162,11 @@ public class CustomItems {
     }
 
     private static Comparator getPropertiesComparator() {
-        Comparator comparator = (p_compare_1_, p_compare_2_) -> {
+        return (p_compare_1_, p_compare_2_) -> {
             CustomItemProperties customitemproperties = (CustomItemProperties) p_compare_1_;
             CustomItemProperties customitemproperties1 = (CustomItemProperties) p_compare_2_;
             return customitemproperties.layer != customitemproperties1.layer ? customitemproperties.layer - customitemproperties1.layer : (customitemproperties.weight != customitemproperties1.weight ? customitemproperties1.weight - customitemproperties.weight : (!customitemproperties.basePath.equals(customitemproperties1.basePath) ? customitemproperties.basePath.compareTo(customitemproperties1.basePath) : customitemproperties.name.compareTo(customitemproperties1.name)));
         };
-        return comparator;
     }
 
     public static void updateModels() {
@@ -235,7 +234,7 @@ public class CustomItems {
                 Config.warn("Potion not found for image: " + p_makePotionProperties_2_);
                 return null;
             } else {
-                StringBuffer stringbuffer = new StringBuffer();
+                StringBuilder stringbuffer = new StringBuilder();
 
                 for (int j = 0; j < aint.length; ++j) {
                     int k = aint[j];
@@ -335,7 +334,7 @@ public class CustomItems {
             List list = (List) p_propertyListToArray_0_.get(i);
 
             if (list != null) {
-                CustomItemProperties[] acustomitemproperties1 = (CustomItemProperties[]) list.toArray(new CustomItemProperties[list.size()]);
+                CustomItemProperties[] acustomitemproperties1 = (CustomItemProperties[]) list.toArray(new CustomItemProperties[0]);
                 Arrays.sort(acustomitemproperties1, new CustomItemsComparator());
                 acustomitemproperties[i] = acustomitemproperties1;
             }
@@ -426,7 +425,7 @@ public class CustomItems {
             } else {
                 ItemArmor itemarmor = (ItemArmor) item;
                 String s = itemarmor.getArmorMaterial().getName();
-                StringBuffer stringbuffer = new StringBuffer();
+                StringBuilder stringbuffer = new StringBuilder();
                 stringbuffer.append("texture.");
                 stringbuffer.append(s);
                 stringbuffer.append("_layer_");
@@ -438,8 +437,7 @@ public class CustomItems {
                 }
 
                 String s1 = stringbuffer.toString();
-                ResourceLocation resourcelocation = (ResourceLocation) customitemproperties.mapTextureLocations.get(s1);
-                return resourcelocation;
+                return (ResourceLocation) customitemproperties.mapTextureLocations.get(s1);
             }
         }
     }
@@ -647,7 +645,7 @@ public class CustomItems {
         }
     }
 
-    public static boolean renderCustomArmorEffect(EntityLivingBase p_renderCustomArmorEffect_0_, ItemStack p_renderCustomArmorEffect_1_, ModelBase p_renderCustomArmorEffect_2_, float p_renderCustomArmorEffect_3_, float p_renderCustomArmorEffect_4_, float p_renderCustomArmorEffect_5_, float p_renderCustomArmorEffect_6_, float p_renderCustomArmorEffect_7_, float p_renderCustomArmorEffect_8_, float p_renderCustomArmorEffect_9_) {
+    public static boolean renderCustomArmorEffect(EntityLivingBase p_renderCustomArmorEffect_0_, ItemStack p_renderCustomArmorEffect_1_, ModelBase p_renderCustomArmorEffect_2_, float p_renderCustomArmorEffect_3_, float p_renderCustomArmorEffect_4_, float p_renderCustomArmorEffect_6_, float p_renderCustomArmorEffect_7_, float p_renderCustomArmorEffect_8_, float p_renderCustomArmorEffect_9_) {
         if (enchantmentProperties == null) {
             return true;
         } else if (Config.isShaders() && Shaders.isShadowPass) {

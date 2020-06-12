@@ -199,7 +199,7 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
      */
     public boolean isUseableByPlayer(EntityPlayer player)
     {
-        return this.worldObj.getTileEntity(this.pos) != this ? false : player.getDistanceSq((double)this.pos.getX() + 0.5D, (double)this.pos.getY() + 0.5D, (double)this.pos.getZ() + 0.5D) <= 64.0D;
+        return this.worldObj.getTileEntity(this.pos) == this && player.getDistanceSq((double) this.pos.getX() + 0.5D, (double) this.pos.getY() + 0.5D, (double) this.pos.getZ() + 0.5D) <= 64.0D;
     }
 
     public void openInventory(EntityPlayer player)
@@ -227,7 +227,7 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
         {
             --this.transferCooldown;
 
-            if (!this.isOnTransferCooldown())
+            if (this.isOnTransferCooldown())
             {
                 this.setTransferCooldown(0);
                 this.updateHopper();
@@ -235,11 +235,11 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
         }
     }
 
-    public boolean updateHopper()
+    public void updateHopper()
     {
         if (this.worldObj != null && !this.worldObj.isRemote)
         {
-            if (!this.isOnTransferCooldown() && BlockHopper.isEnabled(this.getBlockMetadata()))
+            if (this.isOnTransferCooldown() && BlockHopper.isEnabled(this.getBlockMetadata()))
             {
                 boolean flag = false;
 
@@ -257,15 +257,12 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
                 {
                     this.setTransferCooldown(8);
                     this.markDirty();
-                    return true;
                 }
             }
 
-            return false;
         }
         else
         {
-            return false;
         }
     }
 
@@ -471,7 +468,7 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
         if (itemstack != null && canExtractItemFromSlot(inventoryIn, itemstack, index, direction))
         {
             ItemStack itemstack1 = itemstack.copy();
-            ItemStack itemstack2 = putStackInInventoryAllSlots(hopper, inventoryIn.decrStackSize(index, 1), (EnumFacing)null);
+            ItemStack itemstack2 = putStackInInventoryAllSlots(hopper, inventoryIn.decrStackSize(index, 1), null);
 
             if (itemstack2 == null || itemstack2.stackSize == 0)
             {
@@ -500,7 +497,7 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
         else
         {
             ItemStack itemstack = itemIn.getEntityItem().copy();
-            ItemStack itemstack1 = putStackInInventoryAllSlots(p_145898_0_, itemstack, (EnumFacing)null);
+            ItemStack itemstack1 = putStackInInventoryAllSlots(p_145898_0_, itemstack, null);
 
             if (itemstack1 != null && itemstack1.stackSize != 0)
             {
@@ -554,7 +551,7 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
      */
     private static boolean canInsertItemInSlot(IInventory inventoryIn, ItemStack stack, int index, EnumFacing side)
     {
-        return !inventoryIn.isItemValidForSlot(index, stack) ? false : !(inventoryIn instanceof ISidedInventory) || ((ISidedInventory)inventoryIn).canInsertItem(index, stack, side);
+        return inventoryIn.isItemValidForSlot(index, stack) && (!(inventoryIn instanceof ISidedInventory) || ((ISidedInventory) inventoryIn).canInsertItem(index, stack));
     }
 
     /**
@@ -618,7 +615,7 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
     private IInventory getInventoryForHopperTransfer()
     {
         EnumFacing enumfacing = BlockHopper.getFacing(this.getBlockMetadata());
-        return getInventoryAtPosition(this.getWorld(), (double)(this.pos.getX() + enumfacing.getFrontOffsetX()), (double)(this.pos.getY() + enumfacing.getFrontOffsetY()), (double)(this.pos.getZ() + enumfacing.getFrontOffsetZ()));
+        return getInventoryAtPosition(this.getWorld(), this.pos.getX() + enumfacing.getFrontOffsetX(), this.pos.getY() + enumfacing.getFrontOffsetY(), this.pos.getZ() + enumfacing.getFrontOffsetZ());
     }
 
     /**
@@ -631,7 +628,7 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
 
     public static List<EntityItem> func_181556_a(World p_181556_0_, double p_181556_1_, double p_181556_3_, double p_181556_5_)
     {
-        return p_181556_0_.<EntityItem>getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(p_181556_1_ - 0.5D, p_181556_3_ - 0.5D, p_181556_5_ - 0.5D, p_181556_1_ + 0.5D, p_181556_3_ + 0.5D, p_181556_5_ + 0.5D), EntitySelectors.selectAnything);
+        return p_181556_0_.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(p_181556_1_ - 0.5D, p_181556_3_ - 0.5D, p_181556_5_ - 0.5D, p_181556_1_ + 0.5D, p_181556_3_ + 0.5D, p_181556_5_ + 0.5D), EntitySelectors.selectAnything);
     }
 
     /**
@@ -663,7 +660,7 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
 
         if (iinventory == null)
         {
-            List<Entity> list = worldIn.getEntitiesInAABBexcluding((Entity)null, new AxisAlignedBB(x - 0.5D, y - 0.5D, z - 0.5D, x + 0.5D, y + 0.5D, z + 0.5D), EntitySelectors.selectInventories);
+            List<Entity> list = worldIn.getEntitiesInAABBexcluding(null, new AxisAlignedBB(x - 0.5D, y - 0.5D, z - 0.5D, x + 0.5D, y + 0.5D, z + 0.5D), EntitySelectors.selectInventories);
 
             if (list.size() > 0)
             {
@@ -676,7 +673,7 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
 
     private static boolean canCombine(ItemStack stack1, ItemStack stack2)
     {
-        return stack1.getItem() != stack2.getItem() ? false : (stack1.getMetadata() != stack2.getMetadata() ? false : (stack1.stackSize > stack1.getMaxStackSize() ? false : ItemStack.areItemStackTagsEqual(stack1, stack2)));
+        return stack1.getItem() == stack2.getItem() && (stack1.getMetadata() == stack2.getMetadata() && (stack1.stackSize <= stack1.getMaxStackSize() && ItemStack.areItemStackTagsEqual(stack1, stack2)));
     }
 
     /**
@@ -710,7 +707,7 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
 
     public boolean isOnTransferCooldown()
     {
-        return this.transferCooldown > 0;
+        return this.transferCooldown <= 0;
     }
 
     public boolean mayTransfer()

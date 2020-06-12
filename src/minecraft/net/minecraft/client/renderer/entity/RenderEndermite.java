@@ -13,7 +13,7 @@ public class RenderEndermite extends RenderLiving<EntityEndermite>
         super(renderManagerIn, new ModelEnderMite(), 0.3F);
     }
 
-    protected float getDeathMaxRotation(EntityEndermite entityLivingBaseIn)
+    protected float getDeathMaxRotation()
     {
         return 180.0F;
     }

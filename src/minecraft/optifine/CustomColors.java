@@ -53,15 +53,15 @@ public class CustomColors {
     private static CustomColormap[] colorsBlockColormaps = null;
     private static CustomColormap[][] blockColormaps = null;
     private static CustomColormap skyColors = null;
-    private static CustomColorFader skyColorFader = new CustomColorFader();
+    private static final CustomColorFader skyColorFader = new CustomColorFader();
     private static CustomColormap fogColors = null;
-    private static CustomColorFader fogColorFader = new CustomColorFader();
+    private static final CustomColorFader fogColorFader = new CustomColorFader();
     private static CustomColormap underwaterColors = null;
-    private static CustomColorFader underwaterColorFader = new CustomColorFader();
+    private static final CustomColorFader underwaterColorFader = new CustomColorFader();
     private static CustomColormap[] lightMapsColorsRgb = null;
     private static int lightmapMinDimensionId = 0;
-    private static float[][] sunRgbs = new float[16][3];
-    private static float[][] torchRgbs = new float[16][3];
+    private static final float[][] sunRgbs = new float[16][3];
+    private static final float[][] torchRgbs = new float[16][3];
     private static CustomColormap redstoneColors = null;
     private static CustomColormap xpOrbColors = null;
     private static CustomColormap stemColors = null;
@@ -87,7 +87,7 @@ public class CustomColors {
     private static int[] potionColors = null;
     private static final IBlockState BLOCK_STATE_DIRT = Blocks.dirt.getDefaultState();
     private static final IBlockState BLOCK_STATE_WATER = Blocks.water.getDefaultState();
-    public static Random random = new Random();
+    public static final Random random = new Random();
     private static final IColorizer COLORIZER_GRASS = new IColorizer() {
         public int getColor(IBlockAccess p_getColor_1_, BlockPos p_getColor_2_) {
             BiomeGenBase biomegenbase = CustomColors.getColorBiome(p_getColor_1_, p_getColor_2_);
@@ -95,7 +95,7 @@ public class CustomColors {
         }
 
         public boolean isColorConstant() {
-            return false;
+            return true;
         }
     };
     private static final IColorizer COLORIZER_FOLIAGE = new IColorizer() {
@@ -105,7 +105,7 @@ public class CustomColors {
         }
 
         public boolean isColorConstant() {
-            return false;
+            return true;
         }
     };
     private static final IColorizer COLORIZER_FOLIAGE_PINE = new IColorizer() {
@@ -114,7 +114,7 @@ public class CustomColors {
         }
 
         public boolean isColorConstant() {
-            return CustomColors.foliagePineColors == null;
+            return CustomColors.foliagePineColors != null;
         }
     };
     private static final IColorizer COLORIZER_FOLIAGE_BIRCH = new IColorizer() {
@@ -123,7 +123,7 @@ public class CustomColors {
         }
 
         public boolean isColorConstant() {
-            return CustomColors.foliageBirchColors == null;
+            return CustomColors.foliageBirchColors != null;
         }
     };
     private static final IColorizer COLORIZER_WATER = new IColorizer() {
@@ -133,7 +133,7 @@ public class CustomColors {
         }
 
         public boolean isColorConstant() {
-            return false;
+            return true;
         }
     };
 
@@ -228,7 +228,7 @@ public class CustomColors {
                 if (s == null) {
                     return "vanilla";
                 } else {
-                    List<String> list = Arrays.<String>asList(CustomColormap.FORMAT_STRINGS);
+                    List<String> list = Arrays.asList(CustomColormap.FORMAT_STRINGS);
 
                     if (!list.contains(s)) {
                         warn("Invalid value: " + "palette.format" + "=" + s);
@@ -248,7 +248,7 @@ public class CustomColors {
         }
     }
 
-    private static Pair<CustomColormap[], Integer> parseLightmapsRgb() {
+    private static ImmutablePair parseLightmapsRgb() {
         String s = "mcpatcher/lightmap/world";
         String s1 = ".png";
         String[] astring = ResUtils.collectFiles(s, s1);
@@ -337,8 +337,7 @@ public class CustomColors {
 
             potionColors = readPotionColors(properties);
             Config.parseInt(properties.getProperty("xporb.time"), -1);
-        } catch (FileNotFoundException var5) {
-            return;
+        } catch (FileNotFoundException ignored) {
         } catch (IOException ioexception) {
             ioexception.printStackTrace();
         }
@@ -511,11 +510,10 @@ public class CustomColors {
 
             if (i < 0) {
                 warn("Invalid color: " + p_readColor_1_ + " = " + s);
-                return i;
             } else {
                 dbg(p_readColor_1_ + " = " + s);
-                return i;
             }
+            return i;
         }
     }
 
@@ -621,7 +619,7 @@ public class CustomColors {
             CustomColormap customcolormap = getBlockColormap(iblockstate);
 
             if (customcolormap != null) {
-                if (Config.isSmoothBiomes() && !customcolormap.isColorConstant()) {
+                if (Config.isSmoothBiomes() && customcolormap.isColorConstant()) {
                     return getSmoothColorMultiplier(p_getColorMultiplier_2_, p_getColorMultiplier_3_, customcolormap, p_getColorMultiplier_4_.getColorizerBlockPosM());
                 }
 
@@ -674,7 +672,7 @@ public class CustomColors {
                 customcolors$icolorizer = COLORIZER_GRASS;
             }
 
-            return Config.isSmoothBiomes() && !customcolors$icolorizer.isColorConstant() ? getSmoothColorMultiplier(p_getColorMultiplier_2_, p_getColorMultiplier_3_, customcolors$icolorizer, p_getColorMultiplier_4_.getColorizerBlockPosM()) : customcolors$icolorizer.getColor(p_getColorMultiplier_2_, p_getColorMultiplier_3_);
+            return Config.isSmoothBiomes() && customcolors$icolorizer.isColorConstant() ? getSmoothColorMultiplier(p_getColorMultiplier_2_, p_getColorMultiplier_3_, customcolors$icolorizer, p_getColorMultiplier_4_.getColorizerBlockPosM()) : customcolors$icolorizer.getColor(p_getColorMultiplier_2_, p_getColorMultiplier_3_);
         }
     }
 
@@ -700,9 +698,7 @@ public class CustomColors {
             if (i >= 0 && i < blockColormaps.length) {
                 CustomColormap[] acustomcolormap = blockColormaps[i];
 
-                if (acustomcolormap == null) {
-                    return null;
-                } else {
+                if (acustomcolormap != null) {
                     for (int j = 0; j < acustomcolormap.length; ++j) {
                         CustomColormap customcolormap = acustomcolormap[j];
 
@@ -711,8 +707,8 @@ public class CustomColors {
                         }
                     }
 
-                    return null;
                 }
+                return null;
             } else {
                 return null;
             }
@@ -751,7 +747,7 @@ public class CustomColors {
             customcolors$icolorizer = COLORIZER_WATER;
         }
 
-        return customcolors$icolorizer == null ? block.colorMultiplier(p_getFluidColor_0_, p_getFluidColor_2_) : (Config.isSmoothBiomes() && !customcolors$icolorizer.isColorConstant() ? getSmoothColorMultiplier(p_getFluidColor_0_, p_getFluidColor_2_, customcolors$icolorizer, p_getFluidColor_3_.getColorizerBlockPosM()) : customcolors$icolorizer.getColor(p_getFluidColor_0_, p_getFluidColor_2_));
+        return customcolors$icolorizer == null ? block.colorMultiplier(p_getFluidColor_0_, p_getFluidColor_2_) : (Config.isSmoothBiomes() && customcolors$icolorizer.isColorConstant() ? getSmoothColorMultiplier(p_getFluidColor_0_, p_getFluidColor_2_, customcolors$icolorizer, p_getFluidColor_3_.getColorizerBlockPosM()) : customcolors$icolorizer.getColor(p_getFluidColor_0_, p_getFluidColor_2_));
     }
 
     public static void updatePortalFX(EntityFX p_updatePortalFX_0_) {
@@ -1090,7 +1086,7 @@ public class CustomColors {
     }
 
     private static int[] readSpawnEggColors(Properties p_readSpawnEggColors_0_, String p_readSpawnEggColors_2_, String p_readSpawnEggColors_3_) {
-        List<Integer> list = new ArrayList();
+        List<Integer> list = new ArrayList<>();
         Set set = p_readSpawnEggColors_0_.keySet();
         int i = 0;
 
@@ -1154,10 +1150,9 @@ public class CustomColors {
 
     private static float[][] readDyeColors(Properties p_readDyeColors_0_, String p_readDyeColors_2_, String p_readDyeColors_3_) {
         EnumDyeColor[] aenumdyecolor = EnumDyeColor.values();
-        Map<String, EnumDyeColor> map = new HashMap();
+        Map<String, EnumDyeColor> map = new HashMap<>();
 
-        for (int i = 0; i < aenumdyecolor.length; ++i) {
-            EnumDyeColor enumdyecolor = aenumdyecolor[i];
+        for (EnumDyeColor enumdyecolor : aenumdyecolor) {
             map.put(enumdyecolor.getName(), enumdyecolor);
         }
 

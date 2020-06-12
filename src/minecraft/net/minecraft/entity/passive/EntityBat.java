@@ -4,7 +4,6 @@ import java.util.Calendar;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.DamageSource;
@@ -26,7 +25,7 @@ public class EntityBat extends EntityAmbientCreature
     protected void entityInit()
     {
         super.entityInit();
-        this.dataWatcher.addObject(16, new Byte((byte)0));
+        this.dataWatcher.addObject(16, (byte) 0);
     }
 
     /**
@@ -102,11 +101,11 @@ public class EntityBat extends EntityAmbientCreature
 
         if (isHanging)
         {
-            this.dataWatcher.updateObject(16, Byte.valueOf((byte)(b0 | 1)));
+            this.dataWatcher.updateObject(16, (byte) (b0 | 1));
         }
         else
         {
-            this.dataWatcher.updateObject(16, Byte.valueOf((byte)(b0 & -2)));
+            this.dataWatcher.updateObject(16, (byte) (b0 & -2));
         }
     }
 
@@ -139,7 +138,7 @@ public class EntityBat extends EntityAmbientCreature
             if (!this.worldObj.getBlockState(blockpos1).getBlock().isNormalCube())
             {
                 this.setIsBatHanging(false);
-                this.worldObj.playAuxSFXAtEntity((EntityPlayer)null, 1015, blockpos, 0);
+                this.worldObj.playAuxSFXAtEntity(null, 1015, blockpos, 0);
             }
             else
             {
@@ -151,7 +150,7 @@ public class EntityBat extends EntityAmbientCreature
                 if (this.worldObj.getClosestPlayerToEntity(this, 4.0D) != null)
                 {
                     this.setIsBatHanging(false);
-                    this.worldObj.playAuxSFXAtEntity((EntityPlayer)null, 1015, blockpos, 0);
+                    this.worldObj.playAuxSFXAtEntity(null, 1015, blockpos, 0);
                 }
             }
         }
@@ -162,7 +161,7 @@ public class EntityBat extends EntityAmbientCreature
                 this.spawnPosition = null;
             }
 
-            if (this.spawnPosition == null || this.rand.nextInt(30) == 0 || this.spawnPosition.distanceSq((double)((int)this.posX), (double)((int)this.posY), (double)((int)this.posZ)) < 4.0D)
+            if (this.spawnPosition == null || this.rand.nextInt(30) == 0 || this.spawnPosition.distanceSq((int)this.posX, (int)this.posY, (int)this.posZ) < 4.0D)
             {
                 this.spawnPosition = new BlockPos((int)this.posX + this.rand.nextInt(7) - this.rand.nextInt(7), (int)this.posY + this.rand.nextInt(6) - 2, (int)this.posZ + this.rand.nextInt(7) - this.rand.nextInt(7));
             }
@@ -207,7 +206,7 @@ public class EntityBat extends EntityAmbientCreature
      */
     public boolean doesEntityNotTriggerPressurePlate()
     {
-        return true;
+        return false;
     }
 
     /**
@@ -236,7 +235,7 @@ public class EntityBat extends EntityAmbientCreature
     public void readEntityFromNBT(NBTTagCompound tagCompund)
     {
         super.readEntityFromNBT(tagCompund);
-        this.dataWatcher.updateObject(16, Byte.valueOf(tagCompund.getByte("BatFlags")));
+        this.dataWatcher.updateObject(16, tagCompund.getByte("BatFlags"));
     }
 
     /**
@@ -273,7 +272,7 @@ public class EntityBat extends EntityAmbientCreature
                 return false;
             }
 
-            return i > this.rand.nextInt(j) ? false : super.getCanSpawnHere();
+            return i <= this.rand.nextInt(j) && super.getCanSpawnHere();
         }
     }
 

@@ -68,7 +68,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
      */
     public int height;
     protected List<GuiButton> buttonList = Lists.newArrayList();
-    protected List<GuiLabel> labelList = Lists.newArrayList();
+    protected final List<GuiLabel> labelList = Lists.newArrayList();
     public boolean allowUserInput;
 
     /**
@@ -321,9 +321,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
      * Executes the click event specified by the given chat component
      */
     protected boolean handleComponentClick(IChatComponent p_175276_1_) {
-        if (p_175276_1_ == null) {
-            return false;
-        } else {
+        if (p_175276_1_ != null) {
             ClickEvent clickevent = p_175276_1_.getChatStyle().getChatClickEvent();
 
             if (isShiftKeyDown()) {
@@ -379,8 +377,8 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
                 return true;
             }
 
-            return false;
         }
+        return false;
     }
 
     public void sendChatMessage(String msg) {

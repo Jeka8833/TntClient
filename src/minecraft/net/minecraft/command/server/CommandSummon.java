@@ -8,7 +8,6 @@ import net.minecraft.command.WrongUsageException;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.nbt.JsonToNBT;
 import net.minecraft.nbt.NBTException;
@@ -39,7 +38,7 @@ public class CommandSummon extends CommandBase
     /**
      * Gets the usage string for the command.
      */
-    public String getCommandUsage(ICommandSender sender)
+    public String getCommandUsage()
     {
         return "commands.summon.usage";
     }
@@ -51,7 +50,7 @@ public class CommandSummon extends CommandBase
     {
         if (args.length < 1)
         {
-            throw new WrongUsageException("commands.summon.usage", new Object[0]);
+            throw new WrongUsageException("commands.summon.usage");
         }
         else
         {
@@ -74,12 +73,12 @@ public class CommandSummon extends CommandBase
 
             if (!world.isBlockLoaded(blockpos))
             {
-                throw new CommandException("commands.summon.outOfWorld", new Object[0]);
+                throw new CommandException("commands.summon.outOfWorld");
             }
             else if ("LightningBolt".equals(s))
             {
                 world.addWeatherEffect(new EntityLightningBolt(world, d0, d1, d2));
-                notifyOperators(sender, this, "commands.summon.success", new Object[0]);
+                notifyOperators(sender, this, "commands.summon.success");
             }
             else
             {
@@ -97,7 +96,7 @@ public class CommandSummon extends CommandBase
                     }
                     catch (NBTException nbtexception)
                     {
-                        throw new CommandException("commands.summon.tagError", new Object[] {nbtexception.getMessage()});
+                        throw new CommandException("commands.summon.tagError", nbtexception.getMessage());
                     }
                 }
 
@@ -110,12 +109,12 @@ public class CommandSummon extends CommandBase
                 }
                 catch (RuntimeException var19)
                 {
-                    throw new CommandException("commands.summon.failed", new Object[0]);
+                    throw new CommandException("commands.summon.failed");
                 }
 
                 if (entity2 == null)
                 {
-                    throw new CommandException("commands.summon.failed", new Object[0]);
+                    throw new CommandException("commands.summon.failed");
                 }
                 else
                 {
@@ -123,7 +122,7 @@ public class CommandSummon extends CommandBase
 
                     if (!flag && entity2 instanceof EntityLiving)
                     {
-                        ((EntityLiving)entity2).onInitialSpawn(world.getDifficultyForLocation(new BlockPos(entity2)), (IEntityLivingData)null);
+                        ((EntityLiving)entity2).onInitialSpawn(world.getDifficultyForLocation(new BlockPos(entity2)), null);
                     }
 
                     world.spawnEntityInWorld(entity2);
@@ -143,13 +142,13 @@ public class CommandSummon extends CommandBase
                         entity = entity1;
                     }
 
-                    notifyOperators(sender, this, "commands.summon.success", new Object[0]);
+                    notifyOperators(sender, this, "commands.summon.success");
                 }
             }
         }
     }
 
-    public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos)
+    public List<String> addTabCompletionOptions(String[] args, BlockPos pos)
     {
         return args.length == 1 ? getListOfStringsMatchingLastWord(args, EntityList.getEntityNameList()) : (args.length > 1 && args.length <= 4 ? func_175771_a(args, 1, pos) : null);
     }

@@ -2,7 +2,6 @@ package net.minecraft.block;
 
 import java.util.Random;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockState;
@@ -60,7 +59,7 @@ public class BlockBanner extends BlockContainer
 
     public boolean isPassable(IBlockAccess worldIn, BlockPos pos)
     {
-        return true;
+        return false;
     }
 
     /**
@@ -79,7 +78,7 @@ public class BlockBanner extends BlockContainer
     /**
      * Returns a new instance of a block's tile entity class. Called on placing the block.
      */
-    public TileEntity createNewTileEntity(World worldIn, int meta)
+    public TileEntity createNewTileEntity(int meta)
     {
         return new TileEntityBanner();
     }
@@ -124,7 +123,7 @@ public class BlockBanner extends BlockContainer
 
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
     {
-        return !this.func_181087_e(worldIn, pos) && super.canPlaceBlockAt(worldIn, pos);
+        return this.func_181087_e(worldIn, pos) && super.canPlaceBlockAt(worldIn, pos);
     }
 
     public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, TileEntity te)
@@ -140,7 +139,7 @@ public class BlockBanner extends BlockContainer
         }
         else
         {
-            super.harvestBlock(worldIn, player, pos, state, (TileEntity)null);
+            super.harvestBlock(worldIn, player, pos, state, null);
         }
     }
 
@@ -153,7 +152,7 @@ public class BlockBanner extends BlockContainer
 
         public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos)
         {
-            EnumFacing enumfacing = (EnumFacing)worldIn.getBlockState(pos).getValue(FACING);
+            EnumFacing enumfacing = worldIn.getBlockState(pos).getValue(FACING);
             float f = 0.0F;
             float f1 = 0.78125F;
             float f2 = 0.0F;
@@ -183,7 +182,7 @@ public class BlockBanner extends BlockContainer
 
         public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock)
         {
-            EnumFacing enumfacing = (EnumFacing)state.getValue(FACING);
+            EnumFacing enumfacing = state.getValue(FACING);
 
             if (!worldIn.getBlockState(pos.offset(enumfacing.getOpposite())).getBlock().getMaterial().isSolid())
             {
@@ -208,12 +207,12 @@ public class BlockBanner extends BlockContainer
 
         public int getMetaFromState(IBlockState state)
         {
-            return ((EnumFacing)state.getValue(FACING)).getIndex();
+            return state.getValue(FACING).getIndex();
         }
 
         protected BlockState createBlockState()
         {
-            return new BlockState(this, new IProperty[] {FACING});
+            return new BlockState(this, FACING);
         }
     }
 
@@ -221,7 +220,7 @@ public class BlockBanner extends BlockContainer
     {
         public BlockBannerStanding()
         {
-            this.setDefaultState(this.blockState.getBaseState().withProperty(ROTATION, Integer.valueOf(0)));
+            this.setDefaultState(this.blockState.getBaseState().withProperty(ROTATION, 0));
         }
 
         public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock)
@@ -237,17 +236,17 @@ public class BlockBanner extends BlockContainer
 
         public IBlockState getStateFromMeta(int meta)
         {
-            return this.getDefaultState().withProperty(ROTATION, Integer.valueOf(meta));
+            return this.getDefaultState().withProperty(ROTATION, meta);
         }
 
         public int getMetaFromState(IBlockState state)
         {
-            return ((Integer)state.getValue(ROTATION)).intValue();
+            return state.getValue(ROTATION);
         }
 
         protected BlockState createBlockState()
         {
-            return new BlockState(this, new IProperty[] {ROTATION});
+            return new BlockState(this, ROTATION);
         }
     }
 }

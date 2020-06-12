@@ -11,7 +11,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
-import java.security.spec.AlgorithmParameterSpec;
 import java.security.spec.EncodedKeySpec;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.X509EncodedKeySpec;
@@ -73,7 +72,7 @@ public class CryptManager
     {
         try
         {
-            return digestOperation("SHA-1", new byte[][] {serverId.getBytes("ISO_8859_1"), secretKey.getEncoded(), publicKey.getEncoded()});
+            return digestOperation(serverId.getBytes("ISO_8859_1"), secretKey.getEncoded(), publicKey.getEncoded());
         }
         catch (UnsupportedEncodingException unsupportedencodingexception)
         {
@@ -85,11 +84,11 @@ public class CryptManager
     /**
      * Compute a message digest on arbitrary byte[] data
      */
-    private static byte[] digestOperation(String algorithm, byte[]... data)
+    private static byte[] digestOperation(byte[]... data)
     {
         try
         {
-            MessageDigest messagedigest = MessageDigest.getInstance(algorithm);
+            MessageDigest messagedigest = MessageDigest.getInstance("SHA-1");
 
             for (byte[] abyte : data)
             {
@@ -116,13 +115,8 @@ public class CryptManager
             KeyFactory keyfactory = KeyFactory.getInstance("RSA");
             return keyfactory.generatePublic(encodedkeyspec);
         }
-        catch (NoSuchAlgorithmException var3)
+        catch (NoSuchAlgorithmException | InvalidKeySpecException ignored)
         {
-            ;
-        }
-        catch (InvalidKeySpecException var4)
-        {
-            ;
         }
 
         LOGGER.error("Public key reconstitute failed!");
@@ -162,13 +156,9 @@ public class CryptManager
         {
             return createTheCipherInstance(opMode, key.getAlgorithm(), key).doFinal(data);
         }
-        catch (IllegalBlockSizeException illegalblocksizeexception)
+        catch (IllegalBlockSizeException | BadPaddingException illegalblocksizeexception)
         {
             illegalblocksizeexception.printStackTrace();
-        }
-        catch (BadPaddingException badpaddingexception)
-        {
-            badpaddingexception.printStackTrace();
         }
 
         LOGGER.error("Cipher data failed!");
@@ -186,17 +176,9 @@ public class CryptManager
             cipher.init(opMode, key);
             return cipher;
         }
-        catch (InvalidKeyException invalidkeyexception)
+        catch (InvalidKeyException | NoSuchPaddingException | NoSuchAlgorithmException invalidkeyexception)
         {
             invalidkeyexception.printStackTrace();
-        }
-        catch (NoSuchAlgorithmException nosuchalgorithmexception)
-        {
-            nosuchalgorithmexception.printStackTrace();
-        }
-        catch (NoSuchPaddingException nosuchpaddingexception)
-        {
-            nosuchpaddingexception.printStackTrace();
         }
 
         LOGGER.error("Cipher creation failed!");
@@ -211,7 +193,7 @@ public class CryptManager
         try
         {
             Cipher cipher = Cipher.getInstance("AES/CFB8/NoPadding");
-            cipher.init(opMode, (Key)key, (AlgorithmParameterSpec)(new IvParameterSpec(key.getEncoded())));
+            cipher.init(opMode, key, new IvParameterSpec(key.getEncoded()));
             return cipher;
         }
         catch (GeneralSecurityException generalsecurityexception)

@@ -9,28 +9,28 @@ import net.minecraft.util.MathHelper;
 public class ModelWolf extends ModelBase
 {
     /** main box for the wolf head */
-    public ModelRenderer wolfHeadMain;
+    public final ModelRenderer wolfHeadMain;
 
     /** The wolf's body */
-    public ModelRenderer wolfBody;
+    public final ModelRenderer wolfBody;
 
     /** Wolf'se first leg */
-    public ModelRenderer wolfLeg1;
+    public final ModelRenderer wolfLeg1;
 
     /** Wolf's second leg */
-    public ModelRenderer wolfLeg2;
+    public final ModelRenderer wolfLeg2;
 
     /** Wolf's third leg */
-    public ModelRenderer wolfLeg3;
+    public final ModelRenderer wolfLeg3;
 
     /** Wolf's fourth leg */
-    public ModelRenderer wolfLeg4;
+    public final ModelRenderer wolfLeg4;
 
     /** The wolf's tail */
-    ModelRenderer wolfTail;
+    final ModelRenderer wolfTail;
 
     /** The wolf's mane */
-    ModelRenderer wolfMane;
+    final ModelRenderer wolfMane;
 
     public ModelWolf()
     {

@@ -20,13 +20,13 @@ public class WorldGenMegaJungle extends WorldGenHugeTrees
     {
         int i = this.func_150533_a(rand);
 
-        if (!this.func_175929_a(worldIn, rand, position, i))
+        if (this.func_175929_a(worldIn, position, i))
         {
             return false;
         }
         else
         {
-            this.func_175930_c(worldIn, position.up(i), 2);
+            this.func_175930_c(worldIn, position.up(i));
 
             for (int j = position.getY() + i - 2 - rand.nextInt(4); j > position.getY() + i / 2; j -= 2 + rand.nextInt(4))
             {
@@ -42,11 +42,10 @@ public class WorldGenMegaJungle extends WorldGenHugeTrees
                 }
 
                 int j2 = 1 + rand.nextInt(2);
-                int j1 = j;
 
-                for (int k1 = j - j2; k1 <= j1; ++k1)
+                for (int k1 = j - j2; k1 <= j; ++k1)
                 {
-                    int l1 = k1 - j1;
+                    int l1 = k1 - j;
                     this.func_175928_b(worldIn, new BlockPos(k, k1, l), 1 - l1);
                 }
             }
@@ -117,17 +116,17 @@ public class WorldGenMegaJungle extends WorldGenHugeTrees
     {
         if (p_181632_2_.nextInt(3) > 0 && p_181632_1_.isAirBlock(p_181632_3_))
         {
-            this.setBlockAndNotifyAdequately(p_181632_1_, p_181632_3_, Blocks.vine.getDefaultState().withProperty(p_181632_4_, Boolean.valueOf(true)));
+            this.setBlockAndNotifyAdequately(p_181632_1_, p_181632_3_, Blocks.vine.getDefaultState().withProperty(p_181632_4_, Boolean.TRUE));
         }
     }
 
-    private void func_175930_c(World worldIn, BlockPos p_175930_2_, int p_175930_3_)
+    private void func_175930_c(World worldIn, BlockPos p_175930_2_)
     {
         int i = 2;
 
         for (int j = -i; j <= 0; ++j)
         {
-            this.func_175925_a(worldIn, p_175930_2_.up(j), p_175930_3_ + 1 - j);
+            this.func_175925_a(worldIn, p_175930_2_.up(j), 2 + 1 - j);
         }
     }
 }

@@ -6,7 +6,7 @@ import net.minecraft.item.ItemStack;
 
 public class ContainerBeacon extends Container
 {
-    private IInventory tileBeacon;
+    private final IInventory tileBeacon;
 
     /**
      * This beacon's slot where you put in Emerald, Diamond, Gold or Iron Ingot.
@@ -16,7 +16,7 @@ public class ContainerBeacon extends Container
     public ContainerBeacon(IInventory playerInventory, IInventory tileBeaconIn)
     {
         this.tileBeacon = tileBeaconIn;
-        this.addSlotToContainer(this.beaconSlot = new ContainerBeacon.BeaconSlot(tileBeaconIn, 0, 136, 110));
+        this.addSlotToContainer(this.beaconSlot = new BeaconSlot(tileBeaconIn, 0, 136, 110));
         int i = 36;
         int j = 137;
 
@@ -63,14 +63,14 @@ public class ContainerBeacon extends Container
 
             if (itemstack != null)
             {
-                playerIn.dropPlayerItemWithRandomChoice(itemstack, false);
+                playerIn.dropPlayerItemWithRandomChoice(itemstack);
             }
         }
     }
 
     public boolean canInteractWith(EntityPlayer playerIn)
     {
-        return this.tileBeacon.isUseableByPlayer(playerIn);
+        return !this.tileBeacon.isUseableByPlayer(playerIn);
     }
 
     /**
@@ -79,7 +79,7 @@ public class ContainerBeacon extends Container
     public ItemStack transferStackInSlot(EntityPlayer playerIn, int index)
     {
         ItemStack itemstack = null;
-        Slot slot = (Slot)this.inventorySlots.get(index);
+        Slot slot = this.inventorySlots.get(index);
 
         if (slot != null && slot.getHasStack())
         {
@@ -88,7 +88,7 @@ public class ContainerBeacon extends Container
 
             if (index == 0)
             {
-                if (!this.mergeItemStack(itemstack1, 1, 37, true))
+                if (this.mergeItemStack(itemstack1, 1, 37, true))
                 {
                     return null;
                 }
@@ -97,33 +97,33 @@ public class ContainerBeacon extends Container
             }
             else if (!this.beaconSlot.getHasStack() && this.beaconSlot.isItemValid(itemstack1) && itemstack1.stackSize == 1)
             {
-                if (!this.mergeItemStack(itemstack1, 0, 1, false))
+                if (this.mergeItemStack(itemstack1, 0, 1, false))
                 {
                     return null;
                 }
             }
             else if (index >= 1 && index < 28)
             {
-                if (!this.mergeItemStack(itemstack1, 28, 37, false))
+                if (this.mergeItemStack(itemstack1, 28, 37, false))
                 {
                     return null;
                 }
             }
             else if (index >= 28 && index < 37)
             {
-                if (!this.mergeItemStack(itemstack1, 1, 28, false))
+                if (this.mergeItemStack(itemstack1, 1, 28, false))
                 {
                     return null;
                 }
             }
-            else if (!this.mergeItemStack(itemstack1, 1, 37, false))
+            else if (this.mergeItemStack(itemstack1, 1, 37, false))
             {
                 return null;
             }
 
             if (itemstack1.stackSize == 0)
             {
-                slot.putStack((ItemStack)null);
+                slot.putStack(null);
             }
             else
             {
@@ -141,7 +141,7 @@ public class ContainerBeacon extends Container
         return itemstack;
     }
 
-    class BeaconSlot extends Slot
+    static class BeaconSlot extends Slot
     {
         public BeaconSlot(IInventory p_i1801_2_, int p_i1801_3_, int p_i1801_4_, int p_i1801_5_)
         {
@@ -150,7 +150,7 @@ public class ContainerBeacon extends Container
 
         public boolean isItemValid(ItemStack stack)
         {
-            return stack == null ? false : stack.getItem() == Items.emerald || stack.getItem() == Items.diamond || stack.getItem() == Items.gold_ingot || stack.getItem() == Items.iron_ingot;
+            return stack != null && (stack.getItem() == Items.emerald || stack.getItem() == Items.diamond || stack.getItem() == Items.gold_ingot || stack.getItem() == Items.iron_ingot);
         }
 
         public int getSlotStackLimit()

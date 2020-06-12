@@ -21,7 +21,7 @@ import net.minecraft.util.ResourceLocation;
 public class RenderPlayer extends RendererLivingEntity<AbstractClientPlayer>
 {
     /** this field is used to indicate the 3-pixel wide arms */
-    private boolean smallArms;
+    private final boolean smallArms;
 
     public RenderPlayer(RenderManager renderManager)
     {
@@ -150,7 +150,7 @@ public class RenderPlayer extends RendererLivingEntity<AbstractClientPlayer>
             {
                 Score score = scoreboard.getValueFromObjective(entityIn.getName(), scoreobjective);
                 this.renderLivingLabel(entityIn, score.getScorePoints() + " " + scoreobjective.getDisplayName(), x, y, z);
-                y += (double)((float)this.getFontRendererFromRenderManager().FONT_HEIGHT * 1.15F * p_177069_9_);
+                y += (float)this.getFontRendererFromRenderManager().FONT_HEIGHT * 1.15F * p_177069_9_;
             }
         }
 
@@ -201,7 +201,7 @@ public class RenderPlayer extends RendererLivingEntity<AbstractClientPlayer>
         if (bat.isEntityAlive() && bat.isPlayerSleeping())
         {
             GlStateManager.rotate(bat.getBedOrientationInDegrees(), 0.0F, 1.0F, 0.0F);
-            GlStateManager.rotate(this.getDeathMaxRotation(bat), 0.0F, 0.0F, 1.0F);
+            GlStateManager.rotate(this.getDeathMaxRotation(), 0.0F, 0.0F, 1.0F);
             GlStateManager.rotate(270.0F, 0.0F, 1.0F, 0.0F);
         }
         else

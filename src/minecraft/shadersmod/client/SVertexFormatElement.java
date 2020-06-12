@@ -4,7 +4,7 @@ import net.minecraft.client.renderer.vertex.VertexFormatElement;
 
 public class SVertexFormatElement extends VertexFormatElement
 {
-    int sUsage;
+    final int sUsage;
 
     public SVertexFormatElement(int sUsage, VertexFormatElement.EnumType type, int count)
     {

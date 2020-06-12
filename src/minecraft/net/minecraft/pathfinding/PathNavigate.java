@@ -14,8 +14,8 @@ import net.minecraft.world.World;
 
 public abstract class PathNavigate
 {
-    protected EntityLiving theEntity;
-    protected World worldObj;
+    protected final EntityLiving theEntity;
+    protected final World worldObj;
 
     /** The PathEntity being followed. */
     protected PathEntity currentPath;
@@ -100,10 +100,10 @@ public abstract class PathNavigate
     /**
      * Try to find and set a path to XYZ. Returns true if successful. Args : x, y, z, speed
      */
-    public boolean tryMoveToXYZ(double x, double y, double z, double speedIn)
+    public void tryMoveToXYZ(double x, double y, double z, double speedIn)
     {
-        PathEntity pathentity = this.getPathToXYZ((double)MathHelper.floor_double(x), (double)((int)y), (double)MathHelper.floor_double(z));
-        return this.setPath(pathentity, speedIn);
+        PathEntity pathentity = this.getPathToXYZ(MathHelper.floor_double(x), (int)y, MathHelper.floor_double(z));
+        this.setPath(pathentity, speedIn);
     }
 
     /**
@@ -142,7 +142,7 @@ public abstract class PathNavigate
     public boolean tryMoveToEntityLiving(Entity entityIn, double speedIn)
     {
         PathEntity pathentity = this.getPathToEntityLiving(entityIn);
-        return pathentity != null ? this.setPath(pathentity, speedIn) : false;
+        return pathentity != null && this.setPath(pathentity, speedIn);
     }
 
     /**
@@ -259,11 +259,10 @@ public abstract class PathNavigate
 
         int j1 = MathHelper.ceiling_float_int(this.theEntity.width);
         int k1 = (int)this.theEntity.height + 1;
-        int l = j1;
 
         for (int i1 = i - 1; i1 >= this.currentPath.getCurrentPathIndex(); --i1)
         {
-            if (this.isDirectPathBetweenPoints(vec3, this.currentPath.getVectorFromIndex(this.theEntity, i1), j1, k1, l))
+            if (this.isDirectPathBetweenPoints(vec3, this.currentPath.getVectorFromIndex(this.theEntity, i1), j1, k1, j1))
             {
                 this.currentPath.setCurrentPathIndex(i1);
                 break;

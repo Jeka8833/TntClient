@@ -6,9 +6,9 @@ import net.minecraft.util.ResourceLocation;
 
 public class EnchantmentDigging extends Enchantment
 {
-    protected EnchantmentDigging(int enchID, ResourceLocation enchName, int enchWeight)
+    protected EnchantmentDigging(ResourceLocation enchName)
     {
-        super(enchID, enchName, enchWeight, EnumEnchantmentType.DIGGER);
+        super(32, enchName, 10, EnumEnchantmentType.DIGGER);
         this.setName("digging");
     }
 
@@ -41,6 +41,6 @@ public class EnchantmentDigging extends Enchantment
      */
     public boolean canApply(ItemStack stack)
     {
-        return stack.getItem() == Items.shears ? true : super.canApply(stack);
+        return stack.getItem() == Items.shears || super.canApply(stack);
     }
 }

@@ -7,11 +7,11 @@ public class MovingObjectPosition
     private BlockPos blockPos;
 
     /** What type of ray trace hit was this? 0 = block, 1 = entity */
-    public MovingObjectPosition.MovingObjectType typeOfHit;
+    public final MovingObjectPosition.MovingObjectType typeOfHit;
     public EnumFacing sideHit;
 
     /** The vector position of the hit */
-    public Vec3 hitVec;
+    public final Vec3 hitVec;
 
     /** The hit entity */
     public Entity entityHit;
@@ -56,10 +56,10 @@ public class MovingObjectPosition
         return "HitResult{type=" + this.typeOfHit + ", blockpos=" + this.blockPos + ", f=" + this.sideHit + ", pos=" + this.hitVec + ", entity=" + this.entityHit + '}';
     }
 
-    public static enum MovingObjectType
+    public enum MovingObjectType
     {
         MISS,
         BLOCK,
-        ENTITY;
+        ENTITY
     }
 }

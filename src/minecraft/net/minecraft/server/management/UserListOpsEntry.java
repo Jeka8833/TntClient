@@ -18,7 +18,7 @@ public class UserListOpsEntry extends UserListEntry<GameProfile>
 
     public UserListOpsEntry(JsonObject p_i1150_1_)
     {
-        super(func_152643_b(p_i1150_1_), p_i1150_1_);
+        super(func_152643_b(p_i1150_1_));
         this.field_152645_a = p_i1150_1_.has("level") ? p_i1150_1_.get("level").getAsInt() : 0;
         this.field_183025_b = p_i1150_1_.has("bypassesPlayerLimit") && p_i1150_1_.get("bypassesPlayerLimit").getAsBoolean();
     }
@@ -40,11 +40,11 @@ public class UserListOpsEntry extends UserListEntry<GameProfile>
     {
         if (this.getValue() != null)
         {
-            data.addProperty("uuid", ((GameProfile)this.getValue()).getId() == null ? "" : ((GameProfile)this.getValue()).getId().toString());
-            data.addProperty("name", ((GameProfile)this.getValue()).getName());
+            data.addProperty("uuid", this.getValue().getId() == null ? "" : this.getValue().getId().toString());
+            data.addProperty("name", this.getValue().getName());
             super.onSerialization(data);
-            data.addProperty("level", (Number)Integer.valueOf(this.field_152645_a));
-            data.addProperty("bypassesPlayerLimit", Boolean.valueOf(this.field_183025_b));
+            data.addProperty("level", this.field_152645_a);
+            data.addProperty("bypassesPlayerLimit", this.field_183025_b);
         }
     }
 

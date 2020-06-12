@@ -8,7 +8,7 @@ import optifine.Config;
 
 public class Property
 {
-    private int[] values = null;
+    private final int[] values = null;
     private int defaultValue = 0;
     private String propertyName = null;
     private String[] propertyValues = null;
@@ -111,18 +111,19 @@ public class Property
         this.value = this.defaultValue;
     }
 
-    public boolean loadFrom(Properties props)
+    public void loadFrom(Properties props)
     {
         this.resetValue();
 
         if (props == null)
         {
-            return false;
         }
         else
         {
             String s = props.getProperty(this.propertyName);
-            return s == null ? false : this.setPropertyValue(s);
+            if (s != null) {
+                this.setPropertyValue(s);
+            }
         }
     }
 
@@ -136,6 +137,6 @@ public class Property
 
     public String toString()
     {
-        return "" + this.propertyName + "=" + this.getPropertyValue() + " [" + Config.arrayToString((Object[])this.propertyValues) + "], value: " + this.value;
+        return "" + this.propertyName + "=" + this.getPropertyValue() + " [" + Config.arrayToString(this.propertyValues) + "], value: " + this.value;
     }
 }

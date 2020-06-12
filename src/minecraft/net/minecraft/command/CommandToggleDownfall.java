@@ -24,7 +24,7 @@ public class CommandToggleDownfall extends CommandBase
     /**
      * Gets the usage string for the command.
      */
-    public String getCommandUsage(ICommandSender sender)
+    public String getCommandUsage()
     {
         return "commands.downfall.usage";
     }
@@ -35,7 +35,7 @@ public class CommandToggleDownfall extends CommandBase
     public void processCommand(ICommandSender sender, String[] args) throws CommandException
     {
         this.toggleDownfall();
-        notifyOperators(sender, this, "commands.downfall.success", new Object[0]);
+        notifyOperators(sender, this, "commands.downfall.success");
     }
 
     /**

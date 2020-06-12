@@ -239,7 +239,7 @@ public class WalkNodeProcessor extends NodeProcessor
                                 return -3;
                             }
                         }
-                        else if (!block.isPassable(blockaccessIn, blockpos$mutableblockpos) && (!breakDoors || !(block instanceof BlockDoor) || block.getMaterial() != Material.wood))
+                        else if (block.isPassable(blockaccessIn, blockpos$mutableblockpos) && (!breakDoors || !(block instanceof BlockDoor) || block.getMaterial() != Material.wood))
                         {
                             if (block instanceof BlockFence || block instanceof BlockFenceGate || block instanceof BlockWall)
                             {

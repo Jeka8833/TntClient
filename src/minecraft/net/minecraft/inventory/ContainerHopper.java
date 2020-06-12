@@ -35,7 +35,7 @@ public class ContainerHopper extends Container
 
     public boolean canInteractWith(EntityPlayer playerIn)
     {
-        return this.hopperInventory.isUseableByPlayer(playerIn);
+        return !this.hopperInventory.isUseableByPlayer(playerIn);
     }
 
     /**
@@ -44,7 +44,7 @@ public class ContainerHopper extends Container
     public ItemStack transferStackInSlot(EntityPlayer playerIn, int index)
     {
         ItemStack itemstack = null;
-        Slot slot = (Slot)this.inventorySlots.get(index);
+        Slot slot = this.inventorySlots.get(index);
 
         if (slot != null && slot.getHasStack())
         {
@@ -53,19 +53,19 @@ public class ContainerHopper extends Container
 
             if (index < this.hopperInventory.getSizeInventory())
             {
-                if (!this.mergeItemStack(itemstack1, this.hopperInventory.getSizeInventory(), this.inventorySlots.size(), true))
+                if (this.mergeItemStack(itemstack1, this.hopperInventory.getSizeInventory(), this.inventorySlots.size(), true))
                 {
                     return null;
                 }
             }
-            else if (!this.mergeItemStack(itemstack1, 0, this.hopperInventory.getSizeInventory(), false))
+            else if (this.mergeItemStack(itemstack1, 0, this.hopperInventory.getSizeInventory(), false))
             {
                 return null;
             }
 
             if (itemstack1.stackSize == 0)
             {
-                slot.putStack((ItemStack)null);
+                slot.putStack(null);
             }
             else
             {

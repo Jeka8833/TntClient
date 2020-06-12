@@ -39,15 +39,15 @@ public class ModelRenderer
 
     /** Hides the model. */
     public boolean isHidden;
-    public List cubeList;
+    public final List cubeList;
     public List childModels;
     public final String boxName;
-    private ModelBase baseModel;
+    private final ModelBase baseModel;
     public float offsetX;
     public float offsetY;
     public float offsetZ;
     private static final String __OBFID = "CL_00000874";
-    public List spriteList;
+    public final List spriteList;
     public boolean mirrorV;
     float savedScale;
 
@@ -67,7 +67,7 @@ public class ModelRenderer
 
     public ModelRenderer(ModelBase model)
     {
-        this(model, (String)null);
+        this(model, null);
     }
 
     public ModelRenderer(ModelBase model, int texOffX, int texOffY)
@@ -96,13 +96,12 @@ public class ModelRenderer
         return this;
     }
 
-    public ModelRenderer addBox(String partName, float offX, float offY, float offZ, int width, int height, int depth)
+    public void addBox(String partName, float offX, float offY, float offZ, int width, int height, int depth)
     {
         partName = this.boxName + "." + partName;
         TextureOffset textureoffset = this.baseModel.getTextureOffset(partName);
         this.setTextureOffset(textureoffset.textureOffsetX, textureoffset.textureOffsetY);
         this.cubeList.add((new ModelBox(this, this.textureOffsetX, this.textureOffsetY, offX, offY, offZ, width, height, depth, 0.0F)).setBoxName(partName));
-        return this;
     }
 
     public ModelRenderer addBox(float offX, float offY, float offZ, int width, int height, int depth)
@@ -111,10 +110,9 @@ public class ModelRenderer
         return this;
     }
 
-    public ModelRenderer addBox(float p_178769_1_, float p_178769_2_, float p_178769_3_, int p_178769_4_, int p_178769_5_, int p_178769_6_, boolean p_178769_7_)
+    public void addBox(float p_178769_1_, float p_178769_2_, float p_178769_3_, int p_178769_4_, int p_178769_5_, int p_178769_6_, boolean p_178769_7_)
     {
         this.cubeList.add(new ModelBox(this, this.textureOffsetX, this.textureOffsetY, p_178769_1_, p_178769_2_, p_178769_3_, p_178769_4_, p_178769_5_, p_178769_6_, 0.0F, p_178769_7_));
-        return this;
     }
 
     /**

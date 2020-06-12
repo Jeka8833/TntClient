@@ -6,12 +6,12 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class RandomMobsRule
 {
-    private ResourceLocation baseResLoc;
-    private int[] skins;
+    private final ResourceLocation baseResLoc;
+    private final int[] skins;
     private ResourceLocation[] resourceLocations = null;
     private int[] weights;
-    private BiomeGenBase[] biomes;
-    private RangeListInt heights;
+    private final BiomeGenBase[] biomes;
+    private final RangeListInt heights;
     public int[] sumWeights = null;
     public int sumAllWeights = 1;
 

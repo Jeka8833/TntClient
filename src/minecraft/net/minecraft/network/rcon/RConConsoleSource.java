@@ -16,7 +16,7 @@ public class RConConsoleSource implements ICommandSender
     private static final RConConsoleSource instance = new RConConsoleSource();
 
     /** RCon string buffer for log. */
-    private StringBuffer buffer = new StringBuffer();
+    private final StringBuffer buffer = new StringBuffer();
 
     /**
      * Gets the name of this command sender (usually username, but possibly "Rcon")

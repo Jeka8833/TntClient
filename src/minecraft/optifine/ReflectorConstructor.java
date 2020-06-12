@@ -4,8 +4,8 @@ import java.lang.reflect.Constructor;
 
 public class ReflectorConstructor
 {
-    private ReflectorClass reflectorClass;
-    private Class[] parameterTypes;
+    private final ReflectorClass reflectorClass;
+    private final Class[] parameterTypes;
     private boolean checked = false;
     private Constructor targetConstructor = null;
 
@@ -39,7 +39,7 @@ public class ReflectorConstructor
 
                     if (this.targetConstructor == null)
                     {
-                        Config.dbg("(Reflector) Constructor not present: " + oclass.getName() + ", params: " + Config.arrayToString((Object[])this.parameterTypes));
+                        Config.dbg("(Reflector) Constructor not present: " + oclass.getName() + ", params: " + Config.arrayToString(this.parameterTypes));
                     }
 
                     if (this.targetConstructor != null)

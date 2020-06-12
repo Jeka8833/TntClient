@@ -6,9 +6,9 @@ import net.minecraft.util.ResourceLocation;
 
 public class PotionAbsorption extends Potion
 {
-    protected PotionAbsorption(int potionID, ResourceLocation location, boolean badEffect, int potionColor)
+    protected PotionAbsorption(ResourceLocation location)
     {
-        super(potionID, location, badEffect, potionColor);
+        super(22, location, false, 2445989);
     }
 
     public void removeAttributesModifiersFromEntity(EntityLivingBase entityLivingBaseIn, BaseAttributeMap p_111187_2_, int amplifier)

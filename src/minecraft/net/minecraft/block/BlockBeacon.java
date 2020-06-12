@@ -31,29 +31,23 @@ public class BlockBeacon extends BlockContainer
     /**
      * Returns a new instance of a block's tile entity class. Called on placing the block.
      */
-    public TileEntity createNewTileEntity(World worldIn, int meta)
+    public TileEntity createNewTileEntity(int meta)
     {
         return new TileEntityBeacon();
     }
 
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ)
     {
-        if (worldIn.isRemote)
-        {
-            return true;
-        }
-        else
-        {
+        if (!worldIn.isRemote) {
             TileEntity tileentity = worldIn.getTileEntity(pos);
 
-            if (tileentity instanceof TileEntityBeacon)
-            {
-                playerIn.displayGUIChest((TileEntityBeacon)tileentity);
+            if (tileentity instanceof TileEntityBeacon) {
+                playerIn.displayGUIChest((TileEntityBeacon) tileentity);
                 playerIn.triggerAchievement(StatList.field_181730_N);
             }
 
-            return true;
         }
+        return true;
     }
 
     /**

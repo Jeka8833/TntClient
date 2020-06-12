@@ -14,7 +14,7 @@ import optifine.StrUtils;
 
 public class BlockAliases
 {
-    private static BlockAlias[][] blockAliases = (BlockAlias[][])null;
+    private static BlockAlias[][] blockAliases = null;
 
     public static int getMappedBlockId(int blockId, int metadata)
     {
@@ -26,24 +26,17 @@ public class BlockAliases
         {
             BlockAlias[] ablockalias = blockAliases[blockId];
 
-            if (ablockalias == null)
-            {
-                return blockId;
-            }
-            else
-            {
-                for (int i = 0; i < ablockalias.length; ++i)
-                {
+            if (ablockalias != null) {
+                for (int i = 0; i < ablockalias.length; ++i) {
                     BlockAlias blockalias = ablockalias[i];
 
-                    if (blockalias.matches(blockId, metadata))
-                    {
+                    if (blockalias.matches(blockId, metadata)) {
                         return blockalias.getBlockId();
                     }
                 }
 
-                return blockId;
             }
+            return blockId;
         }
         else
         {
@@ -134,7 +127,7 @@ public class BlockAliases
                 blocksAliases.add(null);
             }
 
-            List<BlockAlias> list = (List)blocksAliases.get(j);
+            List<BlockAlias> list = blocksAliases.get(j);
 
             if (list == null)
             {
@@ -152,11 +145,11 @@ public class BlockAliases
 
         for (int i = 0; i < ablockalias.length; ++i)
         {
-            List<BlockAlias> list = (List)listBlocksAliases.get(i);
+            List<BlockAlias> list = listBlocksAliases.get(i);
 
             if (list != null)
             {
-                ablockalias[i] = (BlockAlias[])((BlockAlias[])list.toArray(new BlockAlias[list.size()]));
+                ablockalias[i] = list.toArray(new BlockAlias[0]);
             }
         }
 
@@ -165,6 +158,6 @@ public class BlockAliases
 
     public static void reset()
     {
-        blockAliases = (BlockAlias[][])null;
+        blockAliases = null;
     }
 }

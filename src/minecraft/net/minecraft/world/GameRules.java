@@ -6,7 +6,7 @@ import net.minecraft.nbt.NBTTagCompound;
 
 public class GameRules
 {
-    private TreeMap theGameRules = new TreeMap();
+    private final TreeMap theGameRules = new TreeMap();
     private static final String __OBFID = "CL_00000136";
 
     public GameRules()
@@ -62,7 +62,7 @@ public class GameRules
     public boolean getBoolean(String name)
     {
         GameRules.Value gamerules$value = (GameRules.Value)this.theGameRules.get(name);
-        return gamerules$value != null ? gamerules$value.getBoolean() : false;
+        return gamerules$value != null && gamerules$value.getBoolean();
     }
 
     public int getInt(String name)
@@ -105,7 +105,7 @@ public class GameRules
     public String[] getRules()
     {
         Set set = this.theGameRules.keySet();
-        return (String[])((String[])set.toArray(new String[set.size()]));
+        return (String[]) set.toArray(new String[0]);
     }
 
     /**
@@ -163,18 +163,16 @@ public class GameRules
             {
                 this.valueInteger = Integer.parseInt(value);
             }
-            catch (NumberFormatException var4)
+            catch (NumberFormatException ignored)
             {
-                ;
             }
 
             try
             {
                 this.valueDouble = Double.parseDouble(value);
             }
-            catch (NumberFormatException var3)
+            catch (NumberFormatException ignored)
             {
-                ;
             }
         }
 
@@ -199,16 +197,16 @@ public class GameRules
         }
     }
 
-    public static enum ValueType
+    public enum ValueType
     {
-        ANY_VALUE("ANY_VALUE", 0),
-        BOOLEAN_VALUE("BOOLEAN_VALUE", 1),
-        NUMERICAL_VALUE("NUMERICAL_VALUE", 2);
+        ANY_VALUE(),
+        BOOLEAN_VALUE(),
+        NUMERICAL_VALUE();
 
         private static final GameRules.ValueType[] $VALUES = new GameRules.ValueType[]{ANY_VALUE, BOOLEAN_VALUE, NUMERICAL_VALUE};
         private static final String __OBFID = "CL_00002151";
 
-        private ValueType(String p_i19_3_, int p_i19_4_)
+        ValueType()
         {
         }
     }

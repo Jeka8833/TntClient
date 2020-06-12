@@ -18,8 +18,8 @@ import java.util.Map;
 public abstract class TileEntity
 {
     private static final Logger logger = LogManager.getLogger();
-    private static Map < String, Class <? extends TileEntity >> nameToClassMap = Maps.newHashMap();
-    private static Map < Class <? extends TileEntity > , String > classToNameMap = Maps.newHashMap();
+    private static final Map < String, Class <? extends TileEntity >> nameToClassMap = Maps.newHashMap();
+    private static final Map < Class <? extends TileEntity > , String > classToNameMap = Maps.newHashMap();
 
     /** the instance of the world the tile entity is in. */
     protected World worldObj;

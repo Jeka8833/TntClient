@@ -49,7 +49,7 @@ public class ResourcePackRepository
     private final ReentrantLock lock = new ReentrantLock();
     private ListenableFuture<Object> field_177322_i;
     private List<ResourcePackRepository.Entry> repositoryEntriesAll = Lists.newArrayList();
-    private List<ResourcePackRepository.Entry> repositoryEntries = Lists.newArrayList();
+    private final List<ResourcePackRepository.Entry> repositoryEntries = Lists.newArrayList();
 
     public ResourcePackRepository(File dirResourcepacksIn, File dirServerResourcepacksIn, IResourcePack rprDefaultResourcePackIn, IMetadataSerializer rprMetadataSerializerIn, GameSettings settings)
     {
@@ -309,9 +309,8 @@ public class ResourcePackRepository
             {
                 this.texturePackIcon = this.reResourcePack.getPackImage();
             }
-            catch (IOException var2)
+            catch (IOException ignored)
             {
-                ;
             }
 
             if (this.texturePackIcon == null)

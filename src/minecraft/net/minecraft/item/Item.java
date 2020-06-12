@@ -47,12 +47,12 @@ import net.minecraft.world.World;
 public class Item
 {
     public static final RegistryNamespaced<ResourceLocation, Item> itemRegistry = new RegistryNamespaced();
-    private static final Map<Block, Item> BLOCK_TO_ITEM = Maps.<Block, Item>newHashMap();
+    private static final Map<Block, Item> BLOCK_TO_ITEM = Maps.newHashMap();
     protected static final UUID itemModifierUUID = UUID.fromString("CB3F55D3-645C-4F38-A497-9C13A33DB5CF");
     private CreativeTabs tabToDisplayOn;
 
     /** The RNG used by the Item subclasses. */
-    protected static Random itemRand = new Random();
+    protected static final Random itemRand = new Random();
 
     /** Maximum size of the stack. */
     protected int maxStackSize = 64;
@@ -84,12 +84,12 @@ public class Item
 
     public static Item getItemById(int id)
     {
-        return (Item)itemRegistry.getObjectById(id);
+        return itemRegistry.getObjectById(id);
     }
 
     public static Item getItemFromBlock(Block blockIn)
     {
-        return (Item)BLOCK_TO_ITEM.get(blockIn);
+        return BLOCK_TO_ITEM.get(blockIn);
     }
 
     /**
@@ -98,7 +98,7 @@ public class Item
      */
     public static Item getByNameOrId(String id)
     {
-        Item item = (Item)itemRegistry.getObject(new ResourceLocation(id));
+        Item item = itemRegistry.getObject(new ResourceLocation(id));
 
         if (item == null)
         {
@@ -106,9 +106,8 @@ public class Item
             {
                 return getItemById(Integer.parseInt(id));
             }
-            catch (NumberFormatException var3)
+            catch (NumberFormatException ignored)
             {
-                ;
             }
         }
 
@@ -118,9 +117,8 @@ public class Item
     /**
      * Called when an ItemStack with NBT data is read to potentially that ItemStack's NBT data
      */
-    public boolean updateItemStackNBT(NBTTagCompound nbt)
+    public void updateItemStackNBT(NBTTagCompound nbt)
     {
-        return false;
     }
 
     public Item setMaxStackSize(int maxStackSize)
@@ -181,9 +179,9 @@ public class Item
         return this.hasSubtypes;
     }
 
-    protected Item setHasSubtypes(boolean hasSubtypes)
+    protected Item setHasSubtypes()
     {
-        this.hasSubtypes = hasSubtypes;
+        this.hasSubtypes = true;
         return this;
     }
 
@@ -198,10 +196,9 @@ public class Item
     /**
      * set max damage of an Item
      */
-    protected Item setMaxDamage(int maxDamageIn)
+    protected void setMaxDamage(int maxDamageIn)
     {
         this.maxDamage = maxDamageIn;
-        return this;
     }
 
     public boolean isDamageable()
@@ -340,14 +337,14 @@ public class Item
      * Called each tick as long the item is on a player inventory. Uses by maps to check if is on a player hand and
      * update it's contents.
      */
-    public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected)
+    public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, boolean isSelected)
     {
     }
 
     /**
      * Called when item is crafted/smelted. Used only by maps so far.
      */
-    public void onCreated(ItemStack stack, World worldIn, EntityPlayer playerIn)
+    public void onCreated(ItemStack stack, World worldIn)
     {
     }
 
@@ -362,7 +359,7 @@ public class Item
     /**
      * returns the action that specifies what animation to play when the items is being used
      */
-    public EnumAction getItemUseAction(ItemStack stack)
+    public EnumAction getItemUseAction()
     {
         return EnumAction.NONE;
     }
@@ -370,7 +367,7 @@ public class Item
     /**
      * How long it takes to use or consume an item
      */
-    public int getMaxItemUseDuration(ItemStack stack)
+    public int getMaxItemUseDuration()
     {
         return 0;
     }
@@ -505,7 +502,7 @@ public class Item
 
     public Multimap<String, AttributeModifier> getItemAttributeModifiers()
     {
-        return HashMultimap.<String, AttributeModifier>create();
+        return HashMultimap.create();
     }
 
     public static void registerItems()
@@ -856,8 +853,8 @@ public class Item
         registerItem(346, "fishing_rod", (new ItemFishingRod()).setUnlocalizedName("fishingRod"));
         registerItem(347, "clock", (new Item()).setUnlocalizedName("clock").setCreativeTab(CreativeTabs.tabTools));
         registerItem(348, "glowstone_dust", (new Item()).setUnlocalizedName("yellowDust").setPotionEffect(PotionHelper.glowstoneEffect).setCreativeTab(CreativeTabs.tabMaterials));
-        registerItem(349, "fish", (new ItemFishFood(false)).setUnlocalizedName("fish").setHasSubtypes(true));
-        registerItem(350, "cooked_fish", (new ItemFishFood(true)).setUnlocalizedName("fish").setHasSubtypes(true));
+        registerItem(349, "fish", (new ItemFishFood(false)).setUnlocalizedName("fish").setHasSubtypes());
+        registerItem(350, "cooked_fish", (new ItemFishFood(true)).setUnlocalizedName("fish").setHasSubtypes());
         registerItem(351, "dye", (new ItemDye()).setUnlocalizedName("dyePowder"));
         registerItem(352, "bone", (new Item()).setUnlocalizedName("bone").setFull3D().setCreativeTab(CreativeTabs.tabMisc));
         registerItem(353, "sugar", (new Item()).setUnlocalizedName("sugar").setPotionEffect(PotionHelper.sugarEffect).setCreativeTab(CreativeTabs.tabMaterials));
@@ -929,7 +926,7 @@ public class Item
         registerItem(419, "diamond_horse_armor", (new Item()).setUnlocalizedName("horsearmordiamond").setMaxStackSize(1).setCreativeTab(CreativeTabs.tabMisc));
         registerItem(420, "lead", (new ItemLead()).setUnlocalizedName("leash"));
         registerItem(421, "name_tag", (new ItemNameTag()).setUnlocalizedName("nameTag"));
-        registerItem(422, "command_block_minecart", (new ItemMinecart(EntityMinecart.EnumMinecartType.COMMAND_BLOCK)).setUnlocalizedName("minecartCommandBlock").setCreativeTab((CreativeTabs)null));
+        registerItem(422, "command_block_minecart", (new ItemMinecart(EntityMinecart.EnumMinecartType.COMMAND_BLOCK)).setUnlocalizedName("minecartCommandBlock").setCreativeTab(null));
         registerItem(423, "mutton", (new ItemFood(2, 0.3F, true)).setUnlocalizedName("muttonRaw"));
         registerItem(424, "cooked_mutton", (new ItemFood(6, 0.8F, true)).setUnlocalizedName("muttonCooked"));
         registerItem(425, "banner", (new ItemBanner()).setUnlocalizedName("banner"));
@@ -965,7 +962,7 @@ public class Item
      */
     protected static void registerItemBlock(Block blockIn, Item itemIn)
     {
-        registerItem(Block.getIdFromBlock(blockIn), (ResourceLocation)Block.blockRegistry.getNameForObject(blockIn), itemIn);
+        registerItem(Block.getIdFromBlock(blockIn), Block.blockRegistry.getNameForObject(blockIn), itemIn);
         BLOCK_TO_ITEM.put(blockIn, itemIn);
     }
 
@@ -979,7 +976,7 @@ public class Item
         itemRegistry.register(id, textualID, itemIn);
     }
 
-    public static enum ToolMaterial
+    public enum ToolMaterial
     {
         WOOD(0, 59, 2.0F, 0.0F, 15),
         STONE(1, 131, 4.0F, 1.0F, 5),
@@ -993,7 +990,7 @@ public class Item
         private final float damageVsEntity;
         private final int enchantability;
 
-        private ToolMaterial(int harvestLevel, int maxUses, float efficiency, float damageVsEntity, int enchantability)
+        ToolMaterial(int harvestLevel, int maxUses, float efficiency, float damageVsEntity, int enchantability)
         {
             this.harvestLevel = harvestLevel;
             this.maxUses = maxUses;

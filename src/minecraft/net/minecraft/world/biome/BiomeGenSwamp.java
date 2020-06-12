@@ -12,9 +12,9 @@ import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 
 public class BiomeGenSwamp extends BiomeGenBase
 {
-    protected BiomeGenSwamp(int p_i1988_1_)
+    protected BiomeGenSwamp()
     {
-        super(p_i1988_1_);
+        super(6);
         this.theBiomeDecorator.treesPerChunk = 2;
         this.theBiomeDecorator.flowersPerChunk = 1;
         this.theBiomeDecorator.deadBushPerChunk = 1;

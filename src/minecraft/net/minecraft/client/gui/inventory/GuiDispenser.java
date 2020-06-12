@@ -14,7 +14,7 @@ public class GuiDispenser extends GuiContainer
     private final InventoryPlayer playerInventory;
 
     /** The inventory contained within the corresponding Dispenser. */
-    public IInventory dispenserInventory;
+    public final IInventory dispenserInventory;
 
     public GuiDispenser(InventoryPlayer playerInv, IInventory dispenserInv)
     {

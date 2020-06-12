@@ -263,7 +263,7 @@ public class ItemRenderer
         }
 
         GlStateManager.translate(0.0F, f2, 0.0F);
-        float f3 = 1.0F - (float)Math.pow((double)f1, 27.0D);
+        float f3 = 1.0F - (float)Math.pow(f1, 27.0D);
         GlStateManager.translate(f3 * 0.6F, f3 * -0.5F, f3 * 0.0F);
         GlStateManager.rotate(f3 * 90.0F, 0.0F, 1.0F, 0.0F);
         GlStateManager.rotate(f3 * 10.0F, 1.0F, 0.0F, 0.0F);
@@ -419,30 +419,30 @@ public class ItemRenderer
             {
                 Object object = Reflector.getFieldValue(Reflector.RenderBlockOverlayEvent_OverlayType_BLOCK);
 
-                if (!Reflector.callBoolean(Reflector.ForgeEventFactory_renderBlockOverlay, new Object[] {this.mc.thePlayer, Float.valueOf(partialTicks), object, iblockstate, blockpos}))
+                if (!Reflector.callBoolean(Reflector.ForgeEventFactory_renderBlockOverlay, this.mc.thePlayer, partialTicks, object, iblockstate, blockpos))
                 {
-                    this.func_178108_a(partialTicks, this.mc.getBlockRendererDispatcher().getBlockModelShapes().getTexture(iblockstate));
+                    this.func_178108_a(this.mc.getBlockRendererDispatcher().getBlockModelShapes().getTexture(iblockstate));
                 }
             }
         }
 
         if (!this.mc.thePlayer.isSpectator())
         {
-            if (this.mc.thePlayer.isInsideOfMaterial(Material.water) && !Reflector.callBoolean(Reflector.ForgeEventFactory_renderWaterOverlay, new Object[] {this.mc.thePlayer, Float.valueOf(partialTicks)}))
+            if (this.mc.thePlayer.isInsideOfMaterial(Material.water) && !Reflector.callBoolean(Reflector.ForgeEventFactory_renderWaterOverlay, this.mc.thePlayer, partialTicks))
             {
                 this.renderWaterOverlayTexture(partialTicks);
             }
 
-            if (this.mc.thePlayer.isBurning() && !Reflector.callBoolean(Reflector.ForgeEventFactory_renderFireOverlay, new Object[] {this.mc.thePlayer, Float.valueOf(partialTicks)}))
+            if (this.mc.thePlayer.isBurning() && !Reflector.callBoolean(Reflector.ForgeEventFactory_renderFireOverlay, this.mc.thePlayer, partialTicks))
             {
-                this.renderFireInFirstPerson(partialTicks);
+                this.renderFireInFirstPerson();
             }
         }
 
         GlStateManager.enableAlpha();
     }
 
-    private void func_178108_a(float p_178108_1_, TextureAtlasSprite p_178108_2_)
+    private void func_178108_a(TextureAtlasSprite p_178108_2_)
     {
         this.mc.getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
         Tessellator tessellator = Tessellator.getInstance();
@@ -460,10 +460,10 @@ public class ItemRenderer
         float f8 = p_178108_2_.getMinV();
         float f9 = p_178108_2_.getMaxV();
         worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
-        worldrenderer.pos(-1.0D, -1.0D, -0.5D).tex((double)f7, (double)f9).endVertex();
-        worldrenderer.pos(1.0D, -1.0D, -0.5D).tex((double)f6, (double)f9).endVertex();
-        worldrenderer.pos(1.0D, 1.0D, -0.5D).tex((double)f6, (double)f8).endVertex();
-        worldrenderer.pos(-1.0D, 1.0D, -0.5D).tex((double)f7, (double)f8).endVertex();
+        worldrenderer.pos(-1.0D, -1.0D, -0.5D).tex(f7, f9).endVertex();
+        worldrenderer.pos(1.0D, -1.0D, -0.5D).tex(f6, f9).endVertex();
+        worldrenderer.pos(1.0D, 1.0D, -0.5D).tex(f6, f8).endVertex();
+        worldrenderer.pos(-1.0D, 1.0D, -0.5D).tex(f7, f8).endVertex();
         tessellator.draw();
         GlStateManager.popMatrix();
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
@@ -494,10 +494,10 @@ public class ItemRenderer
             float f7 = -this.mc.thePlayer.rotationYaw / 64.0F;
             float f8 = this.mc.thePlayer.rotationPitch / 64.0F;
             worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
-            worldrenderer.pos(-1.0D, -1.0D, -0.5D).tex((double)(4.0F + f7), (double)(4.0F + f8)).endVertex();
-            worldrenderer.pos(1.0D, -1.0D, -0.5D).tex((double)(0.0F + f7), (double)(4.0F + f8)).endVertex();
-            worldrenderer.pos(1.0D, 1.0D, -0.5D).tex((double)(0.0F + f7), (double)(0.0F + f8)).endVertex();
-            worldrenderer.pos(-1.0D, 1.0D, -0.5D).tex((double)(4.0F + f7), (double)(0.0F + f8)).endVertex();
+            worldrenderer.pos(-1.0D, -1.0D, -0.5D).tex(4.0F + f7, 4.0F + f8).endVertex();
+            worldrenderer.pos(1.0D, -1.0D, -0.5D).tex(0.0F + f7, 4.0F + f8).endVertex();
+            worldrenderer.pos(1.0D, 1.0D, -0.5D).tex(0.0F + f7, 0.0F + f8).endVertex();
+            worldrenderer.pos(-1.0D, 1.0D, -0.5D).tex(4.0F + f7, 0.0F + f8).endVertex();
             tessellator.draw();
             GlStateManager.popMatrix();
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
@@ -508,7 +508,7 @@ public class ItemRenderer
     /**
      * Renders the fire on the screen for first person mode. Arg: partialTickTime
      */
-    private void renderFireInFirstPerson(float p_78442_1_)
+    private void renderFireInFirstPerson()
     {
         Tessellator tessellator = Tessellator.getInstance();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
@@ -536,10 +536,10 @@ public class ItemRenderer
             GlStateManager.translate((float)(-(i * 2 - 1)) * 0.24F, -0.3F, 0.0F);
             GlStateManager.rotate((float)(i * 2 - 1) * 10.0F, 0.0F, 1.0F, 0.0F);
             worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
-            worldrenderer.pos((double)f5, (double)f7, (double)f9).tex((double)f2, (double)f4).endVertex();
-            worldrenderer.pos((double)f6, (double)f7, (double)f9).tex((double)f1, (double)f4).endVertex();
-            worldrenderer.pos((double)f6, (double)f8, (double)f9).tex((double)f1, (double)f3).endVertex();
-            worldrenderer.pos((double)f5, (double)f8, (double)f9).tex((double)f2, (double)f3).endVertex();
+            worldrenderer.pos(f5, f7, f9).tex(f2, f4).endVertex();
+            worldrenderer.pos(f6, f7, f9).tex(f1, f4).endVertex();
+            worldrenderer.pos(f6, f8, f9).tex(f1, f3).endVertex();
+            worldrenderer.pos(f5, f8, f9).tex(f2, f3).endVertex();
             tessellator.draw();
             GlStateManager.popMatrix();
         }
@@ -563,7 +563,7 @@ public class ItemRenderer
             {
                 if (Reflector.ForgeItem_shouldCauseReequipAnimation.exists())
                 {
-                    boolean flag1 = Reflector.callBoolean(this.itemToRender.getItem(), Reflector.ForgeItem_shouldCauseReequipAnimation, new Object[] {this.itemToRender, itemstack, Boolean.valueOf(this.equippedItemSlot != entityplayersp.inventory.currentItem)});
+                    boolean flag1 = Reflector.callBoolean(this.itemToRender.getItem(), Reflector.ForgeItem_shouldCauseReequipAnimation, this.itemToRender, itemstack, this.equippedItemSlot != entityplayersp.inventory.currentItem);
 
                     if (!flag1)
                     {
@@ -576,14 +576,7 @@ public class ItemRenderer
                 flag = true;
             }
         }
-        else if (this.itemToRender == null && itemstack == null)
-        {
-            flag = false;
-        }
-        else
-        {
-            flag = true;
-        }
+        else flag = this.itemToRender != null || itemstack != null;
 
         float f2 = 0.4F;
         float f = flag ? 0.0F : 1.0F;
@@ -629,45 +622,40 @@ public class ItemRenderer
             {
                 field_178094_a[EnumAction.NONE.ordinal()] = 1;
             }
-            catch (NoSuchFieldError var5)
+            catch (NoSuchFieldError ignored)
             {
-                ;
             }
 
             try
             {
                 field_178094_a[EnumAction.EAT.ordinal()] = 2;
             }
-            catch (NoSuchFieldError var4)
+            catch (NoSuchFieldError ignored)
             {
-                ;
             }
 
             try
             {
                 field_178094_a[EnumAction.DRINK.ordinal()] = 3;
             }
-            catch (NoSuchFieldError var3)
+            catch (NoSuchFieldError ignored)
             {
-                ;
             }
 
             try
             {
                 field_178094_a[EnumAction.BLOCK.ordinal()] = 4;
             }
-            catch (NoSuchFieldError var2)
+            catch (NoSuchFieldError ignored)
             {
-                ;
             }
 
             try
             {
                 field_178094_a[EnumAction.BOW.ordinal()] = 5;
             }
-            catch (NoSuchFieldError var1)
+            catch (NoSuchFieldError ignored)
             {
-                ;
             }
         }
     }

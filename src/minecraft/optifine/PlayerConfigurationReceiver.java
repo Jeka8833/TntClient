@@ -7,14 +7,14 @@ import java.nio.charset.StandardCharsets;
 
 public class PlayerConfigurationReceiver implements IFileDownloadListener
 {
-    private String player;
+    private final String player;
 
     public PlayerConfigurationReceiver(String p_i72_1_)
     {
         this.player = p_i72_1_;
     }
 
-    public void fileDownloadFinished(String p_fileDownloadFinished_1_, byte[] p_fileDownloadFinished_2_, Throwable p_fileDownloadFinished_3_)
+    public void fileDownloadFinished(String p_fileDownloadFinished_1_, byte[] p_fileDownloadFinished_2_)
     {
         if (p_fileDownloadFinished_2_ != null)
         {

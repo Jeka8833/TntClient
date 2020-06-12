@@ -28,7 +28,7 @@ public abstract class BlockContainer extends Block implements ITileEntityProvide
 
     protected boolean func_181087_e(World p_181087_1_, BlockPos p_181087_2_)
     {
-        return this.func_181086_a(p_181087_1_, p_181087_2_, EnumFacing.NORTH) || this.func_181086_a(p_181087_1_, p_181087_2_, EnumFacing.SOUTH) || this.func_181086_a(p_181087_1_, p_181087_2_, EnumFacing.WEST) || this.func_181086_a(p_181087_1_, p_181087_2_, EnumFacing.EAST);
+        return !this.func_181086_a(p_181087_1_, p_181087_2_, EnumFacing.NORTH) && !this.func_181086_a(p_181087_1_, p_181087_2_, EnumFacing.SOUTH) && !this.func_181086_a(p_181087_1_, p_181087_2_, EnumFacing.WEST) && !this.func_181086_a(p_181087_1_, p_181087_2_, EnumFacing.EAST);
     }
 
     /**
@@ -52,6 +52,6 @@ public abstract class BlockContainer extends Block implements ITileEntityProvide
     {
         super.onBlockEventReceived(worldIn, pos, state, eventID, eventParam);
         TileEntity tileentity = worldIn.getTileEntity(pos);
-        return tileentity == null ? false : tileentity.receiveClientEvent(eventID, eventParam);
+        return tileentity != null && tileentity.receiveClientEvent(eventID, eventParam);
     }
 }

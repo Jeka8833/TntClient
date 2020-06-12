@@ -1,7 +1,7 @@
 package net.minecraft.command.server;
 
 import com.mojang.authlib.GameProfile;
-import java.util.Date;
+
 import java.util.List;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
@@ -33,7 +33,7 @@ public class CommandBanPlayer extends CommandBase
     /**
      * Gets the usage string for the command.
      */
-    public String getCommandUsage(ICommandSender sender)
+    public String getCommandUsage()
     {
         return "commands.ban.usage";
     }
@@ -58,7 +58,7 @@ public class CommandBanPlayer extends CommandBase
 
             if (gameprofile == null)
             {
-                throw new CommandException("commands.ban.failed", new Object[] {args[0]});
+                throw new CommandException("commands.ban.failed", args[0]);
             }
             else
             {
@@ -69,7 +69,7 @@ public class CommandBanPlayer extends CommandBase
                     s = getChatComponentFromNthArg(sender, args, 1).getUnformattedText();
                 }
 
-                UserListBansEntry userlistbansentry = new UserListBansEntry(gameprofile, (Date)null, sender.getName(), (Date)null, s);
+                UserListBansEntry userlistbansentry = new UserListBansEntry(gameprofile, sender.getName(), null, s);
                 minecraftserver.getConfigurationManager().getBannedPlayers().addEntry(userlistbansentry);
                 EntityPlayerMP entityplayermp = minecraftserver.getConfigurationManager().getPlayerByUsername(args[0]);
 
@@ -78,16 +78,16 @@ public class CommandBanPlayer extends CommandBase
                     entityplayermp.playerNetServerHandler.kickPlayerFromServer("You are banned from this server.");
                 }
 
-                notifyOperators(sender, this, "commands.ban.success", new Object[] {args[0]});
+                notifyOperators(sender, this, "commands.ban.success", args[0]);
             }
         }
         else
         {
-            throw new WrongUsageException("commands.ban.usage", new Object[0]);
+            throw new WrongUsageException("commands.ban.usage");
         }
     }
 
-    public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos)
+    public List<String> addTabCompletionOptions(String[] args, BlockPos pos)
     {
         return args.length >= 1 ? getListOfStringsMatchingLastWord(args, MinecraftServer.getServer().getAllUsernames()) : null;
     }

@@ -6,20 +6,20 @@ import net.minecraft.util.MathHelper;
 public class ModelVillager extends ModelBase
 {
     /** The head box of the VillagerModel */
-    public ModelRenderer villagerHead;
+    public final ModelRenderer villagerHead;
 
     /** The body of the VillagerModel */
-    public ModelRenderer villagerBody;
+    public final ModelRenderer villagerBody;
 
     /** The arms of the VillagerModel */
-    public ModelRenderer villagerArms;
+    public final ModelRenderer villagerArms;
 
     /** The right leg of the VillagerModel */
-    public ModelRenderer rightVillagerLeg;
+    public final ModelRenderer rightVillagerLeg;
 
     /** The left leg of the VillagerModel */
-    public ModelRenderer leftVillagerLeg;
-    public ModelRenderer villagerNose;
+    public final ModelRenderer leftVillagerLeg;
+    public final ModelRenderer villagerNose;
 
     public ModelVillager(float p_i1163_1_)
     {

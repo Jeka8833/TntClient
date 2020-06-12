@@ -164,36 +164,25 @@ public class ConnectedTextures
     {
         Block block = p_getConnectedTextureSingle_1_.getBlock();
 
-        if (!(p_getConnectedTextureSingle_1_ instanceof BlockStateBase))
-        {
-            return p_getConnectedTextureSingle_4_;
-        }
-        else
-        {
-            BlockStateBase blockstatebase = (BlockStateBase)p_getConnectedTextureSingle_1_;
+        if (p_getConnectedTextureSingle_1_ instanceof BlockStateBase) {
+            BlockStateBase blockstatebase = (BlockStateBase) p_getConnectedTextureSingle_1_;
 
-            if (tileProperties != null)
-            {
+            if (tileProperties != null) {
                 int i = p_getConnectedTextureSingle_4_.getIndexInMap();
 
-                if (i >= 0 && i < tileProperties.length)
-                {
+                if (i >= 0 && i < tileProperties.length) {
                     ConnectedProperties[] aconnectedproperties = tileProperties[i];
 
-                    if (aconnectedproperties != null)
-                    {
+                    if (aconnectedproperties != null) {
                         int j = getSide(p_getConnectedTextureSingle_3_);
 
-                        for (int k = 0; k < aconnectedproperties.length; ++k)
-                        {
+                        for (int k = 0; k < aconnectedproperties.length; ++k) {
                             ConnectedProperties connectedproperties = aconnectedproperties[k];
 
-                            if (connectedproperties != null && connectedproperties.matchesBlockId(blockstatebase.getBlockId()))
-                            {
+                            if (connectedproperties != null && connectedproperties.matchesBlockId(blockstatebase.getBlockId())) {
                                 TextureAtlasSprite textureatlassprite = getConnectedTexture(connectedproperties, p_getConnectedTextureSingle_0_, blockstatebase, p_getConnectedTextureSingle_2_, j, p_getConnectedTextureSingle_4_, p_getConnectedTextureSingle_6_);
 
-                                if (textureatlassprite != null)
-                                {
+                                if (textureatlassprite != null) {
                                     return textureatlassprite;
                                 }
                             }
@@ -202,28 +191,22 @@ public class ConnectedTextures
                 }
             }
 
-            if (blockProperties != null && p_getConnectedTextureSingle_5_)
-            {
+            if (blockProperties != null && p_getConnectedTextureSingle_5_) {
                 int l = p_getConnectedTextureSingle_6_.getBlockId();
 
-                if (l >= 0 && l < blockProperties.length)
-                {
+                if (l >= 0 && l < blockProperties.length) {
                     ConnectedProperties[] aconnectedproperties1 = blockProperties[l];
 
-                    if (aconnectedproperties1 != null)
-                    {
+                    if (aconnectedproperties1 != null) {
                         int i1 = getSide(p_getConnectedTextureSingle_3_);
 
-                        for (int j1 = 0; j1 < aconnectedproperties1.length; ++j1)
-                        {
+                        for (int j1 = 0; j1 < aconnectedproperties1.length; ++j1) {
                             ConnectedProperties connectedproperties1 = aconnectedproperties1[j1];
 
-                            if (connectedproperties1 != null && connectedproperties1.matchesIcon(p_getConnectedTextureSingle_4_))
-                            {
+                            if (connectedproperties1 != null && connectedproperties1.matchesIcon(p_getConnectedTextureSingle_4_)) {
                                 TextureAtlasSprite textureatlassprite1 = getConnectedTexture(connectedproperties1, p_getConnectedTextureSingle_0_, blockstatebase, p_getConnectedTextureSingle_2_, i1, p_getConnectedTextureSingle_4_, p_getConnectedTextureSingle_6_);
 
-                                if (textureatlassprite1 != null)
-                                {
+                                if (textureatlassprite1 != null) {
                                     return textureatlassprite1;
                                 }
                             }
@@ -232,8 +215,8 @@ public class ConnectedTextures
                 }
             }
 
-            return p_getConnectedTextureSingle_4_;
         }
+        return p_getConnectedTextureSingle_4_;
     }
 
     public static int getSide(EnumFacing p_getSide_0_)
@@ -380,10 +363,10 @@ public class ConnectedTextures
                         return getConnectedTextureFixed(p_getConnectedTexture_0_);
 
                     case 8:
-                        return getConnectedTextureHorizontalVertical(p_getConnectedTexture_0_, p_getConnectedTexture_1_, p_getConnectedTexture_2_, p_getConnectedTexture_3_, i, p_getConnectedTexture_4_, p_getConnectedTexture_5_, j);
+                        return getConnectedTextureHorizontalVertical(p_getConnectedTexture_0_, p_getConnectedTexture_1_, p_getConnectedTexture_2_, p_getConnectedTexture_3_, i, p_getConnectedTexture_4_, p_getConnectedTexture_5_);
 
                     case 9:
-                        return getConnectedTextureVerticalHorizontal(p_getConnectedTexture_0_, p_getConnectedTexture_1_, p_getConnectedTexture_2_, p_getConnectedTexture_3_, i, p_getConnectedTexture_4_, p_getConnectedTexture_5_, j);
+                        return getConnectedTextureVerticalHorizontal(p_getConnectedTexture_0_, p_getConnectedTexture_1_, p_getConnectedTexture_2_, p_getConnectedTexture_3_, i, p_getConnectedTexture_4_, p_getConnectedTexture_5_);
 
                     default:
                         return null;
@@ -1113,7 +1096,7 @@ public class ConnectedTextures
         return p_getConnectedTextureVertical_0_.tileIcons[i];
     }
 
-    private static TextureAtlasSprite getConnectedTextureHorizontalVertical(ConnectedProperties p_getConnectedTextureHorizontalVertical_0_, IBlockAccess p_getConnectedTextureHorizontalVertical_1_, IBlockState p_getConnectedTextureHorizontalVertical_2_, BlockPos p_getConnectedTextureHorizontalVertical_3_, int p_getConnectedTextureHorizontalVertical_4_, int p_getConnectedTextureHorizontalVertical_5_, TextureAtlasSprite p_getConnectedTextureHorizontalVertical_6_, int p_getConnectedTextureHorizontalVertical_7_)
+    private static TextureAtlasSprite getConnectedTextureHorizontalVertical(ConnectedProperties p_getConnectedTextureHorizontalVertical_0_, IBlockAccess p_getConnectedTextureHorizontalVertical_1_, IBlockState p_getConnectedTextureHorizontalVertical_2_, BlockPos p_getConnectedTextureHorizontalVertical_3_, int p_getConnectedTextureHorizontalVertical_4_, int p_getConnectedTextureHorizontalVertical_5_, TextureAtlasSprite p_getConnectedTextureHorizontalVertical_6_)
     {
         TextureAtlasSprite[] atextureatlassprite = p_getConnectedTextureHorizontalVertical_0_.tileIcons;
         TextureAtlasSprite textureatlassprite = getConnectedTextureHorizontal(p_getConnectedTextureHorizontalVertical_0_, p_getConnectedTextureHorizontalVertical_1_, p_getConnectedTextureHorizontalVertical_2_, p_getConnectedTextureHorizontalVertical_3_, p_getConnectedTextureHorizontalVertical_4_, p_getConnectedTextureHorizontalVertical_5_, p_getConnectedTextureHorizontalVertical_6_);
@@ -1129,7 +1112,7 @@ public class ConnectedTextures
         }
     }
 
-    private static TextureAtlasSprite getConnectedTextureVerticalHorizontal(ConnectedProperties p_getConnectedTextureVerticalHorizontal_0_, IBlockAccess p_getConnectedTextureVerticalHorizontal_1_, IBlockState p_getConnectedTextureVerticalHorizontal_2_, BlockPos p_getConnectedTextureVerticalHorizontal_3_, int p_getConnectedTextureVerticalHorizontal_4_, int p_getConnectedTextureVerticalHorizontal_5_, TextureAtlasSprite p_getConnectedTextureVerticalHorizontal_6_, int p_getConnectedTextureVerticalHorizontal_7_)
+    private static TextureAtlasSprite getConnectedTextureVerticalHorizontal(ConnectedProperties p_getConnectedTextureVerticalHorizontal_0_, IBlockAccess p_getConnectedTextureVerticalHorizontal_1_, IBlockState p_getConnectedTextureVerticalHorizontal_2_, BlockPos p_getConnectedTextureVerticalHorizontal_3_, int p_getConnectedTextureVerticalHorizontal_4_, int p_getConnectedTextureVerticalHorizontal_5_, TextureAtlasSprite p_getConnectedTextureVerticalHorizontal_6_)
     {
         TextureAtlasSprite[] atextureatlassprite = p_getConnectedTextureVerticalHorizontal_0_.tileIcons;
         TextureAtlasSprite textureatlassprite = getConnectedTextureVertical(p_getConnectedTextureVerticalHorizontal_0_, p_getConnectedTextureVerticalHorizontal_1_, p_getConnectedTextureVerticalHorizontal_2_, p_getConnectedTextureVerticalHorizontal_3_, p_getConnectedTextureVerticalHorizontal_4_, p_getConnectedTextureVerticalHorizontal_5_, p_getConnectedTextureVerticalHorizontal_6_);

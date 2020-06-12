@@ -4,8 +4,8 @@ import net.minecraft.client.Minecraft;
 
 public class FileDownloadThread extends Thread
 {
-    private String urlString;
-    private IFileDownloadListener listener;
+    private final String urlString;
+    private final IFileDownloadListener listener;
 
     public FileDownloadThread(String p_i41_1_, IFileDownloadListener p_i41_2_)
     {
@@ -18,11 +18,11 @@ public class FileDownloadThread extends Thread
         try
         {
             byte[] abyte = HttpPipeline.get(this.urlString, Minecraft.getMinecraft().getProxy());
-            this.listener.fileDownloadFinished(this.urlString, abyte, null);
+            this.listener.fileDownloadFinished(this.urlString, abyte);
         }
         catch (Exception exception)
         {
-            this.listener.fileDownloadFinished(this.urlString, null, exception);
+            this.listener.fileDownloadFinished(this.urlString, null);
         }
     }
 

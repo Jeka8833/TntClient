@@ -8,7 +8,7 @@ import net.minecraft.util.ResourceLocation;
 public class RealmsButton
 {
     protected static final ResourceLocation WIDGETS_LOCATION = new ResourceLocation("textures/gui/widgets.png");
-    private GuiButtonRealmsProxy proxy;
+    private final GuiButtonRealmsProxy proxy;
 
     public RealmsButton(int p_i1177_1_, int p_i1177_2_, int p_i1177_3_, String p_i1177_4_)
     {
@@ -65,11 +65,11 @@ public class RealmsButton
         this.proxy.drawButton(Minecraft.getMinecraft(), p_render_1_, p_render_2_);
     }
 
-    public void clicked(int p_clicked_1_, int p_clicked_2_)
+    public void clicked(int p_clicked_1_)
     {
     }
 
-    public void released(int p_released_1_, int p_released_2_)
+    public void released()
     {
     }
 
@@ -78,7 +78,7 @@ public class RealmsButton
         this.proxy.drawTexturedModalRect(p_blit_1_, p_blit_2_, p_blit_3_, p_blit_4_, p_blit_5_, p_blit_6_);
     }
 
-    public void renderBg(int p_renderBg_1_, int p_renderBg_2_)
+    public void renderBg(int p_renderBg_1_)
     {
     }
 

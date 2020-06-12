@@ -75,7 +75,7 @@ public class VisGraph
 
         while (!arraydeque.isEmpty())
         {
-            int i = ((Integer)arraydeque.poll()).intValue();
+            int i = (Integer) arraydeque.poll();
             this.func_178610_a(i, enumset);
 
             for (EnumFacing enumfacing : EnumFacing.VALUES)
@@ -218,54 +218,48 @@ public class VisGraph
             {
                 field_178617_a[EnumFacing.DOWN.ordinal()] = 1;
             }
-            catch (NoSuchFieldError var6)
+            catch (NoSuchFieldError ignored)
             {
-                ;
             }
 
             try
             {
                 field_178617_a[EnumFacing.UP.ordinal()] = 2;
             }
-            catch (NoSuchFieldError var5)
+            catch (NoSuchFieldError ignored)
             {
-                ;
             }
 
             try
             {
                 field_178617_a[EnumFacing.NORTH.ordinal()] = 3;
             }
-            catch (NoSuchFieldError var4)
+            catch (NoSuchFieldError ignored)
             {
-                ;
             }
 
             try
             {
                 field_178617_a[EnumFacing.SOUTH.ordinal()] = 4;
             }
-            catch (NoSuchFieldError var3)
+            catch (NoSuchFieldError ignored)
             {
-                ;
             }
 
             try
             {
                 field_178617_a[EnumFacing.WEST.ordinal()] = 5;
             }
-            catch (NoSuchFieldError var2)
+            catch (NoSuchFieldError ignored)
             {
-                ;
             }
 
             try
             {
                 field_178617_a[EnumFacing.EAST.ordinal()] = 6;
             }
-            catch (NoSuchFieldError var1)
+            catch (NoSuchFieldError ignored)
             {
-                ;
             }
         }
     }

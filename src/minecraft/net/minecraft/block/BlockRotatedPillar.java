@@ -7,15 +7,15 @@ import net.minecraft.util.EnumFacing;
 
 public abstract class BlockRotatedPillar extends Block
 {
-    public static final PropertyEnum<EnumFacing.Axis> AXIS = PropertyEnum.<EnumFacing.Axis>create("axis", EnumFacing.Axis.class);
+    public static final PropertyEnum<EnumFacing.Axis> AXIS = PropertyEnum.create("axis", EnumFacing.Axis.class);
 
-    protected BlockRotatedPillar(Material materialIn)
+    protected BlockRotatedPillar()
     {
-        super(materialIn, materialIn.getMaterialMapColor());
+        super(Material.wood, Material.wood.getMaterialMapColor());
     }
 
-    protected BlockRotatedPillar(Material p_i46385_1_, MapColor p_i46385_2_)
+    protected BlockRotatedPillar(MapColor p_i46385_2_)
     {
-        super(p_i46385_1_, p_i46385_2_);
+        super(Material.grass, p_i46385_2_);
     }
 }

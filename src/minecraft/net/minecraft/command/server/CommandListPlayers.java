@@ -29,7 +29,7 @@ public class CommandListPlayers extends CommandBase
     /**
      * Gets the usage string for the command.
      */
-    public String getCommandUsage(ICommandSender sender)
+    public String getCommandUsage()
     {
         return "commands.players.usage";
     }
@@ -40,7 +40,7 @@ public class CommandListPlayers extends CommandBase
     public void processCommand(ICommandSender sender, String[] args) throws CommandException
     {
         int i = MinecraftServer.getServer().getCurrentPlayerCount();
-        sender.addChatMessage(new ChatComponentTranslation("commands.players.list", new Object[] {Integer.valueOf(i), Integer.valueOf(MinecraftServer.getServer().getMaxPlayers())}));
+        sender.addChatMessage(new ChatComponentTranslation("commands.players.list", i, MinecraftServer.getServer().getMaxPlayers()));
         sender.addChatMessage(new ChatComponentText(MinecraftServer.getServer().getConfigurationManager().func_181058_b(args.length > 0 && "uuids".equalsIgnoreCase(args[0]))));
         sender.setCommandStat(CommandResultStats.Type.QUERY_RESULT, i);
     }

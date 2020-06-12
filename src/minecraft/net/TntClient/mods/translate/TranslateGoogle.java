@@ -151,7 +151,7 @@ public class TranslateGoogle {
         int b = tkk[0];
         int e = 0;
         int f = 0;
-        List<Integer> d = new ArrayList<Integer>();
+        List<Integer> d = new ArrayList<>();
         for (; f < text.length(); f++) {
             int g = text.charAt(f);
             if (0x80 > g) {

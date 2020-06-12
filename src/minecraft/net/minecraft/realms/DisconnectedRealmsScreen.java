@@ -5,8 +5,8 @@ import net.minecraft.util.IChatComponent;
 
 public class DisconnectedRealmsScreen extends RealmsScreen
 {
-    private String title;
-    private IChatComponent reason;
+    private final String title;
+    private final IChatComponent reason;
     private List<String> lines;
     private final RealmsScreen parent;
     private int textHeight;
@@ -27,7 +27,7 @@ public class DisconnectedRealmsScreen extends RealmsScreen
         this.buttonsAdd(newButton(0, this.width() / 2 - 100, this.height() / 2 + this.textHeight / 2 + this.fontLineHeight(), getLocalizedString("gui.back")));
     }
 
-    public void keyPressed(char p_keyPressed_1_, int p_keyPressed_2_)
+    public void keyPressed(int p_keyPressed_2_)
     {
         if (p_keyPressed_2_ == 1)
         {

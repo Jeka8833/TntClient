@@ -25,7 +25,7 @@ public class Bot extends Module {
     private static final IBlockState gravel = Block.getBlockById(13).getDefaultState();
 
     private static int lastY = 0;
-    private static List<SkipBlock> skipBlocks = new ArrayList<>();
+    private static final List<SkipBlock> skipBlocks = new ArrayList<>();
     private static GlitchBlocks.BlockInfo blockInfo;
     private static Vec3i toBlock;
 
@@ -121,7 +121,7 @@ public class Bot extends Module {
         for (int z = poxZ - 4; z <= poxZ + 4; z++) {
             for (int x = poxX - 4; x <= poxX + 4; x++) {
                 if (mc.theWorld.getBlockState(new BlockPos(x, playerY + 1, z)) != air)
-                    blocks.add(new Vec4f(x - .32, z - .32, 1.64, 1.64));
+                    blocks.add(new Vec4f(x - .32, z - .32));
             }
         }
 
@@ -226,11 +226,11 @@ public class Bot extends Module {
         private final float w;
         private final float h;
 
-        private Vec4f(double x, double z, double w, double h) {
+        private Vec4f(double x, double z) {
             this.x = (float) x;
             this.z = (float) z;
-            this.w = (float) w;
-            this.h = (float) h;
+            this.w = (float) 1.64;
+            this.h = (float) 1.64;
         }
     }
 

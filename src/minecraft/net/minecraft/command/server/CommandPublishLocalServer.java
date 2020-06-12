@@ -19,7 +19,7 @@ public class CommandPublishLocalServer extends CommandBase
     /**
      * Gets the usage string for the command.
      */
-    public String getCommandUsage(ICommandSender sender)
+    public String getCommandUsage()
     {
         return "commands.publish.usage";
     }
@@ -33,11 +33,11 @@ public class CommandPublishLocalServer extends CommandBase
 
         if (s != null)
         {
-            notifyOperators(sender, this, "commands.publish.started", new Object[] {s});
+            notifyOperators(sender, this, "commands.publish.started", s);
         }
         else
         {
-            notifyOperators(sender, this, "commands.publish.failed", new Object[0]);
+            notifyOperators(sender, this, "commands.publish.failed");
         }
     }
 }

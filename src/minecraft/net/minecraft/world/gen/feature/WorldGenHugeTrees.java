@@ -18,7 +18,7 @@ public abstract class WorldGenHugeTrees extends WorldGenAbstractTree
 
     /** Sets the metadata for the leaves used in huge trees */
     protected final IBlockState leavesMetadata;
-    protected int extraRandomHeight;
+    protected final int extraRandomHeight;
 
     public WorldGenHugeTrees(boolean p_i46447_1_, int p_i46447_2_, int p_i46447_3_, IBlockState p_i46447_4_, IBlockState p_i46447_5_)
     {
@@ -99,9 +99,9 @@ public abstract class WorldGenHugeTrees extends WorldGenAbstractTree
         }
     }
 
-    protected boolean func_175929_a(World worldIn, Random p_175929_2_, BlockPos p_175929_3_, int p_175929_4_)
+    protected boolean func_175929_a(World worldIn, BlockPos p_175929_3_, int p_175929_4_)
     {
-        return this.func_175926_c(worldIn, p_175929_3_, p_175929_4_) && this.func_175927_a(p_175929_3_, worldIn);
+        return !this.func_175926_c(worldIn, p_175929_3_, p_175929_4_) || !this.func_175927_a(p_175929_3_, worldIn);
     }
 
     protected void func_175925_a(World worldIn, BlockPos p_175925_2_, int p_175925_3_)

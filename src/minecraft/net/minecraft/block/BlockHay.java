@@ -1,8 +1,6 @@
 package net.minecraft.block;
 
 import net.minecraft.block.material.MapColor;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
@@ -17,7 +15,7 @@ public class BlockHay extends BlockRotatedPillar
 {
     public BlockHay()
     {
-        super(Material.grass, MapColor.yellowColor);
+        super(MapColor.yellowColor);
         this.setDefaultState(this.blockState.getBaseState().withProperty(AXIS, EnumFacing.Axis.Y));
         this.setCreativeTab(CreativeTabs.tabBlock);
     }
@@ -48,7 +46,7 @@ public class BlockHay extends BlockRotatedPillar
     public int getMetaFromState(IBlockState state)
     {
         int i = 0;
-        EnumFacing.Axis enumfacing$axis = (EnumFacing.Axis)state.getValue(AXIS);
+        EnumFacing.Axis enumfacing$axis = state.getValue(AXIS);
 
         if (enumfacing$axis == EnumFacing.Axis.X)
         {
@@ -64,7 +62,7 @@ public class BlockHay extends BlockRotatedPillar
 
     protected BlockState createBlockState()
     {
-        return new BlockState(this, new IProperty[] {AXIS});
+        return new BlockState(this, AXIS);
     }
 
     protected ItemStack createStackedBlock(IBlockState state)

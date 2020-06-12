@@ -7,7 +7,7 @@ import net.minecraft.client.settings.GameSettings;
 
 public class GuiOptionsRowList extends GuiListExtended
 {
-    private final List<GuiOptionsRowList.Row> field_148184_k = Lists.<GuiOptionsRowList.Row>newArrayList();
+    private final List<GuiOptionsRowList.Row> field_148184_k = Lists.newArrayList();
 
     public GuiOptionsRowList(Minecraft mcIn, int p_i45015_2_, int p_i45015_3_, int p_i45015_4_, int p_i45015_5_, int p_i45015_6_, GameSettings.Options... p_i45015_7_)
     {
@@ -18,13 +18,13 @@ public class GuiOptionsRowList extends GuiListExtended
         {
             GameSettings.Options gamesettings$options = p_i45015_7_[i];
             GameSettings.Options gamesettings$options1 = i < p_i45015_7_.length - 1 ? p_i45015_7_[i + 1] : null;
-            GuiButton guibutton = this.func_148182_a(mcIn, p_i45015_2_ / 2 - 155, 0, gamesettings$options);
-            GuiButton guibutton1 = this.func_148182_a(mcIn, p_i45015_2_ / 2 - 155 + 160, 0, gamesettings$options1);
+            GuiButton guibutton = this.func_148182_a(mcIn, p_i45015_2_ / 2 - 155, gamesettings$options);
+            GuiButton guibutton1 = this.func_148182_a(mcIn, p_i45015_2_ / 2 - 155 + 160, gamesettings$options1);
             this.field_148184_k.add(new GuiOptionsRowList.Row(guibutton, guibutton1));
         }
     }
 
-    private GuiButton func_148182_a(Minecraft mcIn, int p_148182_2_, int p_148182_3_, GameSettings.Options p_148182_4_)
+    private GuiButton func_148182_a(Minecraft mcIn, int p_148182_2_, GameSettings.Options p_148182_4_)
     {
         if (p_148182_4_ == null)
         {
@@ -33,7 +33,7 @@ public class GuiOptionsRowList extends GuiListExtended
         else
         {
             int i = p_148182_4_.returnEnumOrdinal();
-            return (GuiButton)(p_148182_4_.getEnumFloat() ? new GuiOptionSlider(i, p_148182_2_, p_148182_3_, p_148182_4_) : new GuiOptionButton(i, p_148182_2_, p_148182_3_, p_148182_4_, mcIn.gameSettings.getKeyBinding(p_148182_4_)));
+            return p_148182_4_.getEnumFloat() ? new GuiOptionSlider(i, p_148182_2_, 0, p_148182_4_) : new GuiOptionButton(i, p_148182_2_, 0, p_148182_4_, mcIn.gameSettings.getKeyBinding(p_148182_4_));
         }
     }
 
@@ -42,7 +42,7 @@ public class GuiOptionsRowList extends GuiListExtended
      */
     public GuiOptionsRowList.Row getListEntry(int index)
     {
-        return (GuiOptionsRowList.Row)this.field_148184_k.get(index);
+        return this.field_148184_k.get(index);
     }
 
     protected int getSize()
@@ -118,7 +118,7 @@ public class GuiOptionsRowList extends GuiListExtended
             }
         }
 
-        public void mouseReleased(int slotIndex, int x, int y, int mouseEvent, int relativeX, int relativeY)
+        public void mouseReleased(int x, int y, int mouseEvent)
         {
             if (this.field_148323_b != null)
             {
@@ -131,7 +131,7 @@ public class GuiOptionsRowList extends GuiListExtended
             }
         }
 
-        public void setSelected(int p_178011_1_, int p_178011_2_, int p_178011_3_)
+        public void setSelected(int p_178011_3_)
         {
         }
     }

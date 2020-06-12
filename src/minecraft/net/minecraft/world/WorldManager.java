@@ -12,10 +12,10 @@ import net.minecraft.util.BlockPos;
 public class WorldManager implements IWorldAccess
 {
     /** Reference to the MinecraftServer object. */
-    private MinecraftServer mcServer;
+    private final MinecraftServer mcServer;
 
     /** The WorldServer object. */
-    private WorldServer theWorldServer;
+    private final WorldServer theWorldServer;
 
     public WorldManager(MinecraftServer p_i1517_1_, WorldServer p_i1517_2_)
     {
@@ -85,7 +85,7 @@ public class WorldManager implements IWorldAccess
 
     public void playAuxSFX(EntityPlayer player, int sfxType, BlockPos blockPosIn, int p_180439_4_)
     {
-        this.mcServer.getConfigurationManager().sendToAllNearExcept(player, (double)blockPosIn.getX(), (double)blockPosIn.getY(), (double)blockPosIn.getZ(), 64.0D, this.theWorldServer.provider.getDimensionId(), new S28PacketEffect(sfxType, blockPosIn, p_180439_4_, false));
+        this.mcServer.getConfigurationManager().sendToAllNearExcept(player, blockPosIn.getX(), blockPosIn.getY(), blockPosIn.getZ(), 64.0D, this.theWorldServer.provider.getDimensionId(), new S28PacketEffect(sfxType, blockPosIn, p_180439_4_, false));
     }
 
     public void broadcastSound(int p_180440_1_, BlockPos p_180440_2_, int p_180440_3_)

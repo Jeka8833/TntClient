@@ -27,13 +27,8 @@ public class CustomColorFader
             {
                 this.timeUpdate = i;
 
-                if (Math.abs(p_getColor_1_ - this.color.xCoord) < 0.004D && Math.abs(p_getColor_3_ - this.color.yCoord) < 0.004D && Math.abs(p_getColor_5_ - this.color.zCoord) < 0.004D)
-                {
-                    return this.color;
-                }
-                else
-                {
-                    double d0 = (double)j * 0.001D;
+                if (!(Math.abs(p_getColor_1_ - this.color.xCoord) < 0.004D) || !(Math.abs(p_getColor_3_ - this.color.yCoord) < 0.004D) || !(Math.abs(p_getColor_5_ - this.color.zCoord) < 0.004D)) {
+                    double d0 = (double) j * 0.001D;
                     d0 = Config.limit(d0, 0.0D, 1.0D);
                     double d1 = p_getColor_1_ - this.color.xCoord;
                     double d2 = p_getColor_3_ - this.color.yCoord;
@@ -42,8 +37,8 @@ public class CustomColorFader
                     double d5 = this.color.yCoord + d2 * d0;
                     double d6 = this.color.zCoord + d3 * d0;
                     this.color = new Vec3(d4, d5, d6);
-                    return this.color;
                 }
+                return this.color;
             }
         }
     }

@@ -16,8 +16,8 @@ public class HttpPipelineConnection
     private String host;
     private int port;
     private Proxy proxy;
-    private List<HttpPipelineRequest> listRequests;
-    private List<HttpPipelineRequest> listRequestsSend;
+    private final List<HttpPipelineRequest> listRequests;
+    private final List<HttpPipelineRequest> listRequestsSend;
     private Socket socket;
     private InputStream inputStream;
     private OutputStream outputStream;
@@ -219,13 +219,13 @@ public class HttpPipelineConnection
                     }
                     catch (IOException ioexception)
                     {
-                        p_onResponseReceived_1_.getHttpListener().failed(p_onResponseReceived_1_.getHttpRequest(), ioexception);
+                        p_onResponseReceived_1_.getHttpListener().failed(ioexception);
                     }
                 }
                 else
                 {
                     HttpListener httplistener = p_onResponseReceived_1_.getHttpListener();
-                    httplistener.finished(p_onResponseReceived_1_.getHttpRequest(), p_onResponseReceived_2_);
+                    httplistener.finished(p_onResponseReceived_2_);
                 }
 
                 this.checkResponseHeader(p_onResponseReceived_2_);
@@ -365,9 +365,8 @@ public class HttpPipelineConnection
                     this.socket.close();
                 }
             }
-            catch (IOException var3)
+            catch (IOException ignored)
             {
-                ;
             }
 
             this.socket = null;
@@ -383,7 +382,7 @@ public class HttpPipelineConnection
             if (!this.responseReceived)
             {
                 HttpPipelineRequest httppipelinerequest = this.listRequests.remove(0);
-                httppipelinerequest.getHttpListener().failed(httppipelinerequest.getHttpRequest(), p_terminateRequests_1_);
+                httppipelinerequest.getHttpListener().failed(p_terminateRequests_1_);
                 httppipelinerequest.setClosed(true);
             }
 

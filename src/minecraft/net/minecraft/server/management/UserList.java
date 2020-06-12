@@ -16,7 +16,6 @@ import com.google.gson.JsonSerializer;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
-import java.io.Writer;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.Collection;
@@ -31,7 +30,7 @@ public class UserList<K, V extends UserListEntry<K>>
     protected static final Logger logger = LogManager.getLogger();
     protected final Gson gson;
     private final File saveFile;
-    private final Map<String, V> values = Maps.<String, V>newHashMap();
+    private final Map<String, V> values = Maps.newHashMap();
     private boolean lanServer = true;
     private static final ParameterizedType saveFileFormat = new ParameterizedType()
     {
@@ -80,14 +79,14 @@ public class UserList<K, V extends UserListEntry<K>>
         }
         catch (IOException ioexception)
         {
-            logger.warn((String)"Could not save the list after adding a user.", (Throwable)ioexception);
+            logger.warn("Could not save the list after adding a user.", ioexception);
         }
     }
 
     public V getEntry(K obj)
     {
         this.removeExpired();
-        return (V)((UserListEntry)this.values.get(this.getObjectKey(obj)));
+        return this.values.get(this.getObjectKey(obj));
     }
 
     public void removeEntry(K p_152684_1_)
@@ -100,13 +99,13 @@ public class UserList<K, V extends UserListEntry<K>>
         }
         catch (IOException ioexception)
         {
-            logger.warn((String)"Could not save the list after removing a user.", (Throwable)ioexception);
+            logger.warn("Could not save the list after removing a user.", ioexception);
         }
     }
 
     public String[] getKeys()
     {
-        return (String[])this.values.keySet().toArray(new String[this.values.size()]);
+        return this.values.keySet().toArray(new String[0]);
     }
 
     /**
@@ -127,7 +126,7 @@ public class UserList<K, V extends UserListEntry<K>>
      */
     private void removeExpired()
     {
-        List<K> list = Lists.<K>newArrayList();
+        List<K> list = Lists.newArrayList();
 
         for (V v : this.values.values())
         {
@@ -145,7 +144,7 @@ public class UserList<K, V extends UserListEntry<K>>
 
     protected UserListEntry<K> createEntry(JsonObject entryData)
     {
-        return new UserListEntry((Object)null, entryData);
+        return new UserListEntry(null);
     }
 
     protected Map<String, V> getValues()
@@ -156,7 +155,7 @@ public class UserList<K, V extends UserListEntry<K>>
     public void writeChanges() throws IOException
     {
         Collection<V> collection = this.values.values();
-        String s = this.gson.toJson((Object)collection);
+        String s = this.gson.toJson(collection);
         BufferedWriter bufferedwriter = null;
 
         try
@@ -166,7 +165,7 @@ public class UserList<K, V extends UserListEntry<K>>
         }
         finally
         {
-            IOUtils.closeQuietly((Writer)bufferedwriter);
+            IOUtils.closeQuietly(bufferedwriter);
         }
     }
 
@@ -188,8 +187,7 @@ public class UserList<K, V extends UserListEntry<K>>
             if (p_deserialize_1_.isJsonObject())
             {
                 JsonObject jsonobject = p_deserialize_1_.getAsJsonObject();
-                UserListEntry<K> userlistentry = UserList.this.createEntry(jsonobject);
-                return userlistentry;
+                return UserList.this.createEntry(jsonobject);
             }
             else
             {

@@ -8,9 +8,9 @@ import optifine.BlockPosM;
 
 public class IteratorRenderChunks implements Iterator<RenderChunk>
 {
-    private ViewFrustum viewFrustum;
-    private Iterator3d Iterator3d;
-    private BlockPosM posBlock = new BlockPosM(0, 0, 0);
+    private final ViewFrustum viewFrustum;
+    private final Iterator3d Iterator3d;
+    private final BlockPosM posBlock = new BlockPosM(0, 0, 0);
 
     public IteratorRenderChunks(ViewFrustum viewFrustum, BlockPos posStart, BlockPos posEnd, int width, int height)
     {
@@ -27,8 +27,7 @@ public class IteratorRenderChunks implements Iterator<RenderChunk>
     {
         BlockPos blockpos = this.Iterator3d.next();
         this.posBlock.setXyz(blockpos.getX() << 4, blockpos.getY() << 4, blockpos.getZ() << 4);
-        RenderChunk renderchunk = this.viewFrustum.getRenderChunk(this.posBlock);
-        return renderchunk;
+        return this.viewFrustum.getRenderChunk(this.posBlock);
     }
 
     public void remove()

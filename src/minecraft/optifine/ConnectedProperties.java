@@ -13,24 +13,24 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class ConnectedProperties
 {
-    public String name;
-    public String basePath;
+    public final String name;
+    public final String basePath;
     public MatchBlock[] matchBlocks;
-    public int[] metadatas;
+    public final int[] metadatas;
     public String[] matchTiles;
-    public int method;
+    public final int method;
     public String[] tiles;
     public int connect;
-    public int faces ;
-    public BiomeGenBase[] biomes;
-    public int minHeight;
-    public int maxHeight;
-    public int renderPass;
-    public boolean innerSeams;
-    public int width;
-    public int height;
+    public final int faces ;
+    public final BiomeGenBase[] biomes;
+    public final int minHeight;
+    public final int maxHeight;
+    public final int renderPass;
+    public final boolean innerSeams;
+    public final int width;
+    public final int height;
     public int[] weights;
-    public int symmetry;
+    public final int symmetry;
     public int[] sumWeights = null;
     public int sumAllWeights = 1;
     public TextureAtlasSprite[] matchTileIcons = null;
@@ -531,15 +531,10 @@ public class ConnectedProperties
         TextureMap texturemap = Minecraft.getMinecraft().getTextureMapBlocks();
         TextureAtlasSprite textureatlassprite = texturemap.getSpriteSafe(p_getIcon_0_);
 
-        if (textureatlassprite != null)
-        {
-            return textureatlassprite;
-        }
-        else
-        {
+        if (textureatlassprite == null) {
             textureatlassprite = texturemap.getSpriteSafe("blocks/" + p_getIcon_0_);
-            return textureatlassprite;
         }
+        return textureatlassprite;
     }
 
     private boolean isValidCtm(String p_isValidCtm_1_)
@@ -863,23 +858,16 @@ public class ConnectedProperties
 
     private int getMax(int[] p_getMax_1_, int p_getMax_2_)
     {
-        if (p_getMax_1_ == null)
-        {
-            return p_getMax_2_;
-        }
-        else
-        {
-            for (int i = 0; i < p_getMax_1_.length; ++i)
-            {
+        if (p_getMax_1_ != null) {
+            for (int i = 0; i < p_getMax_1_.length; ++i) {
                 int j = p_getMax_1_[i];
 
-                if (j > p_getMax_2_)
-                {
+                if (j > p_getMax_2_) {
                     p_getMax_2_ = j;
                 }
             }
 
-            return p_getMax_2_;
         }
+        return p_getMax_2_;
     }
 }

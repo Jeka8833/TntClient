@@ -20,12 +20,12 @@ public class WorldGenBigTree extends WorldGenAbstractTree
     private BlockPos basePos = BlockPos.ORIGIN;
     int heightLimit;
     int height;
-    double heightAttenuation = 0.618D;
-    double branchSlope = 0.381D;
-    double scaleWidth = 1.0D;
-    double leafDensity = 1.0D;
-    int trunkSize = 1;
-    int heightLimitLimit = 12;
+    final double heightAttenuation = 0.618D;
+    final double branchSlope = 0.381D;
+    final double scaleWidth = 1.0D;
+    final double leafDensity = 1.0D;
+    final int trunkSize = 1;
+    final int heightLimitLimit = 12;
 
     /**
      * Sets the distance limit for how far away the generator will populate leaves from the base leaf node.
@@ -59,7 +59,7 @@ public class WorldGenBigTree extends WorldGenAbstractTree
 
         int j = this.basePos.getY() + this.height;
         int k = this.heightLimit - this.leafDistanceLimit;
-        this.field_175948_j = Lists.<WorldGenBigTree.FoliageCoordinates>newArrayList();
+        this.field_175948_j = Lists.newArrayList();
         this.field_175948_j.add(new WorldGenBigTree.FoliageCoordinates(this.basePos.up(k), j));
 
         for (; k >= 0; --k)
@@ -74,14 +74,14 @@ public class WorldGenBigTree extends WorldGenAbstractTree
                     double d1 = (double)(this.rand.nextFloat() * 2.0F) * Math.PI;
                     double d2 = d0 * Math.sin(d1) + 0.5D;
                     double d3 = d0 * Math.cos(d1) + 0.5D;
-                    BlockPos blockpos = this.basePos.add(d2, (double)(k - 1), d3);
+                    BlockPos blockpos = this.basePos.add(d2, k - 1, d3);
                     BlockPos blockpos1 = blockpos.up(this.leafDistanceLimit);
 
                     if (this.checkBlockLine(blockpos, blockpos1) == -1)
                     {
                         int i1 = this.basePos.getX() - blockpos.getX();
                         int j1 = this.basePos.getZ() - blockpos.getZ();
-                        double d4 = (double)blockpos.getY() - Math.sqrt((double)(i1 * i1 + j1 * j1)) * this.branchSlope;
+                        double d4 = (double)blockpos.getY() - Math.sqrt(i1 * i1 + j1 * j1) * this.branchSlope;
                         int k1 = d4 > (double)j ? j : (int)d4;
                         BlockPos blockpos2 = new BlockPos(this.basePos.getX(), k1, this.basePos.getZ());
 
@@ -157,7 +157,7 @@ public class WorldGenBigTree extends WorldGenAbstractTree
     {
         for (int i = 0; i < this.leafDistanceLimit; ++i)
         {
-            this.func_181631_a(pos.up(i), this.leafSize(i), Blocks.leaves.getDefaultState().withProperty(BlockLeaves.CHECK_DECAY, Boolean.valueOf(false)));
+            this.func_181631_a(pos.up(i), this.leafSize(i), Blocks.leaves.getDefaultState().withProperty(BlockLeaves.CHECK_DECAY, Boolean.FALSE));
         }
     }
 
@@ -171,7 +171,7 @@ public class WorldGenBigTree extends WorldGenAbstractTree
 
         for (int j = 0; j <= i; ++j)
         {
-            BlockPos blockpos1 = p_175937_1_.add((double)(0.5F + (float)j * f), (double)(0.5F + (float)j * f1), (double)(0.5F + (float)j * f2));
+            BlockPos blockpos1 = p_175937_1_.add(0.5F + (float)j * f, 0.5F + (float)j * f1, 0.5F + (float)j * f2);
             BlockLog.EnumAxis blocklog$enumaxis = this.func_175938_b(p_175937_1_, blockpos1);
             this.setBlockAndNotifyAdequately(this.world, blockpos1, p_175937_3_.getDefaultState().withProperty(BlockLog.LOG_AXIS, blocklog$enumaxis));
         }
@@ -277,24 +277,17 @@ public class WorldGenBigTree extends WorldGenAbstractTree
         float f1 = (float)blockpos.getY() / (float)i;
         float f2 = (float)blockpos.getZ() / (float)i;
 
-        if (i == 0)
-        {
-            return -1;
-        }
-        else
-        {
-            for (int j = 0; j <= i; ++j)
-            {
-                BlockPos blockpos1 = posOne.add((double)(0.5F + (float)j * f), (double)(0.5F + (float)j * f1), (double)(0.5F + (float)j * f2));
+        if (i != 0) {
+            for (int j = 0; j <= i; ++j) {
+                BlockPos blockpos1 = posOne.add(0.5F + (float) j * f, 0.5F + (float) j * f1, 0.5F + (float) j * f2);
 
-                if (!this.func_150523_a(this.world.getBlockState(blockpos1).getBlock()))
-                {
+                if (!this.func_150523_a(this.world.getBlockState(blockpos1).getBlock())) {
                     return j;
                 }
             }
 
-            return -1;
         }
+        return -1;
     }
 
     public void func_175904_e()

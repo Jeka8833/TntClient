@@ -134,7 +134,7 @@ public class ServerData
         this.field_181042_l = serverDataIn.field_181042_l;
     }
 
-    public static enum ServerResourceMode
+    public enum ServerResourceMode
     {
         ENABLED("enabled"),
         DISABLED("disabled"),
@@ -142,9 +142,9 @@ public class ServerData
 
         private final IChatComponent motd;
 
-        private ServerResourceMode(String p_i1053_3_)
+        ServerResourceMode(String p_i1053_3_)
         {
-            this.motd = new ChatComponentTranslation("addServer.resourcePack." + p_i1053_3_, new Object[0]);
+            this.motd = new ChatComponentTranslation("addServer.resourcePack." + p_i1053_3_);
         }
 
         public IChatComponent getMotd()

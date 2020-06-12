@@ -88,7 +88,7 @@ public class EntityVillager extends EntityAgeable implements IMerchant, INpc
     private int careerLevel;
     private boolean isLookingForHome;
     private boolean areAdditionalTasksSet;
-    private InventoryBasic villagerInventory;
+    private final InventoryBasic villagerInventory;
 
     /**
      * A multi-dimensional array mapping the various professions, careers and career levels that a Villager may offer
@@ -249,7 +249,7 @@ public class EntityVillager extends EntityAgeable implements IMerchant, INpc
     protected void entityInit()
     {
         super.entityInit();
-        this.dataWatcher.addObject(16, Integer.valueOf(0));
+        this.dataWatcher.addObject(16, 0);
     }
 
     /**
@@ -352,7 +352,7 @@ public class EntityVillager extends EntityAgeable implements IMerchant, INpc
 
     public void setProfession(int professionId)
     {
-        this.dataWatcher.updateObject(16, Integer.valueOf(professionId));
+        this.dataWatcher.updateObject(16, professionId);
     }
 
     public int getProfession()
@@ -557,7 +557,7 @@ public class EntityVillager extends EntityAgeable implements IMerchant, INpc
         }
     }
 
-    public MerchantRecipeList getRecipes(EntityPlayer p_70934_1_)
+    public MerchantRecipeList getRecipes()
     {
         if (this.buyingList == null)
         {
@@ -687,7 +687,7 @@ public class EntityVillager extends EntityAgeable implements IMerchant, INpc
 
             if (s1 != null)
             {
-                ChatComponentTranslation chatcomponenttranslation = new ChatComponentTranslation("entity.Villager." + s1, new Object[0]);
+                ChatComponentTranslation chatcomponenttranslation = new ChatComponentTranslation("entity.Villager." + s1);
                 chatcomponenttranslation.getChatStyle().setChatHoverEvent(this.getHoverEvent());
                 chatcomponenttranslation.getChatStyle().setInsertion(this.getUniqueID().toString());
                 return chatcomponenttranslation;
@@ -738,7 +738,7 @@ public class EntityVillager extends EntityAgeable implements IMerchant, INpc
             double d0 = this.rand.nextGaussian() * 0.02D;
             double d1 = this.rand.nextGaussian() * 0.02D;
             double d2 = this.rand.nextGaussian() * 0.02D;
-            this.worldObj.spawnParticle(particleType, this.posX + (double)(this.rand.nextFloat() * this.width * 2.0F) - (double)this.width, this.posY + 1.0D + (double)(this.rand.nextFloat() * this.height), this.posZ + (double)(this.rand.nextFloat() * this.width * 2.0F) - (double)this.width, d0, d1, d2, new int[0]);
+            this.worldObj.spawnParticle(particleType, this.posX + (double)(this.rand.nextFloat() * this.width * 2.0F) - (double)this.width, this.posY + 1.0D + (double)(this.rand.nextFloat() * this.height), this.posZ + (double)(this.rand.nextFloat() * this.width * 2.0F) - (double)this.width, d0, d1, d2);
         }
     }
 
@@ -762,7 +762,7 @@ public class EntityVillager extends EntityAgeable implements IMerchant, INpc
     public EntityVillager createChild(EntityAgeable ageable)
     {
         EntityVillager entityvillager = new EntityVillager(this.worldObj);
-        entityvillager.onInitialSpawn(this.worldObj.getDifficultyForLocation(new BlockPos(entityvillager)), (IEntityLivingData)null);
+        entityvillager.onInitialSpawn(this.worldObj.getDifficultyForLocation(new BlockPos(entityvillager)), null);
         return entityvillager;
     }
 
@@ -780,7 +780,7 @@ public class EntityVillager extends EntityAgeable implements IMerchant, INpc
         {
             EntityWitch entitywitch = new EntityWitch(this.worldObj);
             entitywitch.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, this.rotationPitch);
-            entitywitch.onInitialSpawn(this.worldObj.getDifficultyForLocation(new BlockPos(entitywitch)), (IEntityLivingData)null);
+            entitywitch.onInitialSpawn(this.worldObj.getDifficultyForLocation(new BlockPos(entitywitch)), null);
             entitywitch.setNoAI(this.isAIDisabled());
 
             if (this.hasCustomName())
@@ -918,8 +918,8 @@ public class EntityVillager extends EntityAgeable implements IMerchant, INpc
 
     static class EmeraldForItems implements EntityVillager.ITradeList
     {
-        public Item sellItem;
-        public EntityVillager.PriceInfo price;
+        public final Item sellItem;
+        public final EntityVillager.PriceInfo price;
 
         public EmeraldForItems(Item itemIn, EntityVillager.PriceInfo priceIn)
         {
@@ -947,10 +947,10 @@ public class EntityVillager extends EntityAgeable implements IMerchant, INpc
 
     static class ItemAndEmeraldToItem implements EntityVillager.ITradeList
     {
-        public ItemStack field_179411_a;
-        public EntityVillager.PriceInfo field_179409_b;
-        public ItemStack field_179410_c;
-        public EntityVillager.PriceInfo field_179408_d;
+        public final ItemStack field_179411_a;
+        public final EntityVillager.PriceInfo field_179409_b;
+        public final ItemStack field_179410_c;
+        public final EntityVillager.PriceInfo field_179408_d;
 
         public ItemAndEmeraldToItem(Item p_i45813_1_, EntityVillager.PriceInfo p_i45813_2_, Item p_i45813_3_, EntityVillager.PriceInfo p_i45813_4_)
         {
@@ -1000,8 +1000,8 @@ public class EntityVillager extends EntityAgeable implements IMerchant, INpc
 
     static class ListEnchantedItemForEmeralds implements EntityVillager.ITradeList
     {
-        public ItemStack field_179407_a;
-        public EntityVillager.PriceInfo field_179406_b;
+        public final ItemStack field_179407_a;
+        public final EntityVillager.PriceInfo field_179406_b;
 
         public ListEnchantedItemForEmeralds(Item p_i45814_1_, EntityVillager.PriceInfo p_i45814_2_)
         {
@@ -1027,8 +1027,8 @@ public class EntityVillager extends EntityAgeable implements IMerchant, INpc
 
     static class ListItemForEmeralds implements EntityVillager.ITradeList
     {
-        public ItemStack field_179403_a;
-        public EntityVillager.PriceInfo field_179402_b;
+        public final ItemStack field_179403_a;
+        public final EntityVillager.PriceInfo field_179402_b;
 
         public ListItemForEmeralds(Item par1Item, EntityVillager.PriceInfo priceInfo)
         {
@@ -1073,12 +1073,12 @@ public class EntityVillager extends EntityAgeable implements IMerchant, INpc
     {
         public PriceInfo(int p_i45810_1_, int p_i45810_2_)
         {
-            super(Integer.valueOf(p_i45810_1_), Integer.valueOf(p_i45810_2_));
+            super(p_i45810_1_, p_i45810_2_);
         }
 
         public int getPrice(Random rand)
         {
-            return ((Integer)this.getFirst()).intValue() >= ((Integer)this.getSecond()).intValue() ? ((Integer)this.getFirst()).intValue() : ((Integer)this.getFirst()).intValue() + rand.nextInt(((Integer)this.getSecond()).intValue() - ((Integer)this.getFirst()).intValue() + 1);
+            return this.getFirst() >= this.getSecond() ? this.getFirst() : this.getFirst() + rand.nextInt(this.getSecond() - this.getFirst() + 1);
         }
     }
 }

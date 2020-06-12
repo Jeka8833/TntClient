@@ -30,9 +30,9 @@ public abstract class MapGenStructure extends MapGenBase
      * generation, the structure generator can avoid generating structures that intersect ones that have already been
      * placed.
      */
-    protected Map structureMap = Maps.newHashMap();
+    protected final Map structureMap = Maps.newHashMap();
     private static final String __OBFID = "CL_00000505";
-    private LongHashMap structureLongMap = new LongHashMap();
+    private final LongHashMap structureLongMap = new LongHashMap();
 
     public abstract String getStructureName();
 
@@ -52,7 +52,7 @@ public abstract class MapGenStructure extends MapGenBase
                 if (this.canSpawnStructureAtCoords(chunkX, chunkZ))
                 {
                     StructureStart structurestart = this.getStructureStart(chunkX, chunkZ);
-                    this.structureMap.put(Long.valueOf(ChunkCoordIntPair.chunkXZ2Int(chunkX, chunkZ)), structurestart);
+                    this.structureMap.put(ChunkCoordIntPair.chunkXZ2Int(chunkX, chunkZ), structurestart);
                     this.structureLongMap.add(ChunkCoordIntPair.chunkXZ2Int(chunkX, chunkZ), structurestart);
                     this.func_143026_a(chunkX, chunkZ, structurestart);
                 }
@@ -69,7 +69,7 @@ public abstract class MapGenStructure extends MapGenBase
                         return MapGenStructure.this.canSpawnStructureAtCoords(chunkX, chunkZ) ? "True" : "False";
                     }
                 });
-                crashreportcategory.addCrashSection("Chunk location", String.format("%d,%d", new Object[] {Integer.valueOf(chunkX), Integer.valueOf(chunkZ)}));
+                crashreportcategory.addCrashSection("Chunk location", String.format("%d,%d", chunkX, chunkZ));
                 crashreportcategory.addCrashSectionCallable("Chunk pos hash", new Callable()
                 {
                     private static final String __OBFID = "CL_00000507";
@@ -181,7 +181,7 @@ public abstract class MapGenStructure extends MapGenBase
         long k = (long)(pos.getX() >> 4) * i;
         long l = (long)(pos.getZ() >> 4) * j;
         this.rand.setSeed(k ^ l ^ worldIn.getSeed());
-        this.recursiveGenerate(worldIn, pos.getX() >> 4, pos.getZ() >> 4, 0, 0, (ChunkPrimer)null);
+        this.recursiveGenerate(worldIn, pos.getX() >> 4, pos.getZ() >> 4, 0, 0, null);
         double d0 = Double.MAX_VALUE;
         BlockPos blockpos = null;
 
@@ -191,7 +191,7 @@ public abstract class MapGenStructure extends MapGenBase
 
             if (structurestart.isSizeableStructure())
             {
-                StructureComponent structurecomponent = (StructureComponent)structurestart.getComponents().get(0);
+                StructureComponent structurecomponent = structurestart.getComponents().get(0);
                 BlockPos blockpos1 = structurecomponent.getBoundingBoxCenter();
                 double d1 = blockpos1.distanceSq(pos);
 
@@ -292,7 +292,7 @@ public abstract class MapGenStructure extends MapGenBase
 
                             if (structurestart != null)
                             {
-                                this.structureMap.put(Long.valueOf(ChunkCoordIntPair.chunkXZ2Int(i, j)), structurestart);
+                                this.structureMap.put(ChunkCoordIntPair.chunkXZ2Int(i, j), structurestart);
                                 this.structureLongMap.add(ChunkCoordIntPair.chunkXZ2Int(i, j), structurestart);
                             }
                         }

@@ -7,22 +7,22 @@ import net.minecraft.entity.monster.EntityIronGolem;
 public class ModelIronGolem extends ModelBase
 {
     /** The head model for the iron golem. */
-    public ModelRenderer ironGolemHead;
+    public final ModelRenderer ironGolemHead;
 
     /** The body model for the iron golem. */
-    public ModelRenderer ironGolemBody;
+    public final ModelRenderer ironGolemBody;
 
     /** The right arm model for the iron golem. */
-    public ModelRenderer ironGolemRightArm;
+    public final ModelRenderer ironGolemRightArm;
 
     /** The left arm model for the iron golem. */
-    public ModelRenderer ironGolemLeftArm;
+    public final ModelRenderer ironGolemLeftArm;
 
     /** The left leg model for the Iron Golem. */
-    public ModelRenderer ironGolemLeftLeg;
+    public final ModelRenderer ironGolemLeftLeg;
 
     /** The right leg model for the Iron Golem. */
-    public ModelRenderer ironGolemRightLeg;
+    public final ModelRenderer ironGolemRightLeg;
 
     public ModelIronGolem()
     {

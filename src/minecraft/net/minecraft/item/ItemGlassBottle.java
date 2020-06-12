@@ -23,44 +23,33 @@ public class ItemGlassBottle extends Item
     {
         MovingObjectPosition movingobjectposition = this.getMovingObjectPositionFromPlayer(worldIn, playerIn, true);
 
-        if (movingobjectposition == null)
-        {
-            return itemStackIn;
-        }
-        else
-        {
-            if (movingobjectposition.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK)
-            {
+        if (movingobjectposition != null) {
+            if (movingobjectposition.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
                 BlockPos blockpos = movingobjectposition.getBlockPos();
 
-                if (!worldIn.isBlockModifiable(playerIn, blockpos))
-                {
+                if (worldIn.isBlockModifiable(playerIn, blockpos)) {
                     return itemStackIn;
                 }
 
-                if (!playerIn.canPlayerEdit(blockpos.offset(movingobjectposition.sideHit), movingobjectposition.sideHit, itemStackIn))
-                {
+                if (!playerIn.canPlayerEdit(blockpos.offset(movingobjectposition.sideHit), movingobjectposition.sideHit, itemStackIn)) {
                     return itemStackIn;
                 }
 
-                if (worldIn.getBlockState(blockpos).getBlock().getMaterial() == Material.water)
-                {
+                if (worldIn.getBlockState(blockpos).getBlock().getMaterial() == Material.water) {
                     --itemStackIn.stackSize;
                     playerIn.triggerAchievement(StatList.objectUseStats[Item.getIdFromItem(this)]);
 
-                    if (itemStackIn.stackSize <= 0)
-                    {
+                    if (itemStackIn.stackSize <= 0) {
                         return new ItemStack(Items.potionitem);
                     }
 
-                    if (!playerIn.inventory.addItemStackToInventory(new ItemStack(Items.potionitem)))
-                    {
-                        playerIn.dropPlayerItemWithRandomChoice(new ItemStack(Items.potionitem, 1, 0), false);
+                    if (!playerIn.inventory.addItemStackToInventory(new ItemStack(Items.potionitem))) {
+                        playerIn.dropPlayerItemWithRandomChoice(new ItemStack(Items.potionitem, 1, 0));
                     }
                 }
             }
 
-            return itemStackIn;
         }
+        return itemStackIn;
     }
 }

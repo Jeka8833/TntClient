@@ -18,7 +18,7 @@ public class CommandDefaultGameMode extends CommandGameMode
     /**
      * Gets the usage string for the command.
      */
-    public String getCommandUsage(ICommandSender sender)
+    public String getCommandUsage()
     {
         return "commands.defaultgamemode.usage";
     }
@@ -30,13 +30,13 @@ public class CommandDefaultGameMode extends CommandGameMode
     {
         if (args.length <= 0)
         {
-            throw new WrongUsageException("commands.defaultgamemode.usage", new Object[0]);
+            throw new WrongUsageException("commands.defaultgamemode.usage");
         }
         else
         {
-            WorldSettings.GameType worldsettings$gametype = this.getGameModeFromCommand(sender, args[0]);
+            WorldSettings.GameType worldsettings$gametype = this.getGameModeFromCommand(args[0]);
             this.setGameType(worldsettings$gametype);
-            notifyOperators(sender, this, "commands.defaultgamemode.success", new Object[] {new ChatComponentTranslation("gameMode." + worldsettings$gametype.getName(), new Object[0])});
+            notifyOperators(sender, this, "commands.defaultgamemode.success", new ChatComponentTranslation("gameMode." + worldsettings$gametype.getName()));
         }
     }
 

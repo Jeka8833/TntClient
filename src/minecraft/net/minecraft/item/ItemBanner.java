@@ -23,7 +23,7 @@ public class ItemBanner extends ItemBlock
         super(Blocks.standing_banner);
         this.maxStackSize = 16;
         this.setCreativeTab(CreativeTabs.tabDecorations);
-        this.setHasSubtypes(true);
+        this.setHasSubtypes();
         this.setMaxDamage(0);
     }
 
@@ -61,7 +61,7 @@ public class ItemBanner extends ItemBlock
                 if (side == EnumFacing.UP)
                 {
                     int i = MathHelper.floor_double((double)((playerIn.rotationYaw + 180.0F) * 16.0F / 360.0F) + 0.5D) & 15;
-                    worldIn.setBlockState(pos, Blocks.standing_banner.getDefaultState().withProperty(BlockStandingSign.ROTATION, Integer.valueOf(i)), 3);
+                    worldIn.setBlockState(pos, Blocks.standing_banner.getDefaultState().withProperty(BlockStandingSign.ROTATION, i), 3);
                 }
                 else
                 {
@@ -135,7 +135,7 @@ public class ItemBanner extends ItemBlock
         for (EnumDyeColor enumdyecolor : EnumDyeColor.values())
         {
             NBTTagCompound nbttagcompound = new NBTTagCompound();
-            TileEntityBanner.func_181020_a(nbttagcompound, enumdyecolor.getDyeDamage(), (NBTTagList)null);
+            TileEntityBanner.func_181020_a(nbttagcompound, enumdyecolor.getDyeDamage(), null);
             NBTTagCompound nbttagcompound1 = new NBTTagCompound();
             nbttagcompound1.setTag("BlockEntityTag", nbttagcompound);
             ItemStack itemstack = new ItemStack(itemIn, 1, enumdyecolor.getDyeDamage());

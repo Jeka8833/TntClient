@@ -5,14 +5,14 @@ import net.minecraft.entity.Entity;
 
 public class ModelPlayer extends ModelBiped
 {
-    public ModelRenderer bipedLeftArmwear;
-    public ModelRenderer bipedRightArmwear;
-    public ModelRenderer bipedLeftLegwear;
-    public ModelRenderer bipedRightLegwear;
-    public ModelRenderer bipedBodyWear;
-    private ModelRenderer bipedCape;
-    private ModelRenderer bipedDeadmau5Head;
-    private boolean smallArms;
+    public final ModelRenderer bipedLeftArmwear;
+    public final ModelRenderer bipedRightArmwear;
+    public final ModelRenderer bipedLeftLegwear;
+    public final ModelRenderer bipedRightLegwear;
+    public final ModelRenderer bipedBodyWear;
+    private final ModelRenderer bipedCape;
+    private final ModelRenderer bipedDeadmau5Head;
+    private final boolean smallArms;
     private static final String __OBFID = "CL_00002626";
 
     public ModelPlayer(float p_i46304_1_, boolean p_i46304_2_)
@@ -80,11 +80,6 @@ public class ModelPlayer extends ModelBiped
             float f = 2.0F;
             GlStateManager.scale(1.0F / f, 1.0F / f, 1.0F / f);
             GlStateManager.translate(0.0F, 24.0F * scale, 0.0F);
-            this.bipedLeftLegwear.render(scale);
-            this.bipedRightLegwear.render(scale);
-            this.bipedLeftArmwear.render(scale);
-            this.bipedRightArmwear.render(scale);
-            this.bipedBodyWear.render(scale);
         }
         else
         {
@@ -93,12 +88,12 @@ public class ModelPlayer extends ModelBiped
                 GlStateManager.translate(0.0F, 0.2F, 0.0F);
             }
 
-            this.bipedLeftLegwear.render(scale);
-            this.bipedRightLegwear.render(scale);
-            this.bipedLeftArmwear.render(scale);
-            this.bipedRightArmwear.render(scale);
-            this.bipedBodyWear.render(scale);
         }
+        this.bipedLeftLegwear.render(scale);
+        this.bipedRightLegwear.render(scale);
+        this.bipedLeftArmwear.render(scale);
+        this.bipedRightArmwear.render(scale);
+        this.bipedBodyWear.render(scale);
 
         GlStateManager.popMatrix();
     }

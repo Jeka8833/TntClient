@@ -14,38 +14,26 @@ public class FontUtils
         Properties properties = new Properties();
         String s1 = ".png";
 
-        if (!s.endsWith(s1))
-        {
-            return properties;
-        }
-        else
-        {
+        if (s.endsWith(s1)) {
             String s2 = s.substring(0, s.length() - s1.length()) + ".properties";
 
-            try
-            {
+            try {
                 ResourceLocation resourcelocation = new ResourceLocation(p_readFontProperties_0_.getResourceDomain(), s2);
                 InputStream inputstream = Config.getResourceStream(Config.getResourceManager(), resourcelocation);
 
-                if (inputstream == null)
-                {
+                if (inputstream == null) {
                     return properties;
                 }
 
                 Config.log("Loading " + s2);
                 properties.load(inputstream);
-            }
-            catch (FileNotFoundException var7)
-            {
-                ;
-            }
-            catch (IOException ioexception)
-            {
+            } catch (FileNotFoundException ignored) {
+            } catch (IOException ioexception) {
                 ioexception.printStackTrace();
             }
 
-            return properties;
         }
+        return properties;
     }
 
     public static void readCustomCharWidths(Properties p_readCustomCharWidths_0_, float[] p_readCustomCharWidths_1_)

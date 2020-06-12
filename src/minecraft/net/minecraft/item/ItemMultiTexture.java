@@ -14,7 +14,7 @@ public class ItemMultiTexture extends ItemBlock
         this.theBlock = block2;
         this.nameFunction = nameFunction;
         this.setMaxDamage(0);
-        this.setHasSubtypes(true);
+        this.setHasSubtypes();
     }
 
     public ItemMultiTexture(Block block, Block block2, final String[] namesByMeta)
@@ -50,6 +50,6 @@ public class ItemMultiTexture extends ItemBlock
      */
     public String getUnlocalizedName(ItemStack stack)
     {
-        return super.getUnlocalizedName() + "." + (String)this.nameFunction.apply(stack);
+        return super.getUnlocalizedName() + "." + this.nameFunction.apply(stack);
     }
 }

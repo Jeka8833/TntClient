@@ -39,7 +39,7 @@ public class PathNavigateGround extends PathNavigate
 
     protected Vec3 getEntityPosition()
     {
-        return new Vec3(this.theEntity.posX, (double)this.getPathablePosY(), this.theEntity.posZ);
+        return new Vec3(this.theEntity.posX, this.getPathablePosY(), this.theEntity.posZ);
     }
 
     /**
@@ -124,7 +124,7 @@ public class PathNavigateGround extends PathNavigate
             sizeX = sizeX + 2;
             sizeZ = sizeZ + 2;
 
-            if (!this.isSafeToStandAt(i, (int)posVec31.yCoord, j, sizeX, sizeY, sizeZ, posVec31, d0, d1))
+            if (this.isSafeToStandAt(i, (int) posVec31.yCoord, j, sizeX, sizeY, sizeZ, posVec31, d0, d1))
             {
                 return false;
             }
@@ -134,8 +134,8 @@ public class PathNavigateGround extends PathNavigate
                 sizeZ = sizeZ - 2;
                 double d4 = 1.0D / Math.abs(d0);
                 double d5 = 1.0D / Math.abs(d1);
-                double d6 = (double)(i * 1) - posVec31.xCoord;
-                double d7 = (double)(j * 1) - posVec31.zCoord;
+                double d6 = (double)(i) - posVec31.xCoord;
+                double d7 = (double)(j) - posVec31.zCoord;
 
                 if (d0 >= 0.0D)
                 {
@@ -171,7 +171,7 @@ public class PathNavigateGround extends PathNavigate
                         l1 = j1 - j;
                     }
 
-                    if (!this.isSafeToStandAt(i, (int)posVec31.yCoord, j, sizeX, sizeY, sizeZ, posVec31, d0, d1))
+                    if (this.isSafeToStandAt(i, (int) posVec31.yCoord, j, sizeX, sizeY, sizeZ, posVec31, d0, d1))
                     {
                         return false;
                     }
@@ -192,7 +192,7 @@ public class PathNavigateGround extends PathNavigate
 
         if (!this.isPositionClear(i, y, j, sizeX, sizeY, sizeZ, vec31, p_179683_8_, p_179683_10_))
         {
-            return false;
+            return true;
         }
         else
         {
@@ -210,23 +210,23 @@ public class PathNavigateGround extends PathNavigate
 
                         if (material == Material.air)
                         {
-                            return false;
+                            return true;
                         }
 
                         if (material == Material.water && !this.theEntity.isInWater())
                         {
-                            return false;
+                            return true;
                         }
 
                         if (material == Material.lava)
                         {
-                            return false;
+                            return true;
                         }
                     }
                 }
             }
 
-            return true;
+            return false;
         }
     }
 
@@ -244,7 +244,7 @@ public class PathNavigateGround extends PathNavigate
             {
                 Block block = this.worldObj.getBlockState(blockpos).getBlock();
 
-                if (!block.isPassable(this.worldObj, blockpos))
+                if (block.isPassable(this.worldObj, blockpos))
                 {
                     return false;
                 }

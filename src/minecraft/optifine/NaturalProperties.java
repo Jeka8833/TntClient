@@ -11,7 +11,7 @@ public class NaturalProperties
 {
     public int rotation = 1;
     public boolean flip = false;
-    private Map[] quadMaps = new Map[8];
+    private final Map[] quadMaps = new Map[8];
 
     public NaturalProperties(String p_i68_1_)
     {

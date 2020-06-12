@@ -11,10 +11,6 @@ public class UserListEntry<T>
         this.value = p_i1146_1_;
     }
 
-    protected UserListEntry(T p_i1147_1_, JsonObject p_i1147_2_)
-    {
-        this.value = p_i1147_1_;
-    }
 
     T getValue()
     {

@@ -23,7 +23,7 @@ public class WorldProviderHell extends WorldProvider
     /**
      * Return Vec3D with biome specific fog color
      */
-    public Vec3 getFogColor(float p_76562_1_, float p_76562_2_)
+    public Vec3 getFogColor(float p_76562_1_)
     {
         return new Vec3(0.20000000298023224D, 0.029999999329447746D, 0.029999999329447746D);
     }
@@ -85,7 +85,7 @@ public class WorldProviderHell extends WorldProvider
     /**
      * Returns true if the given X,Z coordinate should show environmental fog.
      */
-    public boolean doesXZShowFog(int x, int z)
+    public boolean doesXZShowFog()
     {
         return true;
     }

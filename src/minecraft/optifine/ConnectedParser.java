@@ -17,7 +17,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 
 public class ConnectedParser
 {
-    private String context;
+    private final String context;
     private static final MatchBlock[] NO_MATCH_BLOCKS = new MatchBlock[0];
 
     public ConnectedParser(String p_i31_1_)
@@ -316,9 +316,8 @@ public class ConnectedParser
                                 list1.add(k);
                             }
                         }
-                        catch (IllegalArgumentException var18)
+                        catch (IllegalArgumentException ignored)
                         {
-                            ;
                         }
                     }
 

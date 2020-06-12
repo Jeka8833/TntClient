@@ -42,7 +42,7 @@ public class RenderItemFrame extends Render
     private final Minecraft mc = Minecraft.getMinecraft();
     private final ModelResourceLocation itemFrameModel = new ModelResourceLocation("item_frame", "normal");
     private final ModelResourceLocation mapModel = new ModelResourceLocation("item_frame", "map");
-    private RenderItem itemRenderer;
+    private final RenderItem itemRenderer;
     private static final String __OBFID = "CL_00001002";
 
     public RenderItemFrame(RenderManager renderManagerIn, RenderItem itemRendererIn)
@@ -57,7 +57,7 @@ public class RenderItemFrame extends Render
      * (Render<T extends Entity>) and this method has signature public void doRender(T entity, double d, double d1,
      * double d2, float f, float f1). But JAD is pre 1.5 so doe
      */
-    public void doRender(EntityItemFrame entity, double x, double y, double z, float entityYaw, float partialTicks)
+    public void doRender(EntityItemFrame entity, double x, double y, double z)
     {
         GlStateManager.pushMatrix();
         BlockPos blockpos = entity.getHangingPosition();
@@ -93,7 +93,7 @@ public class RenderItemFrame extends Render
     /**
      * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
      */
-    protected ResourceLocation getEntityTexture(EntityItemFrame entity)
+    protected ResourceLocation getEntityTexture()
     {
         return null;
     }
@@ -119,7 +119,7 @@ public class RenderItemFrame extends Render
 
             GlStateManager.rotate((float)i * 360.0F / 8.0F, 0.0F, 0.0F, 1.0F);
 
-            if (!Reflector.postForgeBusEvent(Reflector.RenderItemInFrameEvent_Constructor, new Object[] {itemFrame, this}))
+            if (!Reflector.postForgeBusEvent(Reflector.RenderItemInFrameEvent_Constructor, itemFrame, this))
             {
                 if (item instanceof ItemMap)
                 {
@@ -160,7 +160,7 @@ public class RenderItemFrame extends Render
                             double d1 = texturecompass.angleDelta;
                             texturecompass.currentAngle = 0.0D;
                             texturecompass.angleDelta = 0.0D;
-                            texturecompass.updateCompass(itemFrame.worldObj, itemFrame.posX, itemFrame.posZ, (double)MathHelper.wrapAngleTo180_float((float)(180 + itemFrame.facingDirection.getHorizontalIndex() * 90)), false, true);
+                            texturecompass.updateCompass(itemFrame.worldObj, itemFrame.posX, itemFrame.posZ, MathHelper.wrapAngleTo180_float((float)(180 + itemFrame.facingDirection.getHorizontalIndex() * 90)), false, true);
                             texturecompass.currentAngle = d0;
                             texturecompass.angleDelta = d1;
                         }
@@ -226,10 +226,10 @@ public class RenderItemFrame extends Render
                     int i = fontrenderer.getStringWidth(s) / 2;
                     GlStateManager.disableTexture2D();
                     worldrenderer.begin(7, DefaultVertexFormats.POSITION_COLOR);
-                    worldrenderer.pos((double)(-i - 1), -1.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
-                    worldrenderer.pos((double)(-i - 1), 8.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
-                    worldrenderer.pos((double)(i + 1), 8.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
-                    worldrenderer.pos((double)(i + 1), -1.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
+                    worldrenderer.pos(-i - 1, -1.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
+                    worldrenderer.pos(-i - 1, 8.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
+                    worldrenderer.pos(i + 1, 8.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
+                    worldrenderer.pos(i + 1, -1.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
                     tessellator.draw();
                     GlStateManager.enableTexture2D();
                     GlStateManager.depthMask(true);
@@ -252,7 +252,7 @@ public class RenderItemFrame extends Render
      */
     protected ResourceLocation getEntityTexture(Entity entity)
     {
-        return this.getEntityTexture((EntityItemFrame)entity);
+        return this.getEntityTexture();
     }
 
     protected void renderName(Entity entity, double x, double y, double z)
@@ -268,6 +268,6 @@ public class RenderItemFrame extends Render
      */
     public void doRender(Entity entity, double x, double y, double z, float entityYaw, float partialTicks)
     {
-        this.doRender((EntityItemFrame)entity, x, y, z, entityYaw, partialTicks);
+        this.doRender((EntityItemFrame)entity, x, y, z);
     }
 }

@@ -11,7 +11,7 @@ import net.minecraft.client.settings.GameSettings;
 
 public class TooltipManager
 {
-    private GuiScreen guiScreen;
+    private final GuiScreen guiScreen;
     private int lastMouseX = 0;
     private int lastMouseY = 0;
     private long mouseStillTime = 0L;

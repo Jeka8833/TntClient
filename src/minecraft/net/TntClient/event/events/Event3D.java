@@ -4,7 +4,7 @@ import net.TntClient.event.Event;
 
 public class Event3D extends Event
 {
-    private float partialTicks;
+    private final float partialTicks;
 
     public Event3D(float partialTicks)
     {

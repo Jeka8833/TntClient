@@ -33,6 +33,7 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.lang.reflect.Array;
 import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -52,7 +53,7 @@ public class Config
     public static boolean fancyFogAvailable = false;
     public static boolean occlusionAvailable = false;
     private static GameSettings gameSettings = null;
-    private static Minecraft minecraft = Minecraft.getMinecraft();
+    private static final Minecraft minecraft = Minecraft.getMinecraft();
     private static boolean initialized = false;
     private static Thread minecraftThread = null;
     private static DisplayMode desktopDisplayMode = null;
@@ -74,7 +75,7 @@ public class Config
 
     public static String getVersionDebug()
     {
-        StringBuffer stringbuffer = new StringBuffer(32);
+        StringBuilder stringbuffer = new StringBuilder(32);
 
         if (isDynamicLights())
         {
@@ -259,7 +260,7 @@ public class Config
         if (glslVersion == null)
         {
             String s = GL11.glGetString(GL20.GL_SHADING_LANGUAGE_VERSION);
-            glslVersion = parseGlVersion(s, (GlVersion)null);
+            glslVersion = parseGlVersion(s, null);
 
             if (glslVersion == null)
             {
@@ -508,12 +509,12 @@ public class Config
 
     public static boolean isCloudsFancy()
     {
-        return gameSettings.ofClouds != 0 ? gameSettings.ofClouds == 2 : (isShaders() && !Shaders.shaderPackClouds.isDefault() ? Shaders.shaderPackClouds.isFancy() : (texturePackClouds != 0 ? texturePackClouds == 2 : gameSettings.fancyGraphics));
+        return gameSettings.ofClouds != 0 ? gameSettings.ofClouds == 2 : (isShaders() && Shaders.shaderPackClouds.isDefault() ? Shaders.shaderPackClouds.isFancy() : (texturePackClouds != 0 ? texturePackClouds == 2 : gameSettings.fancyGraphics));
     }
 
     public static boolean isCloudsOff()
     {
-        return gameSettings.ofClouds != 0 ? gameSettings.ofClouds == 3 : (isShaders() && !Shaders.shaderPackClouds.isDefault() ? Shaders.shaderPackClouds.isOff() : (texturePackClouds == 3));
+        return gameSettings.ofClouds != 0 ? gameSettings.ofClouds != 3 : (isShaders() && Shaders.shaderPackClouds.isDefault() ? !Shaders.shaderPackClouds.isOff() : (texturePackClouds != 3));
     }
 
     public static void updateTexturePackClouds()
@@ -560,9 +561,8 @@ public class Config
                     texturePackClouds = 3;
                 }
             }
-            catch (Exception var4)
+            catch (Exception ignored)
             {
-                ;
             }
         }
     }
@@ -639,7 +639,7 @@ public class Config
 
     public static boolean isAnimatedExplosion()
     {
-        return gameSettings.ofAnimatedExplosion;
+        return !gameSettings.ofAnimatedExplosion;
     }
 
     public static boolean isAnimatedFlame()
@@ -649,7 +649,7 @@ public class Config
 
     public static boolean isAnimatedSmoke()
     {
-        return gameSettings.ofAnimatedSmoke;
+        return !gameSettings.ofAnimatedSmoke;
     }
 
     public static boolean isVoidParticles()
@@ -669,7 +669,7 @@ public class Config
 
     public static boolean isPotionParticles()
     {
-        return gameSettings.ofPotionParticles;
+        return !gameSettings.ofPotionParticles;
     }
 
     public static boolean isFireworkParticles()
@@ -690,7 +690,7 @@ public class Config
         }
         else
         {
-            StringBuffer stringbuffer = new StringBuffer(p_arrayToString_0_.length * 5);
+            StringBuilder stringbuffer = new StringBuilder(p_arrayToString_0_.length * 5);
 
             for (int i = 0; i < p_arrayToString_0_.length; ++i)
             {
@@ -716,7 +716,7 @@ public class Config
         }
         else
         {
-            StringBuffer stringbuffer = new StringBuffer(p_arrayToString_0_.length * 5);
+            StringBuilder stringbuffer = new StringBuilder(p_arrayToString_0_.length * 5);
 
             for (int i = 0; i < p_arrayToString_0_.length; ++i)
             {
@@ -800,7 +800,7 @@ public class Config
             list1.add(resourcepackrepository.getResourcePackInstance());
         }
 
-        return (IResourcePack[])((IResourcePack[])list1.toArray(new IResourcePack[list1.size()]));
+        return (IResourcePack[]) list1.toArray(new IResourcePack[0]);
     }
 
     public static String getResourcePackNames()
@@ -826,7 +826,7 @@ public class Config
                     astring[i] = airesourcepack[i].getPackName();
                 }
 
-                return arrayToString((Object[])astring);
+                return arrayToString(astring);
             }
         }
     }
@@ -875,7 +875,7 @@ public class Config
             {
                 for (int i = list.size() - 1; i >= 0; --i)
                 {
-                    Entry resourcepackrepository$entry = (Entry)list.get(i);
+                    Entry resourcepackrepository$entry = list.get(i);
                     IResourcePack iresourcepack1 = resourcepackrepository$entry.getResourcePack();
 
                     if (iresourcepack1.resourceExists(p_getDefiningResourcePack_0_))
@@ -1008,7 +1008,7 @@ public class Config
 
     public static boolean isDrippingWaterLava()
     {
-        return gameSettings.ofDrippingWaterLava;
+        return !gameSettings.ofDrippingWaterLava;
     }
 
     public static boolean isBetterSnow()
@@ -1113,7 +1113,7 @@ public class Config
             list.add(s);
         }
 
-        return (String[])((String[])list.toArray(new String[list.size()]));
+        return (String[]) list.toArray(new String[0]);
     }
 
     public static DisplayMode[] getDisplayModes()
@@ -1137,7 +1137,7 @@ public class Config
                     }
                 }
 
-                DisplayMode[] adisplaymode2 = (DisplayMode[])((DisplayMode[])list.toArray(new DisplayMode[list.size()]));
+                DisplayMode[] adisplaymode2 = (DisplayMode[]) list.toArray(new DisplayMode[0]);
                 Arrays.sort(adisplaymode2, new DisplayModeComparator());
                 return adisplaymode2;
             }
@@ -1179,7 +1179,7 @@ public class Config
             }
         }
 
-        return (DisplayMode[])((DisplayMode[])list.toArray(new DisplayMode[list.size()]));
+        return (DisplayMode[]) list.toArray(new DisplayMode[0]);
     }
 
     private static DisplayMode getDisplayMode(DisplayMode[] p_getDisplayMode_0_, DisplayMode p_getDisplayMode_1_)
@@ -1313,13 +1313,13 @@ public class Config
     public static String[] readLines(File p_readLines_0_) throws IOException
     {
         FileInputStream fileinputstream = new FileInputStream(p_readLines_0_);
-        return readLines((InputStream)fileinputstream);
+        return readLines(fileinputstream);
     }
 
     public static String[] readLines(InputStream p_readLines_0_) throws IOException
     {
         List list = new ArrayList();
-        InputStreamReader inputstreamreader = new InputStreamReader(p_readLines_0_, "ASCII");
+        InputStreamReader inputstreamreader = new InputStreamReader(p_readLines_0_, StandardCharsets.US_ASCII);
         BufferedReader bufferedreader = new BufferedReader(inputstreamreader);
 
         while (true)
@@ -1328,7 +1328,7 @@ public class Config
 
             if (s == null)
             {
-                return (String[])((String[])list.toArray(new String[list.size()]));
+                return (String[]) list.toArray(new String[0]);
             }
 
             list.add(s);
@@ -1350,7 +1350,7 @@ public class Config
     {
         InputStreamReader inputstreamreader = new InputStreamReader(p_readInputStream_0_, p_readInputStream_1_);
         BufferedReader bufferedreader = new BufferedReader(inputstreamreader);
-        StringBuffer stringbuffer = new StringBuffer();
+        StringBuilder stringbuffer = new StringBuilder();
 
         while (true)
         {
@@ -1366,7 +1366,7 @@ public class Config
         }
     }
 
-    public static byte[] readAll(InputStream p_readAll_0_) throws IOException
+    public static void readAll(InputStream p_readAll_0_) throws IOException
     {
         ByteArrayOutputStream bytearrayoutputstream = new ByteArrayOutputStream();
         byte[] abyte = new byte[1024];
@@ -1378,7 +1378,8 @@ public class Config
             if (i < 0)
             {
                 p_readAll_0_.close();
-                return bytearrayoutputstream.toByteArray();
+                bytearrayoutputstream.toByteArray();
+                return;
             }
 
             bytearrayoutputstream.write(abyte, 0, i);
@@ -1589,7 +1590,7 @@ public class Config
     private static ByteBuffer readIconImage(InputStream p_readIconImage_0_) throws IOException
     {
         BufferedImage bufferedimage = ImageIO.read(p_readIconImage_0_);
-        int[] aint = bufferedimage.getRGB(0, 0, bufferedimage.getWidth(), bufferedimage.getHeight(), (int[])null, 0, bufferedimage.getWidth());
+        int[] aint = bufferedimage.getRGB(0, 0, bufferedimage.getWidth(), bufferedimage.getHeight(), null, 0, bufferedimage.getWidth());
         ByteBuffer bytebuffer = ByteBuffer.allocate(4 * aint.length);
 
         for (int i : aint)
@@ -1706,7 +1707,7 @@ public class Config
         {
             int i = p_addObjectToArray_0_.length;
             int j = i + 1;
-            Object[] aobject = (Object[])((Object[])Array.newInstance(p_addObjectToArray_0_.getClass().getComponentType(), j));
+            Object[] aobject = (Object[]) Array.newInstance(p_addObjectToArray_0_.getClass().getComponentType(), j);
             System.arraycopy(p_addObjectToArray_0_, 0, aobject, 0, i);
             aobject[i] = p_addObjectToArray_1_;
             return aobject;
@@ -1717,7 +1718,7 @@ public class Config
     {
         List list = new ArrayList(Arrays.asList(p_addObjectToArray_0_));
         list.add(p_addObjectToArray_2_, p_addObjectToArray_1_);
-        Object[] aobject = (Object[])((Object[])Array.newInstance(p_addObjectToArray_0_.getClass().getComponentType(), list.size()));
+        Object[] aobject = (Object[]) Array.newInstance(p_addObjectToArray_0_.getClass().getComponentType(), list.size());
         return list.toArray(aobject);
     }
 
@@ -1735,7 +1736,7 @@ public class Config
         {
             int i = p_addObjectsToArray_0_.length;
             int j = i + p_addObjectsToArray_1_.length;
-            Object[] aobject = (Object[])((Object[])Array.newInstance(p_addObjectsToArray_0_.getClass().getComponentType(), j));
+            Object[] aobject = (Object[]) Array.newInstance(p_addObjectsToArray_0_.getClass().getComponentType(), j);
             System.arraycopy(p_addObjectsToArray_0_, 0, aobject, 0, i);
             System.arraycopy(p_addObjectsToArray_1_, 0, aobject, i, p_addObjectsToArray_1_.length);
             return aobject;
@@ -1850,7 +1851,7 @@ public class Config
     public static void writeFile(File p_writeFile_0_, String p_writeFile_1_) throws IOException
     {
         FileOutputStream fileoutputstream = new FileOutputStream(p_writeFile_0_);
-        byte[] abyte = p_writeFile_1_.getBytes("ASCII");
+        byte[] abyte = p_writeFile_1_.getBytes(StandardCharsets.US_ASCII);
         fileoutputstream.write(abyte);
         fileoutputstream.close();
     }

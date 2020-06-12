@@ -2,7 +2,6 @@ package net.minecraft.server.network;
 
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.status.INetHandlerStatusServer;
-import net.minecraft.network.status.client.C00PacketServerQuery;
 import net.minecraft.network.status.client.C01PacketPing;
 import net.minecraft.network.status.server.S00PacketServerInfo;
 import net.minecraft.network.status.server.S01PacketPong;
@@ -30,7 +29,7 @@ public class NetHandlerStatusServer implements INetHandlerStatusServer
     {
     }
 
-    public void processServerQuery(C00PacketServerQuery packetIn)
+    public void processServerQuery()
     {
         if (this.field_183008_d)
         {

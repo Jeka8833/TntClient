@@ -4,9 +4,9 @@ import net.minecraft.util.ResourceLocation;
 
 public class EnchantmentFireAspect extends Enchantment
 {
-    protected EnchantmentFireAspect(int enchID, ResourceLocation enchName, int enchWeight)
+    protected EnchantmentFireAspect(ResourceLocation enchName)
     {
-        super(enchID, enchName, enchWeight, EnumEnchantmentType.WEAPON);
+        super(20, enchName, 2, EnumEnchantmentType.WEAPON);
         this.setName("fire");
     }
 

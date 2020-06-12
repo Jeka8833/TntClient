@@ -9,8 +9,8 @@ import net.minecraft.world.World;
 
 public class EntityAIAttackOnCollide extends EntityAIBase
 {
-    World worldObj;
-    protected EntityCreature attacker;
+    final World worldObj;
+    protected final EntityCreature attacker;
 
     /**
      * An amount of decrementing ticks that allows the entity to attack once the tick reaches 0.
@@ -18,12 +18,12 @@ public class EntityAIAttackOnCollide extends EntityAIBase
     int attackTick;
 
     /** The speed with which the mob will approach the target */
-    double speedTowardsTarget;
+    final double speedTowardsTarget;
 
     /**
      * When true, the mob will continue chasing its target, even if it can't find a path to them right now.
      */
-    boolean longMemory;
+    final boolean longMemory;
 
     /** The PathEntity of our entity. */
     PathEntity entityPathEntity;
@@ -80,7 +80,7 @@ public class EntityAIAttackOnCollide extends EntityAIBase
     public boolean continueExecuting()
     {
         EntityLivingBase entitylivingbase = this.attacker.getAttackTarget();
-        return entitylivingbase == null ? false : (!entitylivingbase.isEntityAlive() ? false : (!this.longMemory ? !this.attacker.getNavigator().noPath() : this.attacker.isWithinHomeDistanceFromPosition(new BlockPos(entitylivingbase))));
+        return entitylivingbase != null && (entitylivingbase.isEntityAlive() && (!this.longMemory ? !this.attacker.getNavigator().noPath() : this.attacker.isWithinHomeDistanceFromPosition(new BlockPos(entitylivingbase))));
     }
 
     /**
@@ -150,6 +150,6 @@ public class EntityAIAttackOnCollide extends EntityAIBase
 
     protected double func_179512_a(EntityLivingBase attackTarget)
     {
-        return (double)(this.attacker.width * 2.0F * this.attacker.width * 2.0F + attackTarget.width);
+        return this.attacker.width * 2.0F * this.attacker.width * 2.0F + attackTarget.width;
     }
 }

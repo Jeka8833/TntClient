@@ -4,7 +4,7 @@ import net.TntClient.event.Event;
 
 public class EventKey extends Event
 {
-    private int key;
+    private final int key;
 
     public EventKey(int key)
     {

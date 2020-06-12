@@ -5,9 +5,9 @@ import net.minecraft.client.model.ModelRenderer;
 
 public class PlayerItemRenderer
 {
-    private int attachTo;
-    private float scaleFactor;
-    private ModelRenderer modelRenderer;
+    private final int attachTo;
+    private final float scaleFactor;
+    private final ModelRenderer modelRenderer;
 
     public PlayerItemRenderer(int p_i75_1_, float p_i75_2_, ModelRenderer p_i75_3_)
     {

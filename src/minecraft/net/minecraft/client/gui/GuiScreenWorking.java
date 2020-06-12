@@ -58,7 +58,7 @@ public class GuiScreenWorking extends GuiScreen implements IProgressUpdate
         {
             if (!this.mc.func_181540_al())
             {
-                this.mc.displayGuiScreen((GuiScreen)null);
+                this.mc.displayGuiScreen(null);
             }
         }
         else

@@ -57,14 +57,14 @@ public class Stitcher
 
     public void doStitch()
     {
-        Stitcher.Holder[] astitcher$holder = (Stitcher.Holder[])((Stitcher.Holder[])this.setStitchHolders.toArray(new Stitcher.Holder[this.setStitchHolders.size()]));
-        Arrays.sort((Object[])astitcher$holder);
+        Stitcher.Holder[] astitcher$holder = (Holder[]) this.setStitchHolders.toArray(new Holder[0]);
+        Arrays.sort(astitcher$holder);
 
         for (Stitcher.Holder stitcher$holder : astitcher$holder)
         {
             if (!this.allocateSlot(stitcher$holder))
             {
-                String s = String.format("Unable to fit: %s, size: %dx%d, atlas: %dx%d, atlasMax: %dx%d - Maybe try a lower resolution resourcepack?", new Object[] {stitcher$holder.getAtlasSprite().getIconName(), Integer.valueOf(stitcher$holder.getAtlasSprite().getIconWidth()), Integer.valueOf(stitcher$holder.getAtlasSprite().getIconHeight()), Integer.valueOf(this.currentWidth), Integer.valueOf(this.currentHeight), Integer.valueOf(this.maxWidth), Integer.valueOf(this.maxHeight)});
+                String s = String.format("Unable to fit: %s, size: %dx%d, atlas: %dx%d, atlasMax: %dx%d - Maybe try a lower resolution resourcepack?", stitcher$holder.getAtlasSprite().getIconName(), stitcher$holder.getAtlasSprite().getIconWidth(), stitcher$holder.getAtlasSprite().getIconHeight(), this.currentWidth, this.currentHeight, this.maxWidth, this.maxHeight);
                 throw new StitcherException(stitcher$holder, s);
             }
         }

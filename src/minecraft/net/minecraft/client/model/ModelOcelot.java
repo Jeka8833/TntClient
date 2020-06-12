@@ -9,28 +9,28 @@ import net.minecraft.util.MathHelper;
 public class ModelOcelot extends ModelBase
 {
     /** The back left leg model for the Ocelot. */
-    ModelRenderer ocelotBackLeftLeg;
+    final ModelRenderer ocelotBackLeftLeg;
 
     /** The back right leg model for the Ocelot. */
-    ModelRenderer ocelotBackRightLeg;
+    final ModelRenderer ocelotBackRightLeg;
 
     /** The front left leg model for the Ocelot. */
-    ModelRenderer ocelotFrontLeftLeg;
+    final ModelRenderer ocelotFrontLeftLeg;
 
     /** The front right leg model for the Ocelot. */
-    ModelRenderer ocelotFrontRightLeg;
+    final ModelRenderer ocelotFrontRightLeg;
 
     /** The tail model for the Ocelot. */
-    ModelRenderer ocelotTail;
+    final ModelRenderer ocelotTail;
 
     /** The second part of tail model for the Ocelot. */
-    ModelRenderer ocelotTail2;
+    final ModelRenderer ocelotTail2;
 
     /** The head model for the Ocelot. */
-    ModelRenderer ocelotHead;
+    final ModelRenderer ocelotHead;
 
     /** The body model for the Ocelot. */
-    ModelRenderer ocelotBody;
+    final ModelRenderer ocelotBody;
     int field_78163_i = 1;
 
     public ModelOcelot()

@@ -74,7 +74,7 @@ public abstract class BlockStateBase implements IBlockState
     {
         if (this.blockLocation == null)
         {
-            this.blockLocation = (ResourceLocation)Block.blockRegistry.getNameForObject(this.getBlock());
+            this.blockLocation = Block.blockRegistry.getNameForObject(this.getBlock());
         }
 
         return this.blockLocation;

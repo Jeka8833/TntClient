@@ -12,7 +12,7 @@ import java.nio.charset.StandardCharsets;
 
 public class PlayerConfigurationParser
 {
-    private String player;
+    private final String player;
 
     public PlayerConfigurationParser(String p_i71_1_)
     {

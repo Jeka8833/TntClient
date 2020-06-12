@@ -37,7 +37,7 @@ public class ItemBucketMilk extends Item
     /**
      * How long it takes to use or consume an item
      */
-    public int getMaxItemUseDuration(ItemStack stack)
+    public int getMaxItemUseDuration()
     {
         return 32;
     }
@@ -45,7 +45,7 @@ public class ItemBucketMilk extends Item
     /**
      * returns the action that specifies what animation to play when the items is being used
      */
-    public EnumAction getItemUseAction(ItemStack stack)
+    public EnumAction getItemUseAction()
     {
         return EnumAction.DRINK;
     }
@@ -55,7 +55,7 @@ public class ItemBucketMilk extends Item
      */
     public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn)
     {
-        playerIn.setItemInUse(itemStackIn, this.getMaxItemUseDuration(itemStackIn));
+        playerIn.setItemInUse(itemStackIn, this.getMaxItemUseDuration());
         return itemStackIn;
     }
 }

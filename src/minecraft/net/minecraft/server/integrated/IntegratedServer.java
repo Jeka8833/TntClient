@@ -81,16 +81,15 @@ public class IntegratedServer extends MinecraftServer
 
         if (Reflector.DimensionManager.exists())
         {
-            WorldServer worldserver = this.isDemo() ? (WorldServer)((WorldServer)(new DemoWorldServer(this, isavehandler, worldinfo, 0, this.theProfiler)).init()) : (WorldServer)(new WorldServerOF(this, isavehandler, worldinfo, 0, this.theProfiler)).init();
+            WorldServer worldserver = this.isDemo() ? (WorldServer) (new DemoWorldServer(this, isavehandler, worldinfo, 0, this.theProfiler)).init() : (WorldServer)(new WorldServerOF(this, isavehandler, worldinfo, 0, this.theProfiler)).init();
             worldserver.initialize(this.theWorldSettings);
-            Integer[] ainteger = (Integer[])((Integer[])Reflector.call(Reflector.DimensionManager_getStaticDimensionIDs, new Object[0]));
-            Integer[] ainteger1 = ainteger;
+            Integer[] ainteger = (Integer[]) Reflector.call(Reflector.DimensionManager_getStaticDimensionIDs, new Object[0]);
             int i = ainteger.length;
 
             for (int j = 0; j < i; ++j)
             {
-                int k = ainteger1[j].intValue();
-                WorldServer worldserver1 = k == 0 ? worldserver : (WorldServer)((WorldServer)(new WorldServerMulti(this, isavehandler, k, worldserver, this.theProfiler)).init());
+                int k = ainteger[j];
+                WorldServer worldserver1 = k == 0 ? worldserver : (WorldServer) (new WorldServerMulti(this, isavehandler, k, worldserver, this.theProfiler)).init();
                 worldserver1.addWorldAccess(new WorldManager(this, worldserver1));
 
                 if (!this.isSinglePlayer())
@@ -100,7 +99,7 @@ public class IntegratedServer extends MinecraftServer
 
                 if (Reflector.EventBus.exists())
                 {
-                    Reflector.postForgeBusEvent(Reflector.WorldEvent_Load_Constructor, new Object[] {worldserver1});
+                    Reflector.postForgeBusEvent(Reflector.WorldEvent_Load_Constructor, worldserver1);
                 }
             }
 
@@ -188,9 +187,9 @@ public class IntegratedServer extends MinecraftServer
 
         if (Reflector.FMLCommonHandler_handleServerAboutToStart.exists())
         {
-            Object object = Reflector.call(Reflector.FMLCommonHandler_instance, new Object[0]);
+            Object object = Reflector.call(Reflector.FMLCommonHandler_instance);
 
-            if (!Reflector.callBoolean(object, Reflector.FMLCommonHandler_handleServerAboutToStart, new Object[] {this}))
+            if (!Reflector.callBoolean(object, Reflector.FMLCommonHandler_handleServerAboutToStart, this))
             {
                 return false;
             }
@@ -201,14 +200,14 @@ public class IntegratedServer extends MinecraftServer
 
         if (Reflector.FMLCommonHandler_handleServerStarting.exists())
         {
-            Object object1 = Reflector.call(Reflector.FMLCommonHandler_instance, new Object[0]);
+            Object object1 = Reflector.call(Reflector.FMLCommonHandler_instance);
 
             if (Reflector.FMLCommonHandler_handleServerStarting.getReturnType() == Boolean.TYPE)
             {
-                return Reflector.callBoolean(object1, Reflector.FMLCommonHandler_handleServerStarting, new Object[] {this});
+                return Reflector.callBoolean(object1, Reflector.FMLCommonHandler_handleServerStarting, this);
             }
 
-            Reflector.callVoid(object1, Reflector.FMLCommonHandler_handleServerStarting, new Object[] {this});
+            Reflector.callVoid(object1, Reflector.FMLCommonHandler_handleServerStarting, this);
         }
 
         return true;
@@ -247,7 +246,7 @@ public class IntegratedServer extends MinecraftServer
 
             if (this.mc.gameSettings.renderDistanceChunks != this.getConfigurationManager().getViewDistance())
             {
-                logger.info("Changing view distance to {}, from {}", new Object[] {Integer.valueOf(this.mc.gameSettings.renderDistanceChunks), Integer.valueOf(this.getConfigurationManager().getViewDistance())});
+                logger.info("Changing view distance to {}, from {}", this.mc.gameSettings.renderDistanceChunks, this.getConfigurationManager().getViewDistance());
                 this.getConfigurationManager().setViewDistance(this.mc.gameSettings.renderDistanceChunks);
             }
 
@@ -258,12 +257,12 @@ public class IntegratedServer extends MinecraftServer
 
                 if (!worldinfo.isDifficultyLocked() && worldinfo1.getDifficulty() != worldinfo.getDifficulty())
                 {
-                    logger.info("Changing difficulty to {}, from {}", new Object[] {worldinfo1.getDifficulty(), worldinfo.getDifficulty()});
+                    logger.info("Changing difficulty to {}, from {}", worldinfo1.getDifficulty(), worldinfo.getDifficulty());
                     this.setDifficultyForAllWorlds(worldinfo1.getDifficulty());
                 }
                 else if (worldinfo1.isDifficultyLocked() && !worldinfo.isDifficultyLocked())
                 {
-                    logger.info("Locking difficulty to {}", new Object[] {worldinfo1.getDifficulty()});
+                    logger.info("Locking difficulty to {}", worldinfo1.getDifficulty());
 
                     for (WorldServer worldserver : this.worldServers)
                     {
@@ -359,12 +358,12 @@ public class IntegratedServer extends MinecraftServer
 
                 if (!s.equals("vanilla"))
                 {
-                    return "Definitely; Client brand changed to \'" + s + "\'";
+                    return "Definitely; Client brand changed to '" + s + "'";
                 }
                 else
                 {
                     s = IntegratedServer.this.getServerModName();
-                    return !s.equals("vanilla") ? "Definitely; Server brand changed to \'" + s + "\'" : (Minecraft.class.getSigners() == null ? "Very likely; Jar signature invalidated" : "Probably not. Jar signature remains and both client + server brands are untouched.");
+                    return !s.equals("vanilla") ? "Definitely; Server brand changed to '" + s + "'" : (Minecraft.class.getSigners() == null ? "Very likely; Jar signature invalidated" : "Probably not. Jar signature remains and both client + server brands are untouched.");
                 }
             }
         });
@@ -408,9 +407,8 @@ public class IntegratedServer extends MinecraftServer
             {
                 i = HttpUtil.getSuitableLanPort();
             }
-            catch (IOException var5)
+            catch (IOException ignored)
             {
-                ;
             }
 
             if (i <= 0)
@@ -418,7 +416,7 @@ public class IntegratedServer extends MinecraftServer
                 i = 25564;
             }
 
-            this.getNetworkSystem().addLanEndpoint((InetAddress)null, i);
+            this.getNetworkSystem().addLanEndpoint(null, i);
             logger.info("Started on " + i);
             this.isPublic = true;
             this.lanServerPing = new ThreadLanServerPing(this.getMOTD(), i + "");

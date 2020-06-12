@@ -29,7 +29,7 @@ public class IngestServerTester
     protected Stream field_153045_c = null;
     protected IngestList field_153046_d = null;
     protected IngestServerTester.IngestTestState field_153047_e = IngestServerTester.IngestTestState.Uninitalized;
-    protected long field_153048_f = 8000L;
+    protected final long field_153048_f = 8000L;
     protected long field_153049_g = 2000L;
     protected long field_153050_h = 0L;
     protected RTMPState field_153051_i = RTMPState.Invalid;
@@ -51,7 +51,7 @@ public class IngestServerTester
     protected boolean field_176009_x = false;
     protected boolean field_176008_y = false;
     protected boolean field_176007_z = false;
-    protected IStreamCallbacks field_176005_A = new IStreamCallbacks()
+    protected final IStreamCallbacks field_176005_A = new IStreamCallbacks()
     {
         public void requestAuthTokenCallback(ErrorCode p_requestAuthTokenCallback_1_, AuthToken p_requestAuthTokenCallback_2_)
         {
@@ -126,7 +126,7 @@ public class IngestServerTester
         {
         }
     };
-    protected IStatCallbacks field_176006_B = new IStatCallbacks()
+    protected final IStatCallbacks field_176006_B = new IStatCallbacks()
     {
         public void statCallback(StatType p_statCallback_1_, long p_statCallback_2_)
         {
@@ -202,7 +202,7 @@ public class IngestServerTester
             this.audioParameters.enableMicCapture = false;
             this.audioParameters.enablePlaybackCapture = false;
             this.audioParameters.enablePassthroughAudio = false;
-            this.field_153055_m = Lists.<FrameBuffer>newArrayList();
+            this.field_153055_m = Lists.newArrayList();
             int i = 3;
 
             for (int j = 0; j < i; ++j)
@@ -243,7 +243,7 @@ public class IngestServerTester
                                 this.field_153059_q.bitrateKbps = 0.0F;
                             }
 
-                            this.func_153035_b(this.field_153059_q);
+                            this.func_153035_b();
                         }
                         else
                         {
@@ -301,7 +301,7 @@ public class IngestServerTester
         }
     }
 
-    protected boolean func_153036_a(IngestServer p_153036_1_)
+    protected void func_153036_a(IngestServer p_153036_1_)
     {
         this.field_153056_n = true;
         this.field_153050_h = 0L;
@@ -316,18 +316,16 @@ public class IngestServerTester
             this.field_176008_y = false;
             this.field_153056_n = false;
             this.func_153034_a(IngestServerTester.IngestTestState.DoneTestingServer);
-            return false;
         }
         else
         {
             this.field_153064_v = this.field_153050_h;
             p_153036_1_.bitrateKbps = 0.0F;
             this.field_153063_u = 0;
-            return true;
         }
     }
 
-    protected void func_153035_b(IngestServer p_153035_1_)
+    protected void func_153035_b()
     {
         if (this.field_176008_y)
         {
@@ -396,19 +394,18 @@ public class IngestServerTester
         }
     }
 
-    protected boolean func_153029_c(IngestServer p_153029_1_)
+    protected void func_153029_c(IngestServer p_153029_1_)
     {
         if (!this.field_153061_s && !this.field_153060_r && this.func_153037_m() < this.field_153048_f)
         {
             if (!this.field_176008_y && !this.field_176007_z)
             {
-                ErrorCode errorcode = this.field_153045_c.submitVideoFrame((FrameBuffer)this.field_153055_m.get(this.field_153063_u));
+                ErrorCode errorcode = this.field_153045_c.submitVideoFrame(this.field_153055_m.get(this.field_153063_u));
 
                 if (ErrorCode.failed(errorcode))
                 {
                     this.field_153056_n = false;
                     this.func_153034_a(IngestServerTester.IngestTestState.DoneTestingServer);
-                    return false;
                 }
                 else
                 {
@@ -427,18 +424,15 @@ public class IngestServerTester
                         }
                     }
 
-                    return true;
                 }
             }
             else
             {
-                return true;
             }
         }
         else
         {
             this.func_153034_a(IngestServerTester.IngestTestState.DoneTestingServer);
-            return true;
         }
     }
 
@@ -450,7 +444,7 @@ public class IngestServerTester
         {
             for (int i = 0; i < this.field_153055_m.size(); ++i)
             {
-                ((FrameBuffer)this.field_153055_m.get(i)).free();
+                this.field_153055_m.get(i).free();
             }
 
             this.field_153055_m = null;
@@ -477,17 +471,17 @@ public class IngestServerTester
 
             if (this.field_153044_b != null)
             {
-                this.field_153044_b.func_152907_a(this, p_153034_1_);
+                this.field_153044_b.func_152907_a(p_153034_1_);
             }
         }
     }
 
     public interface IngestTestListener
     {
-        void func_152907_a(IngestServerTester p_152907_1_, IngestServerTester.IngestTestState p_152907_2_);
+        void func_152907_a(IngestTestState p_152907_2_);
     }
 
-    public static enum IngestTestState
+    public enum IngestTestState
     {
         Uninitalized,
         Starting,
@@ -497,6 +491,6 @@ public class IngestServerTester
         Finished,
         Cancelling,
         Cancelled,
-        Failed;
+        Failed
     }
 }

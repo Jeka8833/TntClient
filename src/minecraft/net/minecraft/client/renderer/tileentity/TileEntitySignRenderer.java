@@ -24,7 +24,7 @@ public class TileEntitySignRenderer extends TileEntitySpecialRenderer
     private final ModelSign model = new ModelSign();
     private static final String __OBFID = "CL_00000970";
 
-    public void renderTileEntityAt(TileEntitySign te, double x, double y, double z, float partialTicks, int destroyStage)
+    public void renderTileEntityAt(TileEntitySign te, double x, double y, double z, int destroyStage)
     {
         Block block = te.getBlockType();
         GlStateManager.pushMatrix();
@@ -108,12 +108,8 @@ public class TileEntitySignRenderer extends TileEntitySpecialRenderer
                     if (j == te.lineBeingEdited)
                     {
                         s = "> " + s + " <";
-                        fontrenderer.drawString(s, -fontrenderer.getStringWidth(s) / 2, j * 10 - te.signText.length * 5, i);
                     }
-                    else
-                    {
-                        fontrenderer.drawString(s, -fontrenderer.getStringWidth(s) / 2, j * 10 - te.signText.length * 5, i);
-                    }
+                    fontrenderer.drawString(s, -fontrenderer.getStringWidth(s) / 2, j * 10 - te.signText.length * 5, i);
                 }
             }
         }
@@ -132,6 +128,6 @@ public class TileEntitySignRenderer extends TileEntitySpecialRenderer
 
     public void renderTileEntityAt(TileEntity te, double x, double y, double z, float partialTicks, int destroyStage)
     {
-        this.renderTileEntityAt((TileEntitySign)te, x, y, z, partialTicks, destroyStage);
+        this.renderTileEntityAt((TileEntitySign)te, x, y, z, destroyStage);
     }
 }

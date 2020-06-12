@@ -30,7 +30,7 @@ public class InventoryPlayer implements IInventory
     public int currentItem;
 
     /** The player whose inventory this is. */
-    public EntityPlayer player;
+    public final EntityPlayer player;
     private ItemStack itemStack;
 
     /**
@@ -173,7 +173,6 @@ public class InventoryPlayer implements IInventory
 
         for (this.currentItem -= p_70453_1_; this.currentItem < 0; this.currentItem += 9)
         {
-            ;
         }
 
         while (this.currentItem >= 9)
@@ -328,17 +327,12 @@ public class InventoryPlayer implements IInventory
                 k = this.getInventoryStackLimit() - this.mainInventory[j].stackSize;
             }
 
-            if (k == 0)
-            {
-                return i;
-            }
-            else
-            {
+            if (k != 0) {
                 i = i - k;
                 this.mainInventory[j].stackSize += k;
                 this.mainInventory[j].animationsToGo = 5;
-                return i;
             }
+            return i;
         }
     }
 
@@ -360,13 +354,12 @@ public class InventoryPlayer implements IInventory
     /**
      * removed one item of specified Item from inventory (if it is in a stack, the stack size will reduce with 1)
      */
-    public boolean consumeInventoryItem(Item itemIn)
+    public void consumeInventoryItem(Item itemIn)
     {
         int i = this.getInventorySlotContainItem(itemIn);
 
         if (i < 0)
         {
-            return false;
         }
         else
         {
@@ -375,7 +368,6 @@ public class InventoryPlayer implements IInventory
                 this.mainInventory[i] = null;
             }
 
-            return true;
         }
     }
 
@@ -422,16 +414,11 @@ public class InventoryPlayer implements IInventory
                 {
                     int i;
 
-                    while (true)
-                    {
+                    do {
                         i = itemStackIn.stackSize;
                         itemStackIn.stackSize = this.storePartialItemStack(itemStackIn);
 
-                        if (itemStackIn.stackSize <= 0 || itemStackIn.stackSize >= i)
-                        {
-                            break;
-                        }
-                    }
+                    } while (itemStackIn.stackSize > 0 && itemStackIn.stackSize < i);
 
                     if (itemStackIn.stackSize == i && this.player.capabilities.isCreativeMode)
                     {
@@ -448,8 +435,8 @@ public class InventoryPlayer implements IInventory
             {
                 CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Adding item to inventory");
                 CrashReportCategory crashreportcategory = crashreport.makeCategory("Item being added");
-                crashreportcategory.addCrashSection("Item ID", Integer.valueOf(Item.getIdFromItem(itemStackIn.getItem())));
-                crashreportcategory.addCrashSection("Item data", Integer.valueOf(itemStackIn.getMetadata()));
+                crashreportcategory.addCrashSection("Item ID", Item.getIdFromItem(itemStackIn.getItem()));
+                crashreportcategory.addCrashSection("Item data", itemStackIn.getMetadata());
                 crashreportcategory.addCrashSectionCallable("Item name", new Callable<String>()
                 {
                     public String call() throws Exception
@@ -663,7 +650,7 @@ public class InventoryPlayer implements IInventory
      */
     public IChatComponent getDisplayName()
     {
-        return (IChatComponent)(this.hasCustomName() ? new ChatComponentText(this.getName()) : new ChatComponentTranslation(this.getName(), new Object[0]));
+        return this.hasCustomName() ? new ChatComponentText(this.getName()) : new ChatComponentTranslation(this.getName());
     }
 
     /**
@@ -683,7 +670,7 @@ public class InventoryPlayer implements IInventory
         else
         {
             ItemStack itemstack = this.getStackInSlot(this.currentItem);
-            return itemstack != null ? itemstack.canHarvestBlock(blockIn) : false;
+            return itemstack != null && itemstack.canHarvestBlock(blockIn);
         }
     }
 
@@ -794,7 +781,7 @@ public class InventoryPlayer implements IInventory
      */
     public boolean isUseableByPlayer(EntityPlayer player)
     {
-        return this.player.isDead ? false : player.getDistanceSqToEntity(this.player) <= 64.0D;
+        return !this.player.isDead && player.getDistanceSqToEntity(this.player) <= 64.0D;
     }
 
     /**

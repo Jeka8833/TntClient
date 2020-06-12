@@ -9,8 +9,8 @@ import net.minecraft.world.World;
 public class ContainerMerchant extends Container
 {
     /** Instance of Merchant. */
-    private IMerchant theMerchant;
-    private InventoryMerchant merchantInventory;
+    private final IMerchant theMerchant;
+    private final InventoryMerchant merchantInventory;
 
     /** Instance of World. */
     private final World theWorld;
@@ -76,7 +76,7 @@ public class ContainerMerchant extends Container
 
     public boolean canInteractWith(EntityPlayer playerIn)
     {
-        return this.theMerchant.getCustomer() == playerIn;
+        return this.theMerchant.getCustomer() != playerIn;
     }
 
     /**
@@ -85,7 +85,7 @@ public class ContainerMerchant extends Container
     public ItemStack transferStackInSlot(EntityPlayer playerIn, int index)
     {
         ItemStack itemstack = null;
-        Slot slot = (Slot)this.inventorySlots.get(index);
+        Slot slot = this.inventorySlots.get(index);
 
         if (slot != null && slot.getHasStack())
         {
@@ -94,7 +94,7 @@ public class ContainerMerchant extends Container
 
             if (index == 2)
             {
-                if (!this.mergeItemStack(itemstack1, 3, 39, true))
+                if (this.mergeItemStack(itemstack1, 3, 39, true))
                 {
                     return null;
                 }
@@ -105,24 +105,24 @@ public class ContainerMerchant extends Container
             {
                 if (index >= 3 && index < 30)
                 {
-                    if (!this.mergeItemStack(itemstack1, 30, 39, false))
+                    if (this.mergeItemStack(itemstack1, 30, 39, false))
                     {
                         return null;
                     }
                 }
-                else if (index >= 30 && index < 39 && !this.mergeItemStack(itemstack1, 3, 30, false))
+                else if (index >= 30 && index < 39 && this.mergeItemStack(itemstack1, 3, 30, false))
                 {
                     return null;
                 }
             }
-            else if (!this.mergeItemStack(itemstack1, 3, 39, false))
+            else if (this.mergeItemStack(itemstack1, 3, 39, false))
             {
                 return null;
             }
 
             if (itemstack1.stackSize == 0)
             {
-                slot.putStack((ItemStack)null);
+                slot.putStack(null);
             }
             else
             {
@@ -146,7 +146,7 @@ public class ContainerMerchant extends Container
     public void onContainerClosed(EntityPlayer playerIn)
     {
         super.onContainerClosed(playerIn);
-        this.theMerchant.setCustomer((EntityPlayer)null);
+        this.theMerchant.setCustomer(null);
         super.onContainerClosed(playerIn);
 
         if (!this.theWorld.isRemote)
@@ -155,14 +155,14 @@ public class ContainerMerchant extends Container
 
             if (itemstack != null)
             {
-                playerIn.dropPlayerItemWithRandomChoice(itemstack, false);
+                playerIn.dropPlayerItemWithRandomChoice(itemstack);
             }
 
             itemstack = this.merchantInventory.removeStackFromSlot(1);
 
             if (itemstack != null)
             {
-                playerIn.dropPlayerItemWithRandomChoice(itemstack, false);
+                playerIn.dropPlayerItemWithRandomChoice(itemstack);
             }
         }
     }

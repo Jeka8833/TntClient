@@ -10,13 +10,13 @@ import net.minecraft.world.World;
 public class CustomSkyLayer
 {
     public String source;
-    private int startFadeIn;
-    private int endFadeIn;
+    private final int startFadeIn;
+    private final int endFadeIn;
     private int startFadeOut;
-    private int endFadeOut;
-    private int blend;
-    private boolean rotate;
-    private float speed;
+    private final int endFadeOut;
+    private final int blend;
+    private final boolean rotate;
+    private final float speed;
     private float[] axis;
     private RangeListInt days;
     private int daysLoop;
@@ -342,9 +342,8 @@ public class CustomSkyLayer
                 long i = p_isActive_1_.getWorldTime();
                 long j;
 
-                for (j = i - (long)this.startFadeIn; j < 0L; j += (long)(24000 * this.daysLoop))
+                for (j = i - (long)this.startFadeIn; j < 0L; j += 24000 * this.daysLoop)
                 {
-                    ;
                 }
 
                 int k = (int)(j / 24000L);

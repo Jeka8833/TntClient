@@ -21,16 +21,16 @@ public class StatBase
     private final IStatType type;
     private final IScoreObjectiveCriteria field_150957_c;
     private Class <? extends IJsonSerializable > field_150956_d;
-    private static NumberFormat numberFormat = NumberFormat.getIntegerInstance(Locale.US);
-    public static IStatType simpleStatType = new IStatType()
+    private static final NumberFormat numberFormat = NumberFormat.getIntegerInstance(Locale.US);
+    public static final IStatType simpleStatType = new IStatType()
     {
         public String format(int p_75843_1_)
         {
-            return StatBase.numberFormat.format((long)p_75843_1_);
+            return StatBase.numberFormat.format(p_75843_1_);
         }
     };
-    private static DecimalFormat decimalFormat = new DecimalFormat("########0.00");
-    public static IStatType timeStatType = new IStatType()
+    private static final DecimalFormat decimalFormat = new DecimalFormat("########0.00");
+    public static final IStatType timeStatType = new IStatType()
     {
         public String format(int p_75843_1_)
         {
@@ -42,7 +42,7 @@ public class StatBase
             return d4 > 0.5D ? StatBase.decimalFormat.format(d4) + " y" : (d3 > 0.5D ? StatBase.decimalFormat.format(d3) + " d" : (d2 > 0.5D ? StatBase.decimalFormat.format(d2) + " h" : (d1 > 0.5D ? StatBase.decimalFormat.format(d1) + " m" : d0 + " s")));
         }
     };
-    public static IStatType distanceStatType = new IStatType()
+    public static final IStatType distanceStatType = new IStatType()
     {
         public String format(int p_75843_1_)
         {
@@ -51,7 +51,7 @@ public class StatBase
             return d1 > 0.5D ? StatBase.decimalFormat.format(d1) + " km" : (d0 > 0.5D ? StatBase.decimalFormat.format(d0) + " m" : p_75843_1_ + " cm");
         }
     };
-    public static IStatType field_111202_k = new IStatType()
+    public static final IStatType field_111202_k = new IStatType()
     {
         public String format(int p_75843_1_)
         {
@@ -90,7 +90,7 @@ public class StatBase
     {
         if (StatList.oneShotStats.containsKey(this.statId))
         {
-            throw new RuntimeException("Duplicate stat id: \"" + ((StatBase)StatList.oneShotStats.get(this.statId)).statName + "\" and \"" + this.statName + "\" at id " + this.statId);
+            throw new RuntimeException("Duplicate stat id: \"" + StatList.oneShotStats.get(this.statId).statName + "\" and \"" + this.statName + "\" at id " + this.statId);
         }
         else
         {

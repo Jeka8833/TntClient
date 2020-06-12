@@ -38,7 +38,7 @@ public class VillageDoorInfo
      */
     public int getDistanceSquared(int p_75474_1_, int p_75474_2_, int p_75474_3_)
     {
-        return (int)this.doorBlockPos.distanceSq((double)p_75474_1_, (double)p_75474_2_, (double)p_75474_3_);
+        return (int)this.doorBlockPos.distanceSq(p_75474_1_, p_75474_2_, p_75474_3_);
     }
 
     public int getDistanceToDoorBlockSq(BlockPos p_179848_1_)

@@ -3,7 +3,6 @@ package net.minecraft.block;
 import java.util.List;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
@@ -18,7 +17,7 @@ import net.minecraft.world.World;
 
 public class BlockCarpet extends Block
 {
-    public static final PropertyEnum<EnumDyeColor> COLOR = PropertyEnum.<EnumDyeColor>create("color", EnumDyeColor.class);
+    public static final PropertyEnum<EnumDyeColor> COLOR = PropertyEnum.create("color", EnumDyeColor.class);
 
     protected BlockCarpet()
     {
@@ -27,7 +26,7 @@ public class BlockCarpet extends Block
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.0625F, 1.0F);
         this.setTickRandomly(true);
         this.setCreativeTab(CreativeTabs.tabDecorations);
-        this.setBlockBoundsFromMeta(0);
+        this.setBlockBoundsFromMeta();
     }
 
     /**
@@ -35,7 +34,7 @@ public class BlockCarpet extends Block
      */
     public MapColor getMapColor(IBlockState state)
     {
-        return ((EnumDyeColor)state.getValue(COLOR)).getMapColor();
+        return state.getValue(COLOR).getMapColor();
     }
 
     /**
@@ -56,18 +55,18 @@ public class BlockCarpet extends Block
      */
     public void setBlockBoundsForItemRender()
     {
-        this.setBlockBoundsFromMeta(0);
+        this.setBlockBoundsFromMeta();
     }
 
     public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos)
     {
-        this.setBlockBoundsFromMeta(0);
+        this.setBlockBoundsFromMeta();
     }
 
-    protected void setBlockBoundsFromMeta(int meta)
+    protected void setBlockBoundsFromMeta()
     {
         int i = 0;
-        float f = (float)(1 * (1 + i)) / 16.0F;
+        float f = (float)((1 + i)) / 16.0F;
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, f, 1.0F);
     }
 
@@ -84,17 +83,15 @@ public class BlockCarpet extends Block
         this.checkForDrop(worldIn, pos, state);
     }
 
-    private boolean checkForDrop(World worldIn, BlockPos pos, IBlockState state)
+    private void checkForDrop(World worldIn, BlockPos pos, IBlockState state)
     {
         if (!this.canBlockStay(worldIn, pos))
         {
             this.dropBlockAsItem(worldIn, pos, state, 0);
             worldIn.setBlockToAir(pos);
-            return false;
         }
         else
         {
-            return true;
         }
     }
 
@@ -105,7 +102,7 @@ public class BlockCarpet extends Block
 
     public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPos pos, EnumFacing side)
     {
-        return side == EnumFacing.UP ? true : super.shouldSideBeRendered(worldIn, pos, side);
+        return side == EnumFacing.UP || super.shouldSideBeRendered(worldIn, pos, side);
     }
 
     /**
@@ -114,7 +111,7 @@ public class BlockCarpet extends Block
      */
     public int damageDropped(IBlockState state)
     {
-        return ((EnumDyeColor)state.getValue(COLOR)).getMetadata();
+        return state.getValue(COLOR).getMetadata();
     }
 
     /**
@@ -141,11 +138,11 @@ public class BlockCarpet extends Block
      */
     public int getMetaFromState(IBlockState state)
     {
-        return ((EnumDyeColor)state.getValue(COLOR)).getMetadata();
+        return state.getValue(COLOR).getMetadata();
     }
 
     protected BlockState createBlockState()
     {
-        return new BlockState(this, new IProperty[] {COLOR});
+        return new BlockState(this, COLOR);
     }
 }

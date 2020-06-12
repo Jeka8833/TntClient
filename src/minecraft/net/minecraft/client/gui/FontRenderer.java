@@ -41,8 +41,8 @@ public class FontRenderer implements IResourceManagerReloadListener {
     /**
      * the height in pixels of default text
      */
-    public int FONT_HEIGHT = 9;
-    public Random fontRandom = new Random();
+    public final int FONT_HEIGHT = 9;
+    public final Random fontRandom = new Random();
 
     /**
      * Array of the start/end column (in upper/lower nibble) for every glyph in the /font directory.
@@ -110,7 +110,7 @@ public class FontRenderer implements IResourceManagerReloadListener {
      * Set if the "m" style (strikethrough) is active in currently rendering string
      */
     private boolean strikethroughStyle;
-    public ResourceLocation locationFontTextureBase;
+    public final ResourceLocation locationFontTextureBase;
     public boolean enabled = true;
     public float offsetBold = 1.0F;
 
@@ -330,8 +330,10 @@ public class FontRenderer implements IResourceManagerReloadListener {
     /**
      * Draws the specified string.
      */
-    public int drawString(String text, int x, int y, int color) {
-        return !this.enabled ? 0 : this.drawString(text, (float) x, (float) y, color, false);
+    public void drawString(String text, int x, int y, int color) {
+        if (this.enabled) {
+            this.drawString(text, (float) x, (float) y, color, false);
+        }
     }
 
     /**

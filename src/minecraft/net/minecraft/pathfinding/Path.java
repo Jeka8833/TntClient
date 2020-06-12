@@ -11,7 +11,7 @@ public class Path
     /**
      * Adds a point to the path
      */
-    public PathPoint addPoint(PathPoint point)
+    public void addPoint(PathPoint point)
     {
         if (point.index >= 0)
         {
@@ -29,7 +29,6 @@ public class Path
             this.pathPoints[this.count] = point;
             point.index = this.count;
             this.sortBack(this.count++);
-            return point;
         }
     }
 

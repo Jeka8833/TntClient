@@ -5,8 +5,8 @@ import net.minecraft.util.Vec3;
 
 public class EntityAIPanic extends EntityAIBase
 {
-    private EntityCreature theEntityCreature;
-    protected double speed;
+    private final EntityCreature theEntityCreature;
+    protected final double speed;
     private double randPosX;
     private double randPosY;
     private double randPosZ;

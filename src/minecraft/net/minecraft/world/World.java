@@ -47,7 +47,7 @@ public abstract class World implements IBlockAccess {
     public final List<EntityPlayer> playerEntities = Lists.newArrayList();
     public final List<Entity> weatherEffects = Lists.newArrayList();
     protected final IntHashMap<Entity> entitiesById = new IntHashMap();
-    private long cloudColour = 16777215L;
+    private final long cloudColour = 16777215L;
 
     /**
      * How much light is subtracted from full daylight
@@ -81,7 +81,7 @@ public abstract class World implements IBlockAccess {
      * The WorldProvider instance that World uses.
      */
     public final WorldProvider provider;
-    protected List<IWorldAccess> worldAccesses = Lists.newArrayList();
+    protected final List<IWorldAccess> worldAccesses = Lists.newArrayList();
 
     /**
      * Handles chunk operations and caching
@@ -92,7 +92,7 @@ public abstract class World implements IBlockAccess {
     /**
      * holds information about a world (size on disk, time, spawn point, seed, ...)
      */
-    protected WorldInfo worldInfo;
+    protected final WorldInfo worldInfo;
 
     /**
      * if set, this flag forces a request to load a chunk to load the chunk rather than defaulting to the world's
@@ -110,7 +110,7 @@ public abstract class World implements IBlockAccess {
      * server worlds have this set to false, client worlds have this set to true.
      */
     public final boolean isRemote;
-    protected Set<ChunkCoordIntPair> activeChunkSet = Sets.newHashSet();
+    protected final Set<ChunkCoordIntPair> activeChunkSet = Sets.newHashSet();
 
     /**
      * number of ticks until the next random ambients play
@@ -135,7 +135,7 @@ public abstract class World implements IBlockAccess {
      * 4-bit L is a light level used when darkening blocks. 6-bit numbers x, y and z represent the block's offset from
      * the original block, plus 32 (i.e. value of 31 would mean a -1 offset
      */
-    int[] lightUpdateBlockList;
+    final int[] lightUpdateBlockList;
 
     protected World(ISaveHandler saveHandlerIn, WorldInfo info, WorldProvider providerIn, Profiler profilerIn, boolean client) {
         this.ambientTickCountdown = this.rand.nextInt(12000);
@@ -356,8 +356,8 @@ public abstract class World implements IBlockAccess {
     /**
      * Convenience method to update the block on both the client and server
      */
-    public boolean setBlockState(BlockPos pos, IBlockState state) {
-        return this.setBlockState(pos, state, 3);
+    public void setBlockState(BlockPos pos, IBlockState state) {
+        this.setBlockState(pos, state, 3);
     }
 
     public void markBlockForUpdate(BlockPos pos) {
@@ -459,7 +459,7 @@ public abstract class World implements IBlockAccess {
     }
 
     public boolean isBlockTickPending(BlockPos pos, Block blockType) {
-        return false;
+        return true;
     }
 
     public boolean canSeeSky(BlockPos pos) {
@@ -1253,7 +1253,7 @@ public abstract class World implements IBlockAccess {
      */
     public Vec3 getFogColor(float partialTicks) {
         float f = this.getCelestialAngle(partialTicks);
-        return this.provider.getFogColor(f, partialTicks);
+        return this.provider.getFogColor(f);
     }
 
     public BlockPos getPrecipitationHeight(BlockPos pos) {
@@ -1459,13 +1459,12 @@ public abstract class World implements IBlockAccess {
         this.theProfiler.endSection();
     }
 
-    public boolean addTileEntity(TileEntity tile) {
+    public void addTileEntity(TileEntity tile) {
         this.loadedTileEntityList.add(tile);
         if (tile instanceof ITickable) {
             this.tickableTileEntities.add(tile);
         }
 
-        return true;
     }
 
     public void addTileEntities(Collection<TileEntity> tileEntityCollection) {
@@ -1636,13 +1635,13 @@ public abstract class World implements IBlockAccess {
                     Block block = this.getBlockState(blockpos$mutableblockpos.func_181079_c(k1, l1, i2)).getBlock();
 
                     if (block.getMaterial().isLiquid()) {
-                        return true;
+                        return false;
                     }
                 }
             }
         }
 
-        return false;
+        return true;
     }
 
     public boolean isFlammableWithin(AxisAlignedBB bb) {
@@ -1786,8 +1785,8 @@ public abstract class World implements IBlockAccess {
     /**
      * Creates an explosion. Args: entity, x, y, z, strength
      */
-    public Explosion createExplosion(Entity entityIn, double x, double y, double z, float strength, boolean isSmoking) {
-        return this.newExplosion(entityIn, x, y, z, strength, false, isSmoking);
+    public void createExplosion(Entity entityIn, double x, double y, double z, float strength, boolean isSmoking) {
+        this.newExplosion(entityIn, x, y, z, strength, false, isSmoking);
     }
 
     /**
@@ -1951,13 +1950,13 @@ public abstract class World implements IBlockAccess {
     public boolean isBlockFullCube(BlockPos pos) {
         IBlockState iblockstate = this.getBlockState(pos);
         AxisAlignedBB axisalignedbb = iblockstate.getBlock().getCollisionBoundingBox(this, pos, iblockstate);
-        return axisalignedbb != null && axisalignedbb.getAverageEdgeLength() >= 1.0D;
+        return axisalignedbb == null || !(axisalignedbb.getAverageEdgeLength() >= 1.0D);
     }
 
     public static boolean doesBlockHaveSolidTopSurface(IBlockAccess blockAccess, BlockPos pos) {
         IBlockState iblockstate = blockAccess.getBlockState(pos);
         Block block = iblockstate.getBlock();
-        return block.getMaterial().isOpaque() && block.isFullCube() || (block instanceof BlockStairs ? iblockstate.getValue(BlockStairs.HALF) == BlockStairs.EnumHalf.TOP : (block instanceof BlockSlab ? iblockstate.getValue(BlockSlab.HALF) == BlockSlab.EnumBlockHalf.TOP : (block instanceof BlockHopper ? true : (block instanceof BlockSnow ? iblockstate.getValue(BlockSnow.LAYERS).intValue() == 7 : false))));
+        return block.getMaterial().isOpaque() && block.isFullCube() || (block instanceof BlockStairs ? iblockstate.getValue(BlockStairs.HALF) == BlockStairs.EnumHalf.TOP : (block instanceof BlockSlab ? iblockstate.getValue(BlockSlab.HALF) == BlockSlab.EnumBlockHalf.TOP : (block instanceof BlockHopper || (block instanceof BlockSnow && iblockstate.getValue(BlockSnow.LAYERS) == 7))));
     }
 
     /**
@@ -2613,7 +2612,7 @@ public abstract class World implements IBlockAccess {
     }
 
     public boolean isBlockPowered(BlockPos pos) {
-        return this.getRedstonePower(pos.down(), EnumFacing.DOWN) > 0 || (this.getRedstonePower(pos.up(), EnumFacing.UP) > 0 || (this.getRedstonePower(pos.north(), EnumFacing.NORTH) > 0 || (this.getRedstonePower(pos.south(), EnumFacing.SOUTH) > 0 ? true : (this.getRedstonePower(pos.west(), EnumFacing.WEST) > 0 ? true : this.getRedstonePower(pos.east(), EnumFacing.EAST) > 0))));
+        return this.getRedstonePower(pos.down(), EnumFacing.DOWN) > 0 || (this.getRedstonePower(pos.up(), EnumFacing.UP) > 0 || (this.getRedstonePower(pos.north(), EnumFacing.NORTH) > 0 || (this.getRedstonePower(pos.south(), EnumFacing.SOUTH) > 0 || (this.getRedstonePower(pos.west(), EnumFacing.WEST) > 0 || this.getRedstonePower(pos.east(), EnumFacing.EAST) > 0))));
     }
 
     /**
@@ -2789,7 +2788,7 @@ public abstract class World implements IBlockAccess {
     }
 
     public boolean isBlockModifiable(EntityPlayer player, BlockPos pos) {
-        return true;
+        return false;
     }
 
     /**

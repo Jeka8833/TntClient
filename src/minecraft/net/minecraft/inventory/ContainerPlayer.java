@@ -12,11 +12,11 @@ import net.minecraft.item.crafting.CraftingManager;
 public class ContainerPlayer extends Container
 {
     /** The crafting matrix inventory. */
-    public InventoryCrafting craftMatrix = new InventoryCrafting(this, 2, 2);
-    public IInventory craftResult = new InventoryCraftResult();
+    public final InventoryCrafting craftMatrix = new InventoryCrafting(this, 2, 2);
+    public final IInventory craftResult = new InventoryCraftResult();
 
     /** Determines if inventory manipulation should be handled. */
-    public boolean isLocalWorld;
+    public final boolean isLocalWorld;
     private final EntityPlayer thePlayer;
 
     public ContainerPlayer(final InventoryPlayer playerInventory, boolean localWorld, EntityPlayer player)
@@ -44,7 +44,7 @@ public class ContainerPlayer extends Container
                 }
                 public boolean isItemValid(ItemStack stack)
                 {
-                    return stack == null ? false : (stack.getItem() instanceof ItemArmor ? ((ItemArmor)stack.getItem()).armorType == k_f : (stack.getItem() != Item.getItemFromBlock(Blocks.pumpkin) && stack.getItem() != Items.skull ? false : k_f == 0));
+                    return stack != null && (stack.getItem() instanceof ItemArmor ? ((ItemArmor) stack.getItem()).armorType == k_f : ((stack.getItem() == Item.getItemFromBlock(Blocks.pumpkin) || stack.getItem() == Items.skull) && k_f == 0));
                 }
                 public String getSlotTexture()
                 {
@@ -90,16 +90,16 @@ public class ContainerPlayer extends Container
 
             if (itemstack != null)
             {
-                playerIn.dropPlayerItemWithRandomChoice(itemstack, false);
+                playerIn.dropPlayerItemWithRandomChoice(itemstack);
             }
         }
 
-        this.craftResult.setInventorySlotContents(0, (ItemStack)null);
+        this.craftResult.setInventorySlotContents(0, null);
     }
 
     public boolean canInteractWith(EntityPlayer playerIn)
     {
-        return true;
+        return false;
     }
 
     /**
@@ -108,7 +108,7 @@ public class ContainerPlayer extends Container
     public ItemStack transferStackInSlot(EntityPlayer playerIn, int index)
     {
         ItemStack itemstack = null;
-        Slot slot = (Slot)this.inventorySlots.get(index);
+        Slot slot = this.inventorySlots.get(index);
 
         if (slot != null && slot.getHasStack())
         {
@@ -117,7 +117,7 @@ public class ContainerPlayer extends Container
 
             if (index == 0)
             {
-                if (!this.mergeItemStack(itemstack1, 9, 45, true))
+                if (this.mergeItemStack(itemstack1, 9, 45, true))
                 {
                     return null;
                 }
@@ -126,49 +126,49 @@ public class ContainerPlayer extends Container
             }
             else if (index >= 1 && index < 5)
             {
-                if (!this.mergeItemStack(itemstack1, 9, 45, false))
+                if (this.mergeItemStack(itemstack1, 9, 45, false))
                 {
                     return null;
                 }
             }
             else if (index >= 5 && index < 9)
             {
-                if (!this.mergeItemStack(itemstack1, 9, 45, false))
+                if (this.mergeItemStack(itemstack1, 9, 45, false))
                 {
                     return null;
                 }
             }
-            else if (itemstack.getItem() instanceof ItemArmor && !((Slot)this.inventorySlots.get(5 + ((ItemArmor)itemstack.getItem()).armorType)).getHasStack())
+            else if (itemstack.getItem() instanceof ItemArmor && !this.inventorySlots.get(5 + ((ItemArmor)itemstack.getItem()).armorType).getHasStack())
             {
                 int i = 5 + ((ItemArmor)itemstack.getItem()).armorType;
 
-                if (!this.mergeItemStack(itemstack1, i, i + 1, false))
+                if (this.mergeItemStack(itemstack1, i, i + 1, false))
                 {
                     return null;
                 }
             }
             else if (index >= 9 && index < 36)
             {
-                if (!this.mergeItemStack(itemstack1, 36, 45, false))
+                if (this.mergeItemStack(itemstack1, 36, 45, false))
                 {
                     return null;
                 }
             }
             else if (index >= 36 && index < 45)
             {
-                if (!this.mergeItemStack(itemstack1, 9, 36, false))
+                if (this.mergeItemStack(itemstack1, 9, 36, false))
                 {
                     return null;
                 }
             }
-            else if (!this.mergeItemStack(itemstack1, 9, 45, false))
+            else if (this.mergeItemStack(itemstack1, 9, 45, false))
             {
                 return null;
             }
 
             if (itemstack1.stackSize == 0)
             {
-                slot.putStack((ItemStack)null);
+                slot.putStack(null);
             }
             else
             {

@@ -8,12 +8,12 @@ import optifine.BlockPosM;
 
 public class Iterator3d implements Iterator<BlockPos>
 {
-    private IteratorAxis iteratorAxis;
-    private BlockPosM blockPos = new BlockPosM(0, 0, 0);
+    private final IteratorAxis iteratorAxis;
+    private final BlockPosM blockPos = new BlockPosM(0, 0, 0);
     private int axis = 0;
-    private int kX;
-    private int kY;
-    private int kZ;
+    private final int kX;
+    private final int kY;
+    private final int kZ;
     private static final int AXIS_X = 0;
     private static final int AXIS_Y = 1;
     private static final int AXIS_Z = 2;
@@ -28,7 +28,7 @@ public class Iterator3d implements Iterator<BlockPos>
         this.kX = flag ? -1 : 1;
         this.kY = flag1 ? -1 : 1;
         this.kZ = flag2 ? -1 : 1;
-        Vec3 vec3 = new Vec3((double)(posEnd.getX() - posStart.getX()), (double)(posEnd.getY() - posStart.getY()), (double)(posEnd.getZ() - posStart.getZ()));
+        Vec3 vec3 = new Vec3(posEnd.getX() - posStart.getX(), posEnd.getY() - posStart.getY(), posEnd.getZ() - posStart.getZ());
         Vec3 vec31 = vec3.normalize();
         Vec3 vec32 = new Vec3(1.0D, 0.0D, 0.0D);
         double d0 = vec31.dotProduct(vec32);

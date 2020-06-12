@@ -15,7 +15,6 @@ import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EnumPlayerModelParts;
@@ -36,12 +35,12 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
     private static final Logger logger = LogManager.getLogger();
     private static final DynamicTexture field_177096_e = new DynamicTexture(16, 16);
     protected ModelBase mainModel;
-    protected FloatBuffer brightnessBuffer = GLAllocation.createDirectFloatBuffer(4);
+    protected final FloatBuffer brightnessBuffer = GLAllocation.createDirectFloatBuffer(4);
     protected List<LayerRenderer<T>> layerRenderers = Lists.newArrayList();
     protected boolean renderOutlines = false;
     private static final String __OBFID = "CL_00001012";
-    public static float NAME_TAG_RANGE = 64.0F;
-    public static float NAME_TAG_RANGE_SNEAK = 32.0F;
+    public static final float NAME_TAG_RANGE = 64.0F;
+    public static final float NAME_TAG_RANGE_SNEAK = 32.0F;
 
     public RendererLivingEntity(RenderManager renderManagerIn, ModelBase modelBaseIn, float shadowSizeIn)
     {
@@ -50,14 +49,14 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
         this.shadowSize = shadowSizeIn;
     }
 
-    public <V extends EntityLivingBase, U extends LayerRenderer<V>> boolean addLayer(U layer)
+    public <V extends EntityLivingBase, U extends LayerRenderer<V>> void addLayer(U layer)
     {
-        return this.layerRenderers.add((LayerRenderer<T>)layer);
+        this.layerRenderers.add((LayerRenderer<T>) layer);
     }
 
-    protected <V extends EntityLivingBase, U extends LayerRenderer<V>> boolean removeLayer(U layer)
+    protected <V extends EntityLivingBase, U extends LayerRenderer<V>> void removeLayer(U layer)
     {
-        return this.layerRenderers.remove(layer);
+        this.layerRenderers.remove(layer);
     }
 
     public ModelBase getMainModel()
@@ -76,7 +75,6 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
 
         for (f = par2 - par1; f < -180.0F; f += 360.0F)
         {
-            ;
         }
 
         while (f >= 180.0F)
@@ -99,7 +97,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
      */
     public void doRender(T entity, double x, double y, double z, float entityYaw, float partialTicks)
     {
-        if (!Reflector.RenderLivingEvent_Pre_Constructor.exists() || !Reflector.postForgeBusEvent(Reflector.RenderLivingEvent_Pre_Constructor, new Object[] {entity, this, Double.valueOf(x), Double.valueOf(y), Double.valueOf(z)}))
+        if (!Reflector.RenderLivingEvent_Pre_Constructor.exists() || !Reflector.postForgeBusEvent(Reflector.RenderLivingEvent_Pre_Constructor, entity, this, x, y, z))
         {
             GlStateManager.pushMatrix();
             GlStateManager.disableCull();
@@ -108,7 +106,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
 
             if (Reflector.ForgeEntity_shouldRiderSit.exists())
             {
-                this.mainModel.isRiding = entity.isRiding() && entity.ridingEntity != null && Reflector.callBoolean(entity.ridingEntity, Reflector.ForgeEntity_shouldRiderSit, new Object[0]);
+                this.mainModel.isRiding = entity.isRiding() && entity.ridingEntity != null && Reflector.callBoolean(entity.ridingEntity, Reflector.ForgeEntity_shouldRiderSit);
             }
 
             this.mainModel.isChild = entity.isChild();
@@ -173,7 +171,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
                 if (this.renderOutlines)
                 {
                     boolean flag1 = this.setScoreTeamColor(entity);
-                    this.renderModel(entity, f6, f5, f7, f2, f8, 0.0625F);
+                    this.renderModel(entity, f6, f5, f7, f2, f8);
 
                     if (flag1)
                     {
@@ -183,7 +181,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
                 else
                 {
                     boolean flag = this.setDoRenderBrightness(entity, partialTicks);
-                    this.renderModel(entity, f6, f5, f7, f2, f8, 0.0625F);
+                    this.renderModel(entity, f6, f5, f7, f2, f8);
 
                     if (flag)
                     {
@@ -194,7 +192,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
 
                     if (!(entity instanceof EntityPlayer) || !((EntityPlayer)entity).isSpectator())
                     {
-                        this.renderLayers(entity, f6, f5, partialTicks, f7, f2, f8, 0.0625F);
+                        this.renderLayers(entity, f6, f5, partialTicks, f7, f2, f8);
                     }
                 }
 
@@ -202,7 +200,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
             }
             catch (Exception exception)
             {
-                logger.error((String)"Couldn\'t render entity", (Throwable)exception);
+                logger.error("Couldn't render entity", exception);
             }
 
             GlStateManager.setActiveTexture(OpenGlHelper.lightmapTexUnit);
@@ -216,9 +214,8 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
                 super.doRender(entity, x, y, z, entityYaw, partialTicks);
             }
 
-            if (!Reflector.RenderLivingEvent_Post_Constructor.exists() || !Reflector.postForgeBusEvent(Reflector.RenderLivingEvent_Post_Constructor, new Object[] {entity, this, Double.valueOf(x), Double.valueOf(y), Double.valueOf(z)}))
+            if (!Reflector.RenderLivingEvent_Post_Constructor.exists() || !Reflector.postForgeBusEvent(Reflector.RenderLivingEvent_Post_Constructor, entity, this, x, y, z))
             {
-                ;
             }
         }
     }
@@ -268,10 +265,10 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
     /**
      * Renders the model in RenderLiving
      */
-    protected void renderModel(T entitylivingbaseIn, float p_77036_2_, float p_77036_3_, float p_77036_4_, float p_77036_5_, float p_77036_6_, float p_77036_7_)
+    protected void renderModel(T entitylivingbaseIn, float p_77036_2_, float p_77036_3_, float p_77036_4_, float p_77036_5_, float p_77036_6_)
     {
         boolean flag = !entitylivingbaseIn.isInvisible();
-        boolean flag1 = !flag && !entitylivingbaseIn.isInvisibleToPlayer(Minecraft.getMinecraft().thePlayer);
+        boolean flag1 = !flag && entitylivingbaseIn.isInvisibleToPlayer(Minecraft.getMinecraft().thePlayer);
 
         if (flag || flag1)
         {
@@ -290,7 +287,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
                 GlStateManager.alphaFunc(516, 0.003921569F);
             }
 
-            this.mainModel.render(entitylivingbaseIn, p_77036_2_, p_77036_3_, p_77036_4_, p_77036_5_, p_77036_6_, p_77036_7_);
+            this.mainModel.render(entitylivingbaseIn, p_77036_2_, p_77036_3_, p_77036_4_, p_77036_5_, p_77036_6_, (float) 0.0625);
 
             if (flag1)
             {
@@ -310,7 +307,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
     protected boolean setBrightness(T entitylivingbaseIn, float partialTicks, boolean combineTextures)
     {
         float f = entitylivingbaseIn.getBrightness(partialTicks);
-        int i = this.getColorMultiplier(entitylivingbaseIn, f, partialTicks);
+        int i = this.getColorMultiplier(entitylivingbaseIn, partialTicks);
         boolean flag = (i >> 24 & 255) > 0;
         boolean flag1 = entitylivingbaseIn.hurtTime > 0 || entitylivingbaseIn.deathTime > 0;
 
@@ -380,7 +377,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
             }
 
             this.brightnessBuffer.flip();
-            GL11.glTexEnv(GL11.GL_TEXTURE_ENV, GL11.GL_TEXTURE_ENV_COLOR, (FloatBuffer)this.brightnessBuffer);
+            GL11.glTexEnv(GL11.GL_TEXTURE_ENV, GL11.GL_TEXTURE_ENV_COLOR, this.brightnessBuffer);
             GlStateManager.setActiveTexture(OpenGlHelper.GL_TEXTURE2);
             GlStateManager.enableTexture2D();
             GlStateManager.bindTexture(field_177096_e.getGlTextureId());
@@ -466,7 +463,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
                 f = 1.0F;
             }
 
-            GlStateManager.rotate(f * this.getDeathMaxRotation(bat), 0.0F, 0.0F, 1.0F);
+            GlStateManager.rotate(f * this.getDeathMaxRotation(), 0.0F, 0.0F, 1.0F);
         }
         else
         {
@@ -496,12 +493,12 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
         return (float)livingBase.ticksExisted + partialTicks;
     }
 
-    protected void renderLayers(T entitylivingbaseIn, float p_177093_2_, float p_177093_3_, float partialTicks, float p_177093_5_, float p_177093_6_, float p_177093_7_, float p_177093_8_)
+    protected void renderLayers(T entitylivingbaseIn, float p_177093_2_, float p_177093_3_, float partialTicks, float p_177093_5_, float p_177093_6_, float p_177093_7_)
     {
         for (LayerRenderer<T> layerrenderer : this.layerRenderers)
         {
             boolean flag = this.setBrightness(entitylivingbaseIn, partialTicks, layerrenderer.shouldCombineTextures());
-            layerrenderer.doRenderLayer(entitylivingbaseIn, p_177093_2_, p_177093_3_, partialTicks, p_177093_5_, p_177093_6_, p_177093_7_, p_177093_8_);
+            layerrenderer.doRenderLayer(entitylivingbaseIn, p_177093_2_, p_177093_3_, partialTicks, p_177093_5_, p_177093_6_, p_177093_7_, (float) 0.0625);
 
             if (flag)
             {
@@ -510,7 +507,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
         }
     }
 
-    protected float getDeathMaxRotation(T entityLivingBaseIn)
+    protected float getDeathMaxRotation()
     {
         return 90.0F;
     }
@@ -518,7 +515,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
     /**
      * Returns an ARGB int color back. Args: entityLiving, lightBrightness, partialTickTime
      */
-    protected int getColorMultiplier(T entitylivingbaseIn, float lightBrightness, float partialTickTime)
+    protected int getColorMultiplier(T entitylivingbaseIn, float partialTickTime)
     {
         return 0;
     }
@@ -533,7 +530,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
 
     public void renderName(T entity, double x, double y, double z)
     {
-        if (!Reflector.RenderLivingEvent_Specials_Pre_Constructor.exists() || !Reflector.postForgeBusEvent(Reflector.RenderLivingEvent_Specials_Pre_Constructor, new Object[] {entity, this, Double.valueOf(x), Double.valueOf(y), Double.valueOf(z)}))
+        if (!Reflector.RenderLivingEvent_Specials_Pre_Constructor.exists() || !Reflector.postForgeBusEvent(Reflector.RenderLivingEvent_Specials_Pre_Constructor, entity, this, x, y, z))
         {
             if (this.canRenderName(entity))
             {
@@ -565,10 +562,10 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
                         Tessellator tessellator = Tessellator.getInstance();
                         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
                         worldrenderer.begin(7, DefaultVertexFormats.POSITION_COLOR);
-                        worldrenderer.pos((double)(-i - 1), -1.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
-                        worldrenderer.pos((double)(-i - 1), 8.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
-                        worldrenderer.pos((double)(i + 1), 8.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
-                        worldrenderer.pos((double)(i + 1), -1.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
+                        worldrenderer.pos(-i - 1, -1.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
+                        worldrenderer.pos(-i - 1, 8.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
+                        worldrenderer.pos(i + 1, 8.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
+                        worldrenderer.pos(i + 1, -1.0D, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
                         tessellator.draw();
                         GlStateManager.enableTexture2D();
                         GlStateManager.depthMask(true);
@@ -585,9 +582,8 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
                 }
             }
 
-            if (!Reflector.RenderLivingEvent_Specials_Post_Constructor.exists() || !Reflector.postForgeBusEvent(Reflector.RenderLivingEvent_Specials_Post_Constructor, new Object[] {entity, this, Double.valueOf(x), Double.valueOf(y), Double.valueOf(z)}))
+            if (!Reflector.RenderLivingEvent_Specials_Post_Constructor.exists() || !Reflector.postForgeBusEvent(Reflector.RenderLivingEvent_Specials_Post_Constructor, entity, this, x, y, z))
             {
-                ;
             }
         }
     }
@@ -625,7 +621,7 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
             }
         }
 
-        return Minecraft.isGuiEnabled() && entity != this.renderManager.livingPlayer && !entity.isInvisibleToPlayer(entityplayersp) && entity.riddenByEntity == null;
+        return Minecraft.isGuiEnabled() && entity != this.renderManager.livingPlayer && entity.isInvisibleToPlayer(entityplayersp) && entity.riddenByEntity == null;
     }
 
     public void setRenderOutlines(boolean renderOutlinesIn)
@@ -656,36 +652,32 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
             {
                 field_178679_a[Team.EnumVisible.ALWAYS.ordinal()] = 1;
             }
-            catch (NoSuchFieldError var4)
+            catch (NoSuchFieldError ignored)
             {
-                ;
             }
 
             try
             {
                 field_178679_a[Team.EnumVisible.NEVER.ordinal()] = 2;
             }
-            catch (NoSuchFieldError var3)
+            catch (NoSuchFieldError ignored)
             {
-                ;
             }
 
             try
             {
                 field_178679_a[Team.EnumVisible.HIDE_FOR_OTHER_TEAMS.ordinal()] = 3;
             }
-            catch (NoSuchFieldError var2)
+            catch (NoSuchFieldError ignored)
             {
-                ;
             }
 
             try
             {
                 field_178679_a[Team.EnumVisible.HIDE_FOR_OWN_TEAM.ordinal()] = 4;
             }
-            catch (NoSuchFieldError var1)
+            catch (NoSuchFieldError ignored)
             {
-                ;
             }
         }
     }

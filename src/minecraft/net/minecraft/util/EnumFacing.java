@@ -9,12 +9,12 @@ import java.util.Random;
 
 public enum EnumFacing implements IStringSerializable
 {
-    DOWN("DOWN", 0, 0, 1, -1, "down", EnumFacing.AxisDirection.NEGATIVE, EnumFacing.Axis.Y, new Vec3i(0, -1, 0)),
-    UP("UP", 1, 1, 0, -1, "up", EnumFacing.AxisDirection.POSITIVE, EnumFacing.Axis.Y, new Vec3i(0, 1, 0)),
-    NORTH("NORTH", 2, 2, 3, 2, "north", EnumFacing.AxisDirection.NEGATIVE, EnumFacing.Axis.Z, new Vec3i(0, 0, -1)),
-    SOUTH("SOUTH", 3, 3, 2, 0, "south", EnumFacing.AxisDirection.POSITIVE, EnumFacing.Axis.Z, new Vec3i(0, 0, 1)),
-    WEST("WEST", 4, 4, 5, 1, "west", EnumFacing.AxisDirection.NEGATIVE, EnumFacing.Axis.X, new Vec3i(-1, 0, 0)),
-    EAST("EAST", 5, 5, 4, 3, "east", EnumFacing.AxisDirection.POSITIVE, EnumFacing.Axis.X, new Vec3i(1, 0, 0));
+    DOWN(0, 1, -1, "down", EnumFacing.AxisDirection.NEGATIVE, EnumFacing.Axis.Y, new Vec3i(0, -1, 0)),
+    UP(1, 0, -1, "up", EnumFacing.AxisDirection.POSITIVE, EnumFacing.Axis.Y, new Vec3i(0, 1, 0)),
+    NORTH(2, 3, 2, "north", EnumFacing.AxisDirection.NEGATIVE, EnumFacing.Axis.Z, new Vec3i(0, 0, -1)),
+    SOUTH(3, 2, 0, "south", EnumFacing.AxisDirection.POSITIVE, EnumFacing.Axis.Z, new Vec3i(0, 0, 1)),
+    WEST(4, 5, 1, "west", EnumFacing.AxisDirection.NEGATIVE, EnumFacing.Axis.X, new Vec3i(-1, 0, 0)),
+    EAST(5, 4, 3, "east", EnumFacing.AxisDirection.POSITIVE, EnumFacing.Axis.X, new Vec3i(1, 0, 0));
 
     /** Ordering index for D-U-N-S-W-E */
     private final int index;
@@ -40,7 +40,7 @@ public enum EnumFacing implements IStringSerializable
     private static final EnumFacing[] $VALUES = new EnumFacing[]{DOWN, UP, NORTH, SOUTH, WEST, EAST};
     private static final String __OBFID = "CL_00001201";
 
-    private EnumFacing(String p_i17_3_, int p_i17_4_, int p_i17_5_, int p_i17_6_, int p_i17_7_, String p_i17_8_, EnumFacing.AxisDirection p_i17_9_, EnumFacing.Axis p_i17_10_, Vec3i p_i17_11_)
+    EnumFacing(int p_i17_5_, int p_i17_6_, int p_i17_7_, String p_i17_8_, AxisDirection p_i17_9_, Axis p_i17_10_, Vec3i p_i17_11_)
     {
         this.index = p_i17_5_;
         this.horizontalIndex = p_i17_7_;
@@ -367,17 +367,15 @@ public enum EnumFacing implements IStringSerializable
             try {
                 field_179514_c[EnumFacing.Plane.HORIZONTAL.ordinal()] = 1;
             }
-            catch (NoSuchFieldError var11)
+            catch (NoSuchFieldError ignored)
             {
-                ;
             }
 
             try {
                 field_179514_c[EnumFacing.Plane.VERTICAL.ordinal()] = 2;
             }
-            catch (NoSuchFieldError var10)
+            catch (NoSuchFieldError ignored)
             {
-                ;
             }
 
             field_179513_b = new int[EnumFacing.values().length];
@@ -385,49 +383,43 @@ public enum EnumFacing implements IStringSerializable
             try {
                 field_179513_b[EnumFacing.NORTH.ordinal()] = 1;
             }
-            catch (NoSuchFieldError var9)
+            catch (NoSuchFieldError ignored)
             {
-                ;
             }
 
             try {
                 field_179513_b[EnumFacing.EAST.ordinal()] = 2;
             }
-            catch (NoSuchFieldError var8)
+            catch (NoSuchFieldError ignored)
             {
-                ;
             }
 
             try {
                 field_179513_b[EnumFacing.SOUTH.ordinal()] = 3;
             }
-            catch (NoSuchFieldError var7)
+            catch (NoSuchFieldError ignored)
             {
-                ;
             }
 
             try {
                 field_179513_b[EnumFacing.WEST.ordinal()] = 4;
             }
-            catch (NoSuchFieldError var6)
+            catch (NoSuchFieldError ignored)
             {
-                ;
             }
 
             try {
                 field_179513_b[EnumFacing.UP.ordinal()] = 5;
             }
-            catch (NoSuchFieldError var5)
+            catch (NoSuchFieldError ignored)
             {
-                ;
             }
 
             try {
                 field_179513_b[EnumFacing.DOWN.ordinal()] = 6;
             }
-            catch (NoSuchFieldError var4)
+            catch (NoSuchFieldError ignored)
             {
-                ;
             }
 
             field_179515_a = new int[EnumFacing.Axis.values().length];
@@ -435,33 +427,30 @@ public enum EnumFacing implements IStringSerializable
             try {
                 field_179515_a[EnumFacing.Axis.X.ordinal()] = 1;
             }
-            catch (NoSuchFieldError var3)
+            catch (NoSuchFieldError ignored)
             {
-                ;
             }
 
             try {
                 field_179515_a[EnumFacing.Axis.Y.ordinal()] = 2;
             }
-            catch (NoSuchFieldError var2)
+            catch (NoSuchFieldError ignored)
             {
-                ;
             }
 
             try {
                 field_179515_a[EnumFacing.Axis.Z.ordinal()] = 3;
             }
-            catch (NoSuchFieldError var1)
+            catch (NoSuchFieldError ignored)
             {
-                ;
             }
         }
     }
 
-    public static enum Axis implements Predicate, IStringSerializable {
-        X("X", 0, "x", EnumFacing.Plane.HORIZONTAL),
-        Y("Y", 1, "y", EnumFacing.Plane.VERTICAL),
-        Z("Z", 2, "z", EnumFacing.Plane.HORIZONTAL);
+    public enum Axis implements Predicate, IStringSerializable {
+        X("x", EnumFacing.Plane.HORIZONTAL),
+        Y("y", EnumFacing.Plane.VERTICAL),
+        Z("z", EnumFacing.Plane.HORIZONTAL);
 
         private static final Map NAME_LOOKUP = Maps.newHashMap();
         private final String name;
@@ -469,7 +458,7 @@ public enum EnumFacing implements IStringSerializable
         private static final EnumFacing.Axis[] $VALUES = new EnumFacing.Axis[]{X, Y, Z};
         private static final String __OBFID = "CL_00002321";
 
-        private Axis(String p_i14_3_, int p_i14_4_, String p_i14_5_, EnumFacing.Plane p_i14_6_)
+        Axis(String p_i14_5_, Plane p_i14_6_)
         {
             this.name = p_i14_5_;
             this.plane = p_i14_6_;
@@ -528,16 +517,16 @@ public enum EnumFacing implements IStringSerializable
         }
     }
 
-    public static enum AxisDirection {
-        POSITIVE("POSITIVE", 0, 1, "Towards positive"),
-        NEGATIVE("NEGATIVE", 1, -1, "Towards negative");
+    public enum AxisDirection {
+        POSITIVE(1, "Towards positive"),
+        NEGATIVE(-1, "Towards negative");
 
         private final int offset;
         private final String description;
         private static final EnumFacing.AxisDirection[] $VALUES = new EnumFacing.AxisDirection[]{POSITIVE, NEGATIVE};
         private static final String __OBFID = "CL_00002320";
 
-        private AxisDirection(String p_i15_3_, int p_i15_4_, int p_i15_5_, String p_i15_6_)
+        AxisDirection(int p_i15_5_, String p_i15_6_)
         {
             this.offset = p_i15_5_;
             this.description = p_i15_6_;
@@ -554,14 +543,14 @@ public enum EnumFacing implements IStringSerializable
         }
     }
 
-    public static enum Plane implements Predicate, Iterable {
-        HORIZONTAL("HORIZONTAL", 0),
-        VERTICAL("VERTICAL", 1);
+    public enum Plane implements Predicate, Iterable {
+        HORIZONTAL(),
+        VERTICAL();
 
         private static final EnumFacing.Plane[] $VALUES = new EnumFacing.Plane[]{HORIZONTAL, VERTICAL};
         private static final String __OBFID = "CL_00002319";
 
-        private Plane(String p_i16_3_, int p_i16_4_)
+        Plane()
         {
         }
 
@@ -574,7 +563,7 @@ public enum EnumFacing implements IStringSerializable
                 case 2:
                     return new EnumFacing[] {EnumFacing.UP, EnumFacing.DOWN};
                 default:
-                    throw new Error("Someone\'s been tampering with the universe!");
+                    throw new Error("Someone's been tampering with the universe!");
             }
         }
 

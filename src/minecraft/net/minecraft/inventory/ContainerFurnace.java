@@ -50,7 +50,7 @@ public class ContainerFurnace extends Container
 
         for (int i = 0; i < this.crafters.size(); ++i)
         {
-            ICrafting icrafting = (ICrafting)this.crafters.get(i);
+            ICrafting icrafting = this.crafters.get(i);
 
             if (this.field_178152_f != this.tileFurnace.getField(2))
             {
@@ -86,7 +86,7 @@ public class ContainerFurnace extends Container
 
     public boolean canInteractWith(EntityPlayer playerIn)
     {
-        return this.tileFurnace.isUseableByPlayer(playerIn);
+        return !this.tileFurnace.isUseableByPlayer(playerIn);
     }
 
     /**
@@ -95,7 +95,7 @@ public class ContainerFurnace extends Container
     public ItemStack transferStackInSlot(EntityPlayer playerIn, int index)
     {
         ItemStack itemstack = null;
-        Slot slot = (Slot)this.inventorySlots.get(index);
+        Slot slot = this.inventorySlots.get(index);
 
         if (slot != null && slot.getHasStack())
         {
@@ -104,7 +104,7 @@ public class ContainerFurnace extends Container
 
             if (index == 2)
             {
-                if (!this.mergeItemStack(itemstack1, 3, 39, true))
+                if (this.mergeItemStack(itemstack1, 3, 39, true))
                 {
                     return null;
                 }
@@ -115,38 +115,38 @@ public class ContainerFurnace extends Container
             {
                 if (FurnaceRecipes.instance().getSmeltingResult(itemstack1) != null)
                 {
-                    if (!this.mergeItemStack(itemstack1, 0, 1, false))
+                    if (this.mergeItemStack(itemstack1, 0, 1, false))
                     {
                         return null;
                     }
                 }
                 else if (TileEntityFurnace.isItemFuel(itemstack1))
                 {
-                    if (!this.mergeItemStack(itemstack1, 1, 2, false))
+                    if (this.mergeItemStack(itemstack1, 1, 2, false))
                     {
                         return null;
                     }
                 }
                 else if (index >= 3 && index < 30)
                 {
-                    if (!this.mergeItemStack(itemstack1, 30, 39, false))
+                    if (this.mergeItemStack(itemstack1, 30, 39, false))
                     {
                         return null;
                     }
                 }
-                else if (index >= 30 && index < 39 && !this.mergeItemStack(itemstack1, 3, 30, false))
+                else if (index >= 30 && index < 39 && this.mergeItemStack(itemstack1, 3, 30, false))
                 {
                     return null;
                 }
             }
-            else if (!this.mergeItemStack(itemstack1, 3, 39, false))
+            else if (this.mergeItemStack(itemstack1, 3, 39, false))
             {
                 return null;
             }
 
             if (itemstack1.stackSize == 0)
             {
-                slot.putStack((ItemStack)null);
+                slot.putStack(null);
             }
             else
             {

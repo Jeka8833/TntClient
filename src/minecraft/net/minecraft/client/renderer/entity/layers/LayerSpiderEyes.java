@@ -27,14 +27,7 @@ public class LayerSpiderEyes implements LayerRenderer
         GlStateManager.disableAlpha();
         GlStateManager.blendFunc(1, 1);
 
-        if (entitylivingbaseIn.isInvisible())
-        {
-            GlStateManager.depthMask(false);
-        }
-        else
-        {
-            GlStateManager.depthMask(true);
-        }
+        GlStateManager.depthMask(!entitylivingbaseIn.isInvisible());
 
         char c0 = 61680;
         int i = c0 % 65536;

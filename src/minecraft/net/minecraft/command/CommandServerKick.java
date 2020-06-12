@@ -26,7 +26,7 @@ public class CommandServerKick extends CommandBase
     /**
      * Gets the usage string for the command.
      */
-    public String getCommandUsage(ICommandSender sender)
+    public String getCommandUsage()
     {
         return "commands.kick.usage";
     }
@@ -58,21 +58,21 @@ public class CommandServerKick extends CommandBase
 
                 if (flag)
                 {
-                    notifyOperators(sender, this, "commands.kick.success.reason", new Object[] {entityplayermp.getName(), s});
+                    notifyOperators(sender, this, "commands.kick.success.reason", entityplayermp.getName(), s);
                 }
                 else
                 {
-                    notifyOperators(sender, this, "commands.kick.success", new Object[] {entityplayermp.getName()});
+                    notifyOperators(sender, this, "commands.kick.success", entityplayermp.getName());
                 }
             }
         }
         else
         {
-            throw new WrongUsageException("commands.kick.usage", new Object[0]);
+            throw new WrongUsageException("commands.kick.usage");
         }
     }
 
-    public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos)
+    public List<String> addTabCompletionOptions(String[] args, BlockPos pos)
     {
         return args.length >= 1 ? getListOfStringsMatchingLastWord(args, MinecraftServer.getServer().getAllUsernames()) : null;
     }

@@ -123,7 +123,7 @@ public abstract class EntityMinecartContainer extends EntityMinecart implements 
      */
     public boolean isUseableByPlayer(EntityPlayer player)
     {
-        return this.isDead ? false : player.getDistanceSqToEntity(this) <= 64.0D;
+        return !this.isDead && player.getDistanceSqToEntity(this) <= 64.0D;
     }
 
     public void openInventory(EntityPlayer player)
@@ -233,16 +233,16 @@ public abstract class EntityMinecartContainer extends EntityMinecart implements 
             playerIn.displayGUIChest(this);
         }
 
-        return true;
+        return false;
     }
 
     protected void applyDrag()
     {
         int i = 15 - Container.calcRedstoneFromInventory(this);
         float f = 0.98F + (float)i * 0.001F;
-        this.motionX *= (double)f;
+        this.motionX *= f;
         this.motionY *= 0.0D;
-        this.motionZ *= (double)f;
+        this.motionZ *= f;
     }
 
     public int getField(int id)

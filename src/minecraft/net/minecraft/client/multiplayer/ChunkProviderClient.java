@@ -4,7 +4,6 @@ import com.google.common.collect.Lists;
 import java.util.List;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.util.BlockPos;
-import net.minecraft.util.IProgressUpdate;
 import net.minecraft.util.LongHashMap;
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.World;
@@ -23,12 +22,12 @@ public class ChunkProviderClient implements IChunkProvider
      * The completely empty chunk used by ChunkProviderClient when chunkMapping doesn't contain the requested
      * coordinates.
      */
-    private Chunk blankChunk;
-    private LongHashMap chunkMapping = new LongHashMap();
-    private List<Chunk> chunkListing = Lists.<Chunk>newArrayList();
+    private final Chunk blankChunk;
+    private final LongHashMap chunkMapping = new LongHashMap();
+    private final List<Chunk> chunkListing = Lists.newArrayList();
 
     /** Reference to the World object. */
-    private World worldObj;
+    private final World worldObj;
 
     public ChunkProviderClient(World worldIn)
     {
@@ -64,13 +63,12 @@ public class ChunkProviderClient implements IChunkProvider
     /**
      * loads or generates the chunk at the chunk location specified
      */
-    public Chunk loadChunk(int p_73158_1_, int p_73158_2_)
+    public void loadChunk(int p_73158_1_, int p_73158_2_)
     {
         Chunk chunk = new Chunk(this.worldObj, p_73158_1_, p_73158_2_);
         this.chunkMapping.add(ChunkCoordIntPair.chunkXZ2Int(p_73158_1_, p_73158_2_), chunk);
         this.chunkListing.add(chunk);
         chunk.setChunkLoaded(true);
-        return chunk;
     }
 
     /**
@@ -87,9 +85,8 @@ public class ChunkProviderClient implements IChunkProvider
      * Two modes of operation: if passed true, save all Chunks in one go.  If passed false, save up to two chunks.
      * Return true if all chunks have been saved.
      */
-    public boolean saveChunks(boolean p_73151_1_, IProgressUpdate progressCallback)
+    public void saveChunks(boolean p_73151_1_)
     {
-        return true;
     }
 
     /**
@@ -114,7 +111,7 @@ public class ChunkProviderClient implements IChunkProvider
 
         if (System.currentTimeMillis() - i > 100L)
         {
-            logger.info("Warning: Clientside chunk ticking took {} ms", new Object[] {Long.valueOf(System.currentTimeMillis() - i)});
+            logger.info("Warning: Clientside chunk ticking took {} ms", System.currentTimeMillis() - i);
         }
 
         return false;
@@ -163,7 +160,7 @@ public class ChunkProviderClient implements IChunkProvider
         return this.chunkListing.size();
     }
 
-    public void recreateStructures(Chunk p_180514_1_, int p_180514_2_, int p_180514_3_)
+    public void recreateStructures(int p_180514_2_, int p_180514_3_)
     {
     }
 

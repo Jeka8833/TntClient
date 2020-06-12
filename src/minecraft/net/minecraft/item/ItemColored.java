@@ -15,7 +15,7 @@ public class ItemColored extends ItemBlock
         if (hasSubtypes)
         {
             this.setMaxDamage(0);
-            this.setHasSubtypes(true);
+            this.setHasSubtypes();
         }
     }
 

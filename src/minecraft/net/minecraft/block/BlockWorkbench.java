@@ -26,16 +26,11 @@ public class BlockWorkbench extends Block
 
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ)
     {
-        if (worldIn.isRemote)
-        {
-            return true;
-        }
-        else
-        {
-            playerIn.displayGui(new BlockWorkbench.InterfaceCraftingTable(worldIn, pos));
+        if (!worldIn.isRemote) {
+            playerIn.displayGui(new InterfaceCraftingTable(worldIn, pos));
             playerIn.triggerAchievement(StatList.field_181742_Z);
-            return true;
         }
+        return true;
     }
 
     public static class InterfaceCraftingTable implements IInteractionObject
@@ -61,7 +56,7 @@ public class BlockWorkbench extends Block
 
         public IChatComponent getDisplayName()
         {
-            return new ChatComponentTranslation(Blocks.crafting_table.getUnlocalizedName() + ".name", new Object[0]);
+            return new ChatComponentTranslation(Blocks.crafting_table.getUnlocalizedName() + ".name");
         }
 
         public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn)
