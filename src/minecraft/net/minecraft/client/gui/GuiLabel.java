@@ -2,14 +2,14 @@ package net.minecraft.client.gui;
 
 import com.google.common.collect.Lists;
 import java.util.List;
-import net.minecraft.client.Minecraft;
+
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 
 public class GuiLabel extends Gui
 {
-    protected int field_146167_a = 200;
-    protected int field_146161_f = 20;
+    protected int field_146167_a;
+    protected int field_146161_f;
     public final int field_146162_g;
     public int field_146174_h;
     private final List<String> field_146173_k;
@@ -55,7 +55,7 @@ public class GuiLabel extends Gui
         this.centered = true;
     }
 
-    public void drawLabel(Minecraft mc, int mouseX, int mouseY)
+    public void drawLabel()
     {
         if (this.visible)
         {

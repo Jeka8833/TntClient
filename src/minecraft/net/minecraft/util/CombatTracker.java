@@ -57,7 +57,7 @@ public class CombatTracker
     {
         this.reset();
         this.func_94545_a();
-        CombatEntry combatentry = new CombatEntry(damageSrc, this.fighter.ticksExisted, healthIn, damageAmount, this.field_94551_f, this.fighter.fallDistance);
+        CombatEntry combatentry = new CombatEntry(damageSrc, damageAmount, this.field_94551_f, this.fighter.fallDistance);
         this.combatEntries.add(combatentry);
         this.field_94555_c = this.fighter.ticksExisted;
         this.field_94553_e = true;

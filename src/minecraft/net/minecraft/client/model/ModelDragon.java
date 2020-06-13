@@ -151,7 +151,6 @@ public class ModelDragon extends ModelBase
         double[] adouble = entitydragon.getMovementOffsets(6, this.partialTicks);
         float f6 = this.updateRotations(entitydragon.getMovementOffsets(5, this.partialTicks)[0] - entitydragon.getMovementOffsets(10, this.partialTicks)[0]);
         float f7 = this.updateRotations(entitydragon.getMovementOffsets(5, this.partialTicks)[0] + (double)(f6 / 2.0F));
-        f2 = f2 + 2.0F;
         float f8 = f * (float)Math.PI * 2.0F;
         f2 = 20.0F;
         float f3 = -12.0F;

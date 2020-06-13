@@ -19,7 +19,7 @@ public class ContainerMerchant extends Container
     {
         this.theMerchant = merchant;
         this.theWorld = worldIn;
-        this.merchantInventory = new InventoryMerchant(playerInventory.player, merchant);
+        this.merchantInventory = new InventoryMerchant(merchant);
         this.addSlotToContainer(new Slot(this.merchantInventory, 0, 36, 53));
         this.addSlotToContainer(new Slot(this.merchantInventory, 1, 62, 53));
         this.addSlotToContainer(new SlotMerchantResult(playerInventory.player, merchant, this.merchantInventory, 2, 120, 53));

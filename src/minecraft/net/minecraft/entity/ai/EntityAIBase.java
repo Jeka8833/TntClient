@@ -18,7 +18,7 @@ public abstract class EntityAIBase
      */
     public boolean continueExecuting()
     {
-        return this.shouldExecute();
+        return !this.shouldExecute();
     }
 
     /**

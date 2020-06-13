@@ -347,7 +347,7 @@ public class ComponentScatteredFeaturePieces
                 else
                 {
                     this.field_74936_d = i / j;
-                    this.boundingBox.offset(0, this.field_74936_d - this.boundingBox.minY + 0, 0);
+                    this.boundingBox.offset(0, this.field_74936_d - this.boundingBox.minY, 0);
                     return false;
                 }
             }

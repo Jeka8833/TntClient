@@ -50,7 +50,7 @@ public class EntityAIHarvestFarmland extends EntityAIMoveToBlock
      */
     public boolean continueExecuting()
     {
-        return this.field_179501_f >= 0 && super.continueExecuting();
+        return this.field_179501_f < 0 || super.continueExecuting();
     }
 
     /**

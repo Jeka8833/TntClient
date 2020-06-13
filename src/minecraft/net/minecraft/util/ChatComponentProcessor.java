@@ -11,7 +11,7 @@ public class ChatComponentProcessor
 {
     public static IChatComponent processComponent(ICommandSender commandSender, IChatComponent component, Entity entityIn) throws CommandException
     {
-        IChatComponent ichatcomponent = null;
+        IChatComponent ichatcomponent;
 
         if (component instanceof ChatComponentScore)
         {

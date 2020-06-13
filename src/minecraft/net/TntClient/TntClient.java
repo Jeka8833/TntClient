@@ -16,7 +16,6 @@ import org.lwjgl.input.Keyboard;
 public class TntClient {
 
     public static final String version = "1.0.7";
-    public static final boolean pussy = false;
 
     public static boolean isDebug = false;
 
@@ -29,22 +28,16 @@ public class TntClient {
         SpellChecker.startTimer();
         TranslateGoogle.startTime();
         Config.read();
-        for (Module module : Config.config.getModList()) {
+        for (Module module : Config.modules) {
             if (module.isActive())
                 module.onEnable();
-        }
-        if (pussy) {
-            for (Module module : Config.config.getDangerMods()) {
-                module.setActive(false);
-                module.onDisable();
-            }
         }
         eventManager.register(this);
     }
 
     @EventTarget
     public void onDraw(Event2D event) {
-        for (Module m : Config.config.getModList())
+        for (Module m : Config.modules)
             if (m.isDanger && m.isActive()) {
                 mc.fontRendererObj.drawString("This can lead to a ban!!!", 2, (int) (event.getHeight() - 10), Util.getRainbow());
                 return;
@@ -56,7 +49,7 @@ public class TntClient {
         if (event.getKey() == Keyboard.KEY_RSHIFT)
             mc.displayGuiScreen(new ListMods());
         else if (mc.currentScreen == null)
-            for (Module m : Config.config.getModList())
+            for (Module m : Config.modules)
                 if (!m.isBlocking && m.keyBind == event.getKey())
                     m.toggle();
     }

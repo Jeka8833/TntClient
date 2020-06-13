@@ -64,7 +64,7 @@ public class EntityAIMoveTowardsTarget extends EntityAIBase
      */
     public boolean continueExecuting()
     {
-        return !this.theEntity.getNavigator().noPath() && this.targetEntity.isEntityAlive() && this.targetEntity.getDistanceSqToEntity(this.theEntity) < (double)(this.maxTargetDistance * this.maxTargetDistance);
+        return this.theEntity.getNavigator().noPath() || !this.targetEntity.isEntityAlive() || !(this.targetEntity.getDistanceSqToEntity(this.theEntity) < (double) (this.maxTargetDistance * this.maxTargetDistance));
     }
 
     /**

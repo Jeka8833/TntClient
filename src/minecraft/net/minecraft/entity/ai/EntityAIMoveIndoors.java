@@ -62,7 +62,7 @@ public class EntityAIMoveIndoors extends EntityAIBase
      */
     public boolean continueExecuting()
     {
-        return !this.entityObj.getNavigator().noPath();
+        return this.entityObj.getNavigator().noPath();
     }
 
     /**

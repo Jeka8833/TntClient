@@ -10,7 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.Reader;
+
 import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.client.resources.data.IMetadataSection;
 import net.minecraft.client.resources.data.IMetadataSerializer;
@@ -23,7 +23,6 @@ public abstract class AbstractResourcePack implements IResourcePack
 {
     private static final Logger resourceLog = LogManager.getLogger();
     public final File resourcePackFile;
-    private static final String __OBFID = "CL_00001072";
 
     public AbstractResourcePack(File resourcePackFileIn)
     {
@@ -66,7 +65,7 @@ public abstract class AbstractResourcePack implements IResourcePack
 
     static IMetadataSection readMetadata(IMetadataSerializer p_110596_0_, InputStream p_110596_1_, String p_110596_2_)
     {
-        JsonObject jsonobject = null;
+        JsonObject jsonobject;
         BufferedReader bufferedreader = null;
 
         try

@@ -800,12 +800,12 @@ public class EntityHorse extends EntityAnimal implements IInvBasic
         }
         else if (!this.isTame() && this.isUndead())
         {
-            return false;
+            return true;
         }
         else if (this.isTame() && this.isAdultHorse() && player.isSneaking())
         {
             this.openGUI(player);
-            return true;
+            return false;
         }
         else if (this.func_110253_bW() && this.riddenByEntity != null)
         {
@@ -839,11 +839,11 @@ public class EntityHorse extends EntityAnimal implements IInvBasic
                         if (!this.isTame())
                         {
                             this.makeHorseRearWithSound();
-                            return true;
+                            return false;
                         }
 
                         this.openGUI(player);
-                        return true;
+                        return false;
                     }
                 }
 
@@ -929,11 +929,11 @@ public class EntityHorse extends EntityAnimal implements IInvBasic
                 {
                     if (itemstack != null && itemstack.interactWithEntity(player, this))
                     {
-                        return true;
+                        return false;
                     }
 
                     this.makeHorseRearWithSound();
-                    return true;
+                    return false;
                 }
 
                 if (!flag && this.canCarryChest() && !this.isChested() && itemstack.getItem() == Item.getItemFromBlock(Blocks.chest))
@@ -947,7 +947,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic
                 if (!flag && this.func_110253_bW() && !this.isHorseSaddled() && itemstack.getItem() == Items.saddle)
                 {
                     this.openGUI(player);
-                    return true;
+                    return false;
                 }
 
                 if (flag)
@@ -957,7 +957,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic
                         player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
                     }
 
-                    return true;
+                    return false;
                 }
             }
 
@@ -965,12 +965,12 @@ public class EntityHorse extends EntityAnimal implements IInvBasic
             {
                 if (itemstack != null && itemstack.interactWithEntity(player, this))
                 {
-                    return true;
+                    return false;
                 }
                 else
                 {
                     this.mountTo(player);
-                    return true;
+                    return false;
                 }
             }
             else
@@ -1443,7 +1443,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic
         this.setHorseVariant(tagCompund.getInteger("Variant"));
         this.setTemper(tagCompund.getInteger("Temper"));
         this.setHorseTamed(tagCompund.getBoolean("Tame"));
-        String s = "";
+        String s;
 
         if (tagCompund.hasKey("OwnerUUID", 8))
         {
@@ -1611,7 +1611,7 @@ public class EntityHorse extends EntityAnimal implements IInvBasic
     public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata)
     {
         livingdata = super.onInitialSpawn(difficulty, livingdata);
-        int i = 0;
+        int i;
         int j = 0;
 
         if (livingdata instanceof EntityHorse.GroupData)

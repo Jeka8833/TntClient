@@ -58,6 +58,6 @@ public class EntityAIPanic extends EntityAIBase
      */
     public boolean continueExecuting()
     {
-        return !this.theEntityCreature.getNavigator().noPath();
+        return this.theEntityCreature.getNavigator().noPath();
     }
 }

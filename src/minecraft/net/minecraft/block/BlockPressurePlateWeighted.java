@@ -17,12 +17,12 @@ public class BlockPressurePlateWeighted extends BlockBasePressurePlate
 
     protected BlockPressurePlateWeighted()
     {
-        this(Material.iron, 150, Material.iron.getMaterialMapColor());
+        this(150, Material.iron.getMaterialMapColor());
     }
 
-    protected BlockPressurePlateWeighted(Material p_i46380_1_, int p_i46380_2_, MapColor p_i46380_3_)
+    protected BlockPressurePlateWeighted(int p_i46380_2_, MapColor p_i46380_3_)
     {
-        super(p_i46380_1_, p_i46380_3_);
+        super(Material.iron, p_i46380_3_);
         this.setDefaultState(this.blockState.getBaseState().withProperty(POWER, 0));
         this.field_150068_a = p_i46380_2_;
     }

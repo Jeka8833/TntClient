@@ -188,7 +188,7 @@ public class ChunkProviderServer implements IChunkProvider
         {
             try
             {
-                this.chunkLoader.saveExtraChunkData(this.worldObj, p_73243_1_);
+                this.chunkLoader.saveExtraChunkData();
             }
             catch (Exception exception)
             {

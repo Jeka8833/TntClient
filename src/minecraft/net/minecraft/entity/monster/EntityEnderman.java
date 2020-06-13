@@ -485,13 +485,13 @@ public class EntityEnderman extends EntityMob
             {
                 if (!this.enderman.shouldAttackPlayer(this.player))
                 {
-                    return false;
+                    return true;
                 }
                 else
                 {
                     this.enderman.isAggressive = true;
                     this.enderman.faceEntity(this.player, 10.0F, 10.0F);
-                    return true;
+                    return false;
                 }
             }
             else

@@ -10,22 +10,20 @@ import org.lwjgl.opengl.GL11;
 
 public class TextureAnimation
 {
-    private String srcTex = null;
-    private String dstTex = null;
-    ResourceLocation dstTexLoc = null;
+    private String dstTex;
+    ResourceLocation dstTexLoc;
     private int dstTextId = -1;
-    private int dstX = 0;
-    private int dstY = 0;
-    private int frameWidth = 0;
-    private int frameHeight = 0;
-    private TextureAnimationFrame[] frames = null;
+    private int dstX;
+    private int dstY;
+    private int frameWidth;
+    private int frameHeight;
+    private TextureAnimationFrame[] frames;
     private int activeFrame = 0;
-    byte[] srcData = null;
+    byte[] srcData;
     private ByteBuffer imageData = null;
 
-    public TextureAnimation(String p_i95_1_, byte[] p_i95_2_, String p_i95_3_, ResourceLocation p_i95_4_, int p_i95_5_, int p_i95_6_, int p_i95_7_, int p_i95_8_, Properties p_i95_9_, int p_i95_10_)
+    public TextureAnimation(byte[] p_i95_2_, String p_i95_3_, ResourceLocation p_i95_4_, int p_i95_5_, int p_i95_6_, int p_i95_7_, int p_i95_8_, Properties p_i95_9_, int p_i95_10_)
     {
-        this.srcTex = p_i95_1_;
         this.dstTex = p_i95_3_;
         this.dstTexLoc = p_i95_4_;
         this.dstX = p_i95_5_;

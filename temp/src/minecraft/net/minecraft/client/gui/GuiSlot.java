@@ -327,7 +327,7 @@ public abstract class GuiSlot {
          int k = p_148120_2_ + j * this.field_148149_f + this.field_148160_j;
          int l = this.field_148149_f - 4;
          if (k > this.field_148154_c || k + l < this.field_148153_b) {
-            this.func_178040_a(j, p_148120_1_, k);
+            this.func_178040_a(j, k);
          }
 
          if (this.field_148166_t && this.func_148131_a(j)) {

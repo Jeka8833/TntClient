@@ -68,7 +68,7 @@ public class MapGenStructureIO
         return structurestart;
     }
 
-    public static StructureComponent getStructureComponent(NBTTagCompound tagCompound, World worldIn)
+    public static StructureComponent getStructureComponent(NBTTagCompound tagCompound)
     {
         StructureComponent structurecomponent = null;
 

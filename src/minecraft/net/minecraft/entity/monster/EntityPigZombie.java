@@ -250,7 +250,7 @@ public class EntityPigZombie extends EntityZombie
      */
     public boolean interact(EntityPlayer player)
     {
-        return false;
+        return true;
     }
 
     /**

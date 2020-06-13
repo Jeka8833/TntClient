@@ -99,7 +99,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
         }
 
         for (int j = 0; j < this.labelList.size(); ++j) {
-            this.labelList.get(j).drawLabel(this.mc, mouseX, mouseY);
+            this.labelList.get(j).drawLabel();
         }
     }
 
@@ -415,7 +415,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback {
      */
     protected void mouseReleased(int mouseX, int mouseY, int state) {
         if (this.selectedButton != null && state == 0) {
-            this.selectedButton.mouseReleased(mouseX, mouseY);
+            this.selectedButton.mouseReleased();
             this.selectedButton = null;
         }
     }

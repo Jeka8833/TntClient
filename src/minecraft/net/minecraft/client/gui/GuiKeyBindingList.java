@@ -176,8 +176,8 @@ public class GuiKeyBindingList extends GuiListExtended
 
         public void mouseReleased(int x, int y, int mouseEvent)
         {
-            this.btnChangeKeyBinding.mouseReleased(x, y);
-            this.btnReset.mouseReleased(x, y);
+            this.btnChangeKeyBinding.mouseReleased();
+            this.btnReset.mouseReleased();
         }
 
         public void setSelected(int p_178011_3_)

@@ -47,7 +47,6 @@ public abstract class World implements IBlockAccess {
     public final List<EntityPlayer> playerEntities = Lists.newArrayList();
     public final List<Entity> weatherEffects = Lists.newArrayList();
     protected final IntHashMap<Entity> entitiesById = new IntHashMap();
-    private final long cloudColour = 16777215L;
 
     /**
      * How much light is subtracted from full daylight
@@ -1219,9 +1218,10 @@ public abstract class World implements IBlockAccess {
         float f = this.getCelestialAngle(partialTicks);
         float f1 = MathHelper.cos(f * (float) Math.PI * 2.0F) * 2.0F + 0.5F;
         f1 = MathHelper.clamp_float(f1, 0.0F, 1.0F);
-        float f2 = (float) (this.cloudColour >> 16 & 255L) / 255.0F;
-        float f3 = (float) (this.cloudColour >> 8 & 255L) / 255.0F;
-        float f4 = (float) (this.cloudColour & 255L) / 255.0F;
+        long cloudColour = 16777215L;
+        float f2 = (float) (cloudColour >> 16 & 255L) / 255.0F;
+        float f3 = (float) (cloudColour >> 8 & 255L) / 255.0F;
+        float f4 = (float) (cloudColour & 255L) / 255.0F;
         float f5 = this.getRainStrength(partialTicks);
 
         if (f5 > 0.0F) {
@@ -1792,11 +1792,10 @@ public abstract class World implements IBlockAccess {
     /**
      * returns a new explosion. Does initiation (at time of writing Explosion is not finished)
      */
-    public Explosion newExplosion(Entity entityIn, double x, double y, double z, float strength, boolean isFlaming, boolean isSmoking) {
+    public void newExplosion(Entity entityIn, double x, double y, double z, float strength, boolean isFlaming, boolean isSmoking) {
         Explosion explosion = new Explosion(this, entityIn, x, y, z, strength, isFlaming, isSmoking);
         explosion.doExplosionA();
         explosion.doExplosionB(true);
-        return explosion;
     }
 
     /**
@@ -2787,7 +2786,7 @@ public abstract class World implements IBlockAccess {
         }
     }
 
-    public boolean isBlockModifiable(EntityPlayer player, BlockPos pos) {
+    public boolean isBlockModifiable(BlockPos pos) {
         return false;
     }
 

@@ -261,9 +261,6 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
             }
 
         }
-        else
-        {
-        }
     }
 
     private boolean isEmpty()
@@ -549,7 +546,7 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
     /**
      * Can this hopper insert the specified item from the specified slot on the specified side?
      */
-    private static boolean canInsertItemInSlot(IInventory inventoryIn, ItemStack stack, int index, EnumFacing side)
+    private static boolean canInsertItemInSlot(IInventory inventoryIn, ItemStack stack, int index)
     {
         return inventoryIn.isItemValidForSlot(index, stack) && (!(inventoryIn instanceof ISidedInventory) || ((ISidedInventory) inventoryIn).canInsertItem(index, stack));
     }
@@ -569,7 +566,7 @@ public class TileEntityHopper extends TileEntityLockable implements IHopper, ITi
     {
         ItemStack itemstack = inventoryIn.getStackInSlot(index);
 
-        if (canInsertItemInSlot(inventoryIn, stack, index, side))
+        if (canInsertItemInSlot(inventoryIn, stack, index))
         {
             boolean flag = false;
 

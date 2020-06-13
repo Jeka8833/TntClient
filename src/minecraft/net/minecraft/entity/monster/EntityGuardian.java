@@ -599,7 +599,7 @@ public class EntityGuardian extends EntityMob
 
         public boolean continueExecuting()
         {
-            return super.continueExecuting() && (this.theEntity.isElder() || this.theEntity.getDistanceSqToEntity(this.theEntity.getAttackTarget()) > 9.0D);
+            return super.continueExecuting() || (!this.theEntity.isElder() && !(this.theEntity.getDistanceSqToEntity(this.theEntity.getAttackTarget()) > 9.0D));
         }
 
         public void startExecuting()
@@ -653,9 +653,6 @@ public class EntityGuardian extends EntityMob
                     entitylivingbase.attackEntityFrom(DamageSource.causeIndirectMagicDamage(this.theEntity, this.theEntity), f);
                     entitylivingbase.attackEntityFrom(DamageSource.causeMobDamage(this.theEntity), (float)this.theEntity.getEntityAttribute(SharedMonsterAttributes.attackDamage).getAttributeValue());
                     this.theEntity.setAttackTarget(null);
-                }
-                else if (this.tickCounter >= 60 && this.tickCounter % 20 == 0)
-                {
                 }
 
                 super.updateTask();

@@ -163,7 +163,7 @@ public class PotionEffect
 
     public String toString()
     {
-        String s = "";
+        String s;
 
         if (this.getAmplifier() > 0)
         {

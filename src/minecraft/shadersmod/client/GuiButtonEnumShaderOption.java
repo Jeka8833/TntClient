@@ -5,7 +5,7 @@ import net.minecraft.client.resources.I18n;
 
 public class GuiButtonEnumShaderOption extends GuiButton
 {
-    private EnumShaderOption enumShaderOption = null;
+    private EnumShaderOption enumShaderOption;
 
     public GuiButtonEnumShaderOption(EnumShaderOption enumShaderOption, int x, int y, int widthIn, int heightIn)
     {

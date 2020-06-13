@@ -3,7 +3,6 @@ package net.minecraft.block;
 import com.google.common.base.Predicate;
 import java.util.List;
 import net.minecraft.block.material.MapColor;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
@@ -51,8 +50,6 @@ public class BlockOldLog extends BlockLog
                     case BIRCH:
                         return MapColor.quartzColor;
 
-                    case JUNGLE:
-                        return BlockPlanks.EnumType.SPRUCE.func_181070_c();
                 }
 
             case Y:

@@ -38,8 +38,6 @@ import tv.twitch.AuthToken;
 import tv.twitch.ErrorCode;
 import tv.twitch.broadcast.EncodingCpuUsage;
 import tv.twitch.broadcast.FrameBuffer;
-import tv.twitch.broadcast.GameInfo;
-import tv.twitch.broadcast.IngestList;
 import tv.twitch.broadcast.IngestServer;
 import tv.twitch.broadcast.StreamInfo;
 import tv.twitch.broadcast.VideoParams;
@@ -66,7 +64,6 @@ public class TwitchStream implements BroadcastController.BroadcastListener, Chat
     /** stream's target fps */
     private int targetFPS = 30;
     private long field_152959_k = 0L;
-    private boolean field_152960_l = false;
     private boolean loggedIn;
     private boolean field_152962_n;
     private boolean field_152963_o;
@@ -422,7 +419,7 @@ public class TwitchStream implements BroadcastController.BroadcastListener, Chat
         }
     }
 
-    public void func_152900_a(ErrorCode p_152900_1_, AuthToken p_152900_2_)
+    public void func_152900_a()
     {
     }
 
@@ -440,7 +437,7 @@ public class TwitchStream implements BroadcastController.BroadcastListener, Chat
         }
     }
 
-    public void func_152898_a(ErrorCode p_152898_1_, GameInfo[] p_152898_2_)
+    public void func_152898_a()
     {
     }
 
@@ -464,7 +461,7 @@ public class TwitchStream implements BroadcastController.BroadcastListener, Chat
         LOGGER.debug(STREAM_MARKER, "Stream info updated; {} viewers on stream ID {}", p_152894_1_.viewers, p_152894_1_.streamId);
     }
 
-    public void func_152896_a(IngestList p_152896_1_)
+    public void func_152896_a()
     {
     }
 
@@ -510,7 +507,7 @@ public class TwitchStream implements BroadcastController.BroadcastListener, Chat
 
         if (p_152907_2_ == IngestServerTester.IngestTestState.Finished)
         {
-            this.field_152960_l = true;
+            boolean field_152960_l = true;
         }
     }
 

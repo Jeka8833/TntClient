@@ -1,5 +1,7 @@
 package net.minecraft.util;
 
+import java.util.Objects;
+
 public class IntHashMap<V>
 {
     private transient IntHashMap.Entry<V>[] slots = new IntHashMap.Entry[16];
@@ -9,9 +11,6 @@ public class IntHashMap<V>
 
     /** The grow threshold */
     private int threshold = 12;
-
-    /** The scale factor used to determine when to grow the table */
-    private final float growFactor = 0.75F;
 
     /**
      * Makes the passed in integer suitable for hashing by a number of shifts
@@ -108,7 +107,9 @@ public class IntHashMap<V>
             IntHashMap.Entry<V>[] entry1 = new IntHashMap.Entry[p_76047_1_];
             this.copyTo(entry1);
             this.slots = entry1;
-            this.threshold = (int)((float)p_76047_1_ * this.growFactor);
+            /** The scale factor used to determine when to grow the table */
+            float growFactor = 0.75F;
+            this.threshold = (int)((float)p_76047_1_ * growFactor);
         }
     }
 
@@ -249,11 +250,11 @@ public class IntHashMap<V>
                 Object object = this.getHash();
                 Object object1 = entry.getHash();
 
-                if (object == object1 || object != null && object.equals(object1)) {
+                if (Objects.equals(object, object1)) {
                     Object object2 = this.getValue();
                     Object object3 = entry.getValue();
 
-                    return object2 == object3 || object2 != null && object2.equals(object3);
+                    return Objects.equals(object2, object3);
                 }
 
             }

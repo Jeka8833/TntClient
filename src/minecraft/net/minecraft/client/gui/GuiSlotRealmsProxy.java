@@ -23,7 +23,7 @@ public class GuiSlotRealmsProxy extends GuiSlot
      */
     protected void elementClicked(int slotIndex, boolean isDoubleClick, int mouseX, int mouseY)
     {
-        this.selectionList.selectItem(slotIndex, isDoubleClick, mouseX, mouseY);
+        this.selectionList.selectItem();
     }
 
     /**

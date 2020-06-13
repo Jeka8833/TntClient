@@ -409,7 +409,7 @@ public class EntityWolf extends EntityTameable
                             player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
                         }
 
-                        return true;
+                        return false;
                     }
                 }
                 else if (itemstack.getItem() == Items.dye)
@@ -425,7 +425,7 @@ public class EntityWolf extends EntityTameable
                             player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
                         }
 
-                        return true;
+                        return false;
                     }
                 }
             }
@@ -470,7 +470,7 @@ public class EntityWolf extends EntityTameable
                 }
             }
 
-            return true;
+            return false;
         }
 
         return super.interact(player);

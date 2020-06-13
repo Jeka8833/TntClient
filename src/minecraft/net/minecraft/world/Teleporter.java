@@ -128,7 +128,7 @@ public class Teleporter
             }
 
             double d5 = (double)blockpos.getX() + 0.5D;
-            double d6 = (double)blockpos.getY() + 0.5D;
+            double d6;
             double d7 = (double)blockpos.getZ() + 0.5D;
             BlockPattern.PatternHelper blockpattern$patternhelper = Blocks.portal.func_181089_f(this.worldServerInstance, blockpos);
             boolean flag1 = blockpattern$patternhelper.getFinger().rotateY().getAxisDirection() == EnumFacing.AxisDirection.NEGATIVE;

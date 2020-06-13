@@ -13,13 +13,11 @@ public class InventoryMerchant implements IInventory
 {
     private final IMerchant theMerchant;
     private final ItemStack[] theInventory = new ItemStack[3];
-    private final EntityPlayer thePlayer;
     private MerchantRecipe currentRecipe;
     private int currentRecipeIndex;
 
-    public InventoryMerchant(EntityPlayer thePlayerIn, IMerchant theMerchantIn)
+    public InventoryMerchant(IMerchant theMerchantIn)
     {
-        this.thePlayer = thePlayerIn;
         this.theMerchant = theMerchantIn;
     }
 

@@ -709,7 +709,7 @@ public class GameSettings {
             }
 
             BufferedReader bufferedreader = new BufferedReader(new FileReader(this.optionsFile));
-            String s = "";
+            String s;
             this.mapSoundLevels.clear();
 
             while ((s = bufferedreader.readLine()) != null) {
@@ -1253,10 +1253,6 @@ public class GameSettings {
                     this.ofFogType = 3;
                     break;
 
-                case 3:
-                    this.ofFogType = 1;
-                    break;
-
                 default:
                     this.ofFogType = 1;
             }
@@ -1669,9 +1665,6 @@ public class GameSettings {
                 case 2:
                     return s + Lang.getFancy();
 
-                case 3:
-                    return s + Lang.getOff();
-
                 default:
                     return s + Lang.getOff();
             }
@@ -1929,24 +1922,24 @@ public class GameSettings {
             }
 
             BufferedReader bufferedreader = new BufferedReader(new FileReader(file1));
-            String s = "";
+            String s;
 
             while ((s = bufferedreader.readLine()) != null) {
                 try {
                     String[] astring = s.split(":");
 
                     if (astring[0].equals("ofRenderDistanceChunks") && astring.length >= 2) {
-                        this.renderDistanceChunks = Integer.valueOf(astring[1]);
+                        this.renderDistanceChunks = Integer.parseInt(astring[1]);
                         this.renderDistanceChunks = Config.limit(this.renderDistanceChunks, 2, 32);
                     }
 
                     if (astring[0].equals("ofFogType") && astring.length >= 2) {
-                        this.ofFogType = Integer.valueOf(astring[1]);
+                        this.ofFogType = Integer.parseInt(astring[1]);
                         this.ofFogType = Config.limit(this.ofFogType, 1, 3);
                     }
 
                     if (astring[0].equals("ofFogStart") && astring.length >= 2) {
-                        this.ofFogStart = Float.valueOf(astring[1]);
+                        this.ofFogStart = Float.parseFloat(astring[1]);
 
                         if (this.ofFogStart < 0.2F) {
                             this.ofFogStart = 0.2F;
@@ -1958,250 +1951,250 @@ public class GameSettings {
                     }
 
                     if (astring[0].equals("ofMipmapType") && astring.length >= 2) {
-                        this.ofMipmapType = Integer.valueOf(astring[1]);
+                        this.ofMipmapType = Integer.parseInt(astring[1]);
                         this.ofMipmapType = Config.limit(this.ofMipmapType, 0, 3);
                     }
 
                     if (astring[0].equals("ofOcclusionFancy") && astring.length >= 2) {
-                        this.ofOcclusionFancy = Boolean.valueOf(astring[1]);
+                        this.ofOcclusionFancy = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofSmoothFps") && astring.length >= 2) {
-                        this.ofSmoothFps = Boolean.valueOf(astring[1]);
+                        this.ofSmoothFps = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofSmoothWorld") && astring.length >= 2) {
-                        this.ofSmoothWorld = Boolean.valueOf(astring[1]);
+                        this.ofSmoothWorld = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofAoLevel") && astring.length >= 2) {
-                        this.ofAoLevel = Float.valueOf(astring[1]);
+                        this.ofAoLevel = Float.parseFloat(astring[1]);
                         this.ofAoLevel = Config.limit(this.ofAoLevel, 0.0F, 1.0F);
                     }
 
                     if (astring[0].equals("ofClouds") && astring.length >= 2) {
-                        this.ofClouds = Integer.valueOf(astring[1]);
+                        this.ofClouds = Integer.parseInt(astring[1]);
                         this.ofClouds = Config.limit(this.ofClouds, 0, 3);
                         this.updateRenderClouds();
                     }
 
                     if (astring[0].equals("ofCloudsHeight") && astring.length >= 2) {
-                        this.ofCloudsHeight = Float.valueOf(astring[1]);
+                        this.ofCloudsHeight = Float.parseFloat(astring[1]);
                         this.ofCloudsHeight = Config.limit(this.ofCloudsHeight, 0.0F, 1.0F);
                     }
 
                     if (astring[0].equals("ofTrees") && astring.length >= 2) {
-                        this.ofTrees = Integer.valueOf(astring[1]);
+                        this.ofTrees = Integer.parseInt(astring[1]);
                         this.ofTrees = limit(this.ofTrees, OF_TREES_VALUES);
                     }
 
                     if (astring[0].equals("ofDroppedItems") && astring.length >= 2) {
-                        this.ofDroppedItems = Integer.valueOf(astring[1]);
+                        this.ofDroppedItems = Integer.parseInt(astring[1]);
                         this.ofDroppedItems = Config.limit(this.ofDroppedItems, 0, 2);
                     }
 
                     if (astring[0].equals("ofRain") && astring.length >= 2) {
-                        this.ofRain = Integer.valueOf(astring[1]);
+                        this.ofRain = Integer.parseInt(astring[1]);
                         this.ofRain = Config.limit(this.ofRain, 0, 3);
                     }
 
                     if (astring[0].equals("ofAnimatedWater") && astring.length >= 2) {
-                        this.ofAnimatedWater = Integer.valueOf(astring[1]);
+                        this.ofAnimatedWater = Integer.parseInt(astring[1]);
                         this.ofAnimatedWater = Config.limit(this.ofAnimatedWater, 0, 2);
                     }
 
                     if (astring[0].equals("ofAnimatedLava") && astring.length >= 2) {
-                        this.ofAnimatedLava = Integer.valueOf(astring[1]);
+                        this.ofAnimatedLava = Integer.parseInt(astring[1]);
                         this.ofAnimatedLava = Config.limit(this.ofAnimatedLava, 0, 2);
                     }
 
                     if (astring[0].equals("ofAnimatedFire") && astring.length >= 2) {
-                        this.ofAnimatedFire = Boolean.valueOf(astring[1]);
+                        this.ofAnimatedFire = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofAnimatedPortal") && astring.length >= 2) {
-                        this.ofAnimatedPortal = Boolean.valueOf(astring[1]);
+                        this.ofAnimatedPortal = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofAnimatedRedstone") && astring.length >= 2) {
-                        this.ofAnimatedRedstone = Boolean.valueOf(astring[1]);
+                        this.ofAnimatedRedstone = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofAnimatedExplosion") && astring.length >= 2) {
-                        this.ofAnimatedExplosion = Boolean.valueOf(astring[1]);
+                        this.ofAnimatedExplosion = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofAnimatedFlame") && astring.length >= 2) {
-                        this.ofAnimatedFlame = Boolean.valueOf(astring[1]);
+                        this.ofAnimatedFlame = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofAnimatedSmoke") && astring.length >= 2) {
-                        this.ofAnimatedSmoke = Boolean.valueOf(astring[1]);
+                        this.ofAnimatedSmoke = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofVoidParticles") && astring.length >= 2) {
-                        this.ofVoidParticles = Boolean.valueOf(astring[1]);
+                        this.ofVoidParticles = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofWaterParticles") && astring.length >= 2) {
-                        this.ofWaterParticles = Boolean.valueOf(astring[1]);
+                        this.ofWaterParticles = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofPortalParticles") && astring.length >= 2) {
-                        this.ofPortalParticles = Boolean.valueOf(astring[1]);
+                        this.ofPortalParticles = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofPotionParticles") && astring.length >= 2) {
-                        this.ofPotionParticles = Boolean.valueOf(astring[1]);
+                        this.ofPotionParticles = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofFireworkParticles") && astring.length >= 2) {
-                        this.ofFireworkParticles = Boolean.valueOf(astring[1]);
+                        this.ofFireworkParticles = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofDrippingWaterLava") && astring.length >= 2) {
-                        this.ofDrippingWaterLava = Boolean.valueOf(astring[1]);
+                        this.ofDrippingWaterLava = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofAnimatedTerrain") && astring.length >= 2) {
-                        this.ofAnimatedTerrain = Boolean.valueOf(astring[1]);
+                        this.ofAnimatedTerrain = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofAnimatedTextures") && astring.length >= 2) {
-                        this.ofAnimatedTextures = Boolean.valueOf(astring[1]);
+                        this.ofAnimatedTextures = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofRainSplash") && astring.length >= 2) {
-                        this.ofRainSplash = Boolean.valueOf(astring[1]);
+                        this.ofRainSplash = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofLagometer") && astring.length >= 2) {
-                        this.ofLagometer = Boolean.valueOf(astring[1]);
+                        this.ofLagometer = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofShowFps") && astring.length >= 2) {
-                        this.ofShowFps = Boolean.valueOf(astring[1]);
+                        this.ofShowFps = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofAutoSaveTicks") && astring.length >= 2) {
-                        this.ofAutoSaveTicks = Integer.valueOf(astring[1]);
+                        this.ofAutoSaveTicks = Integer.parseInt(astring[1]);
                         this.ofAutoSaveTicks = Config.limit(this.ofAutoSaveTicks, 40, 40000);
                     }
 
                     if (astring[0].equals("ofBetterGrass") && astring.length >= 2) {
-                        this.ofBetterGrass = Integer.valueOf(astring[1]);
+                        this.ofBetterGrass = Integer.parseInt(astring[1]);
                         this.ofBetterGrass = Config.limit(this.ofBetterGrass, 1, 3);
                     }
 
                     if (astring[0].equals("ofConnectedTextures") && astring.length >= 2) {
-                        this.ofConnectedTextures = Integer.valueOf(astring[1]);
+                        this.ofConnectedTextures = Integer.parseInt(astring[1]);
                         this.ofConnectedTextures = Config.limit(this.ofConnectedTextures, 1, 3);
                     }
 
                     if (astring[0].equals("ofWeather") && astring.length >= 2) {
-                        this.ofWeather = Boolean.valueOf(astring[1]);
+                        this.ofWeather = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofSky") && astring.length >= 2) {
-                        this.ofSky = Boolean.valueOf(astring[1]);
+                        this.ofSky = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofStars") && astring.length >= 2) {
-                        this.ofStars = Boolean.valueOf(astring[1]);
+                        this.ofStars = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofSunMoon") && astring.length >= 2) {
-                        this.ofSunMoon = Boolean.valueOf(astring[1]);
+                        this.ofSunMoon = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofVignette") && astring.length >= 2) {
-                        this.ofVignette = Integer.valueOf(astring[1]);
+                        this.ofVignette = Integer.parseInt(astring[1]);
                         this.ofVignette = Config.limit(this.ofVignette, 0, 2);
                     }
 
                     if (astring[0].equals("ofChunkUpdates") && astring.length >= 2) {
-                        this.ofChunkUpdates = Integer.valueOf(astring[1]);
+                        this.ofChunkUpdates = Integer.parseInt(astring[1]);
                         this.ofChunkUpdates = Config.limit(this.ofChunkUpdates, 1, 5);
                     }
 
                     if (astring[0].equals("ofChunkUpdatesDynamic") && astring.length >= 2) {
-                        this.ofChunkUpdatesDynamic = Boolean.valueOf(astring[1]);
+                        this.ofChunkUpdatesDynamic = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofTime") && astring.length >= 2) {
-                        this.ofTime = Integer.valueOf(astring[1]);
+                        this.ofTime = Integer.parseInt(astring[1]);
                         this.ofTime = Config.limit(this.ofTime, 0, 2);
                     }
 
                     if (astring[0].equals("ofClearWater") && astring.length >= 2) {
-                        this.ofClearWater = Boolean.valueOf(astring[1]);
+                        this.ofClearWater = Boolean.parseBoolean(astring[1]);
                         this.updateWaterOpacity();
                     }
 
                     if (astring[0].equals("ofAaLevel") && astring.length >= 2) {
-                        this.ofAaLevel = Integer.valueOf(astring[1]);
+                        this.ofAaLevel = Integer.parseInt(astring[1]);
                         this.ofAaLevel = Config.limit(this.ofAaLevel, 0, 16);
                     }
 
                     if (astring[0].equals("ofAfLevel") && astring.length >= 2) {
-                        this.ofAfLevel = Integer.valueOf(astring[1]);
+                        this.ofAfLevel = Integer.parseInt(astring[1]);
                         this.ofAfLevel = Config.limit(this.ofAfLevel, 1, 16);
                     }
 
                     if (astring[0].equals("ofProfiler") && astring.length >= 2) {
-                        this.ofProfiler = Boolean.valueOf(astring[1]);
+                        this.ofProfiler = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofBetterSnow") && astring.length >= 2) {
-                        this.ofBetterSnow = Boolean.valueOf(astring[1]);
+                        this.ofBetterSnow = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofSwampColors") && astring.length >= 2) {
-                        this.ofSwampColors = Boolean.valueOf(astring[1]);
+                        this.ofSwampColors = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofRandomMobs") && astring.length >= 2) {
-                        this.ofRandomMobs = Boolean.valueOf(astring[1]);
+                        this.ofRandomMobs = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofSmoothBiomes") && astring.length >= 2) {
-                        this.ofSmoothBiomes = Boolean.valueOf(astring[1]);
+                        this.ofSmoothBiomes = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofCustomFonts") && astring.length >= 2) {
-                        this.ofCustomFonts = Boolean.valueOf(astring[1]);
+                        this.ofCustomFonts = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofCustomColors") && astring.length >= 2) {
-                        this.ofCustomColors = Boolean.valueOf(astring[1]);
+                        this.ofCustomColors = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofCustomItems") && astring.length >= 2) {
-                        this.ofCustomItems = Boolean.valueOf(astring[1]);
+                        this.ofCustomItems = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofCustomSky") && astring.length >= 2) {
-                        this.ofCustomSky = Boolean.valueOf(astring[1]);
+                        this.ofCustomSky = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofShowCapes") && astring.length >= 2) {
-                        this.ofShowCapes = Boolean.valueOf(astring[1]);
+                        this.ofShowCapes = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofNaturalTextures") && astring.length >= 2) {
-                        this.ofNaturalTextures = Boolean.valueOf(astring[1]);
+                        this.ofNaturalTextures = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofLazyChunkLoading") && astring.length >= 2) {
-                        this.ofLazyChunkLoading = Boolean.valueOf(astring[1]);
+                        this.ofLazyChunkLoading = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofDynamicFov") && astring.length >= 2) {
-                        this.ofDynamicFov = Boolean.valueOf(astring[1]);
+                        this.ofDynamicFov = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofDynamicLights") && astring.length >= 2) {
-                        this.ofDynamicLights = Integer.valueOf(astring[1]);
+                        this.ofDynamicLights = Integer.parseInt(astring[1]);
                         this.ofDynamicLights = limit(this.ofDynamicLights, OF_DYNAMIC_LIGHTS);
                     }
 
@@ -2210,16 +2203,16 @@ public class GameSettings {
                     }
 
                     if (astring[0].equals("ofFastMath") && astring.length >= 2) {
-                        this.ofFastMath = Boolean.valueOf(astring[1]);
+                        this.ofFastMath = Boolean.parseBoolean(astring[1]);
                         MathHelper.fastMath = this.ofFastMath;
                     }
 
                     if (astring[0].equals("ofFastRender") && astring.length >= 2) {
-                        this.ofFastRender = Boolean.valueOf(astring[1]);
+                        this.ofFastRender = Boolean.parseBoolean(astring[1]);
                     }
 
                     if (astring[0].equals("ofTranslucentBlocks") && astring.length >= 2) {
-                        this.ofTranslucentBlocks = Integer.valueOf(astring[1]);
+                        this.ofTranslucentBlocks = Integer.parseInt(astring[1]);
                         this.ofTranslucentBlocks = Config.limit(this.ofTranslucentBlocks, 0, 2);
                     }
 
@@ -2587,113 +2580,113 @@ public class GameSettings {
     }
 
     public enum Options {
-        INVERT_MOUSE("INVERT_MOUSE", 0, "options.invertMouse", false, true),
-        SENSITIVITY("SENSITIVITY", 1, "options.sensitivity", true, false),
+        INVERT_MOUSE("options.invertMouse", false, true),
+        SENSITIVITY("options.sensitivity", true, false),
         FOV("options.fov", true, false, 30.0F, 110.0F, 1.0F),
-        GAMMA("GAMMA", 3, "options.gamma", true, false),
-        SATURATION("SATURATION", 4, "options.saturation", true, false),
+        GAMMA("options.gamma", true, false),
+        SATURATION("options.saturation", true, false),
         RENDER_DISTANCE("options.renderDistance", true, false, 2.0F, 16.0F, 1.0F),
-        VIEW_BOBBING("VIEW_BOBBING", 6, "options.viewBobbing", false, true),
-        ANAGLYPH("ANAGLYPH", 7, "options.anaglyph", false, true),
+        VIEW_BOBBING("options.viewBobbing", false, true),
+        ANAGLYPH("options.anaglyph", false, true),
         FRAMERATE_LIMIT("options.framerateLimit", true, false, 0.0F, 260.0F, 5.0F),
-        FBO_ENABLE("FBO_ENABLE", 9, "options.fboEnable", false, true),
-        RENDER_CLOUDS("RENDER_CLOUDS", 10, "options.renderClouds", false, false),
-        GRAPHICS("GRAPHICS", 11, "options.graphics", false, false),
-        AMBIENT_OCCLUSION("AMBIENT_OCCLUSION", 12, "options.ao", false, false),
-        GUI_SCALE("GUI_SCALE", 13, "options.guiScale", false, false),
-        PARTICLES("PARTICLES", 14, "options.particles", false, false),
-        CHAT_VISIBILITY("CHAT_VISIBILITY", 15, "options.chat.visibility", false, false),
-        CHAT_COLOR("CHAT_COLOR", 16, "options.chat.color", false, true),
-        CHAT_LINKS("CHAT_LINKS", 17, "options.chat.links", false, true),
-        CHAT_OPACITY("CHAT_OPACITY", 18, "options.chat.opacity", true, false),
-        CHAT_LINKS_PROMPT("CHAT_LINKS_PROMPT", 19, "options.chat.links.prompt", false, true),
-        SNOOPER_ENABLED("SNOOPER_ENABLED", 20, "options.snooper", false, true),
-        USE_FULLSCREEN("USE_FULLSCREEN", 21, "options.fullscreen", false, true),
-        ENABLE_VSYNC("ENABLE_VSYNC", 22, "options.vsync", false, true),
-        USE_VBO("USE_VBO", 23, "options.vbo", false, true),
-        TOUCHSCREEN("TOUCHSCREEN", 24, "options.touchscreen", false, true),
-        CHAT_SCALE("CHAT_SCALE", 25, "options.chat.scale", true, false),
-        CHAT_WIDTH("CHAT_WIDTH", 26, "options.chat.width", true, false),
-        CHAT_HEIGHT_FOCUSED("CHAT_HEIGHT_FOCUSED", 27, "options.chat.height.focused", true, false),
-        CHAT_HEIGHT_UNFOCUSED("CHAT_HEIGHT_UNFOCUSED", 28, "options.chat.height.unfocused", true, false),
+        FBO_ENABLE("options.fboEnable", false, true),
+        RENDER_CLOUDS("options.renderClouds", false, false),
+        GRAPHICS("options.graphics", false, false),
+        AMBIENT_OCCLUSION("options.ao", false, false),
+        GUI_SCALE("options.guiScale", false, false),
+        PARTICLES("options.particles", false, false),
+        CHAT_VISIBILITY("options.chat.visibility", false, false),
+        CHAT_COLOR("options.chat.color", false, true),
+        CHAT_LINKS("options.chat.links", false, true),
+        CHAT_OPACITY("options.chat.opacity", true, false),
+        CHAT_LINKS_PROMPT("options.chat.links.prompt", false, true),
+        SNOOPER_ENABLED("options.snooper", false, true),
+        USE_FULLSCREEN("options.fullscreen", false, true),
+        ENABLE_VSYNC("options.vsync", false, true),
+        USE_VBO("options.vbo", false, true),
+        TOUCHSCREEN("options.touchscreen", false, true),
+        CHAT_SCALE("options.chat.scale", true, false),
+        CHAT_WIDTH("options.chat.width", true, false),
+        CHAT_HEIGHT_FOCUSED("options.chat.height.focused", true, false),
+        CHAT_HEIGHT_UNFOCUSED("options.chat.height.unfocused", true, false),
         MIPMAP_LEVELS("options.mipmapLevels", true, false, 0.0F, 4.0F, 1.0F),
-        FORCE_UNICODE_FONT("FORCE_UNICODE_FONT", 30, "options.forceUnicodeFont", false, true),
-        STREAM_BYTES_PER_PIXEL("STREAM_BYTES_PER_PIXEL", 31, "options.stream.bytesPerPixel", true, false),
-        STREAM_VOLUME_MIC("STREAM_VOLUME_MIC", 32, "options.stream.micVolumne", true, false),
-        STREAM_VOLUME_SYSTEM("STREAM_VOLUME_SYSTEM", 33, "options.stream.systemVolume", true, false),
-        STREAM_KBPS("STREAM_KBPS", 34, "options.stream.kbps", true, false),
-        STREAM_FPS("STREAM_FPS", 35, "options.stream.fps", true, false),
-        STREAM_COMPRESSION("STREAM_COMPRESSION", 36, "options.stream.compression", false, false),
-        STREAM_SEND_METADATA("STREAM_SEND_METADATA", 37, "options.stream.sendMetadata", false, true),
-        STREAM_CHAT_ENABLED("STREAM_CHAT_ENABLED", 38, "options.stream.chat.enabled", false, false),
-        STREAM_CHAT_USER_FILTER("STREAM_CHAT_USER_FILTER", 39, "options.stream.chat.userFilter", false, false),
-        STREAM_MIC_TOGGLE_BEHAVIOR("STREAM_MIC_TOGGLE_BEHAVIOR", 40, "options.stream.micToggleBehavior", false, false),
-        BLOCK_ALTERNATIVES("BLOCK_ALTERNATIVES", 41, "options.blockAlternatives", false, true),
-        REDUCED_DEBUG_INFO("REDUCED_DEBUG_INFO", 42, "options.reducedDebugInfo", false, true),
-        ENTITY_SHADOWS("ENTITY_SHADOWS", 43, "options.entityShadows", false, true),
-        FOG_FANCY("", 999, "of.options.FOG_FANCY", false, false),
-        FOG_START("", 999, "of.options.FOG_START", false, false),
+        FORCE_UNICODE_FONT("options.forceUnicodeFont", false, true),
+        STREAM_BYTES_PER_PIXEL("options.stream.bytesPerPixel", true, false),
+        STREAM_VOLUME_MIC("options.stream.micVolumne", true, false),
+        STREAM_VOLUME_SYSTEM("options.stream.systemVolume", true, false),
+        STREAM_KBPS("options.stream.kbps", true, false),
+        STREAM_FPS("options.stream.fps", true, false),
+        STREAM_COMPRESSION("options.stream.compression", false, false),
+        STREAM_SEND_METADATA("options.stream.sendMetadata", false, true),
+        STREAM_CHAT_ENABLED("options.stream.chat.enabled", false, false),
+        STREAM_CHAT_USER_FILTER("options.stream.chat.userFilter", false, false),
+        STREAM_MIC_TOGGLE_BEHAVIOR("options.stream.micToggleBehavior", false, false),
+        BLOCK_ALTERNATIVES("options.blockAlternatives", false, true),
+        REDUCED_DEBUG_INFO("options.reducedDebugInfo", false, true),
+        ENTITY_SHADOWS("options.entityShadows", false, true),
+        FOG_FANCY("of.options.FOG_FANCY", false, false),
+        FOG_START("of.options.FOG_START", false, false),
         MIPMAP_TYPE("of.options.MIPMAP_TYPE", true, false, 0.0F, 3.0F, 1.0F),
-        SMOOTH_FPS("", 999, "of.options.SMOOTH_FPS", false, false),
-        CLOUDS("", 999, "of.options.CLOUDS", false, false),
-        CLOUD_HEIGHT("", 999, "of.options.CLOUD_HEIGHT", true, false),
-        TREES("", 999, "of.options.TREES", false, false),
-        RAIN("", 999, "of.options.RAIN", false, false),
-        ANIMATED_WATER("", 999, "of.options.ANIMATED_WATER", false, false),
-        ANIMATED_LAVA("", 999, "of.options.ANIMATED_LAVA", false, false),
-        ANIMATED_FIRE("", 999, "of.options.ANIMATED_FIRE", false, false),
-        ANIMATED_PORTAL("", 999, "of.options.ANIMATED_PORTAL", false, false),
-        AO_LEVEL("", 999, "of.options.AO_LEVEL", true, false),
-        LAGOMETER("", 999, "of.options.LAGOMETER", false, false),
-        SHOW_FPS("", 999, "of.options.SHOW_FPS", false, false),
-        AUTOSAVE_TICKS("", 999, "of.options.AUTOSAVE_TICKS", false, false),
-        BETTER_GRASS("", 999, "of.options.BETTER_GRASS", false, false),
-        ANIMATED_REDSTONE("", 999, "of.options.ANIMATED_REDSTONE", false, false),
-        ANIMATED_EXPLOSION("", 999, "of.options.ANIMATED_EXPLOSION", false, false),
-        ANIMATED_FLAME("", 999, "of.options.ANIMATED_FLAME", false, false),
-        ANIMATED_SMOKE("", 999, "of.options.ANIMATED_SMOKE", false, false),
-        WEATHER("", 999, "of.options.WEATHER", false, false),
-        SKY("", 999, "of.options.SKY", false, false),
-        STARS("", 999, "of.options.STARS", false, false),
-        SUN_MOON("", 999, "of.options.SUN_MOON", false, false),
-        VIGNETTE("", 999, "of.options.VIGNETTE", false, false),
-        CHUNK_UPDATES("", 999, "of.options.CHUNK_UPDATES", false, false),
-        CHUNK_UPDATES_DYNAMIC("", 999, "of.options.CHUNK_UPDATES_DYNAMIC", false, false),
-        TIME("", 999, "of.options.TIME", false, false),
-        CLEAR_WATER("", 999, "of.options.CLEAR_WATER", false, false),
-        SMOOTH_WORLD("", 999, "of.options.SMOOTH_WORLD", false, false),
-        VOID_PARTICLES("", 999, "of.options.VOID_PARTICLES", false, false),
-        WATER_PARTICLES("", 999, "of.options.WATER_PARTICLES", false, false),
-        RAIN_SPLASH("", 999, "of.options.RAIN_SPLASH", false, false),
-        PORTAL_PARTICLES("", 999, "of.options.PORTAL_PARTICLES", false, false),
-        POTION_PARTICLES("", 999, "of.options.POTION_PARTICLES", false, false),
-        FIREWORK_PARTICLES("", 999, "of.options.FIREWORK_PARTICLES", false, false),
-        PROFILER("", 999, "of.options.PROFILER", false, false),
-        DRIPPING_WATER_LAVA("", 999, "of.options.DRIPPING_WATER_LAVA", false, false),
-        BETTER_SNOW("", 999, "of.options.BETTER_SNOW", false, false),
-        FULLSCREEN_MODE("", 999, "of.options.FULLSCREEN_MODE", false, false),
-        ANIMATED_TERRAIN("", 999, "of.options.ANIMATED_TERRAIN", false, false),
-        SWAMP_COLORS("", 999, "of.options.SWAMP_COLORS", false, false),
-        RANDOM_MOBS("", 999, "of.options.RANDOM_MOBS", false, false),
-        SMOOTH_BIOMES("", 999, "of.options.SMOOTH_BIOMES", false, false),
-        CUSTOM_FONTS("", 999, "of.options.CUSTOM_FONTS", false, false),
-        CUSTOM_COLORS("", 999, "of.options.CUSTOM_COLORS", false, false),
-        SHOW_CAPES("", 999, "of.options.SHOW_CAPES", false, false),
-        CONNECTED_TEXTURES("", 999, "of.options.CONNECTED_TEXTURES", false, false),
-        CUSTOM_ITEMS("", 999, "of.options.CUSTOM_ITEMS", false, false),
+        SMOOTH_FPS("of.options.SMOOTH_FPS", false, false),
+        CLOUDS("of.options.CLOUDS", false, false),
+        CLOUD_HEIGHT("of.options.CLOUD_HEIGHT", true, false),
+        TREES("of.options.TREES", false, false),
+        RAIN("of.options.RAIN", false, false),
+        ANIMATED_WATER("of.options.ANIMATED_WATER", false, false),
+        ANIMATED_LAVA("of.options.ANIMATED_LAVA", false, false),
+        ANIMATED_FIRE("of.options.ANIMATED_FIRE", false, false),
+        ANIMATED_PORTAL("of.options.ANIMATED_PORTAL", false, false),
+        AO_LEVEL("of.options.AO_LEVEL", true, false),
+        LAGOMETER("of.options.LAGOMETER", false, false),
+        SHOW_FPS("of.options.SHOW_FPS", false, false),
+        AUTOSAVE_TICKS("of.options.AUTOSAVE_TICKS", false, false),
+        BETTER_GRASS("of.options.BETTER_GRASS", false, false),
+        ANIMATED_REDSTONE("of.options.ANIMATED_REDSTONE", false, false),
+        ANIMATED_EXPLOSION("of.options.ANIMATED_EXPLOSION", false, false),
+        ANIMATED_FLAME("of.options.ANIMATED_FLAME", false, false),
+        ANIMATED_SMOKE("of.options.ANIMATED_SMOKE", false, false),
+        WEATHER("of.options.WEATHER", false, false),
+        SKY("of.options.SKY", false, false),
+        STARS("of.options.STARS", false, false),
+        SUN_MOON("of.options.SUN_MOON", false, false),
+        VIGNETTE("of.options.VIGNETTE", false, false),
+        CHUNK_UPDATES("of.options.CHUNK_UPDATES", false, false),
+        CHUNK_UPDATES_DYNAMIC("of.options.CHUNK_UPDATES_DYNAMIC", false, false),
+        TIME("of.options.TIME", false, false),
+        CLEAR_WATER("of.options.CLEAR_WATER", false, false),
+        SMOOTH_WORLD("of.options.SMOOTH_WORLD", false, false),
+        VOID_PARTICLES("of.options.VOID_PARTICLES", false, false),
+        WATER_PARTICLES("of.options.WATER_PARTICLES", false, false),
+        RAIN_SPLASH("of.options.RAIN_SPLASH", false, false),
+        PORTAL_PARTICLES("of.options.PORTAL_PARTICLES", false, false),
+        POTION_PARTICLES("of.options.POTION_PARTICLES", false, false),
+        FIREWORK_PARTICLES("of.options.FIREWORK_PARTICLES", false, false),
+        PROFILER("of.options.PROFILER", false, false),
+        DRIPPING_WATER_LAVA("of.options.DRIPPING_WATER_LAVA", false, false),
+        BETTER_SNOW("of.options.BETTER_SNOW", false, false),
+        FULLSCREEN_MODE("of.options.FULLSCREEN_MODE", false, false),
+        ANIMATED_TERRAIN("of.options.ANIMATED_TERRAIN", false, false),
+        SWAMP_COLORS("of.options.SWAMP_COLORS", false, false),
+        RANDOM_MOBS("of.options.RANDOM_MOBS", false, false),
+        SMOOTH_BIOMES("of.options.SMOOTH_BIOMES", false, false),
+        CUSTOM_FONTS("of.options.CUSTOM_FONTS", false, false),
+        CUSTOM_COLORS("of.options.CUSTOM_COLORS", false, false),
+        SHOW_CAPES("of.options.SHOW_CAPES", false, false),
+        CONNECTED_TEXTURES("of.options.CONNECTED_TEXTURES", false, false),
+        CUSTOM_ITEMS("of.options.CUSTOM_ITEMS", false, false),
         AA_LEVEL("of.options.AA_LEVEL", true, false, 0.0F, 16.0F, 1.0F),
         AF_LEVEL("of.options.AF_LEVEL", true, false, 1.0F, 16.0F, 1.0F),
-        ANIMATED_TEXTURES("", 999, "of.options.ANIMATED_TEXTURES", false, false),
-        NATURAL_TEXTURES("", 999, "of.options.NATURAL_TEXTURES", false, false),
-        HELD_ITEM_TOOLTIPS("", 999, "of.options.HELD_ITEM_TOOLTIPS", false, false),
-        DROPPED_ITEMS("", 999, "of.options.DROPPED_ITEMS", false, false),
-        LAZY_CHUNK_LOADING("", 999, "of.options.LAZY_CHUNK_LOADING", false, false),
-        CUSTOM_SKY("", 999, "of.options.CUSTOM_SKY", false, false),
-        FAST_MATH("", 999, "of.options.FAST_MATH", false, false),
-        FAST_RENDER("", 999, "of.options.FAST_RENDER", false, false),
-        TRANSLUCENT_BLOCKS("", 999, "of.options.TRANSLUCENT_BLOCKS", false, false),
-        DYNAMIC_FOV("", 999, "of.options.DYNAMIC_FOV", false, false),
-        DYNAMIC_LIGHTS("", 999, "of.options.DYNAMIC_LIGHTS", false, false);
+        ANIMATED_TEXTURES("of.options.ANIMATED_TEXTURES", false, false),
+        NATURAL_TEXTURES("of.options.NATURAL_TEXTURES", false, false),
+        HELD_ITEM_TOOLTIPS("of.options.HELD_ITEM_TOOLTIPS", false, false),
+        DROPPED_ITEMS("of.options.DROPPED_ITEMS", false, false),
+        LAZY_CHUNK_LOADING("of.options.LAZY_CHUNK_LOADING", false, false),
+        CUSTOM_SKY("of.options.CUSTOM_SKY", false, false),
+        FAST_MATH("of.options.FAST_MATH", false, false),
+        FAST_RENDER("of.options.FAST_RENDER", false, false),
+        TRANSLUCENT_BLOCKS("of.options.TRANSLUCENT_BLOCKS", false, false),
+        DYNAMIC_FOV("of.options.DYNAMIC_FOV", false, false),
+        DYNAMIC_LIGHTS("of.options.DYNAMIC_LIGHTS", false, false);
 
         private final boolean enumFloat;
         private final boolean enumBoolean;
@@ -2714,7 +2707,7 @@ public class GameSettings {
             return null;
         }
 
-        Options(String p_i0_3_, int p_i0_4_, String p_i0_5_, boolean p_i0_6_, boolean p_i0_7_) {
+        Options(String p_i0_5_, boolean p_i0_6_, boolean p_i0_7_) {
             this(p_i0_5_, p_i0_6_, p_i0_7_, 0.0F, 1.0F, 0.0F);
         }
 

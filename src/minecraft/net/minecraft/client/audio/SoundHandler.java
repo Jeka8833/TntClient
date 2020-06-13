@@ -128,7 +128,7 @@ public class SoundHandler implements IResourceManagerReloadListener, ITickable
             String s = soundlist$soundentry.getSoundEntryName();
             ResourceLocation resourcelocation = new ResourceLocation(s);
             final String s1 = s.contains(":") ? resourcelocation.getResourceDomain() : location.getResourceDomain();
-            Object lvt_10_1_;
+            ISoundEventAccessor<SoundPoolEntry> lvt_10_1_;
 
             switch (soundlist$soundentry.getSoundEntryType())
             {
@@ -179,7 +179,7 @@ public class SoundHandler implements IResourceManagerReloadListener, ITickable
                     throw new IllegalStateException("IN YOU FACE");
             }
 
-            soundeventaccessorcomposite.addSoundToEventPool((ISoundEventAccessor<SoundPoolEntry>)lvt_10_1_);
+            soundeventaccessorcomposite.addSoundToEventPool(lvt_10_1_);
         }
     }
 

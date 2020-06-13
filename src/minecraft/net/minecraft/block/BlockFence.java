@@ -31,11 +31,6 @@ public class BlockFence extends Block
     /** Whether this fence connects in the western direction */
     public static final PropertyBool WEST = PropertyBool.create("west");
 
-    public BlockFence(Material materialIn)
-    {
-        this(materialIn, materialIn.getMaterialMapColor());
-    }
-
     public BlockFence(Material p_i46395_1_, MapColor p_i46395_2_)
     {
         super(p_i46395_1_, p_i46395_2_);

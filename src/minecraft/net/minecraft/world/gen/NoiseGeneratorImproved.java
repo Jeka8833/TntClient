@@ -65,12 +65,12 @@ public class NoiseGeneratorImproved extends NoiseGenerator
     {
         if (p_76308_9_ == 1)
         {
-            int i5 = 0;
-            int j5 = 0;
-            int j = 0;
-            int k5 = 0;
-            double d14 = 0.0D;
-            double d15 = 0.0D;
+            int i5;
+            int j5;
+            int j;
+            int k5;
+            double d14;
+            double d15;
             int l5 = 0;
             double d16 = 1.0D / p_76308_17_;
 
@@ -118,12 +118,12 @@ public class NoiseGeneratorImproved extends NoiseGenerator
             int i = 0;
             double d0 = 1.0D / p_76308_17_;
             int k = -1;
-            int l = 0;
-            int i1 = 0;
-            int j1 = 0;
-            int k1 = 0;
-            int l1 = 0;
-            int i2 = 0;
+            int l;
+            int i1;
+            int j1;
+            int k1;
+            int l1;
+            int i2;
             double d1 = 0.0D;
             double d2 = 0.0D;
             double d3 = 0.0D;

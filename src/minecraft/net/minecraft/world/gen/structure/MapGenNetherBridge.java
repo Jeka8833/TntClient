@@ -7,7 +7,6 @@ import net.minecraft.entity.monster.EntityBlaze;
 import net.minecraft.entity.monster.EntityMagmaCube;
 import net.minecraft.entity.monster.EntityPigZombie;
 import net.minecraft.entity.monster.EntitySkeleton;
-import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 
 public class MapGenNetherBridge extends MapGenStructure
@@ -43,7 +42,7 @@ public class MapGenNetherBridge extends MapGenStructure
 
     protected StructureStart getStructureStart(int chunkX, int chunkZ)
     {
-        return new MapGenNetherBridge.Start(this.worldObj, this.rand, chunkX, chunkZ);
+        return new MapGenNetherBridge.Start(this.rand, chunkX, chunkZ);
     }
 
     public static class Start extends StructureStart
@@ -52,7 +51,7 @@ public class MapGenNetherBridge extends MapGenStructure
         {
         }
 
-        public Start(World worldIn, Random p_i2040_2_, int p_i2040_3_, int p_i2040_4_)
+        public Start(Random p_i2040_2_, int p_i2040_3_, int p_i2040_4_)
         {
             super(p_i2040_3_, p_i2040_4_);
             StructureNetherBridgePieces.Start structurenetherbridgepieces$start = new StructureNetherBridgePieces.Start(p_i2040_2_, (p_i2040_3_ << 4) + 2, (p_i2040_4_ << 4) + 2);

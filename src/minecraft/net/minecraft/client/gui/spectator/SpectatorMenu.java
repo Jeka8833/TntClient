@@ -109,7 +109,7 @@ public class SpectatorMenu
 
     public SpectatorDetails func_178646_f()
     {
-        return new SpectatorDetails(this.field_178659_h, this.func_178642_a(), this.field_178660_i);
+        return new SpectatorDetails(this.func_178642_a(), this.field_178660_i);
     }
 
     static class EndSpectatorObject implements ISpectatorMenuObject

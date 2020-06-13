@@ -103,7 +103,7 @@ public abstract class StructureStart
 
         for (int i = 0; i < nbttaglist.tagCount(); ++i)
         {
-            this.components.add(MapGenStructureIO.getStructureComponent(nbttaglist.getCompoundTagAt(i), worldIn));
+            this.components.add(MapGenStructureIO.getStructureComponent(nbttaglist.getCompoundTagAt(i)));
         }
 
         this.readFromNBT(tagCompound);
@@ -138,7 +138,7 @@ public abstract class StructureStart
     protected void setRandomHeight(Random rand)
     {
         int i = 70 - 48 + 1 - this.boundingBox.getYSize();
-        int j = 1;
+        int j;
 
         if (i > 1)
         {

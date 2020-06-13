@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.io.Writer;
 import java.lang.management.ManagementFactory;
 import java.lang.management.RuntimeMXBean;
 import java.text.SimpleDateFormat;
@@ -35,7 +34,7 @@ public class CrashReport
     private final Throwable cause;
 
     /** Category of crash */
-    private final CrashReportCategory theReportCategory = new CrashReportCategory(this, "System Details");
+    private final CrashReportCategory theReportCategory = new CrashReportCategory("System Details");
 
     /** Holds the keys and values of all crash report sections. */
     private final List crashReportSections = Lists.newArrayList();
@@ -205,9 +204,9 @@ public class CrashReport
     {
         StringWriter stringwriter = null;
         PrintWriter printwriter = null;
-        Object object = this.cause;
+        Throwable object = this.cause;
 
-        if (((Throwable)object).getMessage() == null)
+        if (object.getMessage() == null)
         {
             if (object instanceof NullPointerException)
             {
@@ -222,7 +221,7 @@ public class CrashReport
                 object = new OutOfMemoryError(this.description);
             }
 
-            ((Throwable)object).setStackTrace(this.cause.getStackTrace());
+            object.setStackTrace(this.cause.getStackTrace());
         }
 
         String s = object.toString();
@@ -231,7 +230,7 @@ public class CrashReport
         {
             stringwriter = new StringWriter();
             printwriter = new PrintWriter(stringwriter);
-            ((Throwable)object).printStackTrace(printwriter);
+            object.printStackTrace(printwriter);
             s = stringwriter.toString();
         }
         finally
@@ -338,7 +337,7 @@ public class CrashReport
      */
     public CrashReportCategory makeCategoryDepth(String categoryName, int stacktraceLength)
     {
-        CrashReportCategory crashreportcategory = new CrashReportCategory(this, categoryName);
+        CrashReportCategory crashreportcategory = new CrashReportCategory(categoryName);
 
         if (this.field_85059_f)
         {

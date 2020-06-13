@@ -17,7 +17,6 @@ public class BlockFluidRenderer
 {
     private final TextureAtlasSprite[] atlasSpritesLava = new TextureAtlasSprite[2];
     private final TextureAtlasSprite[] atlasSpritesWater = new TextureAtlasSprite[2];
-    private static final String __OBFID = "CL_00002519";
 
     public BlockFluidRenderer()
     {
@@ -112,7 +111,6 @@ public class BlockFluidRenderer
                 {
                     float f22 = MathHelper.sin(f12) * 0.25F;
                     float f23 = MathHelper.cos(f12) * 0.25F;
-                    float f24 = 8.0F;
                     f13 = textureatlassprite.getInterpolatedU(8.0F + (-f23 - f22) * 16.0F);
                     f17 = textureatlassprite.getInterpolatedV(8.0F + (-f23 + f22) * 16.0F);
                     f14 = textureatlassprite.getInterpolatedU(8.0F + (-f23 + f22) * 16.0F);

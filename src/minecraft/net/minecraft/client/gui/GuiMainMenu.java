@@ -48,17 +48,12 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
      * The splash message.
      */
     private String splashText;
-    private GuiButton buttonResetDemo;
 
     /**
      * Timer used to rotate the panorama, increases every tick.
      */
     private int panoramaTimer;
 
-    /**
-     * Texture allocated for the current viewport of the main menu's panorama background.
-     */
-    private DynamicTexture viewportTexture;
     private final boolean field_175375_v = true;
 
     /**
@@ -89,7 +84,6 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
     private static final ResourceLocation[] titlePanoramaPaths = new ResourceLocation[]{new ResourceLocation("textures/gui/title/background/panorama_0.png"), new ResourceLocation("textures/gui/title/background/panorama_1.png"), new ResourceLocation("textures/gui/title/background/panorama_2.png"), new ResourceLocation("textures/gui/title/background/panorama_3.png"), new ResourceLocation("textures/gui/title/background/panorama_4.png"), new ResourceLocation("textures/gui/title/background/panorama_5.png")};
     public static final String field_96138_a = "Please click " + EnumChatFormatting.UNDERLINE + "here" + EnumChatFormatting.RESET + " for more information.";
     private int field_92024_r;
-    private int field_92023_s;
     private int field_92022_t;
     private int field_92021_u;
     private int field_92020_v;
@@ -171,16 +165,19 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
      * window resizes, the buttonList is cleared beforehand.
      */
     public void initGui() {
-        this.viewportTexture = new DynamicTexture(256, 256);
-        this.backgroundTexture = this.mc.getTextureManager().getDynamicTextureLocation("background", this.viewportTexture);
+        /**
+         * Texture allocated for the current viewport of the main menu's panorama background.
+         */
+        DynamicTexture viewportTexture = new DynamicTexture(256, 256);
+        this.backgroundTexture = this.mc.getTextureManager().getDynamicTextureLocation("background", viewportTexture);
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
 
-        if (calendar.get(2) + 1 == 12 && calendar.get(5) == 24) {
+        if (calendar.get(Calendar.MONTH) + 1 == 12 && calendar.get(Calendar.DATE) == 24) {
             this.splashText = "Merry X-mas!";
-        } else if (calendar.get(2) + 1 == 1 && calendar.get(5) == 1) {
+        } else if (calendar.get(Calendar.MONTH) + 1 == 1 && calendar.get(Calendar.DATE) == 1) {
             this.splashText = "Happy new year!";
-        } else if (calendar.get(2) + 1 == 10 && calendar.get(5) == 31) {
+        } else if (calendar.get(Calendar.MONTH) + 1 == 10 && calendar.get(Calendar.DATE) == 31) {
             this.splashText = "OOoooOOOoooo! Spooky!";
         }
 
@@ -198,9 +195,9 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
         this.buttonList.add(new GuiButtonLanguage(5, this.width / 2 - 124, j + 72 + 12));
 
         synchronized (this.threadLock) {
-            this.field_92023_s = this.fontRendererObj.getStringWidth(this.openGLWarning1);
+            int field_92023_s = this.fontRendererObj.getStringWidth(this.openGLWarning1);
             this.field_92024_r = this.fontRendererObj.getStringWidth(this.openGLWarning2);
-            int k = Math.max(this.field_92023_s, this.field_92024_r);
+            int k = Math.max(field_92023_s, this.field_92024_r);
             this.field_92022_t = (this.width - k) / 2;
             this.field_92021_u = this.buttonList.get(0).yPosition - 24;
             this.field_92020_v = this.field_92022_t + k;
@@ -224,12 +221,13 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
      */
     private void addDemoButtons(int p_73972_1_) {
         this.buttonList.add(new GuiButton(11, this.width / 2 - 100, p_73972_1_, I18n.format("menu.playdemo")));
-        this.buttonList.add(this.buttonResetDemo = new GuiButton(12, this.width / 2 - 100, p_73972_1_ + 24, I18n.format("menu.resetdemo")));
+        GuiButton buttonResetDemo;
+        this.buttonList.add(buttonResetDemo = new GuiButton(12, this.width / 2 - 100, p_73972_1_ + 24, I18n.format("menu.resetdemo")));
         ISaveFormat isaveformat = this.mc.getSaveLoader();
         WorldInfo worldinfo = isaveformat.getWorldInfo("Demo_World");
 
         if (worldinfo == null) {
-            this.buttonResetDemo.enabled = false;
+            buttonResetDemo.enabled = false;
         }
     }
 
@@ -420,7 +418,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
     /**
      * Renders the skybox in the main menu
      */
-    private void renderSkybox(int p_73971_1_, int p_73971_2_, float p_73971_3_) {
+    private void renderSkybox(float p_73971_3_) {
         this.mc.getFramebuffer().unbindFramebuffer();
         GlStateManager.viewport(0, 0, 256, 256);
         this.drawPanorama(p_73971_3_);
@@ -453,7 +451,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
      */
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         GlStateManager.disableAlpha();
-        this.renderSkybox(mouseX, mouseY, partialTicks);
+        this.renderSkybox(partialTicks);
         GlStateManager.enableAlpha();
         int i = 274;
         int j = this.width / 2 - i / 2;
@@ -489,7 +487,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback {
         }
 
         this.drawString(this.fontRendererObj, s, 2, this.height - 10, -1);
-        String s1 = "TntClient(" + TntClient.version + ") special for you!" + (TntClient.pussy ? "" : " (Danger Edition)");
+        String s1 = "TntClient(" + TntClient.version + ") special for you!";
         this.drawString(this.fontRendererObj, s1, this.width - this.fontRendererObj.getStringWidth(s1) - 2, this.height - 10, Util.getRainbow());
 
         if (this.openGLWarning1 != null && this.openGLWarning1.length() > 0) {

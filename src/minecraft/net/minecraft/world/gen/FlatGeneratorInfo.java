@@ -144,7 +144,7 @@ public class FlatGeneratorInfo
             }
         }
 
-        Block block = null;
+        Block block;
 
         try
         {

@@ -621,7 +621,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
             this.clientWorldController.doPreChunk(packetIn.getChunkX(), packetIn.getChunkZ(), true);
         }
 
-        this.clientWorldController.invalidateBlockReceiveRegion(packetIn.getChunkX() << 4, 0, packetIn.getChunkZ() << 4, (packetIn.getChunkX() << 4) + 15, 256, (packetIn.getChunkZ() << 4) + 15);
+        this.clientWorldController.invalidateBlockReceiveRegion();
         Chunk chunk = this.clientWorldController.getChunkFromChunkCoords(packetIn.getChunkX(), packetIn.getChunkZ());
         chunk.fillChunk(packetIn.func_149272_d(), packetIn.getExtractedSize(), packetIn.func_149274_i());
         this.clientWorldController.markBlockRangeForRenderUpdate(packetIn.getChunkX() << 4, 0, packetIn.getChunkZ() << 4, (packetIn.getChunkX() << 4) + 15, 256, (packetIn.getChunkZ() << 4) + 15);
@@ -1205,7 +1205,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
             int j = packetIn.getChunkX(i);
             int k = packetIn.getChunkZ(i);
             this.clientWorldController.doPreChunk(j, k, true);
-            this.clientWorldController.invalidateBlockReceiveRegion(j << 4, 0, k << 4, (j << 4) + 15, 256, (k << 4) + 15);
+            this.clientWorldController.invalidateBlockReceiveRegion();
             Chunk chunk = this.clientWorldController.getChunkFromChunkCoords(j, k);
             chunk.fillChunk(packetIn.getChunkBytes(i), packetIn.getChunkSize(i), true);
             this.clientWorldController.markBlockRangeForRenderUpdate(j << 4, 0, k << 4, (j << 4) + 15, 256, (k << 4) + 15);

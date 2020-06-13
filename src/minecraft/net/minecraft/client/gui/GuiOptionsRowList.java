@@ -122,12 +122,12 @@ public class GuiOptionsRowList extends GuiListExtended
         {
             if (this.field_148323_b != null)
             {
-                this.field_148323_b.mouseReleased(x, y);
+                this.field_148323_b.mouseReleased();
             }
 
             if (this.field_148324_c != null)
             {
-                this.field_148324_c.mouseReleased(x, y);
+                this.field_148324_c.mouseReleased();
             }
         }
 

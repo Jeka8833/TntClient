@@ -181,7 +181,7 @@ public class ContainerRepair extends Container
             ItemStack itemstack1 = itemstack.copy();
             ItemStack itemstack2 = this.inputSlots.getStackInSlot(1);
             Map<Integer, Integer> map = EnchantmentHelper.getEnchantments(itemstack1);
-            boolean flag = false;
+            boolean flag;
             i2 = i2 + itemstack.getRepairCost() + (itemstack2 == null ? 0 : itemstack2.getRepairCost());
             this.materialCost = 0;
 
@@ -251,7 +251,7 @@ public class ContainerRepair extends Container
 
                         if (enchantment != null)
                         {
-                            int k5 = map.containsKey(i5) ? map.get(i5) : 0;
+                            int k5 = map.getOrDefault(i5, 0);
                             int l3 = map1.get(i5);
                             int i6;
 

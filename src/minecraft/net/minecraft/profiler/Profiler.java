@@ -3,7 +3,6 @@ package net.minecraft.profiler;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -132,7 +131,7 @@ public class Profiler
 
                 if (this.profilingMap.containsKey(this.profilingSection))
                 {
-                    this.profilingMap.put(this.profilingSection, ((Long) this.profilingMap.get(this.profilingSection)).longValue() + k);
+                    this.profilingMap.put(this.profilingSection, (Long) this.profilingMap.get(this.profilingSection) + k);
                 }
                 else
                 {
@@ -211,10 +210,7 @@ public class Profiler
                 }
             }
 
-            for (Object s3 : this.profilingMap.keySet())
-            {
-                this.profilingMap.put(s3, ((Long) this.profilingMap.get(s3)).longValue() * 950L / 1000L);
-            }
+            this.profilingMap.replaceAll((s, v) -> (Long) this.profilingMap.get(s) * 950L / 1000L);
 
             if ((float)k > f)
             {

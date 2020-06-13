@@ -6,7 +6,7 @@ import java.util.Map;
 public class HttpResponse
 {
     private final int status;
-    private Map<String, String> headers = new LinkedHashMap();
+    private Map<String, String> headers;
     private final byte[] body;
 
     public HttpResponse(int p_i61_1_, Map p_i61_3_, byte[] p_i61_4_)

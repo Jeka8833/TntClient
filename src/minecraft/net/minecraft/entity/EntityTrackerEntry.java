@@ -548,7 +548,7 @@ public class EntityTrackerEntry
         else if (this.trackedEntity instanceof EntityFireball)
         {
             EntityFireball entityfireball = (EntityFireball)this.trackedEntity;
-            S0EPacketSpawnObject s0epacketspawnobject2 = null;
+            S0EPacketSpawnObject s0epacketspawnobject2;
             int i = 63;
 
             if (this.trackedEntity instanceof EntitySmallFireball)

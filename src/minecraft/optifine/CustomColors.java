@@ -644,9 +644,6 @@ public class CustomColors {
             if (p_getColorMultiplier_1_ != Blocks.grass && p_getColorMultiplier_1_ != Blocks.tallgrass && p_getColorMultiplier_1_ != Blocks.double_plant) {
                 if (p_getColorMultiplier_1_ == Blocks.leaves) {
                     switch (i & 3) {
-                        case 0:
-                            customcolors$icolorizer = COLORIZER_FOLIAGE;
-                            break;
 
                         case 1:
                             customcolors$icolorizer = COLORIZER_FOLIAGE_PINE;
@@ -708,10 +705,8 @@ public class CustomColors {
                     }
 
                 }
-                return null;
-            } else {
-                return null;
             }
+            return null;
         }
     }
 

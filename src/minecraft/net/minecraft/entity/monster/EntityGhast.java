@@ -333,7 +333,7 @@ public class EntityGhast extends EntityFlying implements IMob
 
         public boolean continueExecuting()
         {
-            return false;
+            return true;
         }
 
         public void startExecuting()

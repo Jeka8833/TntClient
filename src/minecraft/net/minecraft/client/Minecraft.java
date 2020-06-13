@@ -921,7 +921,6 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
      * Checks for an OpenGL error. If there is one, prints the error ID and error string.
      */
     private void checkGLError(String message) {
-        boolean enableGLErrorChecking = true;
         int i = GL11.glGetError();
 
         if (i != 0) {
@@ -981,12 +980,11 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
 
         synchronized (this.scheduledTasks) {
             while (!this.scheduledTasks.isEmpty()) {
-                Util.func_181617_a((FutureTask) this.scheduledTasks.poll(), logger);
+                Util.func_181617_a(this.scheduledTasks.poll(), logger);
             }
         }
 
         this.mcProfiler.endSection();
-        long l = System.nanoTime();
         this.mcProfiler.startSection("tick");
 
         for (int j = 0; j < this.timer.elapsedTicks; ++j) {
@@ -1651,19 +1649,24 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
                             this.refreshResources();
                         }
 
-                        if (k == 17 && Keyboard.isKeyDown(61)) {
+                        if (k == 17) {
+                            Keyboard.isKeyDown(61);
                         }
 
-                        if (k == 18 && Keyboard.isKeyDown(61)) {
+                        if (k == 18) {
+                            Keyboard.isKeyDown(61);
                         }
 
-                        if (k == 47 && Keyboard.isKeyDown(61)) {
+                        if (k == 47) {
+                            Keyboard.isKeyDown(61);
                         }
 
-                        if (k == 38 && Keyboard.isKeyDown(61)) {
+                        if (k == 38) {
+                            Keyboard.isKeyDown(61);
                         }
 
-                        if (k == 22 && Keyboard.isKeyDown(61)) {
+                        if (k == 22) {
+                            Keyboard.isKeyDown(61);
                         }
 
                         if (k == 20 && Keyboard.isKeyDown(61)) {

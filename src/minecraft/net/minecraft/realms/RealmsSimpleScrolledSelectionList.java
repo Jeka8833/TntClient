@@ -11,7 +11,7 @@ public class RealmsSimpleScrolledSelectionList
         this.proxy = new GuiSimpleScrolledSelectionListProxy(this, p_i45803_1_, p_i45803_2_, p_i45803_3_, p_i45803_4_, p_i45803_5_);
     }
 
-    public void render(int p_render_1_, int p_render_2_, float p_render_3_)
+    public void render(int p_render_1_, int p_render_2_)
     {
         this.proxy.drawScreen(p_render_1_, p_render_2_);
     }
@@ -31,13 +31,13 @@ public class RealmsSimpleScrolledSelectionList
         return this.proxy.getMouseX();
     }
 
-    protected void renderItem(int p_renderItem_1_, int p_renderItem_2_, int p_renderItem_3_, int p_renderItem_4_, Tezzelator p_renderItem_5_, int p_renderItem_6_, int p_renderItem_7_)
+    protected void renderItem()
     {
     }
 
     public void renderItem(int p_renderItem_1_, int p_renderItem_2_, int p_renderItem_3_, int p_renderItem_4_, int p_renderItem_5_, int p_renderItem_6_)
     {
-        this.renderItem(p_renderItem_1_, p_renderItem_2_, p_renderItem_3_, p_renderItem_4_, Tezzelator.instance, p_renderItem_5_, p_renderItem_6_);
+        this.renderItem();
     }
 
     public int getItemCount()
@@ -45,7 +45,7 @@ public class RealmsSimpleScrolledSelectionList
         return 0;
     }
 
-    public void selectItem(int p_selectItem_1_, boolean p_selectItem_2_, int p_selectItem_3_, int p_selectItem_4_)
+    public void selectItem()
     {
     }
 
@@ -83,7 +83,7 @@ public class RealmsSimpleScrolledSelectionList
         return this.proxy.getAmountScrolled();
     }
 
-    protected void renderList(int p_renderList_1_, int p_renderList_2_, int p_renderList_3_, int p_renderList_4_)
+    protected void renderList()
     {
     }
 }

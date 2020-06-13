@@ -193,9 +193,6 @@ public class NBTTagCompound extends NBTBase
         }
         else if (type != 99)
         {
-            if (i > 0)
-            {
-            }
 
             return false;
         }

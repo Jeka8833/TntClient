@@ -33,10 +33,17 @@ public class Config {
     public String apiKey = "";
 
     public static Config config = new Config();
+    public static Module[] modules;
 
     public static void read() {
         try {
             config = new Gson().fromJson(new String(Files.readAllBytes(Minecraft.getMinecraft().mcDataDir.toPath().resolve("HC3Config.json"))), Config.class);
+            if (TntClient.isDebug)
+            modules = new Module[]{config.bot, config.longDJump, config.glitchBlocks, config.dolphin, config.freeDJ, config.showPotions, config.brightness, config.sprint, config.tntGameStats,
+                    config.nicknameStats, config.tabStats, config.autoTip, config.debugModule};
+            else
+                modules = new Module[]{config.bot, config.longDJump, config.glitchBlocks, config.dolphin, config.freeDJ, config.showPotions, config.brightness, config.sprint, config.tntGameStats,
+                        config.nicknameStats, config.tabStats, config.autoTip};
         } catch (Exception e) {
             write();
         }
@@ -47,26 +54,6 @@ public class Config {
             Files.write(Minecraft.getMinecraft().mcDataDir.toPath().resolve("HC3Config.json"), new Gson().toJson(config).getBytes());
         } catch (Exception e) {
             e.printStackTrace();
-        }
-    }
-
-    public Module[] getDangerMods() {
-        return new Module[]{config.bot, config.longDJump, config.glitchBlocks, config.dolphin, config.freeDJ};
-    }
-
-    public Module[] getPussyMods() {
-        return new Module[]{config.showPotions, config.brightness, config.sprint, config.tntGameStats,
-                config.nicknameStats, config.tabStats, config.autoTip};
-    }
-
-    public Module[] getModList() {
-        if (TntClient.pussy) {
-            return getPussyMods();
-        } else {
-            if (TntClient.isDebug)
-                return ArrayUtils.addAll(ArrayUtils.addAll(getPussyMods(), getDangerMods()), config.debugModule);
-            else
-                return ArrayUtils.addAll(getPussyMods(), getDangerMods());
         }
     }
 }

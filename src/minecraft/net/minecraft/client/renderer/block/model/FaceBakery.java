@@ -75,7 +75,7 @@ public class FaceBakery
 
         for (int j = 0; j < 4; ++j)
         {
-            this.fillVertexData(aint, j, p_makeQuadVertexData_3_, p_makeQuadVertexData_1_, p_makeQuadVertexData_4_, p_makeQuadVertexData_2_, p_makeQuadVertexData_5_, p_makeQuadVertexData_6_, p_makeQuadVertexData_7_, p_makeQuadVertexData_8_);
+            this.fillVertexData(aint, j, p_makeQuadVertexData_3_, p_makeQuadVertexData_1_, p_makeQuadVertexData_4_, p_makeQuadVertexData_2_, p_makeQuadVertexData_5_, p_makeQuadVertexData_6_, p_makeQuadVertexData_8_);
         }
 
         return aint;
@@ -99,9 +99,6 @@ public class FaceBakery
                 }
 
                 return 0.5F;
-
-            case 2:
-                return 1.0F;
 
             case 3:
             case 4:
@@ -138,7 +135,7 @@ public class FaceBakery
         return afloat;
     }
 
-    private void fillVertexData(int[] p_fillVertexData_1_, int p_fillVertexData_2_, EnumFacing p_fillVertexData_3_, BlockPartFace p_fillVertexData_4_, float[] p_fillVertexData_5_, TextureAtlasSprite p_fillVertexData_6_, ITransformation p_fillVertexData_7_, BlockPartRotation p_fillVertexData_8_, boolean p_fillVertexData_9_, boolean p_fillVertexData_10_)
+    private void fillVertexData(int[] p_fillVertexData_1_, int p_fillVertexData_2_, EnumFacing p_fillVertexData_3_, BlockPartFace p_fillVertexData_4_, float[] p_fillVertexData_5_, TextureAtlasSprite p_fillVertexData_6_, ITransformation p_fillVertexData_7_, BlockPartRotation p_fillVertexData_8_, boolean p_fillVertexData_10_)
     {
         EnumFacing enumfacing = p_fillVertexData_7_.rotate(p_fillVertexData_3_);
         int i = p_fillVertexData_10_ ? this.getFaceShadeColor(enumfacing) : -1;
@@ -205,11 +202,6 @@ public class FaceBakery
 
             this.rotateScale(p_178407_1_, new Vector3f(partRotation.origin), matrix4f, vector3f);
         }
-    }
-
-    public int rotateVertex(Vector3f position, EnumFacing facing, int vertexIndex, ModelRotation modelRotationIn, boolean uvLocked)
-    {
-        return this.rotateVertex(position, facing, vertexIndex, modelRotationIn, uvLocked);
     }
 
     public int rotateVertex(Vector3f p_rotateVertex_1_, EnumFacing p_rotateVertex_2_, int p_rotateVertex_3_, ITransformation p_rotateVertex_4_)

@@ -35,7 +35,6 @@ public class EntitySpellParticleFX extends EntityFX
     public void renderParticle(WorldRenderer worldRendererIn, Entity entityIn, float partialTicks, float p_180434_4_, float p_180434_5_, float p_180434_6_, float p_180434_7_, float p_180434_8_)
     {
         float f = ((float)this.particleAge + partialTicks) / (float)this.particleMaxAge * 32.0F;
-        f = MathHelper.clamp_float(f, 0.0F, 1.0F);
         super.renderParticle(worldRendererIn, entityIn, partialTicks, p_180434_4_, p_180434_5_, p_180434_6_, p_180434_7_, p_180434_8_);
     }
 
@@ -105,8 +104,8 @@ public class EntitySpellParticleFX extends EntityFX
     {
         public EntityFX getEntityFX(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_)
         {
-            EntityFX entityfx = new EntitySpellParticleFX(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
-            ((EntitySpellParticleFX)entityfx).setBaseSpellTextureIndex(144);
+            EntitySpellParticleFX entityfx = new EntitySpellParticleFX(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
+            entityfx.setBaseSpellTextureIndex(144);
             return entityfx;
         }
     }
@@ -125,8 +124,8 @@ public class EntitySpellParticleFX extends EntityFX
     {
         public EntityFX getEntityFX(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_)
         {
-            EntityFX entityfx = new EntitySpellParticleFX(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
-            ((EntitySpellParticleFX)entityfx).setBaseSpellTextureIndex(144);
+            EntitySpellParticleFX entityfx = new EntitySpellParticleFX(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
+            entityfx.setBaseSpellTextureIndex(144);
             float f = worldIn.rand.nextFloat() * 0.5F + 0.35F;
             entityfx.setRBGColorF(1.0F * f, 0.0F * f, 1.0F * f);
             return entityfx;

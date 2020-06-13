@@ -67,31 +67,6 @@ public class ShadersRender
         }
     }
 
-    public static void beginTranslucent()
-    {
-        if (Shaders.isRenderingWorld)
-        {
-            if (Shaders.usedDepthBuffers >= 2)
-            {
-                GlStateManager.setActiveTexture(33995);
-                Shaders.checkGLError("pre copy depth");
-                GL11.glCopyTexSubImage2D(GL11.GL_TEXTURE_2D, 0, 0, 0, 0, 0, Shaders.renderWidth, Shaders.renderHeight);
-                Shaders.checkGLError("copy depth");
-                GlStateManager.setActiveTexture(33984);
-            }
-
-            Shaders.useProgram(12);
-        }
-    }
-
-    public static void endTranslucent()
-    {
-        if (Shaders.isRenderingWorld)
-        {
-            Shaders.useProgram(3);
-        }
-    }
-
     public static void renderHand0(EntityRenderer er, float par1, int par2)
     {
         if (!Shaders.isShadowPass)
@@ -105,7 +80,7 @@ public class ShadersRender
                 GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
                 er.renderHand(par1, par2, true, false, false);
                 Shaders.endHand();
-                Shaders.setHandRenderedMain(true);
+                Shaders.setHandRenderedMain();
             }
         }
     }
@@ -120,7 +95,7 @@ public class ShadersRender
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
             er.renderHand(par1, par2, true, false, true);
             Shaders.endHand();
-            Shaders.setHandRenderedMain(true);
+            Shaders.setHandRenderedMain();
         }
     }
 
@@ -237,7 +212,7 @@ public class ShadersRender
             minecraft.mcProfiler.endStartSection("shadow prepareterrain");
             minecraft.getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
             minecraft.mcProfiler.endStartSection("shadow setupterrain");
-            int i = 0;
+            int i;
             i = entityRenderer.frameCount;
             entityRenderer.frameCount = i + 1;
             renderglobal.setupTerrain(entity, partialTicks, frustum, i, minecraft.thePlayer.isSpectator());
@@ -416,7 +391,6 @@ public class ShadersRender
 
     public static void setupArrayPointersVbo()
     {
-        int i = 14;
         GL11.glVertexPointer(3, GL11.GL_FLOAT, 56, 0L);
         GL11.glColorPointer(4, GL11.GL_UNSIGNED_BYTE, 56, 12L);
         GL11.glTexCoordPointer(2, GL11.GL_FLOAT, 56, 16L);
@@ -427,28 +401,6 @@ public class ShadersRender
         GL20.glVertexAttribPointer(Shaders.midTexCoordAttrib, 2, GL11.GL_FLOAT, false, 56, 32L);
         GL20.glVertexAttribPointer(Shaders.tangentAttrib, 4, GL11.GL_SHORT, false, 56, 40L);
         GL20.glVertexAttribPointer(Shaders.entityAttrib, 3, GL11.GL_SHORT, false, 56, 48L);
-    }
-
-    public static void beaconBeamBegin()
-    {
-        Shaders.useProgram(14);
-    }
-
-    public static void beaconBeamStartQuad1()
-    {
-    }
-
-    public static void beaconBeamStartQuad2()
-    {
-    }
-
-    public static void beaconBeamDraw1()
-    {
-    }
-
-    public static void beaconBeamDraw2()
-    {
-        GlStateManager.disableBlend();
     }
 
     public static void renderEnchantedGlintBegin()

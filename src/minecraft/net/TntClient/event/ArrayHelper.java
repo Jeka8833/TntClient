@@ -6,11 +6,6 @@ public class ArrayHelper<T> implements Iterable<T>
 {
     private T[] elements;
 
-    public ArrayHelper(final T[] array)
-    {
-        this.elements = array;
-    }
-
     public ArrayHelper()
     {
         this.elements = (T[]) new Object[0];
@@ -96,11 +91,6 @@ public class ArrayHelper<T> implements Iterable<T>
     public T get(final int index)
     {
         return this.array()[index];
-    }
-
-    public void clear()
-    {
-        this.elements = (T[]) new Object[0];
     }
 
     public boolean isEmpty()

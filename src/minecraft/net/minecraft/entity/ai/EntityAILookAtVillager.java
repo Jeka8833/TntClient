@@ -40,7 +40,7 @@ public class EntityAILookAtVillager extends EntityAIBase
      */
     public boolean continueExecuting()
     {
-        return this.lookTime > 0;
+        return this.lookTime <= 0;
     }
 
     /**

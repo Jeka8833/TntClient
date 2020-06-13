@@ -37,10 +37,6 @@ public class RealmsScreen
     {
     }
 
-    public void init(Minecraft p_init_1_, int p_init_2_, int p_init_3_)
-    {
-    }
-
     public void drawCenteredString(String p_drawCenteredString_1_, int p_drawCenteredString_2_, int p_drawCenteredString_3_, int p_drawCenteredString_4_)
     {
         this.proxy.func_154325_a(p_drawCenteredString_1_, p_drawCenteredString_2_, p_drawCenteredString_3_, p_drawCenteredString_4_);
@@ -201,7 +197,7 @@ public class RealmsScreen
         return new RealmsEditBox(p_newEditBox_1_, p_newEditBox_2_, p_newEditBox_3_, p_newEditBox_4_, p_newEditBox_5_);
     }
 
-    public void mouseClicked(int p_mouseClicked_1_, int p_mouseClicked_2_, int p_mouseClicked_3_)
+    public void mouseClicked()
     {
     }
 
@@ -213,11 +209,11 @@ public class RealmsScreen
     {
     }
 
-    public void mouseReleased(int p_mouseReleased_1_, int p_mouseReleased_2_, int p_mouseReleased_3_)
+    public void mouseReleased()
     {
     }
 
-    public void mouseDragged(int p_mouseDragged_1_, int p_mouseDragged_2_, int p_mouseDragged_3_, long p_mouseDragged_4_)
+    public void mouseDragged()
     {
     }
 
@@ -225,7 +221,7 @@ public class RealmsScreen
     {
     }
 
-    public void confirmResult(boolean p_confirmResult_1_, int p_confirmResult_2_)
+    public void confirmResult()
     {
     }
 

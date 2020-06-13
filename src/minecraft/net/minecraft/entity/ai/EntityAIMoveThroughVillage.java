@@ -102,12 +102,12 @@ public class EntityAIMoveThroughVillage extends EntityAIBase
     {
         if (this.theEntity.getNavigator().noPath())
         {
-            return false;
+            return true;
         }
         else
         {
             float f = this.theEntity.width + 4.0F;
-            return this.theEntity.getDistanceSq(this.doorInfo.getDoorBlockPos()) > (double)(f * f);
+            return !(this.theEntity.getDistanceSq(this.doorInfo.getDoorBlockPos()) > (double) (f * f));
         }
     }
 

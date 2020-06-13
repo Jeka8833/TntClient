@@ -181,7 +181,7 @@ public class GuiScreenRealmsProxy extends GuiScreen
      */
     public void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException
     {
-        this.field_154330_a.mouseClicked(mouseX, mouseY, mouseButton);
+        this.field_154330_a.mouseClicked();
         super.mouseClicked(mouseX, mouseY, mouseButton);
     }
 
@@ -208,7 +208,7 @@ public class GuiScreenRealmsProxy extends GuiScreen
      */
     public void mouseReleased(int mouseX, int mouseY, int state)
     {
-        this.field_154330_a.mouseReleased(mouseX, mouseY, state);
+        this.field_154330_a.mouseReleased();
     }
 
     /**
@@ -217,7 +217,7 @@ public class GuiScreenRealmsProxy extends GuiScreen
      */
     public void mouseClickMove(int mouseX, int mouseY, int clickedMouseButton, long timeSinceLastClick)
     {
-        this.field_154330_a.mouseDragged(mouseX, mouseY, clickedMouseButton, timeSinceLastClick);
+        this.field_154330_a.mouseDragged();
     }
 
     /**
@@ -231,7 +231,7 @@ public class GuiScreenRealmsProxy extends GuiScreen
 
     public void confirmClicked(boolean result, int id)
     {
-        this.field_154330_a.confirmResult(result, id);
+        this.field_154330_a.confirmResult();
     }
 
     /**

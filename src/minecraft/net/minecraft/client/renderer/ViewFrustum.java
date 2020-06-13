@@ -38,7 +38,7 @@ public class ViewFrustum
                 {
                     int j1 = (i1 * this.countChunksY + l) * this.countChunksX + k;
                     BlockPos blockpos = new BlockPos(k * 16, l * 16, i1 * 16);
-                    this.renderChunks[j1] = renderChunkFactory.makeRenderChunk(this.world, this.renderGlobal, blockpos, j++);
+                    this.renderChunks[j1] = renderChunkFactory.makeRenderChunk(this.world, this.renderGlobal, blockpos);
                 }
             }
         }

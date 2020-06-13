@@ -181,7 +181,7 @@ public class MapStorage
         }
         else
         {
-            oshort = (short) (oshort.shortValue() + 1);
+            oshort = (short) (oshort + 1);
         }
 
         this.idCounts.put(key, oshort);

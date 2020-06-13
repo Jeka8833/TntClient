@@ -460,7 +460,7 @@ public class GuiPageButtonList extends GuiListExtended
 
             if (!p_178025_5_)
             {
-                p_178025_1_.drawLabel(this.field_178031_a, p_178025_3_, p_178025_4_);
+                p_178025_1_.drawLabel();
             }
         }
 
@@ -522,11 +522,11 @@ public class GuiPageButtonList extends GuiListExtended
 
         public void mouseReleased(int x, int y, int mouseEvent)
         {
-            this.func_178016_b(this.field_178029_b, x, y, mouseEvent);
-            this.func_178016_b(this.field_178030_c, x, y, mouseEvent);
+            this.func_178016_b(this.field_178029_b, x, y);
+            this.func_178016_b(this.field_178030_c, x, y);
         }
 
-        private void func_178016_b(Gui p_178016_1_, int p_178016_2_, int p_178016_3_, int p_178016_4_)
+        private void func_178016_b(Gui p_178016_1_, int p_178016_2_, int p_178016_3_)
         {
             if (p_178016_1_ != null)
             {
@@ -539,7 +539,7 @@ public class GuiPageButtonList extends GuiListExtended
 
         private void func_178019_b(GuiButton p_178019_1_, int p_178019_2_, int p_178019_3_)
         {
-            p_178019_1_.mouseReleased(p_178019_2_, p_178019_3_);
+            p_178019_1_.mouseReleased();
         }
     }
 

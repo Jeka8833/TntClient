@@ -33,7 +33,6 @@ public class NetHandlerLoginClient implements INetHandlerLoginClient
     private final Minecraft mc;
     private final GuiScreen previousGuiScreen;
     private final NetworkManager networkManager;
-    private GameProfile gameProfile;
 
     public NetHandlerLoginClient(NetworkManager p_i45059_1_, Minecraft mcIn, GuiScreen p_i45059_3_)
     {
@@ -99,9 +98,9 @@ public class NetHandlerLoginClient implements INetHandlerLoginClient
 
     public void handleLoginSuccess(S02PacketLoginSuccess packetIn)
     {
-        this.gameProfile = packetIn.getProfile();
+        GameProfile gameProfile = packetIn.getProfile();
         this.networkManager.setConnectionState(EnumConnectionState.PLAY);
-        this.networkManager.setNetHandler(new NetHandlerPlayClient(this.mc, this.previousGuiScreen, this.networkManager, this.gameProfile));
+        this.networkManager.setNetHandler(new NetHandlerPlayClient(this.mc, this.previousGuiScreen, this.networkManager, gameProfile));
     }
 
     /**

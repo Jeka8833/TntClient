@@ -483,7 +483,7 @@ public final class ItemStack
      * Called each tick as long the ItemStack in on player inventory. Used to progress the pickup animation and update
      * maps.
      */
-    public void updateAnimation(World worldIn, Entity entityIn, int inventorySlot, boolean isCurrentItem)
+    public void updateAnimation(World worldIn, Entity entityIn, boolean isCurrentItem)
     {
         if (this.animationsToGo > 0)
         {

@@ -299,31 +299,22 @@ public class InventoryPlayer implements IInventory
             j = this.getFirstEmptyStack();
         }
 
-        if (j < 0)
-        {
-            return i;
-        }
-        else
-        {
-            if (this.mainInventory[j] == null)
-            {
+        if (j >= 0) {
+            if (this.mainInventory[j] == null) {
                 this.mainInventory[j] = new ItemStack(item, 0, itemStackIn.getMetadata());
 
-                if (itemStackIn.hasTagCompound())
-                {
-                    this.mainInventory[j].setTagCompound((NBTTagCompound)itemStackIn.getTagCompound().copy());
+                if (itemStackIn.hasTagCompound()) {
+                    this.mainInventory[j].setTagCompound((NBTTagCompound) itemStackIn.getTagCompound().copy());
                 }
             }
 
             int k = i;
 
-            if (i > this.mainInventory[j].getMaxStackSize() - this.mainInventory[j].stackSize)
-            {
+            if (i > this.mainInventory[j].getMaxStackSize() - this.mainInventory[j].stackSize) {
                 k = this.mainInventory[j].getMaxStackSize() - this.mainInventory[j].stackSize;
             }
 
-            if (k > this.getInventoryStackLimit() - this.mainInventory[j].stackSize)
-            {
+            if (k > this.getInventoryStackLimit() - this.mainInventory[j].stackSize) {
                 k = this.getInventoryStackLimit() - this.mainInventory[j].stackSize;
             }
 
@@ -332,8 +323,8 @@ public class InventoryPlayer implements IInventory
                 this.mainInventory[j].stackSize += k;
                 this.mainInventory[j].animationsToGo = 5;
             }
-            return i;
         }
+        return i;
     }
 
     /**
@@ -346,7 +337,7 @@ public class InventoryPlayer implements IInventory
         {
             if (this.mainInventory[i] != null)
             {
-                this.mainInventory[i].updateAnimation(this.player.worldObj, this.player, i, this.currentItem == i);
+                this.mainInventory[i].updateAnimation(this.player.worldObj, this.player, this.currentItem == i);
             }
         }
     }

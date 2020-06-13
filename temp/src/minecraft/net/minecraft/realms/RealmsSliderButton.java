@@ -59,7 +59,7 @@ public class RealmsSliderButton extends RealmsButton {
             this.value = (float)(p_renderBg_1_ - (this.getProxy().field_146128_h + 4)) / (float)(this.getProxy().func_146117_b() - 8);
             this.value = MathHelper.func_76131_a(this.value, 0.0F, 1.0F);
             float lvt_3_1_ = this.toValue(this.value);
-            this.clicked(lvt_3_1_);
+            this.clicked();
             this.value = this.toPct(lvt_3_1_);
             this.getProxy().field_146126_j = this.getMessage();
          }
@@ -74,7 +74,7 @@ public class RealmsSliderButton extends RealmsButton {
    public void clicked(int p_clicked_1_, int p_clicked_2_) {
       this.value = (float)(p_clicked_1_ - (this.getProxy().field_146128_h + 4)) / (float)(this.getProxy().func_146117_b() - 8);
       this.value = MathHelper.func_76131_a(this.value, 0.0F, 1.0F);
-      this.clicked(this.toValue(this.value));
+      this.clicked();
       this.getProxy().field_146126_j = this.getMessage();
       this.sliding = true;
    }

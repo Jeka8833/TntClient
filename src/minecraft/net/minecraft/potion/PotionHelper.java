@@ -98,7 +98,7 @@ public class PotionHelper
                     {
                         f += (float)(j >> 16 & 255) / 255.0F;
                         f1 += (float)(j >> 8 & 255) / 255.0F;
-                        f2 += (float)(j >> 0 & 255) / 255.0F;
+                        f2 += (float)(j & 255) / 255.0F;
                         ++f3;
                     }
                 }
@@ -311,7 +311,6 @@ public class PotionHelper
                             if (flag2)
                             {
                                 j1 += func_77904_a(flag3, flag1, flag4, b0, l, i1, p_77912_3_);
-                                flag3 = false;
                                 flag4 = false;
                                 flag = false;
                                 flag1 = false;
@@ -329,7 +328,6 @@ public class PotionHelper
                             {
                                 j1 += func_77904_a(flag3, flag1, flag4, b0, l, i1, p_77912_3_);
                                 flag3 = false;
-                                flag4 = false;
                                 flag = false;
                                 flag1 = false;
                                 flag2 = false;
@@ -533,7 +531,6 @@ public class PotionHelper
                 {
                     p_77913_0_ = brewBitOperations(p_77913_0_, j, flag2, flag1, flag3);
                     flag3 = false;
-                    flag1 = false;
                     flag2 = false;
                     flag = false;
                     j = 0;
@@ -548,7 +545,6 @@ public class PotionHelper
                     p_77913_0_ = brewBitOperations(p_77913_0_, j, flag2, flag1, flag3);
                     flag3 = false;
                     flag1 = false;
-                    flag2 = false;
                     flag = false;
                     j = 0;
                 }
@@ -572,7 +568,6 @@ public class PotionHelper
                 if (flag)
                 {
                     p_77913_0_ = brewBitOperations(p_77913_0_, j, flag2, flag1, flag3);
-                    flag3 = false;
                     flag1 = false;
                     flag2 = false;
                     flag = false;

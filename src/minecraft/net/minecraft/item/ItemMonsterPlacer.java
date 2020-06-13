@@ -118,19 +118,14 @@ public class ItemMonsterPlacer extends Item
      */
     public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn)
     {
-        if (worldIn.isRemote)
-        {
-            return itemStackIn;
-        }
-        else
-        {
+        if (!worldIn.isRemote) {
             MovingObjectPosition movingobjectposition = this.getMovingObjectPositionFromPlayer(worldIn, playerIn, true);
 
             if (movingobjectposition != null) {
                 if (movingobjectposition.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
                     BlockPos blockpos = movingobjectposition.getBlockPos();
 
-                    if (worldIn.isBlockModifiable(playerIn, blockpos)) {
+                    if (worldIn.isBlockModifiable(blockpos)) {
                         return itemStackIn;
                     }
 
@@ -156,8 +151,8 @@ public class ItemMonsterPlacer extends Item
                 }
 
             }
-            return itemStackIn;
         }
+        return itemStackIn;
     }
 
     /**

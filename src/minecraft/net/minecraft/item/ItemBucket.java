@@ -38,7 +38,7 @@ public class ItemBucket extends Item
             if (movingobjectposition.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
                 BlockPos blockpos = movingobjectposition.getBlockPos();
 
-                if (worldIn.isBlockModifiable(playerIn, blockpos)) {
+                if (worldIn.isBlockModifiable(blockpos)) {
                     return itemStackIn;
                 }
 

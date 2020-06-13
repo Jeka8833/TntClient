@@ -175,9 +175,9 @@ public class GuiCreateFlatWorld extends GuiScreen
             Tessellator tessellator = Tessellator.getInstance();
             WorldRenderer worldrenderer = tessellator.getWorldRenderer();
             worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
-            worldrenderer.pos(p_148224_1_, p_148224_2_ + 18, GuiCreateFlatWorld.this.zLevel).tex((float)(0) * 0.0078125F, (float)(0 + 18) * 0.0078125F).endVertex();
-            worldrenderer.pos(p_148224_1_ + 18, p_148224_2_ + 18, GuiCreateFlatWorld.this.zLevel).tex((float)(0 + 18) * 0.0078125F, (float)(0 + 18) * 0.0078125F).endVertex();
-            worldrenderer.pos(p_148224_1_ + 18, p_148224_2_, GuiCreateFlatWorld.this.zLevel).tex((float)(0 + 18) * 0.0078125F, (float)(0) * 0.0078125F).endVertex();
+            worldrenderer.pos(p_148224_1_, p_148224_2_ + 18, GuiCreateFlatWorld.this.zLevel).tex((float)(0) * 0.0078125F, (float)(18) * 0.0078125F).endVertex();
+            worldrenderer.pos(p_148224_1_ + 18, p_148224_2_ + 18, GuiCreateFlatWorld.this.zLevel).tex((float)(18) * 0.0078125F, (float)(18) * 0.0078125F).endVertex();
+            worldrenderer.pos(p_148224_1_ + 18, p_148224_2_, GuiCreateFlatWorld.this.zLevel).tex((float)(18) * 0.0078125F, (float)(0) * 0.0078125F).endVertex();
             worldrenderer.pos(p_148224_1_, p_148224_2_, GuiCreateFlatWorld.this.zLevel).tex((float)(0) * 0.0078125F, (float)(0) * 0.0078125F).endVertex();
             tessellator.draw();
         }

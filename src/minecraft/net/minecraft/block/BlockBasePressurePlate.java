@@ -34,7 +34,6 @@ public abstract class BlockBasePressurePlate extends Block
     protected void setBlockBoundsBasedOnState0(IBlockState state)
     {
         boolean flag = this.getRedstoneStrength(state) > 0;
-        float f = 0.0625F;
 
         if (flag)
         {
@@ -177,7 +176,6 @@ public abstract class BlockBasePressurePlate extends Block
      */
     protected AxisAlignedBB getSensitiveAABB(BlockPos pos)
     {
-        float f = 0.125F;
         return new AxisAlignedBB((float)pos.getX() + 0.125F, pos.getY(), (float)pos.getZ() + 0.125F, (float)(pos.getX() + 1) - 0.125F, (double)pos.getY() + 0.25D, (float)(pos.getZ() + 1) - 0.125F);
     }
 
@@ -223,9 +221,6 @@ public abstract class BlockBasePressurePlate extends Block
      */
     public void setBlockBoundsForItemRender()
     {
-        float f = 0.5F;
-        float f1 = 0.125F;
-        float f2 = 0.5F;
         this.setBlockBounds(0.0F, 0.375F, 0.0F, 1.0F, 0.625F, 1.0F);
     }
 

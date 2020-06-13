@@ -8,7 +8,7 @@ import java.util.Set;
 
 public class ShaderProfile
 {
-    private String name = null;
+    private String name;
     private final Map<String, String> mapOptionValues = new HashMap();
     private final Set<String> disabledPrograms = new HashSet();
 

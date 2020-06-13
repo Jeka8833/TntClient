@@ -82,7 +82,7 @@ public abstract class EntityAIDoorInteract extends EntityAIBase
      */
     public boolean continueExecuting()
     {
-        return !this.hasStoppedDoorInteraction;
+        return this.hasStoppedDoorInteraction;
     }
 
     /**

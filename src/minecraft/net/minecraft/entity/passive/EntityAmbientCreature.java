@@ -21,6 +21,6 @@ public abstract class EntityAmbientCreature extends EntityLiving implements IAni
      */
     protected boolean interact(EntityPlayer player)
     {
-        return false;
+        return true;
     }
 }

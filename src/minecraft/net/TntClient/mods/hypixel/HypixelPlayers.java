@@ -33,7 +33,7 @@ public class HypixelPlayers {
                     updateStat();
                 try {
                     isTntRun = isTntRun();
-                    for (Module m : Config.config.getModList())
+                    for (Module m : Config.modules)
                         m.setBlocking((m.onlyHypixel && !isHypixel) || (m.onlyTntGame && !isTntRun));
                 } catch (Exception ignored) {
                 }

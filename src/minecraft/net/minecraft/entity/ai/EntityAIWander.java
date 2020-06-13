@@ -65,7 +65,7 @@ public class EntityAIWander extends EntityAIBase
      */
     public boolean continueExecuting()
     {
-        return !this.entity.getNavigator().noPath();
+        return this.entity.getNavigator().noPath();
     }
 
     /**

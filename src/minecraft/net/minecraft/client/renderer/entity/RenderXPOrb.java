@@ -72,7 +72,7 @@ public class RenderXPOrb extends Render
             {
                 j1 = i2 >> 16 & 255;
                 k1 = i2 >> 8 & 255;
-                l1 = i2 >> 0 & 255;
+                l1 = i2 & 255;
             }
         }
 

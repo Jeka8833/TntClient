@@ -585,7 +585,7 @@ public class EntityZombie extends EntityMob
         {
             Calendar calendar = this.worldObj.getCurrentDate();
 
-            if (calendar.get(2) + 1 == 10 && calendar.get(5) == 31 && this.rand.nextFloat() < 0.25F)
+            if (calendar.get(Calendar.MONTH) + 1 == 10 && calendar.get(Calendar.DATE) == 31 && this.rand.nextFloat() < 0.25F)
             {
                 this.setCurrentItemOrArmor(4, new ItemStack(this.rand.nextFloat() < 0.1F ? Blocks.lit_pumpkin : Blocks.pumpkin));
                 this.equipmentDropChances[4] = 0.0F;
@@ -634,11 +634,11 @@ public class EntityZombie extends EntityMob
                 this.startConversion(this.rand.nextInt(2401) + 3600);
             }
 
-            return true;
+            return false;
         }
         else
         {
-            return false;
+            return true;
         }
     }
 

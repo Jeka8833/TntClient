@@ -89,7 +89,7 @@ public class GuiButton extends Gui
             GlStateManager.blendFunc(770, 771);
             this.drawTexturedModalRect(this.xPosition, this.yPosition, 0, 46 + i * 20, this.width / 2, this.height);
             this.drawTexturedModalRect(this.xPosition + this.width / 2, this.yPosition, 200 - this.width / 2, 46 + i * 20, this.width / 2, this.height);
-            this.mouseDragged(mc, mouseX, mouseY);
+            this.mouseDragged(mc, mouseX);
             int j = 14737632;
 
             if (!this.enabled)
@@ -108,14 +108,14 @@ public class GuiButton extends Gui
     /**
      * Fired when the mouse button is dragged. Equivalent of MouseListener.mouseDragged(MouseEvent e).
      */
-    protected void mouseDragged(Minecraft mc, int mouseX, int mouseY)
+    protected void mouseDragged(Minecraft mc, int mouseX)
     {
     }
 
     /**
      * Fired when the mouse button is released. Equivalent of MouseListener.mouseReleased(MouseEvent e).
      */
-    public void mouseReleased(int mouseX, int mouseY)
+    public void mouseReleased()
     {
     }
 

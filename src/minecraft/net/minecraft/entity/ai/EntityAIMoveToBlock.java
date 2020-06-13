@@ -49,7 +49,7 @@ public abstract class EntityAIMoveToBlock extends EntityAIBase
      */
     public boolean continueExecuting()
     {
-        return this.timeoutCounter >= -this.field_179490_f && this.timeoutCounter <= 1200 && this.shouldMoveTo(this.theEntity.worldObj, this.destinationBlock);
+        return this.timeoutCounter < -this.field_179490_f || this.timeoutCounter > 1200 || !this.shouldMoveTo(this.theEntity.worldObj, this.destinationBlock);
     }
 
     /**
@@ -103,7 +103,6 @@ public abstract class EntityAIMoveToBlock extends EntityAIBase
      */
     private boolean searchForDestination()
     {
-        int j = 1;
         BlockPos blockpos = new BlockPos(this.theEntity);
 
         for (int k = 0; k <= 1; k = k > 0 ? -k : 1 - k)

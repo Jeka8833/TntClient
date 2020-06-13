@@ -692,10 +692,6 @@ public class StructureOceanMonumentPieces
 
             switch (this.coordBaseMode)
             {
-                case NORTH:
-                case SOUTH:
-                    this.boundingBox = new StructureBoundingBox(p_i45599_2_, 39, p_i45599_3_, p_i45599_2_ + 58 - 1, 61, p_i45599_3_ + 58 - 1);
-                    break;
 
                 default:
                     this.boundingBox = new StructureBoundingBox(p_i45599_2_, 39, p_i45599_3_, p_i45599_2_ + 58 - 1, 61, p_i45599_3_ + 58 - 1);
@@ -1498,7 +1494,7 @@ public class StructureOceanMonumentPieces
         protected static final int field_175829_j = func_175820_a(4, 1, 0);
         protected StructureOceanMonumentPieces.RoomDefinition field_175830_k;
 
-        protected static final int func_175820_a(int p_175820_0_, int p_175820_1_, int p_175820_2_)
+        protected static int func_175820_a(int p_175820_0_, int p_175820_1_, int p_175820_2_)
         {
             return p_175820_1_ * 25 + p_175820_2_ * 5 + p_175820_0_;
         }
@@ -1574,7 +1570,7 @@ public class StructureOceanMonumentPieces
                 {
                     for (int k = p_181655_5_; k <= p_181655_8_; ++k)
                     {
-                        if (!false || this.getBlockStateFromPos(p_181655_1_, j, i, k, p_181655_2_).getBlock().getMaterial() != Material.air)
+                        if (true)
                         {
                             if (this.getYWithOffset(i) >= p_181655_1_.func_181545_F())
                             {
@@ -1649,9 +1645,6 @@ public class StructureOceanMonumentPieces
                 entityguardian.setLocationAndAngles((double)i + 0.5D, j, (double)k + 0.5D, 0.0F, 0.0F);
                 entityguardian.onInitialSpawn(worldIn.getDifficultyForLocation(new BlockPos(entityguardian)), null);
                 worldIn.spawnEntityInWorld(entityguardian);
-            }
-            else
-            {
             }
         }
     }

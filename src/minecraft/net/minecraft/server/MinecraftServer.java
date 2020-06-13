@@ -178,7 +178,6 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
     private final PlayerProfileCache profileCache;
     protected final Queue < FutureTask<? >> futureTaskQueue = Queues.newArrayDeque();
     private Thread serverThread;
-    private long currentTime = getCurrentTimeMillis();
 
     public MinecraftServer(Proxy proxy, File workDir)
     {
@@ -522,7 +521,7 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
         {
             if (this.startServer())
             {
-                this.currentTime = getCurrentTimeMillis();
+                long currentTime = getCurrentTimeMillis();
                 long i = 0L;
                 this.statusResponse.setServerDescription(new ChatComponentText(this.motd));
                 this.statusResponse.setProtocolVersionInfo(new ServerStatusResponse.MinecraftProtocolVersionIdentifier("1.8.8", 47));
@@ -531,13 +530,13 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
                 while (this.serverRunning)
                 {
                     long k = getCurrentTimeMillis();
-                    long j = k - this.currentTime;
+                    long j = k - currentTime;
 
-                    if (j > 2000L && this.currentTime - this.timeOfLastWarning >= 15000L)
+                    if (j > 2000L && currentTime - this.timeOfLastWarning >= 15000L)
                     {
                         logger.warn("Can't keep up! Did the system time change, or is the server overloaded? Running {}ms behind, skipping {} tick(s)", j, j / 50L);
                         j = 2000L;
-                        this.timeOfLastWarning = this.currentTime;
+                        this.timeOfLastWarning = currentTime;
                     }
 
                     if (j < 0L)
@@ -547,7 +546,7 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
                     }
 
                     i += j;
-                    this.currentTime = k;
+                    currentTime = k;
 
                     if (this.worldServers[0].areAllPlayersAsleep())
                     {
@@ -575,7 +574,7 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
         catch (Throwable throwable1)
         {
             logger.error("Encountered an unexpected exception", throwable1);
-            CrashReport crashreport = null;
+            CrashReport crashreport;
 
             if (throwable1 instanceof ReportedException)
             {
@@ -733,7 +732,7 @@ public abstract class MinecraftServer implements Runnable, ICommandSender, IThre
         {
             while (!this.futureTaskQueue.isEmpty())
             {
-                Util.func_181617_a((FutureTask)this.futureTaskQueue.poll(), logger);
+                Util.func_181617_a(this.futureTaskQueue.poll(), logger);
             }
         }
 

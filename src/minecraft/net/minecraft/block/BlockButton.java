@@ -3,7 +3,6 @@ package net.minecraft.block;
 import java.util.List;
 import java.util.Random;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockState;
@@ -131,11 +130,7 @@ public abstract class BlockButton extends Block
     {
         EnumFacing enumfacing = state.getValue(FACING);
         boolean flag = state.getValue(POWERED);
-        float f = 0.25F;
-        float f1 = 0.375F;
         float f2 = (float)(flag ? 1 : 2) / 16.0F;
-        float f3 = 0.125F;
-        float f4 = 0.1875F;
 
         switch (enumfacing)
         {
@@ -166,19 +161,14 @@ public abstract class BlockButton extends Block
 
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ)
     {
-        if (state.getValue(POWERED))
-        {
-            return true;
-        }
-        else
-        {
+        if (!state.getValue(POWERED)) {
             worldIn.setBlockState(pos, state.withProperty(POWERED, Boolean.TRUE), 3);
             worldIn.markBlockRangeForRenderUpdate(pos, pos);
-            worldIn.playSoundEffect((double)pos.getX() + 0.5D, (double)pos.getY() + 0.5D, (double)pos.getZ() + 0.5D, "random.click", 0.3F, 0.6F);
+            worldIn.playSoundEffect((double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D, "random.click", 0.3F, 0.6F);
             this.notifyNeighbors(worldIn, pos, state.getValue(FACING));
             worldIn.scheduleUpdate(pos, this, this.tickRate(worldIn));
-            return true;
         }
+        return true;
     }
 
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state)

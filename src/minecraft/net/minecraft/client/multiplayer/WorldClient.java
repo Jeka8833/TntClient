@@ -1,9 +1,6 @@
 package net.minecraft.client.multiplayer;
 
 import com.google.common.collect.Sets;
-import java.util.Random;
-import java.util.Set;
-import java.util.concurrent.Callable;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -24,21 +21,17 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.ChunkCoordIntPair;
-import net.minecraft.world.EnumDifficulty;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldProvider;
-import net.minecraft.world.WorldSettings;
+import net.minecraft.world.*;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.storage.SaveDataMemoryStorage;
 import net.minecraft.world.storage.SaveHandlerMP;
 import net.minecraft.world.storage.WorldInfo;
-import optifine.BlockPosM;
-import optifine.Config;
-import optifine.DynamicLights;
-import optifine.PlayerControllerOF;
-import optifine.Reflector;
+import optifine.*;
+
+import java.util.Random;
+import java.util.Set;
+import java.util.concurrent.Callable;
 
 public class WorldClient extends World
 {
@@ -58,7 +51,6 @@ public class WorldClient extends World
     private final Set entitySpawnQueue = Sets.newHashSet();
     private final Minecraft mc = Minecraft.getMinecraft();
     private final Set previousActiveChunkSet = Sets.newHashSet();
-    private static final String __OBFID = "CL_00000882";
     private final BlockPosM randomTickPosM = new BlockPosM(0, 0, 0, 3);
     private boolean playerUpdate = false;
 
@@ -118,7 +110,7 @@ public class WorldClient extends World
      * Invalidates an AABB region of blocks from the receive queue, in the event that the block has been modified
      * client-side in the intervening 80 receive ticks.
      */
-    public void invalidateBlockReceiveRegion(int p_73031_1_, int p_73031_2_, int p_73031_3_, int p_73031_4_, int p_73031_5_, int p_73031_6_)
+    public void invalidateBlockReceiveRegion()
     {
     }
 
@@ -220,14 +212,12 @@ public class WorldClient extends World
     protected void onEntityRemoved(Entity entityIn)
     {
         super.onEntityRemoved(entityIn);
-        boolean flag = false;
 
         if (this.entityList.contains(entityIn))
         {
             if (entityIn.isEntityAlive())
             {
                 this.entitySpawnQueue.add(entityIn);
-                flag = true;
             }
             else
             {
@@ -281,10 +271,7 @@ public class WorldClient extends World
 
     public void invalidateRegionAndSetBlock(BlockPos p_180503_1_, IBlockState p_180503_2_)
     {
-        int i = p_180503_1_.getX();
-        int j = p_180503_1_.getY();
-        int k = p_180503_1_.getZ();
-        this.invalidateBlockReceiveRegion(i, j, k, i, j, k);
+        this.invalidateBlockReceiveRegion();
         super.setBlockState(p_180503_1_, p_180503_2_, 3);
     }
 
@@ -397,7 +384,6 @@ public class WorldClient extends World
         CrashReportCategory crashreportcategory = super.addWorldInfoToCrashReport(report);
         crashreportcategory.addCrashSectionCallable("Forced entities", new Callable()
         {
-            private static final String __OBFID = "CL_00000883";
             public String call()
             {
                 return WorldClient.this.entityList.size() + " total; " + WorldClient.this.entityList.toString();
@@ -405,7 +391,6 @@ public class WorldClient extends World
         });
         crashreportcategory.addCrashSectionCallable("Retry entities", new Callable()
         {
-            private static final String __OBFID = "CL_00000884";
             public String call()
             {
                 return WorldClient.this.entitySpawnQueue.size() + " total; " + WorldClient.this.entitySpawnQueue.toString();
@@ -413,7 +398,6 @@ public class WorldClient extends World
         });
         crashreportcategory.addCrashSectionCallable("Server brand", new Callable()
         {
-            private static final String __OBFID = "CL_00000885";
             public String call() throws Exception
             {
                 return WorldClient.this.mc.thePlayer.getClientBrand();
@@ -421,7 +405,6 @@ public class WorldClient extends World
         });
         crashreportcategory.addCrashSectionCallable("Server type", new Callable()
         {
-            private static final String __OBFID = "CL_00000886";
             public String call() throws Exception
             {
                 return WorldClient.this.mc.getIntegratedServer() == null ? "Non-integrated multiplayer server" : "Integrated singleplayer server";

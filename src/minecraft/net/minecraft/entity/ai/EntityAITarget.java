@@ -66,11 +66,11 @@ public abstract class EntityAITarget extends EntityAIBase
 
         if (entitylivingbase == null)
         {
-            return false;
+            return true;
         }
         else if (!entitylivingbase.isEntityAlive())
         {
-            return false;
+            return true;
         }
         else
         {
@@ -79,7 +79,7 @@ public abstract class EntityAITarget extends EntityAIBase
 
             if (team != null && team1 == team)
             {
-                return false;
+                return true;
             }
             else
             {
@@ -87,7 +87,7 @@ public abstract class EntityAITarget extends EntityAIBase
 
                 if (this.taskOwner.getDistanceSqToEntity(entitylivingbase) > d0 * d0)
                 {
-                    return false;
+                    return true;
                 }
                 else
                 {
@@ -99,11 +99,11 @@ public abstract class EntityAITarget extends EntityAIBase
                         }
                         else if (++this.targetUnseenTicks > 60)
                         {
-                            return false;
+                            return true;
                         }
                     }
 
-                    return !(entitylivingbase instanceof EntityPlayer) || !((EntityPlayer)entitylivingbase).capabilities.disableDamage;
+                    return entitylivingbase instanceof EntityPlayer && ((EntityPlayer) entitylivingbase).capabilities.disableDamage;
                 }
             }
         }

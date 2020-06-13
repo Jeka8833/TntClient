@@ -3,7 +3,6 @@ package net.minecraft.client.gui.stream;
 import com.google.common.collect.Lists;
 import java.io.IOException;
 import java.net.URI;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import net.minecraft.client.Minecraft;

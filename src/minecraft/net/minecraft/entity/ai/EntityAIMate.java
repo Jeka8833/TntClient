@@ -55,7 +55,7 @@ public class EntityAIMate extends EntityAIBase
      */
     public boolean continueExecuting()
     {
-        return this.targetMate.isEntityAlive() && this.targetMate.isInLove() && this.spawnBabyDelay < 60;
+        return !this.targetMate.isEntityAlive() || !this.targetMate.isInLove() || this.spawnBabyDelay >= 60;
     }
 
     /**

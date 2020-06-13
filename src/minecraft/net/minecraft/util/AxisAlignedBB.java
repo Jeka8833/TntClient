@@ -333,7 +333,7 @@ public class AxisAlignedBB
         }
         else
         {
-            EnumFacing enumfacing = null;
+            EnumFacing enumfacing;
 
             if (vec36 == vec3)
             {

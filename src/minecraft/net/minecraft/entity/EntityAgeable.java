@@ -64,11 +64,11 @@ public abstract class EntityAgeable extends EntityCreature
                 }
             }
 
-            return true;
+            return false;
         }
         else
         {
-            return false;
+            return true;
         }
     }
 

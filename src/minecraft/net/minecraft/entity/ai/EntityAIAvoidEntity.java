@@ -90,7 +90,7 @@ public class EntityAIAvoidEntity<T extends Entity> extends EntityAIBase
      */
     public boolean continueExecuting()
     {
-        return !this.entityPathNavigate.noPath();
+        return this.entityPathNavigate.noPath();
     }
 
     /**

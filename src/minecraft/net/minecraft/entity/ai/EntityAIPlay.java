@@ -67,7 +67,7 @@ public class EntityAIPlay extends EntityAIBase
      */
     public boolean continueExecuting()
     {
-        return this.playTime > 0;
+        return this.playTime <= 0;
     }
 
     /**

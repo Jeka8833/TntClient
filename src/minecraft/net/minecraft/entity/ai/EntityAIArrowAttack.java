@@ -81,7 +81,7 @@ public class EntityAIArrowAttack extends EntityAIBase
      */
     public boolean continueExecuting()
     {
-        return this.shouldExecute() || !this.entityHost.getNavigator().noPath();
+        return !this.shouldExecute() && this.entityHost.getNavigator().noPath();
     }
 
     /**

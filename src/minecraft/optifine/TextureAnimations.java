@@ -3,7 +3,6 @@ package optifine;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -167,7 +166,7 @@ public class TextureAnimations
                     }
                     else
                     {
-                        return new TextureAnimation(s, abyte, s1, resourcelocation, i, j, k, l, p_makeTextureAnimation_0_, 1);
+                        return new TextureAnimation(abyte, s1, resourcelocation, i, j, k, l, p_makeTextureAnimation_0_, 1);
                     }
                 }
             }

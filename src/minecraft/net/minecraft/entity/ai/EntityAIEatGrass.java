@@ -70,7 +70,7 @@ public class EntityAIEatGrass extends EntityAIBase
      */
     public boolean continueExecuting()
     {
-        return this.eatingGrassTimer > 0;
+        return this.eatingGrassTimer <= 0;
     }
 
     /**

@@ -10,7 +10,7 @@ public class Iterator3d implements Iterator<BlockPos>
 {
     private final IteratorAxis iteratorAxis;
     private final BlockPosM blockPos = new BlockPosM(0, 0, 0);
-    private int axis = 0;
+    private int axis;
     private final int kX;
     private final int kY;
     private final int kZ;
@@ -103,9 +103,6 @@ public class Iterator3d implements Iterator<BlockPos>
 
         switch (this.axis)
         {
-            case 0:
-                this.blockPos.setXyz(blockpos.getX() * this.kX, blockpos.getY() * this.kY, blockpos.getZ() * this.kZ);
-                return this.blockPos;
 
             case 1:
                 this.blockPos.setXyz(blockpos.getY() * this.kX, blockpos.getX() * this.kY, blockpos.getZ() * this.kZ);

@@ -16,7 +16,6 @@ public class EntityAITasks
     /** Instance of Profiler. */
     private final Profiler theProfiler;
     private int tickCount;
-    private final int tickRate = 3;
 
     public EntityAITasks(Profiler profilerIn)
     {
@@ -60,7 +59,8 @@ public class EntityAITasks
     {
         this.theProfiler.startSection("goalSetup");
 
-        if (this.tickCount++ % this.tickRate == 0)
+        int tickRate = 3;
+        if (this.tickCount++ % tickRate == 0)
         {
             Iterator iterator = this.taskEntries.iterator();
             label38:
@@ -131,7 +131,7 @@ public class EntityAITasks
      */
     private boolean canContinue(EntityAITasks.EntityAITaskEntry taskEntry)
     {
-        return !taskEntry.action.continueExecuting();
+        return taskEntry.action.continueExecuting();
     }
 
     /**

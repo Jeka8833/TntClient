@@ -442,8 +442,6 @@ public class BlockStairs extends Block
                 }
                 else if (enumfacing1 == EnumFacing.SOUTH && isSameStair(blockAccess, pos.south(), iblockstate))
                 {
-                    f4 = 0.5F;
-                    f5 = 1.0F;
                     flag1 = true;
                 }
             }
@@ -467,8 +465,6 @@ public class BlockStairs extends Block
                 }
                 else if (enumfacing2 == EnumFacing.SOUTH && isSameStair(blockAccess, pos.south(), iblockstate))
                 {
-                    f4 = 0.5F;
-                    f5 = 1.0F;
                     flag1 = true;
                 }
             }

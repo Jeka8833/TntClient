@@ -81,7 +81,7 @@ public class ScreenShotHelper
 
             pixelBuffer.get(pixelValues);
             TextureUtil.processPixelValues(pixelValues, width, height);
-            BufferedImage bufferedimage = null;
+            BufferedImage bufferedimage;
 
             if (OpenGlHelper.isFramebufferEnabled())
             {

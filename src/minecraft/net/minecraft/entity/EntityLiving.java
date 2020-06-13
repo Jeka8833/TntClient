@@ -81,7 +81,7 @@ public abstract class EntityLiving extends EntityLivingBase
     private Entity leashedToEntity;
     private NBTTagCompound leashNBTTag;
     private static final String __OBFID = "CL_00001550";
-    public int randomMobsId = 0;
+    public int randomMobsId;
     public BiomeGenBase spawnBiome = null;
     public BlockPos spawnPosition = null;
 
@@ -601,7 +601,7 @@ public abstract class EntityLiving extends EntityLivingBase
      */
     protected void despawnEntity()
     {
-        Object object = null;
+        Object object;
         Object object1 = Reflector.getFieldValue(Reflector.Event_Result_DEFAULT);
         Object object2 = Reflector.getFieldValue(Reflector.Event_Result_DENY);
 
@@ -1144,7 +1144,7 @@ public abstract class EntityLiving extends EntityLivingBase
                 }
             }
 
-            return !this.interact(playerIn) && super.interactFirst(playerIn);
+            return this.interact(playerIn) && super.interactFirst(playerIn);
         }
     }
 
@@ -1153,7 +1153,7 @@ public abstract class EntityLiving extends EntityLivingBase
      */
     protected boolean interact(EntityPlayer player)
     {
-        return false;
+        return true;
     }
 
     /**
@@ -1331,7 +1331,7 @@ public abstract class EntityLiving extends EntityLivingBase
             BlockPosM blockposm = new BlockPosM(0, 0, 0);
 
             for (int i = 0; i < 8; ++i) {
-                double d0 = this.posX + (double) (((float) ((i >> 0) % 2) - 0.5F) * this.width * 0.8F);
+                double d0 = this.posX + (double) (((float) ((i) % 2) - 0.5F) * this.width * 0.8F);
                 double d1 = this.posY + (double) (((float) ((i >> 1) % 2) - 0.5F) * 0.1F);
                 double d2 = this.posZ + (double) (((float) ((i >> 2) % 2) - 0.5F) * this.width * 0.8F);
                 blockposm.setXyz(d0, d1 + (double) this.getEyeHeight(), d2);

@@ -1,5 +1,7 @@
 package net.minecraft.util;
 
+import java.util.Objects;
+
 public class LongHashMap
 {
     /** the array of all elements in the hash */
@@ -249,7 +251,7 @@ public class LongHashMap
                     Object object = this.getValue();
                     Object object1 = longhashmap$entry.getValue();
 
-                    return object == object1 || object != null && object.equals(object1);
+                    return Objects.equals(object, object1);
                 }
 
             }

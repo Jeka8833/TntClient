@@ -97,12 +97,12 @@ public class EntityAITempt extends EntityAIBase
             {
                 if (this.temptingPlayer.getDistanceSq(this.targetX, this.targetY, this.targetZ) > 0.010000000000000002D)
                 {
-                    return false;
+                    return true;
                 }
 
                 if (Math.abs((double)this.temptingPlayer.rotationPitch - this.pitch) > 5.0D || Math.abs((double)this.temptingPlayer.rotationYaw - this.yaw) > 5.0D)
                 {
-                    return false;
+                    return true;
                 }
             }
             else
@@ -116,7 +116,7 @@ public class EntityAITempt extends EntityAIBase
             this.yaw = this.temptingPlayer.rotationYaw;
         }
 
-        return this.shouldExecute();
+        return !this.shouldExecute();
     }
 
     /**

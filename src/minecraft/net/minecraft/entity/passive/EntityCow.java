@@ -130,7 +130,7 @@ public class EntityCow extends EntityAnimal
                 player.dropPlayerItemWithRandomChoice(new ItemStack(Items.milk_bucket, 1, 0));
             }
 
-            return true;
+            return false;
         }
         else
         {

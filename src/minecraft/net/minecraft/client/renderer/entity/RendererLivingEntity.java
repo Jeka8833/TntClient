@@ -214,8 +214,8 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
                 super.doRender(entity, x, y, z, entityYaw, partialTicks);
             }
 
-            if (!Reflector.RenderLivingEvent_Post_Constructor.exists() || !Reflector.postForgeBusEvent(Reflector.RenderLivingEvent_Post_Constructor, entity, this, x, y, z))
-            {
+            if (Reflector.RenderLivingEvent_Post_Constructor.exists()) {
+                Reflector.postForgeBusEvent(Reflector.RenderLivingEvent_Post_Constructor, entity, this, x, y, z);
             }
         }
     }
@@ -582,8 +582,8 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
                 }
             }
 
-            if (!Reflector.RenderLivingEvent_Specials_Post_Constructor.exists() || !Reflector.postForgeBusEvent(Reflector.RenderLivingEvent_Specials_Post_Constructor, entity, this, x, y, z))
-            {
+            if (Reflector.RenderLivingEvent_Specials_Post_Constructor.exists()) {
+                Reflector.postForgeBusEvent(Reflector.RenderLivingEvent_Specials_Post_Constructor, entity, this, x, y, z);
             }
         }
     }
@@ -603,8 +603,6 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
 
                 switch (RendererLivingEntity.RendererLivingEntity$1.field_178679_a[team$enumvisible.ordinal()])
                 {
-                    case 1:
-                        return true;
 
                     case 2:
                         return false;

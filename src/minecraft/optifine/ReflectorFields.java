@@ -3,14 +3,12 @@ package optifine;
 public class ReflectorFields
 {
     private final ReflectorClass reflectorClass;
-    private final Class fieldType;
     private int fieldCount;
     private ReflectorField[] reflectorFields;
 
     public ReflectorFields(ReflectorClass p_i90_1_, Class p_i90_2_, int p_i90_3_)
     {
         this.reflectorClass = p_i90_1_;
-        this.fieldType = p_i90_2_;
 
         if (p_i90_1_.exists())
         {

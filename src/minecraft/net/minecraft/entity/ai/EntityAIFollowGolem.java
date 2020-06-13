@@ -59,7 +59,7 @@ public class EntityAIFollowGolem extends EntityAIBase
      */
     public boolean continueExecuting()
     {
-        return this.theGolem.getHoldRoseTick() > 0;
+        return this.theGolem.getHoldRoseTick() <= 0;
     }
 
     /**

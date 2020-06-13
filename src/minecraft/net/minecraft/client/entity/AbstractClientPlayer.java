@@ -25,8 +25,7 @@ public abstract class AbstractClientPlayer extends EntityPlayer
 {
     private NetworkPlayerInfo playerInfo;
     private ResourceLocation locationOfCape = null;
-    private String nameClear = null;
-    private static final String __OBFID = "CL_00000935";
+    private String nameClear;
 
     public AbstractClientPlayer(World worldIn, GameProfile playerProfile)
     {
@@ -107,12 +106,12 @@ public abstract class AbstractClientPlayer extends EntityPlayer
     public static void getDownloadImageSkin(ResourceLocation resourceLocationIn, String username)
     {
         TextureManager texturemanager = Minecraft.getMinecraft().getTextureManager();
-        Object object = texturemanager.getTexture(resourceLocationIn);
+        ITextureObject object = texturemanager.getTexture(resourceLocationIn);
 
         if (object == null)
         {
             object = new ThreadDownloadImageData(null, String.format("http://skins.minecraft.net/MinecraftSkins/%s.png", StringUtils.stripControlCodes(username)), DefaultPlayerSkin.getDefaultSkin(getOfflineUUID(username)), new ImageBufferDownload());
-            texturemanager.loadTexture(resourceLocationIn, (ITextureObject)object);
+            texturemanager.loadTexture(resourceLocationIn, object);
         }
 
     }
@@ -171,11 +170,6 @@ public abstract class AbstractClientPlayer extends EntityPlayer
     public String getNameClear()
     {
         return this.nameClear;
-    }
-
-    public ResourceLocation getLocationOfCape()
-    {
-        return this.locationOfCape;
     }
 
     public void setLocationOfCape(ResourceLocation p_setLocationOfCape_1_)

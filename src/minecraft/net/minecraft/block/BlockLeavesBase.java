@@ -11,7 +11,6 @@ import optifine.Config;
 public class BlockLeavesBase extends Block
 {
     protected boolean fancyGraphics;
-    private static final String __OBFID = "CL_00000326";
     private static final Map mapOriginalOpacity = new IdentityHashMap();
 
     protected BlockLeavesBase()
@@ -43,12 +42,4 @@ public class BlockLeavesBase extends Block
         p_setLightOpacity_0_.setLightOpacity(p_setLightOpacity_1_);
     }
 
-    public static void restoreLightOpacity(Block p_restoreLightOpacity_0_)
-    {
-        if (mapOriginalOpacity.containsKey(p_restoreLightOpacity_0_))
-        {
-            int i = (Integer) mapOriginalOpacity.get(p_restoreLightOpacity_0_);
-            setLightOpacity(p_restoreLightOpacity_0_, i);
-        }
-    }
 }

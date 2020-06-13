@@ -51,7 +51,7 @@ public class CommandHelp extends CommandBase
         List<ICommand> list = this.getSortedPossibleCommands(sender);
         int i = 7;
         int j = (list.size() - 1) / 7;
-        int k = 0;
+        int k;
 
         try
         {

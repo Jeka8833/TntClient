@@ -9,12 +9,7 @@ public class EntityHeartFX extends EntityFX
 {
     final float particleScaleOverTime;
 
-    protected EntityHeartFX(World worldIn, double p_i1211_2_, double p_i1211_4_, double p_i1211_6_, double p_i1211_8_, double p_i1211_10_, double p_i1211_12_)
-    {
-        this(worldIn, p_i1211_2_, p_i1211_4_, p_i1211_6_, 2.0F);
-    }
-
-    protected EntityHeartFX(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, float scale)
+    protected EntityHeartFX(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn)
     {
         super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0.0D, 0.0D, 0.0D);
         this.motionX *= 0.009999999776482582D;
@@ -22,7 +17,7 @@ public class EntityHeartFX extends EntityFX
         this.motionZ *= 0.009999999776482582D;
         this.motionY += 0.1D;
         this.particleScale *= 0.75F;
-        this.particleScale *= scale;
+        this.particleScale *= (float) 2.0;
         this.particleScaleOverTime = this.particleScale;
         this.particleMaxAge = 16;
         this.noClip = false;
@@ -77,7 +72,7 @@ public class EntityHeartFX extends EntityFX
     {
         public EntityFX getEntityFX(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_)
         {
-            EntityFX entityfx = new EntityHeartFX(worldIn, xCoordIn, yCoordIn + 0.5D, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
+            EntityFX entityfx = new EntityHeartFX(worldIn, xCoordIn, yCoordIn + 0.5D, zCoordIn);
             entityfx.setParticleTextureIndex(81);
             entityfx.setRBGColorF(1.0F, 1.0F, 1.0F);
             return entityfx;
@@ -88,7 +83,7 @@ public class EntityHeartFX extends EntityFX
     {
         public EntityFX getEntityFX(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_)
         {
-            return new EntityHeartFX(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
+            return new EntityHeartFX(worldIn, xCoordIn, yCoordIn, zCoordIn);
         }
     }
 }

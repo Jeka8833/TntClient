@@ -739,7 +739,7 @@ public class WorldServer extends World implements IThreadListener
         return list;
     }
 
-    public boolean isBlockModifiable(EntityPlayer player, BlockPos pos)
+    public boolean isBlockModifiable(BlockPos pos)
     {
         return !this.mcServer.isBlockProtected() || !this.getWorldBorder().contains(pos);
     }
@@ -999,7 +999,7 @@ public class WorldServer extends World implements IThreadListener
     /**
      * returns a new explosion. Does initiation (at time of writing Explosion is not finished)
      */
-    public Explosion newExplosion(Entity entityIn, double x, double y, double z, float strength, boolean isFlaming, boolean isSmoking)
+    public void newExplosion(Entity entityIn, double x, double y, double z, float strength, boolean isFlaming, boolean isSmoking)
     {
         Explosion explosion = new Explosion(this, entityIn, x, y, z, strength, isFlaming, isSmoking);
         explosion.doExplosionA();
@@ -1018,7 +1018,6 @@ public class WorldServer extends World implements IThreadListener
             }
         }
 
-        return explosion;
     }
 
     public void addBlockEvent(BlockPos pos, Block blockIn, int eventID, int eventParam)

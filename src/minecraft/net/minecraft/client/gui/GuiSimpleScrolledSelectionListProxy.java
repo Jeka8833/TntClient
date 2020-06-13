@@ -28,7 +28,7 @@ public class GuiSimpleScrolledSelectionListProxy extends GuiSlot
      */
     protected void elementClicked(int slotIndex, boolean isDoubleClick, int mouseX, int mouseY)
     {
-        this.field_178050_u.selectItem(slotIndex, isDoubleClick, mouseX, mouseY);
+        this.field_178050_u.selectItem();
     }
 
     /**

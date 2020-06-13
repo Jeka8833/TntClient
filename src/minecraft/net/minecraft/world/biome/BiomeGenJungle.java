@@ -78,7 +78,6 @@ public class BiomeGenJungle extends BiomeGenBase
         for (j = 0; j < 50; ++j)
         {
             k = rand.nextInt(16) + 8;
-            int l = 128;
             int i1 = rand.nextInt(16) + 8;
             worldgenvines.generate(worldIn, rand, pos.add(k, 128, i1));
         }

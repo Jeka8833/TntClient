@@ -148,7 +148,6 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO
         else
         {
             ChunkCoordIntPair chunkcoordintpair = this.chunksToRemove.keySet().iterator().next();
-            boolean lvt_3_1_;
 
             try
             {
@@ -167,14 +166,13 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO
                     }
                 }
 
-                lvt_3_1_ = true;
             }
             finally
             {
                 this.pendingAnvilChunksCoordinates.remove(chunkcoordintpair);
             }
 
-            return lvt_3_1_;
+            return true;
         }
     }
 
@@ -189,7 +187,7 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO
      * Save extra data associated with this Chunk not normally saved during autosave, only during chunk unload.
      * Currently unused.
      */
-    public void saveExtraChunkData(World worldIn, Chunk chunkIn) throws IOException
+    public void saveExtraChunkData() throws IOException
     {
     }
 
@@ -212,9 +210,7 @@ public class AnvilChunkLoader implements IChunkLoader, IThreadedFileIO
 
             while (true)
             {
-                if (this.writeNextIO())
-                {
-                }
+                this.writeNextIO();
             }
         }
         finally

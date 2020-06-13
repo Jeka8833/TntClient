@@ -26,8 +26,8 @@ import tv.twitch.broadcast.VideoParams;
 public class IngestServerTester
 {
     protected IngestServerTester.IngestTestListener field_153044_b = null;
-    protected Stream field_153045_c = null;
-    protected IngestList field_153046_d = null;
+    protected Stream field_153045_c;
+    protected IngestList field_153046_d;
     protected IngestServerTester.IngestTestState field_153047_e = IngestServerTester.IngestTestState.Uninitalized;
     protected final long field_153048_f = 8000L;
     protected long field_153049_g = 2000L;
@@ -425,9 +425,6 @@ public class IngestServerTester
                     }
 
                 }
-            }
-            else
-            {
             }
         }
         else

@@ -2652,7 +2652,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             DestroyBlockProgress destroyblockprogress = (DestroyBlockProgress) this.damagedBlocks.get(breakerId);
 
             if (destroyblockprogress == null || destroyblockprogress.getPosition().getX() != pos.getX() || destroyblockprogress.getPosition().getY() != pos.getY() || destroyblockprogress.getPosition().getZ() != pos.getZ()) {
-                destroyblockprogress = new DestroyBlockProgress(breakerId, pos);
+                destroyblockprogress = new DestroyBlockProgress(pos);
                 this.damagedBlocks.put(breakerId, destroyblockprogress);
             }
 

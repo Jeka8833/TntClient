@@ -358,7 +358,6 @@ public class Config
     public static void updateThreadPriorities()
     {
         updateAvailableProcessors();
-        int i = 8;
 
         if (isSingleProcessor())
         {
@@ -787,8 +786,8 @@ public class Config
     public static IResourcePack[] getResourcePacks()
     {
         ResourcePackRepository resourcepackrepository = minecraft.getResourcePackRepository();
-        List list = resourcepackrepository.getRepositoryEntries();
-        List list1 = new ArrayList();
+        List<ResourcePackRepository.Entry> list = resourcepackrepository.getRepositoryEntries();
+        List<IResourcePack> list1 = new ArrayList<>();
 
         for (Object resourcepackrepository$entry : list)
         {
@@ -800,7 +799,7 @@ public class Config
             list1.add(resourcepackrepository.getResourcePackInstance());
         }
 
-        return (IResourcePack[]) list1.toArray(new IResourcePack[0]);
+        return list1.toArray(new IResourcePack[0]);
     }
 
     public static String getResourcePackNames()
@@ -1105,15 +1104,14 @@ public class Config
     public static String[] tokenize(String p_tokenize_0_, String p_tokenize_1_)
     {
         StringTokenizer stringtokenizer = new StringTokenizer(p_tokenize_0_, p_tokenize_1_);
-        List list = new ArrayList();
+        List<String> list = new ArrayList<>();
 
         while (stringtokenizer.hasMoreTokens())
         {
-            String s = stringtokenizer.nextToken();
-            list.add(s);
+            list.add(stringtokenizer.nextToken());
         }
 
-        return (String[]) list.toArray(new String[0]);
+        return list.toArray(new String[0]);
     }
 
     public static DisplayMode[] getDisplayModes()
@@ -1124,7 +1122,7 @@ public class Config
             {
                 DisplayMode[] adisplaymode = Display.getAvailableDisplayModes();
                 Set<Dimension> set = getDisplayModeDimensions(adisplaymode);
-                List list = new ArrayList();
+                List<DisplayMode> list = new ArrayList<>();
 
                 for (Dimension dimension : set)
                 {
@@ -1137,7 +1135,7 @@ public class Config
                     }
                 }
 
-                DisplayMode[] adisplaymode2 = (DisplayMode[]) list.toArray(new DisplayMode[0]);
+                DisplayMode[] adisplaymode2 = list.toArray(new DisplayMode[0]);
                 Arrays.sort(adisplaymode2, new DisplayModeComparator());
                 return adisplaymode2;
             }
@@ -1504,7 +1502,7 @@ public class Config
 
     public static boolean equals(Object p_equals_0_, Object p_equals_1_)
     {
-        return p_equals_0_ == p_equals_1_ || (p_equals_0_ != null && p_equals_0_.equals(p_equals_1_));
+        return Objects.equals(p_equals_0_, p_equals_1_);
     }
 
     public static String normalize(String p_normalize_0_)

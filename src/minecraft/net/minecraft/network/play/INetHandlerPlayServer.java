@@ -23,7 +23,6 @@ import net.minecraft.network.play.client.C15PacketClientSettings;
 import net.minecraft.network.play.client.C16PacketClientStatus;
 import net.minecraft.network.play.client.C17PacketCustomPayload;
 import net.minecraft.network.play.client.C18PacketSpectate;
-import net.minecraft.network.play.client.C19PacketResourcePackStatus;
 
 public interface INetHandlerPlayServer extends INetHandler
 {
@@ -140,5 +139,5 @@ public interface INetHandlerPlayServer extends INetHandler
 
     void handleSpectate(C18PacketSpectate packetIn);
 
-    void handleResourcePackStatus(C19PacketResourcePackStatus packetIn);
+    void handleResourcePackStatus();
 }

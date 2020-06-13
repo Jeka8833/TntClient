@@ -25,7 +25,7 @@ public class GuiClickableScrolledSelectionListProxy extends GuiSlot
      */
     protected void elementClicked(int slotIndex, boolean isDoubleClick, int mouseX, int mouseY)
     {
-        this.field_178046_u.selectItem(slotIndex, isDoubleClick, mouseX, mouseY);
+        this.field_178046_u.selectItem();
     }
 
     /**
@@ -80,13 +80,13 @@ public class GuiClickableScrolledSelectionListProxy extends GuiSlot
 
         if (this.scrollMultiplier > 0.0F && Mouse.getEventButtonState())
         {
-            this.field_178046_u.customMouseEvent(this.top, this.bottom, this.headerPadding, this.amountScrolled, this.slotHeight);
+            this.field_178046_u.customMouseEvent();
         }
     }
 
     public void func_178043_a(int p_178043_1_, int p_178043_2_, int p_178043_3_, Tezzelator p_178043_4_)
     {
-        this.field_178046_u.renderSelected(p_178043_1_, p_178043_2_, p_178043_3_, p_178043_4_);
+        this.field_178046_u.renderSelected();
     }
 
     /**
@@ -103,7 +103,7 @@ public class GuiClickableScrolledSelectionListProxy extends GuiSlot
 
             if (k > this.bottom || k + l < this.top)
             {
-                this.func_178040_a(j, p_148120_1_, k);
+                this.func_178040_a(j, k);
             }
 
             if (this.showSelectionBox && this.isSelected(j))

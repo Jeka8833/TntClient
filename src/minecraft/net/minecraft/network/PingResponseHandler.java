@@ -87,7 +87,7 @@ public class PingResponseHandler extends ChannelInboundHandlerAdapter
                 flag = false;
             }
         }
-        catch (RuntimeException var21)
+        catch (RuntimeException ignored)
         {
         }
         finally

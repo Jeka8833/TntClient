@@ -110,20 +110,21 @@ public abstract class BlockLeaves extends BlockLeavesBase
                             {
                                 Block block = worldIn.getBlockState(blockpos$mutableblockpos.func_181079_c(k + i2, l + j2, i1 + k2)).getBlock();
 
+                                final int i3 = (i2 + l1) * k1 + (j2 + l1) * j1 + k2 + l1;
                                 if (block != Blocks.log && block != Blocks.log2)
                                 {
                                     if (block.getMaterial() == Material.leaves)
                                     {
-                                        this.surroundings[(i2 + l1) * k1 + (j2 + l1) * j1 + k2 + l1] = -2;
+                                        this.surroundings[i3] = -2;
                                     }
                                     else
                                     {
-                                        this.surroundings[(i2 + l1) * k1 + (j2 + l1) * j1 + k2 + l1] = -1;
+                                        this.surroundings[i3] = -1;
                                     }
                                 }
                                 else
                                 {
-                                    this.surroundings[(i2 + l1) * k1 + (j2 + l1) * j1 + k2 + l1] = 0;
+                                    this.surroundings[i3] = 0;
                                 }
                             }
                         }
@@ -139,34 +140,40 @@ public abstract class BlockLeaves extends BlockLeavesBase
                                 {
                                     if (this.surroundings[(j3 + l1) * k1 + (k3 + l1) * j1 + l3 + l1] == i3 - 1)
                                     {
-                                        if (this.surroundings[(j3 + l1 - 1) * k1 + (k3 + l1) * j1 + l3 + l1] == -2)
+                                        final int i2 = (j3 + l1 - 1) * k1 + (k3 + l1) * j1 + l3 + l1;
+                                        if (this.surroundings[i2] == -2)
                                         {
-                                            this.surroundings[(j3 + l1 - 1) * k1 + (k3 + l1) * j1 + l3 + l1] = i3;
+                                            this.surroundings[i2] = i3;
                                         }
 
-                                        if (this.surroundings[(j3 + l1 + 1) * k1 + (k3 + l1) * j1 + l3 + l1] == -2)
+                                        final int i4 = (j3 + l1 + 1) * k1 + (k3 + l1) * j1 + l3 + l1;
+                                        if (this.surroundings[i4] == -2)
                                         {
-                                            this.surroundings[(j3 + l1 + 1) * k1 + (k3 + l1) * j1 + l3 + l1] = i3;
+                                            this.surroundings[i4] = i3;
                                         }
 
-                                        if (this.surroundings[(j3 + l1) * k1 + (k3 + l1 - 1) * j1 + l3 + l1] == -2)
+                                        final int i5 = (j3 + l1) * k1 + (k3 + l1 - 1) * j1 + l3 + l1;
+                                        if (this.surroundings[i5] == -2)
                                         {
-                                            this.surroundings[(j3 + l1) * k1 + (k3 + l1 - 1) * j1 + l3 + l1] = i3;
+                                            this.surroundings[i5] = i3;
                                         }
 
-                                        if (this.surroundings[(j3 + l1) * k1 + (k3 + l1 + 1) * j1 + l3 + l1] == -2)
+                                        final int i6 = (j3 + l1) * k1 + (k3 + l1 + 1) * j1 + l3 + l1;
+                                        if (this.surroundings[i6] == -2)
                                         {
-                                            this.surroundings[(j3 + l1) * k1 + (k3 + l1 + 1) * j1 + l3 + l1] = i3;
+                                            this.surroundings[i6] = i3;
                                         }
 
-                                        if (this.surroundings[(j3 + l1) * k1 + (k3 + l1) * j1 + (l3 + l1 - 1)] == -2)
+                                        final int i7 = (j3 + l1) * k1 + (k3 + l1) * j1 + (l3 + l1 - 1);
+                                        if (this.surroundings[i7] == -2)
                                         {
-                                            this.surroundings[(j3 + l1) * k1 + (k3 + l1) * j1 + (l3 + l1 - 1)] = i3;
+                                            this.surroundings[i7] = i3;
                                         }
 
-                                        if (this.surroundings[(j3 + l1) * k1 + (k3 + l1) * j1 + l3 + l1 + 1] == -2)
+                                        final int i8 = (j3 + l1) * k1 + (k3 + l1) * j1 + l3 + l1 + 1;
+                                        if (this.surroundings[i8] == -2)
                                         {
-                                            this.surroundings[(j3 + l1) * k1 + (k3 + l1) * j1 + l3 + l1 + 1] = i3;
+                                            this.surroundings[i8] = i3;
                                         }
                                     }
                                 }

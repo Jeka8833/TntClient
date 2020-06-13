@@ -66,9 +66,6 @@ public class TextureManager implements ITickable, IResourceManagerReloadListener
         {
             this.listTickables.add(textureObj);
         }
-        else
-        {
-        }
     }
 
     public boolean loadTexture(ResourceLocation textureLocation, ITextureObject textureObj)
@@ -127,7 +124,7 @@ public class TextureManager implements ITickable, IResourceManagerReloadListener
         }
         else
         {
-            integer = integer.intValue() + 1;
+            integer = integer + 1;
         }
 
         this.mapTextureCounters.put(name, integer);

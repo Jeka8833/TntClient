@@ -238,7 +238,7 @@ public class EntityOcelot extends EntityTameable
                 }
             }
 
-            return true;
+            return false;
         }
 
         return super.interact(player);

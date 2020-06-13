@@ -655,7 +655,7 @@ public abstract class EntityPlayer extends EntityLivingBase
 
         if (this.getHealth() > 0.0F && !this.isSpectator())
         {
-            AxisAlignedBB axisalignedbb = null;
+            AxisAlignedBB axisalignedbb;
 
             if (this.ridingEntity != null && !this.ridingEntity.isDead)
             {
@@ -919,7 +919,7 @@ public abstract class EntityPlayer extends EntityLivingBase
 
         if (this.isPotionActive(Potion.digSlowdown))
         {
-            float f1 = 1.0F;
+            float f1;
 
             switch (this.getActivePotionEffect(Potion.digSlowdown).getAmplifier())
             {
@@ -1101,7 +1101,6 @@ public abstract class EntityPlayer extends EntityLivingBase
 
                     if (entity instanceof EntityArrow && ((EntityArrow)entity).shootingEntity != null)
                     {
-                        entity = ((EntityArrow)entity).shootingEntity;
                     }
 
                     return super.attackEntityFrom(source, amount);
@@ -1310,7 +1309,7 @@ public abstract class EntityPlayer extends EntityLivingBase
             {
                 float f = (float)this.getEntityAttribute(SharedMonsterAttributes.attackDamage).getAttributeValue();
                 int i = 0;
-                float f1 = 0.0F;
+                float f1;
 
                 if (targetEntity instanceof EntityLivingBase)
                 {

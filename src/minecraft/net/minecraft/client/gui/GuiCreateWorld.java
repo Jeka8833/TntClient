@@ -152,15 +152,16 @@ public class GuiCreateWorld extends GuiScreen
 
     public static String func_146317_a(ISaveFormat p_146317_0_, String p_146317_1_)
     {
-        p_146317_1_ = p_146317_1_.replaceAll("[\\./\"]", "_");
 
+        StringBuilder p_146317_1_Builder = new StringBuilder(p_146317_1_.replaceAll("[\\./\"]", "_"));
         for (String s : disallowedFilenames)
         {
-            if (p_146317_1_.equalsIgnoreCase(s))
+            if (p_146317_1_Builder.toString().equalsIgnoreCase(s))
             {
-                p_146317_1_ = "_" + p_146317_1_ + "_";
+                p_146317_1_Builder = new StringBuilder("_" + p_146317_1_Builder + "_");
             }
         }
+        p_146317_1_ = p_146317_1_Builder.toString();
 
         while (p_146317_0_.getWorldInfo(p_146317_1_) != null)
         {

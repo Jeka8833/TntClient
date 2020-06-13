@@ -88,7 +88,7 @@ public class HttpUtil
     /**
      * Sends a POST to the given URL
      */
-    private static String post(URL url, String content, boolean skipLoggingErrors)
+    private static void post(URL url, String content, boolean skipLoggingErrors)
     {
         try
         {
@@ -122,7 +122,6 @@ public class HttpUtil
             }
 
             bufferedreader.close();
-            return stringbuffer.toString();
         }
         catch (Exception exception)
         {
@@ -131,7 +130,6 @@ public class HttpUtil
                 logger.error("Could not post to " + url, exception);
             }
 
-            return "";
         }
     }
 
@@ -214,7 +212,7 @@ public class HttpUtil
                             throw new IOException("Filesize is bigger than maximum allowed (file is " + f + ", limit is " + maxSize + ")");
                         }
 
-                        int k = 0;
+                        int k;
 
                         while ((k = inputstream.read(abyte)) >= 0)
                         {
@@ -292,7 +290,7 @@ public class HttpUtil
     public static int getSuitableLanPort() throws IOException
     {
         ServerSocket serversocket = null;
-        int i = -1;
+        int i;
 
         try
         {

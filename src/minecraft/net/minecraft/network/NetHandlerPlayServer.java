@@ -60,7 +60,6 @@ import net.minecraft.network.play.client.C15PacketClientSettings;
 import net.minecraft.network.play.client.C16PacketClientStatus;
 import net.minecraft.network.play.client.C17PacketCustomPayload;
 import net.minecraft.network.play.client.C18PacketSpectate;
-import net.minecraft.network.play.client.C19PacketResourcePackStatus;
 import net.minecraft.network.play.server.S00PacketKeepAlive;
 import net.minecraft.network.play.server.S02PacketChat;
 import net.minecraft.network.play.server.S07PacketRespawn;
@@ -696,7 +695,7 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable
         }
     }
 
-    public void handleResourcePackStatus(C19PacketResourcePackStatus packetIn)
+    public void handleResourcePackStatus()
     {
     }
 
@@ -1257,13 +1256,11 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable
                         itemstack3.setTagInfo("pages", itemstack1.getTagCompound().getTagList("pages", 8));
                     }
 
-                    return;
                 }
             }
             catch (Exception exception3)
             {
                 logger.error("Couldn't handle book info", exception3);
-                return;
             }
             finally
             {
@@ -1301,13 +1298,11 @@ public class NetHandlerPlayServer implements INetHandlerPlayServer, ITickable
                         itemstack2.setItem(Items.written_book);
                     }
 
-                    return;
                 }
             }
             catch (Exception exception4)
             {
                 logger.error("Couldn't sign book", exception4);
-                return;
             }
             finally
             {

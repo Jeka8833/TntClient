@@ -493,7 +493,7 @@ public class GuiIngame extends Gui
     public void renderDemo(ScaledResolution p_175185_1_)
     {
         this.mc.mcProfiler.startSection("demo");
-        String s = "";
+        String s;
 
         if (this.mc.theWorld.getTotalWorldTime() >= 120500L)
         {

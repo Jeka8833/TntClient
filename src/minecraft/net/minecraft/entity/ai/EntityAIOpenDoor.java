@@ -24,7 +24,7 @@ public class EntityAIOpenDoor extends EntityAIDoorInteract
      */
     public boolean continueExecuting()
     {
-        return this.closeDoor && this.closeDoorTemporisation > 0 && super.continueExecuting();
+        return !this.closeDoor || this.closeDoorTemporisation <= 0 || super.continueExecuting();
     }
 
     /**

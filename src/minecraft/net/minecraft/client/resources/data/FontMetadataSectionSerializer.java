@@ -69,7 +69,7 @@ public class FontMetadataSectionSerializer extends BaseMetadataSectionSerializer
             }
         }
 
-        return new FontMetadataSection(afloat, afloat2, afloat1);
+        return new FontMetadataSection();
     }
 
     /**

@@ -28,7 +28,6 @@ public class ChunkProviderFlat implements IChunkProvider
     private final World worldObj;
     private final Random random;
     private final IBlockState[] cachedBlockIDs = new IBlockState[256];
-    private final FlatGeneratorInfo flatWorldGenInfo;
     private final List<MapGenStructure> structureGenerators = Lists.newArrayList();
     private final boolean hasDecoration;
     private final boolean hasDungeons;
@@ -39,11 +38,11 @@ public class ChunkProviderFlat implements IChunkProvider
     {
         this.worldObj = worldIn;
         this.random = new Random(seed);
-        this.flatWorldGenInfo = FlatGeneratorInfo.createFlatGeneratorFromString(flatGeneratorSettings);
+        FlatGeneratorInfo flatWorldGenInfo = FlatGeneratorInfo.createFlatGeneratorFromString(flatGeneratorSettings);
 
         if (generateStructures)
         {
-            Map<String, Map<String, String>> map = this.flatWorldGenInfo.getWorldFeatures();
+            Map<String, Map<String, String>> map = flatWorldGenInfo.getWorldFeatures();
 
             if (map.containsKey("village"))
             {
@@ -78,22 +77,22 @@ public class ChunkProviderFlat implements IChunkProvider
             }
         }
 
-        if (this.flatWorldGenInfo.getWorldFeatures().containsKey("lake"))
+        if (flatWorldGenInfo.getWorldFeatures().containsKey("lake"))
         {
             this.waterLakeGenerator = new WorldGenLakes(Blocks.water);
         }
 
-        if (this.flatWorldGenInfo.getWorldFeatures().containsKey("lava_lake"))
+        if (flatWorldGenInfo.getWorldFeatures().containsKey("lava_lake"))
         {
             this.lavaLakeGenerator = new WorldGenLakes(Blocks.lava);
         }
 
-        this.hasDungeons = this.flatWorldGenInfo.getWorldFeatures().containsKey("dungeon");
+        this.hasDungeons = flatWorldGenInfo.getWorldFeatures().containsKey("dungeon");
         int j = 0;
         int k = 0;
         boolean flag = true;
 
-        for (FlatLayerInfo flatlayerinfo : this.flatWorldGenInfo.getFlatLayers())
+        for (FlatLayerInfo flatlayerinfo : flatWorldGenInfo.getFlatLayers())
         {
             for (int i = flatlayerinfo.getMinY(); i < flatlayerinfo.getMinY() + flatlayerinfo.getLayerCount(); ++i)
             {
@@ -118,7 +117,7 @@ public class ChunkProviderFlat implements IChunkProvider
         }
 
         worldIn.func_181544_b(j);
-        this.hasDecoration = !flag && this.flatWorldGenInfo.getWorldFeatures().containsKey("decoration");
+        this.hasDecoration = !flag && flatWorldGenInfo.getWorldFeatures().containsKey("decoration");
     }
 
     /**

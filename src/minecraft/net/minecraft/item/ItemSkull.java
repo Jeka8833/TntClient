@@ -190,8 +190,5 @@ public class ItemSkull extends Item
             gameprofile = TileEntitySkull.updateGameprofile(gameprofile);
             nbt.setTag("SkullOwner", NBTUtil.writeGameProfile(new NBTTagCompound(), gameprofile));
         }
-        else
-        {
-        }
     }
 }

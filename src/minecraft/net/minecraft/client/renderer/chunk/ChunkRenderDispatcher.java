@@ -27,7 +27,6 @@ public class ChunkRenderDispatcher
 {
     private static final Logger logger = LogManager.getLogger();
     private static final ThreadFactory threadFactory = (new ThreadFactoryBuilder()).setNameFormat("Chunk Batcher %d").setDaemon(true).build();
-    private final List<ChunkRenderWorker> listThreadedWorkers = Lists.newArrayList();
     private final BlockingQueue<ChunkCompileTaskGenerator> queueChunkUpdates = Queues.newArrayBlockingQueue(100);
     private final BlockingQueue<RegionRenderCacheBuilder> queueFreeRenderBuilders = Queues.newArrayBlockingQueue(5);
     private final WorldVertexBufferUploader worldVertexUploader = new WorldVertexBufferUploader();
@@ -42,7 +41,8 @@ public class ChunkRenderDispatcher
             ChunkRenderWorker chunkrenderworker = new ChunkRenderWorker(this);
             Thread thread = threadFactory.newThread(chunkrenderworker);
             thread.start();
-            this.listThreadedWorkers.add(chunkrenderworker);
+            List<ChunkRenderWorker> listThreadedWorkers = Lists.newArrayList();
+            listThreadedWorkers.add(chunkrenderworker);
         }
 
         for (int j = 0; j < 5; ++j)
@@ -141,7 +141,6 @@ public class ChunkRenderDispatcher
             {
             }
 
-            flag = true;
         }
         finally
         {

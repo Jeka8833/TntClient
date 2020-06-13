@@ -69,16 +69,16 @@ public class EntityAIFollowParent extends EntityAIBase
     {
         if (this.childAnimal.getGrowingAge() >= 0)
         {
-            return false;
+            return true;
         }
         else if (!this.parentAnimal.isEntityAlive())
         {
-            return false;
+            return true;
         }
         else
         {
             double d0 = this.childAnimal.getDistanceSqToEntity(this.parentAnimal);
-            return d0 >= 9.0D && d0 <= 256.0D;
+            return !(d0 >= 9.0D) || !(d0 <= 256.0D);
         }
     }
 

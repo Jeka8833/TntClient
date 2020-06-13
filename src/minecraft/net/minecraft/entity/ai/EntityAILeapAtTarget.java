@@ -45,7 +45,7 @@ public class EntityAILeapAtTarget extends EntityAIBase
      */
     public boolean continueExecuting()
     {
-        return !this.leaper.onGround;
+        return this.leaper.onGround;
     }
 
     /**

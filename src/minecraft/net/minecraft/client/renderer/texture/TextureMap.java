@@ -21,7 +21,6 @@ import com.google.common.collect.Maps;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.StitcherException;
 import net.minecraft.client.resources.IResource;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.client.resources.data.AnimationMetadataSection;
@@ -51,7 +50,6 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
     private int mipmapLevels;
     private final TextureAtlasSprite missingImage;
     private static final String __OBFID = "CL_00001058";
-    private boolean skipFirst;
     private TextureAtlasSprite[] iconGrid;
     private final int iconGridSize;
     private int iconGridCountX;
@@ -79,7 +77,7 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
 
     public TextureMap(String p_i11_1_, IIconCreator p_i11_2_, boolean p_i11_3_)
     {
-        this.skipFirst = false;
+        boolean skipFirst = false;
         this.iconGrid = null;
         this.iconGridSize = -1;
         this.iconGridCountX = -1;
@@ -95,7 +93,7 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
         this.missingImage = new TextureAtlasSprite("missingno");
         this.basePath = p_i11_1_;
         this.iconCreator = p_i11_2_;
-        this.skipFirst = p_i11_3_ && ENABLE_SKIP;
+        skipFirst = p_i11_3_ && ENABLE_SKIP;
     }
 
     private void initMissingImage()

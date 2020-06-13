@@ -2,7 +2,6 @@ package net.minecraft.client.gui.achievement;
 
 import com.google.common.collect.Lists;
 import java.io.IOException;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import net.minecraft.client.Minecraft;
@@ -377,7 +376,7 @@ public class GuiStats extends GuiScreen implements IProgressMeter
                 }
                 else
                 {
-                    String s = "";
+                    String s;
 
                     if (p_148142_1_ >= j + 115 - 18 && p_148142_1_ <= j + 115)
                     {

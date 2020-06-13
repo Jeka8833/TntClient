@@ -9,12 +9,7 @@ public class EntityNoteFX extends EntityFX
 {
     final float noteParticleScale;
 
-    protected EntityNoteFX(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double p_i46353_8_, double p_i46353_10_, double p_i46353_12_)
-    {
-        this(worldIn, xCoordIn, yCoordIn, zCoordIn, p_i46353_8_, 2.0F);
-    }
-
-    protected EntityNoteFX(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double p_i1217_8_, float p_i1217_14_)
+    protected EntityNoteFX(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double p_i1217_8_)
     {
         super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0.0D, 0.0D, 0.0D);
         this.motionX *= 0.009999999776482582D;
@@ -25,7 +20,7 @@ public class EntityNoteFX extends EntityFX
         this.particleGreen = MathHelper.sin(((float)p_i1217_8_ + 0.33333334F) * (float)Math.PI * 2.0F) * 0.65F + 0.35F;
         this.particleBlue = MathHelper.sin(((float)p_i1217_8_ + 0.6666667F) * (float)Math.PI * 2.0F) * 0.65F + 0.35F;
         this.particleScale *= 0.75F;
-        this.particleScale *= p_i1217_14_;
+        this.particleScale *= (float) 2.0;
         this.noteParticleScale = this.particleScale;
         this.particleMaxAge = 6;
         this.noClip = false;
@@ -80,7 +75,7 @@ public class EntityNoteFX extends EntityFX
     {
         public EntityFX getEntityFX(World worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, int... p_178902_15_)
         {
-            return new EntityNoteFX(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
+            return new EntityNoteFX(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn);
         }
     }
 }

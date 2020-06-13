@@ -250,7 +250,7 @@ public class EntitySpider extends EntityMob
             if (f >= 0.5F && this.attacker.getRNG().nextInt(100) == 0)
             {
                 this.attacker.setAttackTarget(null);
-                return false;
+                return true;
             }
             else
             {

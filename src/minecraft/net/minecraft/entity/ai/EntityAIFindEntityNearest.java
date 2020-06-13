@@ -1,7 +1,7 @@
 package net.minecraft.entity.ai;
 
 import com.google.common.base.Predicate;
-import java.util.Collections;
+
 import java.util.List;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLiving;
@@ -77,16 +77,16 @@ public class EntityAIFindEntityNearest extends EntityAIBase
 
         if (entitylivingbase == null)
         {
-            return false;
+            return true;
         }
         else if (!entitylivingbase.isEntityAlive())
         {
-            return false;
+            return true;
         }
         else
         {
             double d0 = this.func_179438_f();
-            return !(this.field_179442_b.getDistanceSqToEntity(entitylivingbase) > d0 * d0) && (!(entitylivingbase instanceof EntityPlayerMP) || !((EntityPlayerMP) entitylivingbase).theItemInWorldManager.isCreative());
+            return this.field_179442_b.getDistanceSqToEntity(entitylivingbase) > d0 * d0 || (entitylivingbase instanceof EntityPlayerMP && ((EntityPlayerMP) entitylivingbase).theItemInWorldManager.isCreative());
         }
     }
 

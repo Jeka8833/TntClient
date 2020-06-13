@@ -71,7 +71,7 @@ public class BlockPattern
             }
         }
 
-        return new BlockPattern.PatternHelper(pos, finger, thumb, lcache, this.palmLength, this.thumbLength, this.fingerLength);
+        return new BlockPattern.PatternHelper(pos, finger, thumb, lcache, this.palmLength, this.thumbLength);
     }
 
     /**
@@ -154,9 +154,8 @@ public class BlockPattern
         private final LoadingCache<BlockPos, BlockWorldState> lcache;
         private final int field_181120_e;
         private final int field_181121_f;
-        private final int field_181122_g;
 
-        public PatternHelper(BlockPos p_i46378_1_, EnumFacing p_i46378_2_, EnumFacing p_i46378_3_, LoadingCache<BlockPos, BlockWorldState> p_i46378_4_, int p_i46378_5_, int p_i46378_6_, int p_i46378_7_)
+        public PatternHelper(BlockPos p_i46378_1_, EnumFacing p_i46378_2_, EnumFacing p_i46378_3_, LoadingCache<BlockPos, BlockWorldState> p_i46378_4_, int p_i46378_5_, int p_i46378_6_)
         {
             this.pos = p_i46378_1_;
             this.finger = p_i46378_2_;
@@ -164,7 +163,6 @@ public class BlockPattern
             this.lcache = p_i46378_4_;
             this.field_181120_e = p_i46378_5_;
             this.field_181121_f = p_i46378_6_;
-            this.field_181122_g = p_i46378_7_;
         }
 
         public BlockPos func_181117_a()

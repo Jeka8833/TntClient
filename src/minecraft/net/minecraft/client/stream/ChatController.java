@@ -30,8 +30,8 @@ public class ChatController
     protected String field_153004_b = "";
     protected String field_153006_d = "";
     protected String field_153007_e = "";
-    protected Core field_175992_e = null;
-    protected Chat field_153008_f = null;
+    protected Core field_175992_e;
+    protected Chat field_153008_f;
     protected ChatController.ChatState field_153011_i = ChatController.ChatState.Uninitialized;
     protected AuthToken field_153012_j = new AuthToken();
     protected final HashMap<String, ChatController.ChatChannelListener> field_175998_i = new HashMap();
@@ -230,16 +230,14 @@ public class ChatController
         this.func_175987_a(p_152986_1_);
     }
 
-    protected boolean func_175987_a(String p_175987_1_)
+    protected void func_175987_a(String p_175987_1_)
     {
         if (this.field_153011_i != ChatController.ChatState.Initialized)
         {
-            return false;
         }
         else if (this.field_175998_i.containsKey(p_175987_1_))
         {
             this.func_152995_h("Already in channel: " + p_175987_1_);
-            return false;
         }
         else if (p_175987_1_ != null && !p_175987_1_.equals(""))
         {
@@ -252,11 +250,9 @@ public class ChatController
                 this.field_175998_i.remove(p_175987_1_);
             }
 
-            return flag;
         }
         else
         {
-            return false;
         }
     }
 
@@ -455,7 +451,7 @@ public class ChatController
 
     public class ChatChannelListener implements IChatChannelListener
     {
-        protected String field_176048_a = null;
+        protected String field_176048_a;
         protected boolean field_176046_b = false;
         protected ChatController.EnumChannelState field_176047_c = ChatController.EnumChannelState.Created;
         protected final List<ChatUserInfo> field_176044_d = Lists.newArrayList();
@@ -476,7 +472,7 @@ public class ChatController
         public boolean func_176038_a(boolean p_176038_1_)
         {
             this.field_176046_b = p_176038_1_;
-            ErrorCode errorcode = ErrorCode.TTV_EC_SUCCESS;
+            ErrorCode errorcode;
 
             if (p_176038_1_)
             {
@@ -491,7 +487,7 @@ public class ChatController
             {
                 String s = ErrorCode.getString(errorcode);
                 ChatController.this.func_152995_h(String.format("Error connecting: %s", s));
-                this.func_176036_d(this.field_176048_a);
+                this.func_176036_d();
                 return false;
             }
             else
@@ -589,11 +585,10 @@ public class ChatController
             }
         }
 
-        public boolean func_176037_b(String p_176037_1_)
+        public void func_176037_b(String p_176037_1_)
         {
             if (this.field_176047_c != ChatController.EnumChannelState.Connected)
             {
-                return false;
             }
             else
             {
@@ -603,11 +598,9 @@ public class ChatController
                 {
                     String s = ErrorCode.getString(errorcode);
                     ChatController.this.func_152995_h(String.format("Error sending chat message: %s", s));
-                    return false;
                 }
                 else
                 {
-                    return true;
                 }
             }
         }
@@ -686,7 +679,7 @@ public class ChatController
             }
         }
 
-        protected void func_176031_c(String p_176031_1_)
+        protected void func_176031_c()
         {
             try
             {
@@ -701,7 +694,7 @@ public class ChatController
             }
         }
 
-        protected void func_176036_d(String p_176036_1_)
+        protected void func_176036_d()
         {
             try
             {
@@ -721,7 +714,7 @@ public class ChatController
             if (this.field_176047_c != ChatController.EnumChannelState.Disconnected)
             {
                 this.func_176035_a(ChatController.EnumChannelState.Disconnected);
-                this.func_176036_d(this.field_176048_a);
+                this.func_176036_d();
                 this.func_176033_j();
             }
         }
@@ -741,7 +734,7 @@ public class ChatController
             {
                 case TTV_CHAT_JOINED_CHANNEL:
                     this.func_176035_a(ChatController.EnumChannelState.Connected);
-                    this.func_176031_c(p_chatChannelMembershipCallback_1_);
+                    this.func_176031_c();
                     break;
 
                 case TTV_CHAT_LEFT_CHANNEL:

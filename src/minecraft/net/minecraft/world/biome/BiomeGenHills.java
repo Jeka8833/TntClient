@@ -15,7 +15,6 @@ public class BiomeGenHills extends BiomeGenBase
 {
     private final WorldGenerator theWorldGenerator = new WorldGenMinable(Blocks.monster_egg.getDefaultState().withProperty(BlockSilverfish.VARIANT, BlockSilverfish.EnumType.STONE), 9);
     private final WorldGenTaiga2 field_150634_aD = new WorldGenTaiga2(false);
-    private final int field_150635_aE = 0;
     private final int field_150636_aF = 1;
     private final int field_150637_aG = 2;
     private int field_150638_aH;
@@ -23,7 +22,8 @@ public class BiomeGenHills extends BiomeGenBase
     protected BiomeGenHills(int p_i45373_1_, boolean p_i45373_2_)
     {
         super(p_i45373_1_);
-        this.field_150638_aH = this.field_150635_aE;
+        int field_150635_aE = 0;
+        this.field_150638_aH = field_150635_aE;
 
         if (p_i45373_2_)
         {

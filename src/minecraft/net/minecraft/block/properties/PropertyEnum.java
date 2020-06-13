@@ -13,7 +13,6 @@ import net.minecraft.util.IStringSerializable;
 public class PropertyEnum<T extends Enum<T> & IStringSerializable> extends PropertyHelper<T>
 {
     private final ImmutableSet<T> allowedValues;
-    private final Map<String, T> nameToValue = Maps.newHashMap();
 
     protected PropertyEnum(String name, Class<T> valueClass, Collection<T> allowedValues)
     {
@@ -24,12 +23,13 @@ public class PropertyEnum<T extends Enum<T> & IStringSerializable> extends Prope
         {
             String s = t.getName();
 
-            if (this.nameToValue.containsKey(s))
+            Map<String, T> nameToValue = Maps.newHashMap();
+            if (nameToValue.containsKey(s))
             {
                 throw new IllegalArgumentException("Multiple values have the same name '" + s + "'");
             }
 
-            this.nameToValue.put(s, t);
+            nameToValue.put(s, t);
         }
     }
 

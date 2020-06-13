@@ -121,18 +121,18 @@ public class EntityPig extends EntityAnimal
      */
     public boolean interact(EntityPlayer player)
     {
-        if (super.interact(player))
+        if (!super.interact(player))
         {
-            return true;
+            return false;
         }
         else if (!this.getSaddled() || this.worldObj.isRemote || this.riddenByEntity != null && this.riddenByEntity != player)
         {
-            return false;
+            return true;
         }
         else
         {
             player.mountEntity(this);
-            return true;
+            return false;
         }
     }
 

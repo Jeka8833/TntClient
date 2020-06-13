@@ -4,7 +4,6 @@ import com.google.common.collect.Lists;
 import com.google.common.util.concurrent.Futures;
 import java.io.File;
 import java.io.IOException;
-import java.net.InetAddress;
 import java.util.Queue;
 import java.util.concurrent.Callable;
 import java.util.concurrent.FutureTask;
@@ -236,7 +235,7 @@ public class IntegratedServer extends MinecraftServer
             {
                 while (!this.futureTaskQueue.isEmpty())
                 {
-                    Util.func_181617_a((FutureTask)this.futureTaskQueue.poll(), logger);
+                    Util.func_181617_a(this.futureTaskQueue.poll(), logger);
                 }
             }
         }

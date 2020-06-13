@@ -90,9 +90,6 @@ public class BlockCarpet extends Block
             this.dropBlockAsItem(worldIn, pos, state, 0);
             worldIn.setBlockToAir(pos);
         }
-        else
-        {
-        }
     }
 
     private boolean canBlockStay(World worldIn, BlockPos pos)

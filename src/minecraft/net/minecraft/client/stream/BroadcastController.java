@@ -21,7 +21,6 @@ import tv.twitch.broadcast.ChannelInfo;
 import tv.twitch.broadcast.DesktopStreamAPI;
 import tv.twitch.broadcast.EncodingCpuUsage;
 import tv.twitch.broadcast.FrameBuffer;
-import tv.twitch.broadcast.GameInfo;
 import tv.twitch.broadcast.GameInfoList;
 import tv.twitch.broadcast.IStatCallbacks;
 import tv.twitch.broadcast.IStreamCallbacks;
@@ -42,14 +41,13 @@ public class BroadcastController
     protected final int field_152865_a = 30;
     protected final int field_152866_b = 3;
     private static final ThreadSafeBoundList<String> field_152862_C = new ThreadSafeBoundList(String.class, 50);
-    private String field_152863_D = null;
     protected BroadcastController.BroadcastListener broadcastListener = null;
     protected String field_152868_d = "";
     protected String field_152869_e = "";
     protected String field_152870_f = "";
     protected final boolean field_152871_g = true;
-    protected Core field_152872_h = null;
-    protected Stream field_152873_i = null;
+    protected Core field_152872_h;
+    protected Stream field_152873_i;
     protected final List<FrameBuffer> field_152874_j = Lists.newArrayList();
     protected final List<FrameBuffer> field_152875_k = Lists.newArrayList();
     protected boolean field_152876_l = false;
@@ -90,7 +88,7 @@ public class BroadcastController
             {
                 if (BroadcastController.this.broadcastListener != null)
                 {
-                    BroadcastController.this.broadcastListener.func_152900_a(p_requestAuthTokenCallback_1_, p_requestAuthTokenCallback_2_);
+                    BroadcastController.this.broadcastListener.func_152900_a();
                 }
             }
             catch (Exception exception)
@@ -138,7 +136,7 @@ public class BroadcastController
                 {
                     if (BroadcastController.this.broadcastListener != null)
                     {
-                        BroadcastController.this.broadcastListener.func_152896_a(p_getIngestServersCallback_2_);
+                        BroadcastController.this.broadcastListener.func_152896_a();
                     }
                 }
                 catch (Exception exception)
@@ -191,9 +189,6 @@ public class BroadcastController
         {
             BroadcastController.this.field_152889_y = p_getArchivingStateCallback_2_;
 
-            if (ErrorCode.failed(p_getArchivingStateCallback_1_))
-            {
-            }
         }
         public void runCommercialCallback(ErrorCode p_runCommercialCallback_1_)
         {
@@ -223,7 +218,7 @@ public class BroadcastController
             {
                 if (BroadcastController.this.broadcastListener != null)
                 {
-                    BroadcastController.this.broadcastListener.func_152898_a(p_getGameNameListCallback_1_, p_getGameNameListCallback_2_ == null ? new GameInfo[0] : p_getGameNameListCallback_2_.list);
+                    BroadcastController.this.broadcastListener.func_152898_a();
                 }
             }
             catch (Exception exception)
@@ -717,9 +712,6 @@ public class BroadcastController
                 }
             }
         }
-        else
-        {
-        }
     }
 
     public boolean stopBroadcasting()
@@ -1095,7 +1087,6 @@ public class BroadcastController
 
     protected void func_152820_d(String p_152820_1_)
     {
-        this.field_152863_D = p_152820_1_;
         field_152862_C.func_152757_a("<Error> " + p_152820_1_);
         logger.error(TwitchStream.STREAM_MARKER, "[Broadcast controller] {}", p_152820_1_);
     }
@@ -1108,11 +1099,11 @@ public class BroadcastController
 
     public interface BroadcastListener
     {
-        void func_152900_a(ErrorCode p_152900_1_, AuthToken p_152900_2_);
+        void func_152900_a();
 
         void func_152897_a(ErrorCode p_152897_1_);
 
-        void func_152898_a(ErrorCode p_152898_1_, GameInfo[] p_152898_2_);
+        void func_152898_a();
 
         void func_152891_a(BroadcastController.BroadcastState p_152891_1_);
 
@@ -1120,7 +1111,7 @@ public class BroadcastController
 
         void func_152894_a(StreamInfo p_152894_1_);
 
-        void func_152896_a(IngestList p_152896_1_);
+        void func_152896_a();
 
         void func_152893_b(ErrorCode p_152893_1_);
 

@@ -127,7 +127,6 @@ public class GameRules
         private String valueString;
         private boolean valueBoolean;
         private int valueInteger;
-        private double valueDouble;
         private final GameRules.ValueType type;
         private static final String __OBFID = "CL_00000137";
 
@@ -169,7 +168,7 @@ public class GameRules
 
             try
             {
-                this.valueDouble = Double.parseDouble(value);
+                double valueDouble = Double.parseDouble(value);
             }
             catch (NumberFormatException ignored)
             {

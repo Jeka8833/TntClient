@@ -44,28 +44,20 @@ public class ItemBoat extends Item
         Vec3 vec31 = vec3.addVector((double)f7 * d3, (double)f6 * d3, (double)f8 * d3);
         MovingObjectPosition movingobjectposition = worldIn.rayTraceBlocks(vec3, vec31, true);
 
-        if (movingobjectposition == null)
-        {
-            return itemStackIn;
-        }
-        else
-        {
+        if (movingobjectposition != null) {
             Vec3 vec32 = playerIn.getLook(f);
             boolean flag = false;
             float f9 = 1.0F;
             List<Entity> list = worldIn.getEntitiesWithinAABBExcludingEntity(playerIn, playerIn.getEntityBoundingBox().addCoord(vec32.xCoord * d3, vec32.yCoord * d3, vec32.zCoord * d3).expand(f9, f9, f9));
 
-            for (int i = 0; i < list.size(); ++i)
-            {
+            for (int i = 0; i < list.size(); ++i) {
                 Entity entity = list.get(i);
 
-                if (entity.canBeCollidedWith())
-                {
+                if (entity.canBeCollidedWith()) {
                     float f10 = entity.getCollisionBorderSize();
                     AxisAlignedBB axisalignedbb = entity.getEntityBoundingBox().expand(f10, f10, f10);
 
-                    if (axisalignedbb.isVecInside(vec3))
-                    {
+                    if (axisalignedbb.isVecInside(vec3)) {
                         flag = true;
                     }
                 }
@@ -98,7 +90,7 @@ public class ItemBoat extends Item
                 }
 
             }
-            return itemStackIn;
         }
+        return itemStackIn;
     }
 }

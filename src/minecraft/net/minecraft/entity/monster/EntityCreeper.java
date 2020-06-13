@@ -269,7 +269,7 @@ public class EntityCreeper extends EntityMob
             {
                 this.ignite();
                 itemstack.damageItem(1, player);
-                return true;
+                return false;
             }
         }
 

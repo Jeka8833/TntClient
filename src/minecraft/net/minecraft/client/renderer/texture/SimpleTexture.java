@@ -57,7 +57,7 @@ public class SimpleTexture extends AbstractTexture
 
             if (Config.isShaders())
             {
-                ShadersTex.loadSimpleTexture(this.getGlTextureId(), bufferedimage, flag, flag1, resourceManager, this.textureLocation, this.getMultiTexID());
+                ShadersTex.loadSimpleTexture(bufferedimage, flag, flag1, resourceManager, this.textureLocation, this.getMultiTexID());
             }
             else
             {

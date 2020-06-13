@@ -238,7 +238,7 @@ public class EntityVillager extends EntityAgeable implements IMerchant, INpc
             }
 
             player.triggerAchievement(StatList.timesTalkedToVillagerStat);
-            return true;
+            return false;
         }
         else
         {

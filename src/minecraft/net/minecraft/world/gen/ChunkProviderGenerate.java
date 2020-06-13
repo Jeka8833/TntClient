@@ -258,8 +258,6 @@ public class ChunkProviderGenerate implements IChunkProvider
         this.field_147427_d = this.field_147429_l.generateNoiseOctaves(this.field_147427_d, p_147423_1_, 0, p_147423_3_, 5, 33, 5, f / this.settings.mainNoiseScaleX, f1 / this.settings.mainNoiseScaleY, f / this.settings.mainNoiseScaleZ);
         this.field_147428_e = this.field_147431_j.generateNoiseOctaves(this.field_147428_e, p_147423_1_, 0, p_147423_3_, 5, 33, 5, f, f1, f);
         this.field_147425_f = this.field_147432_k.generateNoiseOctaves(this.field_147425_f, p_147423_1_, 0, p_147423_3_, 5, 33, 5, f, f1, f);
-        p_147423_3_ = 0;
-        p_147423_1_ = 0;
         int i = 0;
         int j = 0;
 

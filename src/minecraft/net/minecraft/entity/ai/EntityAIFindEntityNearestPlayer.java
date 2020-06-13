@@ -1,7 +1,7 @@
 package net.minecraft.entity.ai;
 
 import com.google.common.base.Predicate;
-import java.util.Collections;
+
 import java.util.List;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCreature;
@@ -101,15 +101,15 @@ public class EntityAIFindEntityNearestPlayer extends EntityAIBase
 
         if (entitylivingbase == null)
         {
-            return false;
+            return true;
         }
         else if (!entitylivingbase.isEntityAlive())
         {
-            return false;
+            return true;
         }
         else if (entitylivingbase instanceof EntityPlayer && ((EntityPlayer)entitylivingbase).capabilities.disableDamage)
         {
-            return false;
+            return true;
         }
         else
         {
@@ -118,12 +118,12 @@ public class EntityAIFindEntityNearestPlayer extends EntityAIBase
 
             if (team != null && team1 == team)
             {
-                return false;
+                return true;
             }
             else
             {
                 double d0 = this.func_179431_f();
-                return !(this.field_179434_b.getDistanceSqToEntity(entitylivingbase) > d0 * d0) && (!(entitylivingbase instanceof EntityPlayerMP) || !((EntityPlayerMP) entitylivingbase).theItemInWorldManager.isCreative());
+                return this.field_179434_b.getDistanceSqToEntity(entitylivingbase) > d0 * d0 || (entitylivingbase instanceof EntityPlayerMP && ((EntityPlayerMP) entitylivingbase).theItemInWorldManager.isCreative());
             }
         }
     }

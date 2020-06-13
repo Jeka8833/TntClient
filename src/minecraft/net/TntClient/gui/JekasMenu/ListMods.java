@@ -14,7 +14,6 @@ import org.lwjgl.opengl.GL11;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -22,7 +21,6 @@ import static org.lwjgl.opengl.GL11.*;
 
 public class ListMods extends GuiScreen {
 
-    private Module[] modules = Config.config.getModList();
     private GuiTextField searchField;
     private float scroll;
 
@@ -59,7 +57,7 @@ public class ListMods extends GuiScreen {
         final int ScX = (sr.getScaledWidth() - width) / 2;
         final int ScY = (sr.getScaledHeight() - height) / 2;
         final int factor = sr.getScaleFactor();
-        final int size = modules.length;
+        final int size = Config.modules.length;
 
         GL11.glDisable(GL11.GL_TEXTURE_2D);
         GlStateManager.enableBlend();
@@ -124,7 +122,7 @@ public class ListMods extends GuiScreen {
         final int whid = (size - 1) / 3 * blockHeight > height - 4 ? (width - 5) / 3 : width / 3;
         int selected = -1;
         for (int i = 0; i < size; i++) {
-            final boolean isOptions = modules[i].getOptions().size() > 0;
+            final boolean isOptions = Config.modules[i].getOptions().size() > 0;
             final int PosX = (i % 3) * whid + ScX + 2;
             final int PosY = (i / 3) * blockHeight + ScY + 17;
 
@@ -136,9 +134,9 @@ public class ListMods extends GuiScreen {
                 glVertex2f(PosX + whid - 12, PosY + blockHeight - 2);
                 glEnd();
             }
-            if (modules[i].isBlocking)
+            if (Config.modules[i].isBlocking)
                 glColor4f(0.5f, 0.5f, 0.5f, .5f);
-            else if (modules[i].isActive())
+            else if (Config.modules[i].isActive())
                 glColor4f(0, 1, 0, .5f);
             else
                 glColor4f(1, .5f, .4f, .5f);
@@ -176,8 +174,8 @@ public class ListMods extends GuiScreen {
             GL11.glEnable(GL11.GL_TEXTURE_2D);
             GL11.glEnable(GL11.GL_CULL_FACE);
             GL11.glDisable(GL11.GL_BLEND);
-            mc.fontRendererObj.drawString(substringText((modules[i].keyBind != Integer.MAX_VALUE ? ("[" + Keyboard.getKeyName(modules[i].keyBind) + "]") : "")
-                    + modules[i].getName(), whid - (isOptions ? 12 : 0) - 5), PosX + 5, PosY + (blockHeight / 2 - 5), 0xffffffff);
+            mc.fontRendererObj.drawString(substringText((Config.modules[i].keyBind != Integer.MAX_VALUE ? ("[" + Keyboard.getKeyName(Config.modules[i].keyBind) + "]") : "")
+                    + Config.modules[i].getName(), whid - (isOptions ? 12 : 0) - 5), PosX + 5, PosY + (blockHeight / 2 - 5), 0xffffffff);
             if (isOptions)
                 mc.fontRendererObj.drawString(">", PosX + whid - 8, PosY + (blockHeight / 2 - 5), 0xffffffff);
             GL11.glEnable(GL11.GL_BLEND);
@@ -197,7 +195,7 @@ public class ListMods extends GuiScreen {
             mc.fontRendererObj.drawString("Search...", ScX - 50 + width / 2, ScY - 4, 0x9f9f9fff);
         searchField.drawTextBox();
         if(selected != -1) {
-            final Module md = modules[selected];
+            final Module md = Config.modules[selected];
             if(!md.isActive()){
                 if(md.onlyTntGame && !HypixelPlayers.isTntRun)
                     drawHoveringText(Collections.singletonList("Only TntRun"), mouseX, mouseY);
@@ -214,18 +212,18 @@ public class ListMods extends GuiScreen {
         searchField.textboxKeyTyped(typedChar, keyCode);
         final List<Module> modules = new ArrayList<>();
         final String searchText = searchField.getText().toLowerCase();
-        for (Module m : Config.config.getModList())
+        for (Module m :Config.modules)
             if (m.getName().toLowerCase().contains(searchText))
                 modules.add(m);
-        this.modules = modules.toArray(new Module[0]);
+        Config.modules = modules.toArray(new Module[0]);
     }
 
     @Override
     protected void mouseClickMove(int mouseX, int mouseY, int clickedMouseButton, long timeSinceLastClick) {
         if (isSellectScroll)
             scroll = Math.min(0,
-                    Math.max(-((modules.length - 1) / 3 * blockHeight + (17 + blockHeight - height)),
-                            -(((modules.length + 2) * blockHeight * (2 * mouseY + height - new ScaledResolution(Minecraft.getMinecraft()).getScaledHeight() - 32)) / (6 * (height - 16))) + height / 2 - 8));
+                    Math.max(-((Config.modules.length - 1) / 3 * blockHeight + (17 + blockHeight - height)),
+                            -(((Config.modules.length + 2) * blockHeight * (2 * mouseY + height - new ScaledResolution(Minecraft.getMinecraft()).getScaledHeight() - 32)) / (6 * (height - 16))) + height / 2 - 8));
     }
 
     @Override
@@ -237,17 +235,17 @@ public class ListMods extends GuiScreen {
             final int ScY = (sr.getScaledHeight() - height) / 2;
             if (mouseY > ScY + 13 && mouseY < ScY + height && mouseX > ScX && mouseX < ScX + width) {
                 int realY = ScY + (int) scroll;
-                final int whid = modules.length > 12 ? (width - 5) / 3 : width / 3;
-                for (int i = 0; i < modules.length; i++) {
-                    if(modules[i].isBlocking) continue;
-                    final boolean isOptions = modules[i].getOptions().size() > 0;
+                final int whid = Config.modules.length > 12 ? (width - 5) / 3 : width / 3;
+                for (int i = 0; i < Config.modules.length; i++) {
+                    if(Config.modules[i].isBlocking) continue;
+                    final boolean isOptions = Config.modules[i].getOptions().size() > 0;
                     final int PosX = (i % 3) * whid + ScX + 2;
                     final int PosY = (i / 3) * blockHeight + realY + 17;
                     if (mouseY > PosY && mouseY < PosY + blockHeight - 2 && mouseX > PosX && mouseX < PosX + whid - (isOptions ? 12 : 0)) {
-                        modules[i].toggle();
+                        Config.modules[i].toggle();
                     }
                     if (isOptions && mouseY > PosY && mouseY < PosY + blockHeight - 2 && mouseX > PosX + whid - 13 && mouseX < PosX + whid - 2) {
-                        mc.displayGuiScreen(new EditMod(modules[i]));
+                        mc.displayGuiScreen(new EditMod(Config.modules[i]));
                     }
                 }
                 if (mouseX > ScX + width - 5 && mouseX < ScX + width - 1) {
@@ -260,12 +258,12 @@ public class ListMods extends GuiScreen {
             final int ScY = (sr.getScaledHeight() - height) / 2;
             if (mouseY > ScY + 13 && mouseY < ScY + height && mouseX > ScX && mouseX < ScX + width) {
                 int realY = ScY + (int) scroll;
-                final int whid = modules.length > 12 ? (width - 5) / 3 : width / 3;
-                for (int i = 0; i < modules.length; i++) {
+                final int whid = Config.modules.length > 12 ? (width - 5) / 3 : width / 3;
+                for (int i = 0; i < Config.modules.length; i++) {
                     final int PosX = (i % 3) * whid + ScX + 2;
                     final int PosY = (i / 3) * blockHeight + realY + 17;
                     if (mouseY > PosY && mouseY < PosY + blockHeight - 2 && mouseX > PosX && mouseX < PosX + whid) {
-                        mc.displayGuiScreen(new KeyBind(modules[i]));
+                        mc.displayGuiScreen(new KeyBind(Config.modules[i]));
                     }
                 }
             }
@@ -279,7 +277,7 @@ public class ListMods extends GuiScreen {
 
     @Override
     public void handleMouseInput() throws IOException {
-        if (modules.length > 12) {
+        if (Config.modules.length > 12) {
             assert mc.currentScreen != null;
             final int i = Mouse.getEventDWheel();
             if (i != 0) {
@@ -287,7 +285,7 @@ public class ListMods extends GuiScreen {
                 if (scroll > 0)
                     scroll = 0;
                 else {
-                    final int itemLen = -((modules.length - 1) / 3 * blockHeight + (17 + blockHeight - height));
+                    final int itemLen = -((Config.modules.length - 1) / 3 * blockHeight + (17 + blockHeight - height));
                     if (scroll < itemLen)
                         scroll = itemLen;
                 }

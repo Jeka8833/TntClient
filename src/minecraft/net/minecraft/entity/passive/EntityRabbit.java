@@ -500,12 +500,10 @@ public class EntityRabbit extends EntityAnimal
 
     static class AIAvoidEntity<T extends Entity> extends EntityAIAvoidEntity<T>
     {
-        private final EntityRabbit entityInstance;
 
         public AIAvoidEntity(EntityRabbit p_i46403_1_, Class<T> p_i46403_2_, float p_i46403_3_, double p_i46403_4_, double p_i46403_6_)
         {
             super(p_i46403_1_, p_i46403_2_, p_i46403_3_, p_i46403_4_, p_i46403_6_);
-            this.entityInstance = p_i46403_1_;
         }
 
         public void updateTask()
@@ -574,7 +572,7 @@ public class EntityRabbit extends EntityAnimal
 
         public boolean continueExecuting()
         {
-            return this.field_179499_e && super.continueExecuting();
+            return !this.field_179499_e || super.continueExecuting();
         }
 
         public void startExecuting()

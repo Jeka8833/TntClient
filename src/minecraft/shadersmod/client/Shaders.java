@@ -249,7 +249,6 @@ public class Shaders
     static final IntBuffer[] programsDrawBuffers = new IntBuffer[33];
     static IntBuffer activeDrawBuffers = null;
     private static final String[] programsColorAtmSettings = new String[33];
-    private static String newColorAtmSetting = null;
     private static final String activeColorAtmSettings = null;
     private static final int[] programsCompositeMipmapSetting = new int[33];
     private static int newCompositeMipmapSetting = 0;
@@ -552,14 +551,10 @@ public class Shaders
                 break;
 
             case TEX_MAG_FIL_B:
-                configTexMagFilB = Config.parseInt(str, 0);
-                break;
-
-            case TEX_MAG_FIL_N:
-                configTexMagFilB = Config.parseInt(str, 0);
-                break;
 
             case TEX_MAG_FIL_S:
+
+            case TEX_MAG_FIL_N:
                 configTexMagFilB = Config.parseInt(str, 0);
                 break;
 
@@ -649,12 +644,10 @@ public class Shaders
                 return Integer.toString(configTexMinFilS);
 
             case TEX_MAG_FIL_B:
-                return Integer.toString(configTexMagFilB);
-
-            case TEX_MAG_FIL_N:
-                return Integer.toString(configTexMagFilB);
 
             case TEX_MAG_FIL_S:
+
+            case TEX_MAG_FIL_N:
                 return Integer.toString(configTexMagFilB);
 
             default:
@@ -1000,7 +993,7 @@ public class Shaders
 
         if (stage == 1)
         {
-            if (name.equals("colortex0") || name.equals("colortex0"))
+            if (name.equals("colortex0"))
             {
                 return 0;
             }
@@ -1522,7 +1515,6 @@ public class Shaders
     {
         checkShadersModInstalled();
         Shaders.mc = mc;
-        mc = Minecraft.getMinecraft();
         capabilities = GLContext.getCapabilities();
         glVersionString = GL11.glGetString(GL11.GL_VERSION);
         glVendorString = GL11.glGetString(GL11.GL_VENDOR);
@@ -1639,9 +1631,7 @@ public class Shaders
         {
             checkGLError("Shaders.init pre");
 
-            if (getShaderPackName() != null)
-            {
-            }
+            getShaderPackName();
 
             if (!capabilities.OpenGL20)
             {
@@ -1717,7 +1707,7 @@ public class Shaders
                 else
                 {
                     newDrawBufSetting = null;
-                    newColorAtmSetting = null;
+                    String newColorAtmSetting = null;
                     newCompositeMipmapSetting = 0;
                     String s2 = s + s1;
 
@@ -1907,10 +1897,6 @@ public class Shaders
             loadEntityDataMap();
             resetDisplayList();
 
-            if (!flag)
-            {
-            }
-
             checkGLError("Shaders.init");
         }
     }
@@ -2074,7 +2060,7 @@ public class Shaders
         else
         {
             StringBuilder stringbuilder = new StringBuilder(131072);
-            BufferedReader bufferedreader = null;
+            BufferedReader bufferedreader;
 
             try
             {
@@ -2174,7 +2160,7 @@ public class Shaders
         else
         {
             StringBuilder stringbuilder = new StringBuilder(131072);
-            BufferedReader bufferedreader = null;
+            BufferedReader bufferedreader;
 
             try
             {
@@ -2674,9 +2660,6 @@ public class Shaders
 
             String s = new String(abyte);
             SMCLog.info("Info log: " + name + "\n" + s);
-        }
-        else
-        {
         }
     }
 
@@ -3397,7 +3380,7 @@ public class Shaders
         }
     }
 
-    public static void beginRender(Minecraft minecraft, float partialTicks, long finishTimeNano)
+    public static void beginRender(Minecraft minecraft, float partialTicks)
     {
         checkGLError("pre beginRender");
         checkWorldChanged(mc.theWorld);
@@ -3779,7 +3762,7 @@ public class Shaders
         celestialAngle = mc.theWorld.getCelestialAngle(partialTicks);
         sunAngle = celestialAngle < 0.75F ? celestialAngle + 0.25F : celestialAngle - 0.75F;
         float f = celestialAngle * -360.0F;
-        float f1 = shadowAngleInterval > 0.0F ? f % shadowAngleInterval - shadowAngleInterval * 0.5F : 0.0F;
+        float f1 = 0.0F;
 
         if ((double)sunAngle <= 0.5D)
         {
@@ -4418,9 +4401,6 @@ public class Shaders
     {
         if (isRenderingWorld)
         {
-            if (isShadowPass)
-            {
-            }
 
             useProgram(lightmapEnabled ? 3 : 2);
         }
@@ -4853,7 +4833,7 @@ public class Shaders
         return isHandRenderedMain;
     }
 
-    public static void setHandRenderedMain(boolean isHandRenderedMain)
+    public static void setHandRenderedMain()
     {
     }
 

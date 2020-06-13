@@ -30,13 +30,13 @@ public class EntityMooshroom extends EntityCow
             if (itemstack.stackSize == 1)
             {
                 player.inventory.setInventorySlotContents(player.inventory.currentItem, new ItemStack(Items.mushroom_stew));
-                return true;
+                return false;
             }
 
             if (player.inventory.addItemStackToInventory(new ItemStack(Items.mushroom_stew)) && !player.capabilities.isCreativeMode)
             {
                 player.inventory.decrStackSize(player.inventory.currentItem, 1);
-                return true;
+                return false;
             }
         }
 
@@ -68,7 +68,7 @@ public class EntityMooshroom extends EntityCow
                 this.playSound("mob.sheep.shear", 1.0F, 1.0F);
             }
 
-            return true;
+            return false;
         }
         else
         {

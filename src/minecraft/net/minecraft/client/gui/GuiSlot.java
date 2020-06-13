@@ -97,7 +97,7 @@ public abstract class GuiSlot
         this.hasListHeader = true;
         this.headerPadding = headerPaddingIn;
 
-        if (!true)
+        if (false)
         {
             this.headerPadding = 0;
         }
@@ -125,7 +125,7 @@ public abstract class GuiSlot
 
     protected abstract void drawBackground();
 
-    protected void func_178040_a(int p_178040_1_, int p_178040_2_, int p_178040_3_)
+    protected void func_178040_a(int p_178040_1_, int p_178040_3_)
     {
     }
 
@@ -460,7 +460,7 @@ public abstract class GuiSlot
 
             if (k > this.bottom || k + l < this.top)
             {
-                this.func_178040_a(j, p_148120_1_, k);
+                this.func_178040_a(j, k);
             }
 
             if (this.showSelectionBox && this.isSelected(j))

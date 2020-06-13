@@ -10,7 +10,6 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.ContainerEnchantment;
 import net.minecraft.item.ItemStack;
@@ -264,7 +263,7 @@ public class GuiEnchantment extends GuiContainer
                     }
                     else
                     {
-                        String s1 = "";
+                        String s1;
 
                         if (i1 == 1)
                         {

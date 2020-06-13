@@ -6,7 +6,7 @@ import net.minecraft.client.resources.I18n;
 
 public class GuiSlider extends GuiButton
 {
-    private float sliderPosition = 1.0F;
+    private float sliderPosition;
     public boolean isMouseDown;
     private final String name;
     private final float min;
@@ -64,7 +64,7 @@ public class GuiSlider extends GuiButton
     /**
      * Fired when the mouse button is dragged. Equivalent of MouseListener.mouseDragged(MouseEvent e).
      */
-    protected void mouseDragged(Minecraft mc, int mouseX, int mouseY)
+    protected void mouseDragged(Minecraft mc, int mouseX)
     {
         if (this.visible)
         {
@@ -133,7 +133,7 @@ public class GuiSlider extends GuiButton
     /**
      * Fired when the mouse button is released. Equivalent of MouseListener.mouseReleased(MouseEvent e).
      */
-    public void mouseReleased(int mouseX, int mouseY)
+    public void mouseReleased()
     {
         this.isMouseDown = false;
     }

@@ -214,7 +214,7 @@ public class EntitySilverfish extends EntityMob
 
         public boolean continueExecuting()
         {
-            return !this.field_179484_c && super.continueExecuting();
+            return this.field_179484_c || super.continueExecuting();
         }
 
         public void startExecuting()

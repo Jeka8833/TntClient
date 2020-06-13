@@ -158,14 +158,14 @@ public abstract class EntityAnimal extends EntityAgeable implements IAnimals
             {
                 this.consumeItemFromStack(player, itemstack);
                 this.setInLove(player);
-                return true;
+                return false;
             }
 
             if (this.isChild() && this.isBreedingItem(itemstack))
             {
                 this.consumeItemFromStack(player, itemstack);
                 this.func_175501_a((int)((float)(-this.getGrowingAge() / 20) * 0.1F), true);
-                return true;
+                return false;
             }
         }
 

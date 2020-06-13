@@ -66,7 +66,7 @@ public class GuiButtonRealmsProxy extends GuiButton
     /**
      * Fired when the mouse button is released. Equivalent of MouseListener.mouseReleased(MouseEvent e).
      */
-    public void mouseReleased(int mouseX, int mouseY)
+    public void mouseReleased()
     {
         this.realmsButton.released();
     }
@@ -74,7 +74,7 @@ public class GuiButtonRealmsProxy extends GuiButton
     /**
      * Fired when the mouse button is dragged. Equivalent of MouseListener.mouseDragged(MouseEvent e).
      */
-    public void mouseDragged(Minecraft mc, int mouseX, int mouseY)
+    public void mouseDragged(Minecraft mc, int mouseX)
     {
         this.realmsButton.renderBg(mouseX);
     }

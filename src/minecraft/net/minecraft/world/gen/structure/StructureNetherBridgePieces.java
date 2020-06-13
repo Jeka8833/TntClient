@@ -46,31 +46,31 @@ public class StructureNetherBridgePieces
 
         if (oclass == StructureNetherBridgePieces.Straight.class)
         {
-            structurenetherbridgepieces$piece = StructureNetherBridgePieces.Straight.func_175882_a(p_175887_1_, p_175887_2_, p_175887_3_, p_175887_4_, p_175887_5_, p_175887_6_, p_175887_7_);
+            structurenetherbridgepieces$piece = StructureNetherBridgePieces.Straight.func_175882_a(p_175887_1_, p_175887_3_, p_175887_4_, p_175887_5_, p_175887_6_, p_175887_7_);
         }
         else if (oclass == StructureNetherBridgePieces.Crossing3.class)
         {
-            structurenetherbridgepieces$piece = StructureNetherBridgePieces.Crossing3.func_175885_a(p_175887_1_, p_175887_2_, p_175887_3_, p_175887_4_, p_175887_5_, p_175887_6_, p_175887_7_);
+            structurenetherbridgepieces$piece = StructureNetherBridgePieces.Crossing3.func_175885_a(p_175887_1_, p_175887_3_, p_175887_4_, p_175887_5_, p_175887_6_, p_175887_7_);
         }
         else if (oclass == StructureNetherBridgePieces.Crossing.class)
         {
-            structurenetherbridgepieces$piece = StructureNetherBridgePieces.Crossing.func_175873_a(p_175887_1_, p_175887_2_, p_175887_3_, p_175887_4_, p_175887_5_, p_175887_6_, p_175887_7_);
+            structurenetherbridgepieces$piece = StructureNetherBridgePieces.Crossing.func_175873_a(p_175887_1_, p_175887_3_, p_175887_4_, p_175887_5_, p_175887_6_, p_175887_7_);
         }
         else if (oclass == StructureNetherBridgePieces.Stairs.class)
         {
-            structurenetherbridgepieces$piece = StructureNetherBridgePieces.Stairs.func_175872_a(p_175887_1_, p_175887_2_, p_175887_3_, p_175887_4_, p_175887_5_, p_175887_7_, p_175887_6_);
+            structurenetherbridgepieces$piece = StructureNetherBridgePieces.Stairs.func_175872_a(p_175887_1_, p_175887_3_, p_175887_4_, p_175887_5_, p_175887_7_, p_175887_6_);
         }
         else if (oclass == StructureNetherBridgePieces.Throne.class)
         {
-            structurenetherbridgepieces$piece = StructureNetherBridgePieces.Throne.func_175874_a(p_175887_1_, p_175887_2_, p_175887_3_, p_175887_4_, p_175887_5_, p_175887_7_, p_175887_6_);
+            structurenetherbridgepieces$piece = StructureNetherBridgePieces.Throne.func_175874_a(p_175887_1_, p_175887_3_, p_175887_4_, p_175887_5_, p_175887_7_, p_175887_6_);
         }
         else if (oclass == StructureNetherBridgePieces.Entrance.class)
         {
-            structurenetherbridgepieces$piece = StructureNetherBridgePieces.Entrance.func_175881_a(p_175887_1_, p_175887_2_, p_175887_3_, p_175887_4_, p_175887_5_, p_175887_6_, p_175887_7_);
+            structurenetherbridgepieces$piece = StructureNetherBridgePieces.Entrance.func_175881_a(p_175887_1_, p_175887_3_, p_175887_4_, p_175887_5_, p_175887_6_, p_175887_7_);
         }
         else if (oclass == StructureNetherBridgePieces.Corridor5.class)
         {
-            structurenetherbridgepieces$piece = StructureNetherBridgePieces.Corridor5.func_175877_a(p_175887_1_, p_175887_2_, p_175887_3_, p_175887_4_, p_175887_5_, p_175887_6_, p_175887_7_);
+            structurenetherbridgepieces$piece = StructureNetherBridgePieces.Corridor5.func_175877_a(p_175887_1_, p_175887_3_, p_175887_4_, p_175887_5_, p_175887_6_, p_175887_7_);
         }
         else if (oclass == StructureNetherBridgePieces.Corridor2.class)
         {
@@ -82,19 +82,19 @@ public class StructureNetherBridgePieces
         }
         else if (oclass == StructureNetherBridgePieces.Corridor3.class)
         {
-            structurenetherbridgepieces$piece = StructureNetherBridgePieces.Corridor3.func_175883_a(p_175887_1_, p_175887_2_, p_175887_3_, p_175887_4_, p_175887_5_, p_175887_6_, p_175887_7_);
+            structurenetherbridgepieces$piece = StructureNetherBridgePieces.Corridor3.func_175883_a(p_175887_1_, p_175887_3_, p_175887_4_, p_175887_5_, p_175887_6_, p_175887_7_);
         }
         else if (oclass == StructureNetherBridgePieces.Corridor4.class)
         {
-            structurenetherbridgepieces$piece = StructureNetherBridgePieces.Corridor4.func_175880_a(p_175887_1_, p_175887_2_, p_175887_3_, p_175887_4_, p_175887_5_, p_175887_6_, p_175887_7_);
+            structurenetherbridgepieces$piece = StructureNetherBridgePieces.Corridor4.func_175880_a(p_175887_1_, p_175887_3_, p_175887_4_, p_175887_5_, p_175887_6_, p_175887_7_);
         }
         else if (oclass == StructureNetherBridgePieces.Crossing2.class)
         {
-            structurenetherbridgepieces$piece = StructureNetherBridgePieces.Crossing2.func_175878_a(p_175887_1_, p_175887_2_, p_175887_3_, p_175887_4_, p_175887_5_, p_175887_6_, p_175887_7_);
+            structurenetherbridgepieces$piece = StructureNetherBridgePieces.Crossing2.func_175878_a(p_175887_1_, p_175887_3_, p_175887_4_, p_175887_5_, p_175887_6_, p_175887_7_);
         }
         else if (oclass == StructureNetherBridgePieces.NetherStalkRoom.class)
         {
-            structurenetherbridgepieces$piece = StructureNetherBridgePieces.NetherStalkRoom.func_175875_a(p_175887_1_, p_175887_2_, p_175887_3_, p_175887_4_, p_175887_5_, p_175887_6_, p_175887_7_);
+            structurenetherbridgepieces$piece = StructureNetherBridgePieces.NetherStalkRoom.func_175875_a(p_175887_1_, p_175887_3_, p_175887_4_, p_175887_5_, p_175887_6_, p_175887_7_);
         }
 
         return structurenetherbridgepieces$piece;
@@ -260,7 +260,7 @@ public class StructureNetherBridgePieces
             this.getNextComponentNormal((StructureNetherBridgePieces.Start)componentIn, listIn, rand, 1, 0, true);
         }
 
-        public static StructureNetherBridgePieces.Corridor3 func_175883_a(List<StructureComponent> p_175883_0_, Random p_175883_1_, int p_175883_2_, int p_175883_3_, int p_175883_4_, EnumFacing p_175883_5_, int p_175883_6_)
+        public static StructureNetherBridgePieces.Corridor3 func_175883_a(List<StructureComponent> p_175883_0_, int p_175883_2_, int p_175883_3_, int p_175883_4_, EnumFacing p_175883_5_, int p_175883_6_)
         {
             StructureBoundingBox structureboundingbox = StructureBoundingBox.getComponentToAddBoundingBox(p_175883_2_, p_175883_3_, p_175883_4_, -1, -7, 0, 5, 14, 10, p_175883_5_);
             return isAboveGround(structureboundingbox) && StructureComponent.findIntersecting(p_175883_0_, structureboundingbox) == null ? new StructureNetherBridgePieces.Corridor3(p_175883_6_, structureboundingbox, p_175883_5_) : null;
@@ -330,7 +330,7 @@ public class StructureNetherBridgePieces
             this.getNextComponentZ((StructureNetherBridgePieces.Start)componentIn, listIn, rand, 0, i, rand.nextInt(8) > 0);
         }
 
-        public static StructureNetherBridgePieces.Corridor4 func_175880_a(List<StructureComponent> p_175880_0_, Random p_175880_1_, int p_175880_2_, int p_175880_3_, int p_175880_4_, EnumFacing p_175880_5_, int p_175880_6_)
+        public static StructureNetherBridgePieces.Corridor4 func_175880_a(List<StructureComponent> p_175880_0_, int p_175880_2_, int p_175880_3_, int p_175880_4_, EnumFacing p_175880_5_, int p_175880_6_)
         {
             StructureBoundingBox structureboundingbox = StructureBoundingBox.getComponentToAddBoundingBox(p_175880_2_, p_175880_3_, p_175880_4_, -3, 0, 0, 9, 7, 9, p_175880_5_);
             return isAboveGround(structureboundingbox) && StructureComponent.findIntersecting(p_175880_0_, structureboundingbox) == null ? new StructureNetherBridgePieces.Corridor4(p_175880_6_, structureboundingbox, p_175880_5_) : null;
@@ -388,7 +388,7 @@ public class StructureNetherBridgePieces
             this.getNextComponentNormal((StructureNetherBridgePieces.Start)componentIn, listIn, rand, 1, 0, true);
         }
 
-        public static StructureNetherBridgePieces.Corridor5 func_175877_a(List<StructureComponent> p_175877_0_, Random p_175877_1_, int p_175877_2_, int p_175877_3_, int p_175877_4_, EnumFacing p_175877_5_, int p_175877_6_)
+        public static StructureNetherBridgePieces.Corridor5 func_175877_a(List<StructureComponent> p_175877_0_, int p_175877_2_, int p_175877_3_, int p_175877_4_, EnumFacing p_175877_5_, int p_175877_6_)
         {
             StructureBoundingBox structureboundingbox = StructureBoundingBox.getComponentToAddBoundingBox(p_175877_2_, p_175877_3_, p_175877_4_, -1, 0, 0, 5, 7, 5, p_175877_5_);
             return isAboveGround(structureboundingbox) && StructureComponent.findIntersecting(p_175877_0_, structureboundingbox) == null ? new StructureNetherBridgePieces.Corridor5(p_175877_6_, structureboundingbox, p_175877_5_) : null;
@@ -438,7 +438,7 @@ public class StructureNetherBridgePieces
             this.getNextComponentZ((StructureNetherBridgePieces.Start)componentIn, listIn, rand, 0, 2, false);
         }
 
-        public static StructureNetherBridgePieces.Crossing func_175873_a(List<StructureComponent> p_175873_0_, Random p_175873_1_, int p_175873_2_, int p_175873_3_, int p_175873_4_, EnumFacing p_175873_5_, int p_175873_6_)
+        public static StructureNetherBridgePieces.Crossing func_175873_a(List<StructureComponent> p_175873_0_, int p_175873_2_, int p_175873_3_, int p_175873_4_, EnumFacing p_175873_5_, int p_175873_6_)
         {
             StructureBoundingBox structureboundingbox = StructureBoundingBox.getComponentToAddBoundingBox(p_175873_2_, p_175873_3_, p_175873_4_, -2, 0, 0, 7, 9, 7, p_175873_5_);
             return isAboveGround(structureboundingbox) && StructureComponent.findIntersecting(p_175873_0_, structureboundingbox) == null ? new StructureNetherBridgePieces.Crossing(p_175873_6_, structureboundingbox, p_175873_5_) : null;
@@ -497,7 +497,7 @@ public class StructureNetherBridgePieces
             this.getNextComponentZ((StructureNetherBridgePieces.Start)componentIn, listIn, rand, 0, 1, true);
         }
 
-        public static StructureNetherBridgePieces.Crossing2 func_175878_a(List<StructureComponent> p_175878_0_, Random p_175878_1_, int p_175878_2_, int p_175878_3_, int p_175878_4_, EnumFacing p_175878_5_, int p_175878_6_)
+        public static StructureNetherBridgePieces.Crossing2 func_175878_a(List<StructureComponent> p_175878_0_, int p_175878_2_, int p_175878_3_, int p_175878_4_, EnumFacing p_175878_5_, int p_175878_6_)
         {
             StructureBoundingBox structureboundingbox = StructureBoundingBox.getComponentToAddBoundingBox(p_175878_2_, p_175878_3_, p_175878_4_, -1, 0, 0, 5, 7, 5, p_175878_5_);
             return isAboveGround(structureboundingbox) && StructureComponent.findIntersecting(p_175878_0_, structureboundingbox) == null ? new StructureNetherBridgePieces.Crossing2(p_175878_6_, structureboundingbox, p_175878_5_) : null;
@@ -545,10 +545,6 @@ public class StructureNetherBridgePieces
 
             switch (this.coordBaseMode)
             {
-                case NORTH:
-                case SOUTH:
-                    this.boundingBox = new StructureBoundingBox(p_i2042_2_, 64, p_i2042_3_, p_i2042_2_ + 19 - 1, 73, p_i2042_3_ + 19 - 1);
-                    break;
 
                 default:
                     this.boundingBox = new StructureBoundingBox(p_i2042_2_, 64, p_i2042_3_, p_i2042_2_ + 19 - 1, 73, p_i2042_3_ + 19 - 1);
@@ -562,7 +558,7 @@ public class StructureNetherBridgePieces
             this.getNextComponentZ((StructureNetherBridgePieces.Start)componentIn, listIn, rand, 3, 8, false);
         }
 
-        public static StructureNetherBridgePieces.Crossing3 func_175885_a(List<StructureComponent> p_175885_0_, Random p_175885_1_, int p_175885_2_, int p_175885_3_, int p_175885_4_, EnumFacing p_175885_5_, int p_175885_6_)
+        public static StructureNetherBridgePieces.Crossing3 func_175885_a(List<StructureComponent> p_175885_0_, int p_175885_2_, int p_175885_3_, int p_175885_4_, EnumFacing p_175885_5_, int p_175885_6_)
         {
             StructureBoundingBox structureboundingbox = StructureBoundingBox.getComponentToAddBoundingBox(p_175885_2_, p_175885_3_, p_175885_4_, -8, -3, 0, 19, 10, 19, p_175885_5_);
             return isAboveGround(structureboundingbox) && StructureComponent.findIntersecting(p_175885_0_, structureboundingbox) == null ? new StructureNetherBridgePieces.Crossing3(p_175885_6_, structureboundingbox, p_175885_5_) : null;
@@ -703,7 +699,7 @@ public class StructureNetherBridgePieces
             this.getNextComponentNormal((StructureNetherBridgePieces.Start)componentIn, listIn, rand, 5, 3, true);
         }
 
-        public static StructureNetherBridgePieces.Entrance func_175881_a(List<StructureComponent> p_175881_0_, Random p_175881_1_, int p_175881_2_, int p_175881_3_, int p_175881_4_, EnumFacing p_175881_5_, int p_175881_6_)
+        public static StructureNetherBridgePieces.Entrance func_175881_a(List<StructureComponent> p_175881_0_, int p_175881_2_, int p_175881_3_, int p_175881_4_, EnumFacing p_175881_5_, int p_175881_6_)
         {
             StructureBoundingBox structureboundingbox = StructureBoundingBox.getComponentToAddBoundingBox(p_175881_2_, p_175881_3_, p_175881_4_, -5, -3, 0, 13, 14, 13, p_175881_5_);
             return isAboveGround(structureboundingbox) && StructureComponent.findIntersecting(p_175881_0_, structureboundingbox) == null ? new StructureNetherBridgePieces.Entrance(p_175881_6_, structureboundingbox, p_175881_5_) : null;
@@ -810,7 +806,7 @@ public class StructureNetherBridgePieces
             this.getNextComponentNormal((StructureNetherBridgePieces.Start)componentIn, listIn, rand, 5, 11, true);
         }
 
-        public static StructureNetherBridgePieces.NetherStalkRoom func_175875_a(List<StructureComponent> p_175875_0_, Random p_175875_1_, int p_175875_2_, int p_175875_3_, int p_175875_4_, EnumFacing p_175875_5_, int p_175875_6_)
+        public static StructureNetherBridgePieces.NetherStalkRoom func_175875_a(List<StructureComponent> p_175875_0_, int p_175875_2_, int p_175875_3_, int p_175875_4_, EnumFacing p_175875_5_, int p_175875_6_)
         {
             StructureBoundingBox structureboundingbox = StructureBoundingBox.getComponentToAddBoundingBox(p_175875_2_, p_175875_3_, p_175875_4_, -5, -3, 0, 13, 14, 13, p_175875_5_);
             return isAboveGround(structureboundingbox) && StructureComponent.findIntersecting(p_175875_0_, structureboundingbox) == null ? new StructureNetherBridgePieces.NetherStalkRoom(p_175875_6_, structureboundingbox, p_175875_5_) : null;
@@ -1022,7 +1018,7 @@ public class StructureNetherBridgePieces
             return StructureNetherBridgePieces.End.func_175884_a(p_175871_3_, p_175871_4_, p_175871_5_, p_175871_6_, p_175871_7_, p_175871_8_, p_175871_9_);
         }
 
-        private StructureComponent func_175870_a(StructureNetherBridgePieces.Start p_175870_1_, List<StructureComponent> p_175870_2_, Random p_175870_3_, int p_175870_4_, int p_175870_5_, int p_175870_6_, EnumFacing p_175870_7_, int p_175870_8_, boolean p_175870_9_)
+        private void func_175870_a(Start p_175870_1_, List<StructureComponent> p_175870_2_, Random p_175870_3_, int p_175870_4_, int p_175870_5_, int p_175870_6_, EnumFacing p_175870_7_, int p_175870_8_, boolean p_175870_9_)
         {
             if (Math.abs(p_175870_4_ - p_175870_1_.getBoundingBox().minX) <= 112 && Math.abs(p_175870_6_ - p_175870_1_.getBoundingBox().minZ) <= 112)
             {
@@ -1041,11 +1037,10 @@ public class StructureNetherBridgePieces
                     p_175870_1_.field_74967_d.add(structurecomponent);
                 }
 
-                return structurecomponent;
             }
             else
             {
-                return StructureNetherBridgePieces.End.func_175884_a(p_175870_2_, p_175870_3_, p_175870_4_, p_175870_5_, p_175870_6_, p_175870_7_, p_175870_8_);
+                End.func_175884_a(p_175870_2_, p_175870_3_, p_175870_4_, p_175870_5_, p_175870_6_, p_175870_7_, p_175870_8_);
             }
         }
 
@@ -1081,8 +1076,6 @@ public class StructureNetherBridgePieces
                 switch (this.coordBaseMode)
                 {
                     case NORTH:
-                        this.func_175870_a(p_74961_1_, p_74961_2_, p_74961_3_, this.boundingBox.minX - 1, this.boundingBox.minY + p_74961_4_, this.boundingBox.minZ + p_74961_5_, EnumFacing.WEST, this.getComponentType(), p_74961_6_);
-                        return;
 
                     case SOUTH:
                         this.func_175870_a(p_74961_1_, p_74961_2_, p_74961_3_, this.boundingBox.minX - 1, this.boundingBox.minY + p_74961_4_, this.boundingBox.minZ + p_74961_5_, EnumFacing.WEST, this.getComponentType(), p_74961_6_);
@@ -1106,8 +1099,6 @@ public class StructureNetherBridgePieces
                 switch (this.coordBaseMode)
                 {
                     case NORTH:
-                        this.func_175870_a(p_74965_1_, p_74965_2_, p_74965_3_, this.boundingBox.maxX + 1, this.boundingBox.minY + p_74965_4_, this.boundingBox.minZ + p_74965_5_, EnumFacing.EAST, this.getComponentType(), p_74965_6_);
-                        return;
 
                     case SOUTH:
                         this.func_175870_a(p_74965_1_, p_74965_2_, p_74965_3_, this.boundingBox.maxX + 1, this.boundingBox.minY + p_74965_4_, this.boundingBox.minZ + p_74965_5_, EnumFacing.EAST, this.getComponentType(), p_74965_6_);
@@ -1180,7 +1171,7 @@ public class StructureNetherBridgePieces
             this.getNextComponentZ((StructureNetherBridgePieces.Start)componentIn, listIn, rand, 6, 2, false);
         }
 
-        public static StructureNetherBridgePieces.Stairs func_175872_a(List<StructureComponent> p_175872_0_, Random p_175872_1_, int p_175872_2_, int p_175872_3_, int p_175872_4_, int p_175872_5_, EnumFacing p_175872_6_)
+        public static StructureNetherBridgePieces.Stairs func_175872_a(List<StructureComponent> p_175872_0_, int p_175872_2_, int p_175872_3_, int p_175872_4_, int p_175872_5_, EnumFacing p_175872_6_)
         {
             StructureBoundingBox structureboundingbox = StructureBoundingBox.getComponentToAddBoundingBox(p_175872_2_, p_175872_3_, p_175872_4_, -2, 0, 0, 7, 11, 7, p_175872_6_);
             return isAboveGround(structureboundingbox) && StructureComponent.findIntersecting(p_175872_0_, structureboundingbox) == null ? new StructureNetherBridgePieces.Stairs(p_175872_5_, structureboundingbox, p_175872_6_) : null;
@@ -1280,7 +1271,7 @@ public class StructureNetherBridgePieces
             this.getNextComponentNormal((StructureNetherBridgePieces.Start)componentIn, listIn, rand, 1, 3, false);
         }
 
-        public static StructureNetherBridgePieces.Straight func_175882_a(List<StructureComponent> p_175882_0_, Random p_175882_1_, int p_175882_2_, int p_175882_3_, int p_175882_4_, EnumFacing p_175882_5_, int p_175882_6_)
+        public static StructureNetherBridgePieces.Straight func_175882_a(List<StructureComponent> p_175882_0_, int p_175882_2_, int p_175882_3_, int p_175882_4_, EnumFacing p_175882_5_, int p_175882_6_)
         {
             StructureBoundingBox structureboundingbox = StructureBoundingBox.getComponentToAddBoundingBox(p_175882_2_, p_175882_3_, p_175882_4_, -1, -3, 0, 5, 10, 19, p_175882_5_);
             return isAboveGround(structureboundingbox) && StructureComponent.findIntersecting(p_175882_0_, structureboundingbox) == null ? new StructureNetherBridgePieces.Straight(p_175882_6_, structureboundingbox, p_175882_5_) : null;
@@ -1345,7 +1336,7 @@ public class StructureNetherBridgePieces
             tagCompound.setBoolean("Mob", this.hasSpawner);
         }
 
-        public static StructureNetherBridgePieces.Throne func_175874_a(List<StructureComponent> p_175874_0_, Random p_175874_1_, int p_175874_2_, int p_175874_3_, int p_175874_4_, int p_175874_5_, EnumFacing p_175874_6_)
+        public static StructureNetherBridgePieces.Throne func_175874_a(List<StructureComponent> p_175874_0_, int p_175874_2_, int p_175874_3_, int p_175874_4_, int p_175874_5_, EnumFacing p_175874_6_)
         {
             StructureBoundingBox structureboundingbox = StructureBoundingBox.getComponentToAddBoundingBox(p_175874_2_, p_175874_3_, p_175874_4_, -2, 0, 0, 7, 8, 9, p_175874_6_);
             return isAboveGround(structureboundingbox) && StructureComponent.findIntersecting(p_175874_0_, structureboundingbox) == null ? new StructureNetherBridgePieces.Throne(p_175874_5_, structureboundingbox, p_175874_6_) : null;

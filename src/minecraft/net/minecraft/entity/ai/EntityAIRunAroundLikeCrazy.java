@@ -1,6 +1,5 @@
 package net.minecraft.entity.ai;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.Vec3;
@@ -60,7 +59,7 @@ public class EntityAIRunAroundLikeCrazy extends EntityAIBase
      */
     public boolean continueExecuting()
     {
-        return !this.horseHost.getNavigator().noPath() && this.horseHost.riddenByEntity != null;
+        return this.horseHost.getNavigator().noPath() || this.horseHost.riddenByEntity == null;
     }
 
     /**

@@ -60,7 +60,7 @@ public class GuiShaderOptions extends GuiScreenOF
     {
         this.title = I18n.format("of.options.shaderOptionsTitle");
         int i = 100;
-        int j = 0;
+        int j;
         int k = 30;
         int l = 20;
         int i1 = this.width - 130;

@@ -1193,8 +1193,7 @@ public abstract class Entity implements ICommandSender
         {
             float f = BlockLiquid.getLiquidHeightPercent(iblockstate.getBlock().getMetaFromState(iblockstate)) - 0.11111111F;
             float f1 = (float)(blockpos.getY() + 1) - f;
-            boolean flag = d0 < (double)f1;
-            return flag;
+            return d0 < (double)f1;
         }
         else
         {
@@ -1821,7 +1820,7 @@ public abstract class Entity implements ICommandSender
             BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos(Integer.MIN_VALUE, Integer.MIN_VALUE, Integer.MIN_VALUE);
 
             for (int i = 0; i < 8; ++i) {
-                int j = MathHelper.floor_double(this.posY + (double) (((float) ((i >> 0) % 2) - 0.5F) * 0.1F) + (double) this.getEyeHeight());
+                int j = MathHelper.floor_double(this.posY + (double) (((float) ((i) % 2) - 0.5F) * 0.1F) + (double) this.getEyeHeight());
                 int k = MathHelper.floor_double(this.posX + (double) (((float) ((i >> 1) % 2) - 0.5F) * this.width * 0.8F));
                 int l = MathHelper.floor_double(this.posZ + (double) (((float) ((i >> 2) % 2) - 0.5F) * this.width * 0.8F));
 
@@ -1974,14 +1973,11 @@ public abstract class Entity implements ICommandSender
                 this.ridingEntity.riddenByEntity = null;
             }
 
-            if (entityIn != null)
+            for (Entity entity = entityIn.ridingEntity; entity != null; entity = entity.ridingEntity)
             {
-                for (Entity entity = entityIn.ridingEntity; entity != null; entity = entity.ridingEntity)
+                if (entity == this)
                 {
-                    if (entity == this)
-                    {
-                        return;
-                    }
+                    return;
                 }
             }
 
@@ -2274,7 +2270,6 @@ public abstract class Entity implements ICommandSender
 
             if (this.worldObj.isBlockFullCube(blockpos.south()) && 1.0D - d2 < d3)
             {
-                d3 = 1.0D - d2;
                 i = 5;
             }
 

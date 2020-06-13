@@ -52,7 +52,7 @@ public class EntityAIMoveTowardsRestriction extends EntityAIBase
      */
     public boolean continueExecuting()
     {
-        return !this.theEntity.getNavigator().noPath();
+        return this.theEntity.getNavigator().noPath();
     }
 
     /**

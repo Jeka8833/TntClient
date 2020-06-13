@@ -6,11 +6,9 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.INetHandlerPlayClient;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.IChatComponent;
-import net.minecraft.world.World;
 
 public class S33PacketUpdateSign implements Packet<INetHandlerPlayClient>
 {
-    private World world;
     private BlockPos blockPos;
     private IChatComponent[] lines;
 
@@ -18,9 +16,8 @@ public class S33PacketUpdateSign implements Packet<INetHandlerPlayClient>
     {
     }
 
-    public S33PacketUpdateSign(World worldIn, BlockPos blockPosIn, IChatComponent[] linesIn)
+    public S33PacketUpdateSign(BlockPos blockPosIn, IChatComponent[] linesIn)
     {
-        this.world = worldIn;
         this.blockPos = blockPosIn;
         this.lines = new IChatComponent[] {linesIn[0], linesIn[1], linesIn[2], linesIn[3]};
     }

@@ -48,7 +48,7 @@ public class C19PacketResourcePackStatus implements Packet<INetHandlerPlayServer
      */
     public void processPacket(INetHandlerPlayServer handler)
     {
-        handler.handleResourcePackStatus(this);
+        handler.handleResourcePackStatus();
     }
 
     public enum Action

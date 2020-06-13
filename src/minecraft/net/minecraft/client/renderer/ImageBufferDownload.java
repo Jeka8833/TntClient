@@ -3,13 +3,11 @@ package net.minecraft.client.renderer;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
-import java.awt.image.ImageObserver;
 
 public class ImageBufferDownload implements IImageBuffer
 {
     private int[] imageData;
     private int imageWidth;
-    private int imageHeight;
     private static final String __OBFID = "CL_00000956";
 
     public BufferedImage parseUserSkin(BufferedImage image)
@@ -21,18 +19,18 @@ public class ImageBufferDownload implements IImageBuffer
         else
         {
             this.imageWidth = 64;
-            this.imageHeight = 64;
+            int imageHeight = 64;
             int i = image.getWidth();
             int j = image.getHeight();
             int k;
 
-            for (k = 1; this.imageWidth < i || this.imageHeight < j; k *= 2)
+            for (k = 1; this.imageWidth < i || imageHeight < j; k *= 2)
             {
                 this.imageWidth *= 2;
-                this.imageHeight *= 2;
+                imageHeight *= 2;
             }
 
-            BufferedImage bufferedimage = new BufferedImage(this.imageWidth, this.imageHeight, 2);
+            BufferedImage bufferedimage = new BufferedImage(this.imageWidth, imageHeight, 2);
             Graphics graphics = bufferedimage.getGraphics();
             graphics.drawImage(image, 0, 0, null);
 

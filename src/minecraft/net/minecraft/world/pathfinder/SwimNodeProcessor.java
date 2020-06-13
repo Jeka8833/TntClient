@@ -18,8 +18,7 @@ public class SwimNodeProcessor extends NodeProcessor
 
     /**
      * This method is called when all nodes have been processed and PathEntity is created.
-     *  {@link net.minecraft.world.pathfinder.WalkNodeProcessor WalkNodeProcessor} uses this to change its field {@link
-     * net.minecraft.world.pathfinder.WalkNodeProcessor#avoidsWater avoidsWater}
+     *  {@link net.minecraft.world.pathfinder.WalkNodeProcessor WalkNodeProcessor} uses this to change its field
      */
     public void postProcess()
     {
@@ -48,7 +47,7 @@ public class SwimNodeProcessor extends NodeProcessor
 
         for (EnumFacing enumfacing : EnumFacing.values())
         {
-            PathPoint pathpoint = this.getSafePoint(entityIn, currentPoint.xCoord + enumfacing.getFrontOffsetX(), currentPoint.yCoord + enumfacing.getFrontOffsetY(), currentPoint.zCoord + enumfacing.getFrontOffsetZ());
+            PathPoint pathpoint = this.getSafePoint(currentPoint.xCoord + enumfacing.getFrontOffsetX(), currentPoint.yCoord + enumfacing.getFrontOffsetY(), currentPoint.zCoord + enumfacing.getFrontOffsetZ());
 
             if (pathpoint != null && !pathpoint.visited && pathpoint.distanceTo(targetPoint) < maxDistance)
             {
@@ -62,7 +61,7 @@ public class SwimNodeProcessor extends NodeProcessor
     /**
      * Returns a point that the entity can safely move to
      */
-    private PathPoint getSafePoint(Entity entityIn, int x, int y, int z)
+    private PathPoint getSafePoint(int x, int y, int z)
     {
         int i = this.func_176186_b(x, y, z);
         return i == -1 ? this.openPoint(x, y, z) : null;

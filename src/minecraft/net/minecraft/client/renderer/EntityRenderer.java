@@ -1248,7 +1248,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         this.getMouseOver(partialTicks);
 
         if (Config.isShaders()) {
-            Shaders.beginRender(this.mc, partialTicks, finishTimeNano);
+            Shaders.beginRender(this.mc, partialTicks);
         }
 
         GlStateManager.enableDepth();

@@ -68,7 +68,7 @@ public class PlayerProfileCache
         this.mcServer = server;
         this.usercacheFile = cacheFile;
         GsonBuilder gsonbuilder = new GsonBuilder();
-        gsonbuilder.registerTypeHierarchyAdapter(PlayerProfileCache.ProfileEntry.class, new PlayerProfileCache.Serializer());
+        gsonbuilder.registerTypeHierarchyAdapter(PlayerProfileCache.ProfileEntry.class, new Serializer());
         this.gson = gsonbuilder.create();
         this.load();
     }
@@ -124,7 +124,7 @@ public class PlayerProfileCache
         {
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(new Date());
-            calendar.add(2, 1);
+            calendar.add(Calendar.MONTH, 1);
             expirationDate = calendar.getTime();
         }
 
@@ -260,14 +260,9 @@ public class PlayerProfileCache
         {
             bufferedwriter = Files.newWriter(this.usercacheFile, Charsets.UTF_8);
             bufferedwriter.write(s);
-        }
-        catch (FileNotFoundException ignored)
+        } catch (IOException ignored)
         {
-        }
-        catch (IOException var9)
-        {
-        }
-        finally
+        } finally
         {
             IOUtils.closeQuietly(bufferedwriter);
         }
@@ -312,7 +307,7 @@ public class PlayerProfileCache
         }
     }
 
-    class Serializer implements JsonDeserializer<PlayerProfileCache.ProfileEntry>, JsonSerializer<PlayerProfileCache.ProfileEntry>
+    static class Serializer implements JsonDeserializer<PlayerProfileCache.ProfileEntry>, JsonSerializer<PlayerProfileCache.ProfileEntry>
     {
         private Serializer()
         {

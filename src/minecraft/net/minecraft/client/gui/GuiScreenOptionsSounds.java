@@ -85,7 +85,7 @@ public class GuiScreenOptionsSounds extends GuiScreen
     {
         private final SoundCategory field_146153_r;
         private final String field_146152_s;
-        public float field_146156_o = 1.0F;
+        public float field_146156_o;
         public boolean field_146155_p;
 
         public Button(int p_i45024_2_, int p_i45024_3_, int p_i45024_4_, SoundCategory p_i45024_5_, boolean p_i45024_6_)
@@ -102,7 +102,7 @@ public class GuiScreenOptionsSounds extends GuiScreen
             return 0;
         }
 
-        protected void mouseDragged(Minecraft mc, int mouseX, int mouseY)
+        protected void mouseDragged(Minecraft mc, int mouseX)
         {
             if (this.visible)
             {
@@ -143,7 +143,7 @@ public class GuiScreenOptionsSounds extends GuiScreen
         {
         }
 
-        public void mouseReleased(int mouseX, int mouseY)
+        public void mouseReleased()
         {
             if (this.field_146155_p)
             {

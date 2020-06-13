@@ -402,7 +402,7 @@ public class ItemRenderer
 
             for (int i = 0; i < 8; ++i)
             {
-                double d0 = entityplayersp.posX + (double)(((float)((i >> 0) % 2) - 0.5F) * entityplayersp.width * 0.8F);
+                double d0 = entityplayersp.posX + (double)(((float)((i) % 2) - 0.5F) * entityplayersp.width * 0.8F);
                 double d1 = entityplayersp.posY + (double)(((float)((i >> 1) % 2) - 0.5F) * 0.1F);
                 double d2 = entityplayersp.posZ + (double)(((float)((i >> 2) % 2) - 0.5F) * entityplayersp.width * 0.8F);
                 BlockPos blockpos1 = new BlockPos(d0, d1 + (double)entityplayersp.getEyeHeight(), d2);

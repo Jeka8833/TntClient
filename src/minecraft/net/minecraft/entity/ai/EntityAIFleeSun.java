@@ -63,7 +63,7 @@ public class EntityAIFleeSun extends EntityAIBase
      */
     public boolean continueExecuting()
     {
-        return !this.theCreature.getNavigator().noPath();
+        return this.theCreature.getNavigator().noPath();
     }
 
     /**

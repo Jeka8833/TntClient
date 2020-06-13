@@ -22,7 +22,6 @@ public class EntityAIFollowOwner extends EntityAIBase
     private int field_75343_h;
     final float maxDist;
     final float minDist;
-    private boolean field_75344_i;
 
     public EntityAIFollowOwner(EntityTameable thePetIn, double followSpeedIn, float minDistIn, float maxDistIn)
     {
@@ -75,7 +74,7 @@ public class EntityAIFollowOwner extends EntityAIBase
      */
     public boolean continueExecuting()
     {
-        return !this.petPathfinder.noPath() && this.thePet.getDistanceSqToEntity(this.theOwner) > (double)(this.maxDist * this.maxDist) && !this.thePet.isSitting();
+        return this.petPathfinder.noPath() || !(this.thePet.getDistanceSqToEntity(this.theOwner) > (double) (this.maxDist * this.maxDist)) || this.thePet.isSitting();
     }
 
     /**
@@ -84,7 +83,7 @@ public class EntityAIFollowOwner extends EntityAIBase
     public void startExecuting()
     {
         this.field_75343_h = 0;
-        this.field_75344_i = ((PathNavigateGround)this.thePet.getNavigator()).getAvoidsWater();
+        boolean field_75344_i = ((PathNavigateGround) this.thePet.getNavigator()).getAvoidsWater();
         ((PathNavigateGround)this.thePet.getNavigator()).setAvoidsWater(false);
     }
 
