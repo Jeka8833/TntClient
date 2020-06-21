@@ -54,7 +54,11 @@ public class HypixelPlayers {
             }
             playerInfos.sort(null);
             final PlayerInfo upd = playerInfos.getFirst();
-            upd.update();
+            try {
+                upd.update();
+            } catch (Exception ignored){
+
+            }
             playerInfoMap.put(upd.profile.getName(), upd);
             if (mc.thePlayer.getGameProfile().equals(upd.profile)) {
                 TntGameStats.streak = upd.streak;

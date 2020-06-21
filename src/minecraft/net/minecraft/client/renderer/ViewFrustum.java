@@ -14,7 +14,6 @@ public class ViewFrustum
     protected int countChunksX;
     protected int countChunksZ;
     public RenderChunk[] renderChunks;
-    private static final String __OBFID = "CL_00002531";
 
     public ViewFrustum(World worldIn, int renderDistanceChunks, RenderGlobal p_i46246_3_, IRenderChunkFactory renderChunkFactory)
     {
@@ -28,7 +27,6 @@ public class ViewFrustum
     {
         int i = this.countChunksX * this.countChunksY * this.countChunksZ;
         this.renderChunks = new RenderChunk[i];
-        int j = 0;
 
         for (int k = 0; k < this.countChunksX; ++k)
         {

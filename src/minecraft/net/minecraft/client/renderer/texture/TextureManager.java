@@ -28,7 +28,6 @@ public class TextureManager implements ITickable, IResourceManagerReloadListener
     private final List listTickables = Lists.newArrayList();
     private final Map mapTextureCounters = Maps.newHashMap();
     private final IResourceManager theResourceManager;
-    private static final String __OBFID = "CL_00001064";
 
     public TextureManager(IResourceManager resourceManager)
     {
