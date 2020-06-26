@@ -1430,15 +1430,10 @@ public abstract class Entity implements ICommandSender
      */
     public boolean attackEntityFrom(DamageSource source, float amount)
     {
-        if (this.isEntityInvulnerable(source))
-        {
-            return false;
-        }
-        else
-        {
+        if (!this.isEntityInvulnerable(source)) {
             this.setBeenAttacked();
-            return false;
         }
+        return false;
     }
 
     /**

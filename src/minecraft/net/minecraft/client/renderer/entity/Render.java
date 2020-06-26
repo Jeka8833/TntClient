@@ -323,8 +323,8 @@ public abstract class Render<T extends Entity> {
 
             String win = null;
             if (HypixelPlayers.isHypixel && net.TntClient.Config.config.nicknameStats.isActive() &&
-                    entityIn instanceof EntityPlayer && HypixelPlayers.playerInfoMap.containsKey(entityIn.getName()))
-                win = HypixelPlayers.playerInfoMap.get(entityIn.getName()).nickName();
+                    entityIn instanceof EntityPlayer && HypixelPlayers.playerInfoMap.containsKey(((EntityPlayer)entityIn).getGameProfile().getId()))
+                win = HypixelPlayers.playerInfoMap.get(((EntityPlayer)entityIn).getGameProfile().getId()).nickName();
 
             final int i = fontrenderer.getStringWidth(str) / 2;
             GlStateManager.disableTexture2D();

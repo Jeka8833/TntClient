@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 public class HypixelPlayers {
 
     private static final Minecraft mc = Minecraft.getMinecraft();
-    public static final Map<String, PlayerInfo> playerInfoMap = new HashMap<>();
+    public static final Map<UUID, PlayerInfo> playerInfoMap = new HashMap<>();
     public static List<GameProfile> players;
 
     public static boolean isHypixel;
@@ -46,9 +46,9 @@ public class HypixelPlayers {
             players = mc.thePlayer.sendQueue.getPlayerInfoMap().stream().map(NetworkPlayerInfo::getGameProfile).collect(Collectors.toList());
             final LinkedList<PlayerInfo> playerInfos = new LinkedList<>();
             for (GameProfile player : players) {
-                final String name = player.getName();
-                if (playerInfoMap.containsKey(name))
-                    playerInfos.add(playerInfoMap.get(name));
+                final UUID id = player.getId();
+                if (playerInfoMap.containsKey(id))
+                    playerInfos.add(playerInfoMap.get(id));
                 else
                     playerInfos.add(new PlayerInfo(player));
             }
@@ -59,7 +59,7 @@ public class HypixelPlayers {
             } catch (Exception ignored){
 
             }
-            playerInfoMap.put(upd.profile.getName(), upd);
+            playerInfoMap.put(upd.profile.getId(), upd);
             if (mc.thePlayer.getGameProfile().equals(upd.profile)) {
                 TntGameStats.streak = upd.streak;
                 TntGameStats.lose = upd.lose;

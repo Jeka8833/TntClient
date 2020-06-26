@@ -10,7 +10,9 @@ import net.TntClient.mods.hypixel.AutoTip;
 import net.TntClient.mods.hypixel.HypixelPlayers;
 import net.TntClient.mods.translate.TranslateGoogle;
 import net.TntClient.modules.Module;
+import net.TntClient.modules.render.TabDJCount;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiDownloadTerrain;
 import org.lwjgl.input.Keyboard;
 
 public class TntClient {

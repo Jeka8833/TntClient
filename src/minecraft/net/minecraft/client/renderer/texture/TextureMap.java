@@ -38,7 +38,6 @@ import shadersmod.client.ShadersTex;
 
 public class TextureMap extends AbstractTexture implements ITickableTextureObject
 {
-    private static final boolean ENABLE_SKIP = Boolean.parseBoolean(System.getProperty("fml.skipFirstTextureLoad", "true"));
     private static final Logger logger = LogManager.getLogger();
     public static final ResourceLocation LOCATION_MISSING_TEXTURE = new ResourceLocation("missingno");
     public static final ResourceLocation locationBlocksTexture = new ResourceLocation("textures/atlas/blocks.png");
@@ -49,13 +48,10 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
     private final IIconCreator iconCreator;
     private int mipmapLevels;
     private final TextureAtlasSprite missingImage;
-    private static final String __OBFID = "CL_00001058";
-    private TextureAtlasSprite[] iconGrid;
-    private final int iconGridSize;
-    private int iconGridCountX;
-    private int iconGridCountY;
-    private double iconGridSizeU;
-    private double iconGridSizeV;
+    private final TextureAtlasSprite[] iconGrid;
+    private final int iconGridCountX;
+    private final double iconGridSizeU;
+    private final double iconGridSizeV;
     private int counterIndexInMap;
     public int atlasWidth;
     public int atlasHeight;
@@ -77,11 +73,8 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
 
     public TextureMap(String p_i11_1_, IIconCreator p_i11_2_, boolean p_i11_3_)
     {
-        boolean skipFirst = false;
         this.iconGrid = null;
-        this.iconGridSize = -1;
         this.iconGridCountX = -1;
-        this.iconGridCountY = -1;
         this.iconGridSizeU = -1.0D;
         this.iconGridSizeV = -1.0D;
         this.counterIndexInMap = 0;
@@ -93,7 +86,6 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
         this.missingImage = new TextureAtlasSprite("missingno");
         this.basePath = p_i11_1_;
         this.iconCreator = p_i11_2_;
-        skipFirst = p_i11_3_ && ENABLE_SKIP;
     }
 
     private void initMissingImage()
@@ -171,7 +163,7 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
                     BufferedImage[] abufferedimage = new BufferedImage[1 + this.mipmapLevels];
                     abufferedimage[0] = TextureUtil.readBufferedImage(iresource.getInputStream());
 
-                    if (this.mipmapLevels > 0 && abufferedimage != null)
+                    if (this.mipmapLevels > 0)
                     {
                         int l = abufferedimage[0].getWidth();
                         abufferedimage[0] = TextureUtils.scaleToPowerOfTwo(abufferedimage[0], j);
@@ -282,7 +274,6 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
                 CrashReportCategory crashreportcategory = crashreport.makeCategory("Sprite being mipmapped");
                 crashreportcategory.addCrashSectionCallable("Sprite name", new Callable()
                 {
-                    private static final String __OBFID = "CL_00001059";
                     public String call() throws Exception
                     {
                         return textureatlassprite2.getIconName();
@@ -290,7 +281,6 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
                 });
                 crashreportcategory.addCrashSectionCallable("Sprite size", new Callable()
                 {
-                    private static final String __OBFID = "CL_00001060";
                     public String call() throws Exception
                     {
                         return textureatlassprite2.getIconWidth() + " x " + textureatlassprite2.getIconHeight();
@@ -298,7 +288,6 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
                 });
                 crashreportcategory.addCrashSectionCallable("Sprite frames", new Callable()
                 {
-                    private static final String __OBFID = "CL_00001061";
                     public String call() throws Exception
                     {
                         return textureatlassprite2.getFrameCount() + " frames";
@@ -553,36 +542,6 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
         return this.missingImage;
     }
 
-    public TextureAtlasSprite getTextureExtry(String p_getTextureExtry_1_)
-    {
-        ResourceLocation resourcelocation = new ResourceLocation(p_getTextureExtry_1_);
-        return (TextureAtlasSprite)this.mapRegisteredSprites.get(resourcelocation.toString());
-    }
-
-    public boolean setTextureEntry(String p_setTextureEntry_1_, TextureAtlasSprite p_setTextureEntry_2_)
-    {
-        if (!this.mapRegisteredSprites.containsKey(p_setTextureEntry_1_))
-        {
-            this.mapRegisteredSprites.put(p_setTextureEntry_1_, p_setTextureEntry_2_);
-
-            if (p_setTextureEntry_2_.getIndexInMap() < 0)
-            {
-                p_setTextureEntry_2_.setIndexInMap(this.counterIndexInMap++);
-            }
-
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    public boolean setTextureEntry(TextureAtlasSprite p_setTextureEntry_1_)
-    {
-        return this.setTextureEntry(p_setTextureEntry_1_.getIconName(), p_setTextureEntry_1_);
-    }
-
     public String getBasePath()
     {
         return this.basePath;
@@ -758,60 +717,6 @@ public class TextureMap extends AbstractTexture implements ITickableTextureObjec
         int i = GlStateManager.getBoundTexture();
         int j = this.getGlTextureId();
         return i == j;
-    }
-
-    private void updateIconGrid(int p_updateIconGrid_1_, int p_updateIconGrid_2_)
-    {
-        this.iconGridCountX = -1;
-        this.iconGridCountY = -1;
-        this.iconGrid = null;
-
-        if (this.iconGridSize > 0)
-        {
-            this.iconGridCountX = p_updateIconGrid_1_ / this.iconGridSize;
-            this.iconGridCountY = p_updateIconGrid_2_ / this.iconGridSize;
-            this.iconGrid = new TextureAtlasSprite[this.iconGridCountX * this.iconGridCountY];
-            this.iconGridSizeU = 1.0D / (double)this.iconGridCountX;
-            this.iconGridSizeV = 1.0D / (double)this.iconGridCountY;
-
-            for (Object textureatlassprite0 : this.mapUploadedSprites.values())
-            {
-                TextureAtlasSprite textureatlassprite = (TextureAtlasSprite) textureatlassprite0;
-                double d0 = 0.5D / (double)p_updateIconGrid_1_;
-                double d1 = 0.5D / (double)p_updateIconGrid_2_;
-                double d2 = (double)Math.min(textureatlassprite.getMinU(), textureatlassprite.getMaxU()) + d0;
-                double d3 = (double)Math.min(textureatlassprite.getMinV(), textureatlassprite.getMaxV()) + d1;
-                double d4 = (double)Math.max(textureatlassprite.getMinU(), textureatlassprite.getMaxU()) - d0;
-                double d5 = (double)Math.max(textureatlassprite.getMinV(), textureatlassprite.getMaxV()) - d1;
-                int i = (int)(d2 / this.iconGridSizeU);
-                int j = (int)(d3 / this.iconGridSizeV);
-                int k = (int)(d4 / this.iconGridSizeU);
-                int l = (int)(d5 / this.iconGridSizeV);
-
-                for (int i1 = i; i1 <= k; ++i1)
-                {
-                    if (i1 >= 0 && i1 < this.iconGridCountX)
-                    {
-                        for (int j1 = j; j1 <= l; ++j1)
-                        {
-                            if (j1 >= 0 && j1 < this.iconGridCountX)
-                            {
-                                int k1 = j1 * this.iconGridCountX + i1;
-                                this.iconGrid[k1] = textureatlassprite;
-                            }
-                            else
-                            {
-                                Config.warn("Invalid grid V: " + j1 + ", icon: " + textureatlassprite.getIconName());
-                            }
-                        }
-                    }
-                    else
-                    {
-                        Config.warn("Invalid grid U: " + i1 + ", icon: " + textureatlassprite.getIconName());
-                    }
-                }
-            }
-        }
     }
 
     public TextureAtlasSprite getIconByUV(double p_getIconByUV_1_, double p_getIconByUV_3_)

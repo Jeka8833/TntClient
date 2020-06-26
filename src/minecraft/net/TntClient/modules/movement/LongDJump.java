@@ -30,7 +30,7 @@ public class LongDJump extends Module {
 
     @EventTarget
     public void onUpdate(EventPreMotionUpdate event) {
-        if (mc.thePlayer.motionY > 0.6 || mc.thePlayer.motionZ > 0.6 || mc.thePlayer.motionZ < -0.6 || mc.thePlayer.motionX > 0.6 || mc.thePlayer.motionX < -0.6) {
+        if (mc.thePlayer.motionY > 0.4) {
             if (!jump) {
                 mc.thePlayer.motionX *= XZPower;
                 mc.thePlayer.motionY *= YPower;

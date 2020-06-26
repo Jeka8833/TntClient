@@ -37,7 +37,7 @@ public class PlayerInfo implements Comparable<PlayerInfo> {
         lose = getInt(tntgame.get("deaths_tntrun"));
         streak = getInt(tntgame.get("winstreak"));
         coin = getInt(tntgame.get("coins"));
-        jump = getInt(tntgame.get("assists_capture"));
+        jump = getInt(tntgame.get("new_tntrun_double_jumps"));
     }
 
     @Override

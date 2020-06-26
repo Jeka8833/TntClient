@@ -142,19 +142,13 @@ public class PlayerControllerMP
             }
         }
 
-        if (this.currentGameType.isCreative() && this.mc.thePlayer.getHeldItem() != null && this.mc.thePlayer.getHeldItem().getItem() instanceof ItemSword)
-        {
-        }
-        else
+        if (!(this.currentGameType.isCreative() && this.mc.thePlayer.getHeldItem() != null && this.mc.thePlayer.getHeldItem().getItem() instanceof ItemSword))
         {
             World world = this.mc.theWorld;
             IBlockState iblockstate = world.getBlockState(pos);
             Block block1 = iblockstate.getBlock();
 
-            if (block1.getMaterial() == Material.air)
-            {
-            }
-            else
+            if (block1.getMaterial() != Material.air)
             {
                 world.playAuxSFX(2001, pos, Block.getStateId(iblockstate));
                 boolean flag = world.setBlockToAir(pos);
@@ -459,7 +453,7 @@ public class PlayerControllerMP
             int i = itemStackIn.stackSize;
             ItemStack itemstack = itemStackIn.useItemRightClick(worldIn, playerIn);
 
-            if (itemstack != itemStackIn || itemstack != null && itemstack.stackSize != i)
+            if (itemstack != itemStackIn || itemstack.stackSize != i)
             {
                 playerIn.inventory.mainInventory[playerIn.inventory.currentItem] = itemstack;
 

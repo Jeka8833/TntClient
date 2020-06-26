@@ -10,6 +10,7 @@ import java.util.List;
 import net.TntClient.Config;
 import net.TntClient.mods.hypixel.HypixelPlayers;
 import net.TntClient.mods.hypixel.PlayerInfo;
+import net.TntClient.modules.render.TabDJCount;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.client.network.NetworkPlayerInfo;
@@ -77,13 +78,18 @@ public class GuiPlayerTabOverlay extends Gui {
 
         for (NetworkPlayerInfo networkplayerinfo : list) {
             final String stat;
-            if(Config.config.tabStats.isActive()) {
-                final PlayerInfo playerInfo = HypixelPlayers.playerInfoMap.get(networkplayerinfo.getGameProfile().getName());
+            if (Config.config.tabStats.isActive()) {
+                final PlayerInfo playerInfo = HypixelPlayers.playerInfoMap.get(networkplayerinfo.getGameProfile().getId());
                 stat = playerInfo == null ? "" : playerInfo.getTabPrefix();
             } else {
                 stat = "";
             }
-            int k = this.mc.fontRendererObj.getStringWidth(stat + this.getPlayerName(networkplayerinfo));
+
+            String kek = TabDJCount.getPlayerSyff(networkplayerinfo.getGameProfile().getId());
+
+            int k = this.mc.fontRendererObj.getStringWidth(stat + this.getPlayerName(networkplayerinfo) + kek);
+            if(!kek.isEmpty())
+                k += 5;
             i = Math.max(i, k);
 
             if (scoreObjectiveIn != null && scoreObjectiveIn.getRenderType() != IScoreObjectiveCriteria.EnumRenderType.HEARTS) {
@@ -167,8 +173,8 @@ public class GuiPlayerTabOverlay extends Gui {
                 String s1 = this.getPlayerName(networkplayerinfo1);
                 GameProfile gameprofile = networkplayerinfo1.getGameProfile();
                 final String stat;
-                if(Config.config.tabStats.isActive()) {
-                    final PlayerInfo playerInfo = HypixelPlayers.playerInfoMap.get(gameprofile.getName());
+                if (Config.config.tabStats.isActive()) {
+                    final PlayerInfo playerInfo = HypixelPlayers.playerInfoMap.get(gameprofile.getId());
                     stat = playerInfo == null ? "" : playerInfo.getTabPrefix();
                 } else {
                     stat = "";
@@ -223,6 +229,10 @@ public class GuiPlayerTabOverlay extends Gui {
     }
 
     protected void drawPing(int p_175245_1_, int p_175245_2_, int p_175245_3_, NetworkPlayerInfo networkPlayerInfoIn) {
+        String text = TabDJCount.getPlayerSyff(networkPlayerInfoIn.getGameProfile().getId());
+        if(!text.isEmpty())
+        mc.fontRendererObj.drawString(text, p_175245_2_ + p_175245_1_ - mc.fontRendererObj.getStringWidth(text) - 13, p_175245_3_, -1);
+
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.getTextureManager().bindTexture(icons);
         int i = 0;
