@@ -58,9 +58,7 @@ public class PlayerInfo implements Comparable<PlayerInfo> {
             return EnumChatFormatting.DARK_RED + "[" + EnumChatFormatting.GREEN + EnumChatFormatting.ITALIC + "Lo: " + EnumChatFormatting.RESET + EnumChatFormatting.GREEN + lose + EnumChatFormatting.DARK_RED + "]" + EnumChatFormatting.RESET;
         } else if (streak != Integer.MIN_VALUE) {
             return EnumChatFormatting.DARK_RED + "[" + EnumChatFormatting.LIGHT_PURPLE + EnumChatFormatting.ITALIC + "St: " + EnumChatFormatting.RESET + EnumChatFormatting.LIGHT_PURPLE + streak + EnumChatFormatting.DARK_RED + "]" + EnumChatFormatting.RESET;
-        } else if (jump != Integer.MIN_VALUE) {
-            return EnumChatFormatting.DARK_RED + "[" + EnumChatFormatting.GRAY + EnumChatFormatting.ITALIC + "Ju: " + EnumChatFormatting.RESET + EnumChatFormatting.GRAY + jump + EnumChatFormatting.DARK_RED + "]" + EnumChatFormatting.RESET;
-        } else if (coin != Integer.MIN_VALUE) {
+        }  else if (coin != Integer.MIN_VALUE) {
             return EnumChatFormatting.DARK_RED + "[" + EnumChatFormatting.YELLOW + EnumChatFormatting.ITALIC + "Co: " + EnumChatFormatting.RESET + EnumChatFormatting.YELLOW + coin + EnumChatFormatting.DARK_RED + "]" + EnumChatFormatting.RESET;
         }
         return "";
@@ -73,8 +71,6 @@ public class PlayerInfo implements Comparable<PlayerInfo> {
             return "Loses: " + lose;
         } else if (streak != Integer.MIN_VALUE) {
             return "Streak: " + streak;
-        } else if (jump != Integer.MIN_VALUE) {
-            return "Jump: " + jump;
         } else if (coin != Integer.MIN_VALUE) {
             return "Coins: " + coin;
         }

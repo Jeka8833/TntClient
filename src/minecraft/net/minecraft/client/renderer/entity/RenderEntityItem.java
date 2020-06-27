@@ -37,7 +37,6 @@ public class RenderEntityItem extends Render<EntityItem>
         {
             boolean flag = p_177077_9_.isGui3d();
             int i = this.func_177078_a(itemstack);
-            float f = 0.25F;
             float f1 = MathHelper.sin(((float)itemIn.getAge() + p_177077_8_) / 10.0F + itemIn.hoverStart) * 0.1F + 0.1F;
             float f2 = p_177077_9_.getItemCameraTransforms().getTransform(ItemCameraTransforms.TransformType.GROUND).scale.y;
             GlStateManager.translate((float)p_177077_2_, (float)p_177077_4_ + f1 + 0.25F * f2, (float)p_177077_6_);

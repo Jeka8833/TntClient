@@ -1,7 +1,7 @@
 package net.TntClient.modules;
 
 import net.TntClient.event.EventTarget;
-import net.TntClient.event.events.Event2D;
+import net.TntClient.event.events.EventUpdate;
 import net.TntClient.gui.JekasMenu.components.UISlider;
 
 public class DebugModule extends Module {
@@ -24,8 +24,7 @@ public class DebugModule extends Module {
     }
 
     @EventTarget
-    public void onUpdate(Event2D event) {
-        mc.fontRendererObj.drawString(String.valueOf(testSlider.value), (int)event.getWidth() -
-                mc.fontRendererObj.getStringWidth(String.valueOf(testSlider.value)), (int)event.getHeight() - 10, -1);
+    public void onUpdate(EventUpdate event) {
+
     }
 }

@@ -88,7 +88,7 @@ public class GuiPlayerTabOverlay extends Gui {
             String kek = TabDJCount.getPlayerSyff(networkplayerinfo.getGameProfile().getId());
 
             int k = this.mc.fontRendererObj.getStringWidth(stat + this.getPlayerName(networkplayerinfo) + kek);
-            if(!kek.isEmpty())
+            if (!kek.isEmpty())
                 k += 5;
             i = Math.max(i, k);
 
@@ -229,13 +229,12 @@ public class GuiPlayerTabOverlay extends Gui {
     }
 
     protected void drawPing(int p_175245_1_, int p_175245_2_, int p_175245_3_, NetworkPlayerInfo networkPlayerInfoIn) {
-        String text = TabDJCount.getPlayerSyff(networkPlayerInfoIn.getGameProfile().getId());
-        if(!text.isEmpty())
-        mc.fontRendererObj.drawString(text, p_175245_2_ + p_175245_1_ - mc.fontRendererObj.getStringWidth(text) - 13, p_175245_3_, -1);
+        final String text = TabDJCount.getPlayerSyff(networkPlayerInfoIn.getGameProfile().getId());
+        if (!text.isEmpty())
+            mc.fontRendererObj.drawString(text, p_175245_2_ + p_175245_1_ - mc.fontRendererObj.getStringWidth(text) - 13, p_175245_3_, -1);
 
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.getTextureManager().bindTexture(icons);
-        int i = 0;
         int j = 0;
 
         if (networkPlayerInfoIn.getResponseTime() < 0) {
@@ -252,7 +251,7 @@ public class GuiPlayerTabOverlay extends Gui {
         }
 
         this.zLevel += 100.0F;
-        this.drawTexturedModalRect(p_175245_2_ + p_175245_1_ - 11, p_175245_3_, i * 10, 176 + j * 8, 10, 8);
+        this.drawTexturedModalRect(p_175245_2_ + p_175245_1_ - 11, p_175245_3_, 0, 176 + j * 8, 10, 8);
         this.zLevel -= 100.0F;
     }
 

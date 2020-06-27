@@ -311,7 +311,7 @@ public class RenderManager
         this.doRenderEntity(entityIn, x, y, z, entityYaw, partialTicks, false);
     }
 
-    public boolean doRenderEntity(Entity entity, double x, double y, double z, float entityYaw, float partialTicks, boolean p_147939_10_)
+    public void doRenderEntity(Entity entity, double x, double y, double z, float entityYaw, float partialTicks, boolean p_147939_10_)
     {
         Render render = null;
 
@@ -359,9 +359,7 @@ public class RenderManager
                     }
                 }
             }
-            else return this.renderEngine == null;
 
-            return true;
         }
         catch (Throwable throwable3)
         {

@@ -305,7 +305,6 @@ public abstract class Render<T extends Entity> {
      */
     protected void renderLivingLabel(T entityIn, String str, double x, double y, double z) {
         if (entityIn.getDistanceSqToEntity(this.renderManager.livingPlayer) <= 4096) {
-            FontRenderer fontrenderer = this.getFontRendererFromRenderManager();
             GlStateManager.pushMatrix();
             GlStateManager.translate((float) x, (float) y + entityIn.height + 0.5F, (float) z);
             GL11.glNormal3f(0, 1, 0);
@@ -317,32 +316,28 @@ public abstract class Render<T extends Entity> {
             GlStateManager.disableDepth();
             GlStateManager.enableBlend();
             GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
-            Tessellator tessellator = Tessellator.getInstance();
-            WorldRenderer worldrenderer = tessellator.getWorldRenderer();
+
+            final FontRenderer fontrenderer = this.getFontRendererFromRenderManager();
+            final Tessellator tessellator = Tessellator.getInstance();
+            final WorldRenderer worldrenderer = tessellator.getWorldRenderer();
             final byte b0 = str.equals("deadmau5") ? (byte) -10 : 0;
+            final String win = entityIn instanceof EntityPlayer && HypixelPlayers.isHypixel && net.TntClient.Config.config.nicknameStats.isActive()
+                    && HypixelPlayers.playerInfoMap.containsKey(((EntityPlayer) entityIn).getGameProfile().getId()) ?
+                    HypixelPlayers.playerInfoMap.get(((EntityPlayer) entityIn).getGameProfile().getId()).nickName() : null;
 
-            String win = null;
-            if (HypixelPlayers.isHypixel && net.TntClient.Config.config.nicknameStats.isActive() &&
-                    entityIn instanceof EntityPlayer && HypixelPlayers.playerInfoMap.containsKey(((EntityPlayer)entityIn).getGameProfile().getId()))
-                win = HypixelPlayers.playerInfoMap.get(((EntityPlayer)entityIn).getGameProfile().getId()).nickName();
-
-            final int i = fontrenderer.getStringWidth(str) / 2;
+            final int i = -(fontrenderer.getStringWidth(str) >> 1);
             GlStateManager.disableTexture2D();
             worldrenderer.begin(7, DefaultVertexFormats.POSITION_COLOR);
-            worldrenderer.pos(-i - 1, -1 + b0, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
-            worldrenderer.pos(-i - 1, 8 + b0, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
-            worldrenderer.pos(i + 1, 8 + b0, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
-            worldrenderer.pos(i + 1, -1 + b0, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
+            worldrenderer.pos(i - 1, b0 - 1, 0.0D).color(0, 0, 0, 64).endVertex();
+            worldrenderer.pos(i - 1, 8 + b0, 0.0D).color(0, 0, 0, 64).endVertex();
+            worldrenderer.pos(1 - i, 8 + b0, 0.0D).color(0, 0, 0, 64).endVertex();
+            worldrenderer.pos(1 - i, b0 - 1, 0.0D).color(0, 0, 0, 64).endVertex();
             tessellator.draw();
             GlStateManager.enableTexture2D();
-            fontrenderer.drawString(str, -i, b0, 553648127);
-            if (win != null)
-                fontrenderer.drawString(win, -fontrenderer.getStringWidth(win) / 2, b0 - 10, 553648127);
             GlStateManager.enableDepth();
             GlStateManager.depthMask(true);
-            fontrenderer.drawString(str, -i, b0, -1);
-            if (win != null)
-                fontrenderer.drawString(win, -fontrenderer.getStringWidth(win) / 2, b0 - 10, -1);
+            fontrenderer.drawString(str, i, b0, -1);
+            if (win != null) fontrenderer.drawString(win, -(fontrenderer.getStringWidth(win) >> 1), b0 - 10, -1);
             GlStateManager.enableLighting();
             GlStateManager.disableBlend();
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
