@@ -7,6 +7,7 @@ import net.TntClient.modules.DebugModule;
 import net.TntClient.modules.Module;
 import net.TntClient.modules.block.GlitchBlocks;
 import net.TntClient.modules.movement.*;
+import net.TntClient.modules.other.AutoGG;
 import net.TntClient.modules.other.AutoTip;
 import net.TntClient.modules.render.*;
 import net.minecraft.client.Minecraft;
@@ -28,6 +29,7 @@ public class Config {
     public final DebugModule debugModule = new DebugModule();
     public final FreeDJ freeDJ = new FreeDJ();
     public final TabDJCount tabDJCount = new TabDJCount();
+    public final AutoGG autoGG = new AutoGG();
 
     public Language googleLang = TranslateGoogle.lang[3];
     public String apiKey = "";
@@ -40,10 +42,10 @@ public class Config {
             config = new Gson().fromJson(new String(Files.readAllBytes(Minecraft.getMinecraft().mcDataDir.toPath().resolve("HC3Config.json"))), Config.class);
             if (TntClient.isDebug)
                 modules = new Module[]{config.bot, config.longDJump, config.glitchBlocks, config.dolphin, config.freeDJ, config.showPotions, config.brightness, config.sprint, config.tntGameStats,
-                        config.nicknameStats, config.tabStats, config.autoTip, config.tabDJCount, config.debugModule};
+                        config.nicknameStats, config.tabStats, config.autoTip, config.tabDJCount, config.autoGG, config.debugModule};
             else
                 modules = new Module[]{config.bot, config.longDJump, config.glitchBlocks, config.dolphin, config.freeDJ, config.showPotions, config.brightness, config.sprint, config.tntGameStats,
-                        config.nicknameStats, config.tabStats, config.autoTip, config.tabDJCount};
+                        config.nicknameStats, config.tabStats, config.autoTip, config.tabDJCount, config.autoGG};
         } catch (Exception e) {
             write();
         }

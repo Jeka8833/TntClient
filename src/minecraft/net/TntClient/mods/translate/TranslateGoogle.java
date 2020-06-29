@@ -38,7 +38,7 @@ public class TranslateGoogle {
     }
 
     public static void setText(final String text) {
-        inText = text;
+        inText = text.trim();
     }
 
     public static String getText() {

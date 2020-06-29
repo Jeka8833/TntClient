@@ -326,6 +326,7 @@ public abstract class Render<T extends Entity> {
                     HypixelPlayers.playerInfoMap.get(((EntityPlayer) entityIn).getGameProfile().getId()).nickName() : null;
 
             final int i = -(fontrenderer.getStringWidth(str) >> 1);
+            final int j = -(fontrenderer.getStringWidth(win) >> 1);
             GlStateManager.disableTexture2D();
             worldrenderer.begin(7, DefaultVertexFormats.POSITION_COLOR);
             worldrenderer.pos(i - 1, b0 - 1, 0.0D).color(0, 0, 0, 64).endVertex();
@@ -334,10 +335,14 @@ public abstract class Render<T extends Entity> {
             worldrenderer.pos(1 - i, b0 - 1, 0.0D).color(0, 0, 0, 64).endVertex();
             tessellator.draw();
             GlStateManager.enableTexture2D();
+            fontrenderer.drawString(str, i, b0, 553648127);
+            if (win != null)
+                fontrenderer.drawString(win, j, b0 - 10, 553648127);
             GlStateManager.enableDepth();
             GlStateManager.depthMask(true);
             fontrenderer.drawString(str, i, b0, -1);
-            if (win != null) fontrenderer.drawString(win, -(fontrenderer.getStringWidth(win) >> 1), b0 - 10, -1);
+            if (win != null)
+                fontrenderer.drawString(win, j, b0 - 10, -1);
             GlStateManager.enableLighting();
             GlStateManager.disableBlend();
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);

@@ -30,7 +30,7 @@ public class TabDJCount extends Module {
     }
 
     public static String getPlayerSyff(UUID uuid){
-        if(!HypixelPlayers.playerInfoMap.containsKey(uuid))
+        if(!Config.config.tabDJCount.isActive() || !HypixelPlayers.playerInfoMap.containsKey(uuid))
             return "";
         final int jump = HypixelPlayers.playerInfoMap.get(uuid).jump;
         if(jump == Integer.MIN_VALUE)

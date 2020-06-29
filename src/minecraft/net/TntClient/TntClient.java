@@ -4,20 +4,19 @@ import net.TntClient.event.EventManager;
 import net.TntClient.event.EventTarget;
 import net.TntClient.event.events.Event2D;
 import net.TntClient.event.events.EventKey;
+import net.TntClient.event.events.EventSendMessage;
 import net.TntClient.gui.JekasMenu.ListMods;
 import net.TntClient.mods.SpellCecker.SpellChecker;
 import net.TntClient.mods.hypixel.AutoTip;
 import net.TntClient.mods.hypixel.HypixelPlayers;
 import net.TntClient.mods.translate.TranslateGoogle;
 import net.TntClient.modules.Module;
-import net.TntClient.modules.render.TabDJCount;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiDownloadTerrain;
 import org.lwjgl.input.Keyboard;
 
 public class TntClient {
 
-    public static final String version = "1.0.7";
+    public static final String version = "1.0.8";
 
     public static boolean isDebug = false;
 
@@ -54,5 +53,15 @@ public class TntClient {
             for (Module m : Config.modules)
                 if (!m.isBlocking && m.keyBind == event.getKey())
                     m.toggle();
+    }
+
+    @EventTarget
+    public void onMessage(EventSendMessage event) {
+        if (HypixelPlayers.waitKey && event.text.toLowerCase().contains("new api key")) {
+            Config.config.apiKey = event.text.substring(event.text.indexOf(" is ") + 4).trim();
+            Config.write();
+            event.setCancelled(true);
+            HypixelPlayers.waitKey = false;
+        }
     }
 }
