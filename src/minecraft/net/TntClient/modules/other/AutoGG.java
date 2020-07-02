@@ -1,7 +1,7 @@
 package net.TntClient.modules.other;
 
 import net.TntClient.event.EventTarget;
-import net.TntClient.event.events.EventSendMessage;
+import net.TntClient.event.events.EventReceiverMessage;
 import net.TntClient.modules.Category;
 import net.TntClient.modules.Module;
 
@@ -25,10 +25,10 @@ public class AutoGG extends Module {
     }
 
     @EventTarget
-    public void onMessage(EventSendMessage event) {
+    public void onMessage(EventReceiverMessage event) {
         if (trotle + 1000 > System.currentTimeMillis()) return;
         if (event.text.contains("▬▬▬▬▬▬▬▬▬▬▬▬")) delay = System.currentTimeMillis();
-        if (event.text.contains(mc.getSession().getProfile().getName()) && delay + 100 > System.currentTimeMillis()) {
+        else if (event.text.contains(mc.getSession().getProfile().getName()) && delay + 100 > System.currentTimeMillis()) {
             trotle = System.currentTimeMillis();
             new Thread(() -> {
                 try {

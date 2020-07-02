@@ -1,6 +1,10 @@
 package net.TntClient.gui.JekasMenu;
 
+import net.minecraft.client.Minecraft;
+
 public abstract class Component {
+
+    protected static Minecraft mc = Minecraft.getMinecraft();
 
     public int posX,posY,width,height;
 

@@ -4,7 +4,7 @@ import net.TntClient.event.EventManager;
 import net.TntClient.event.EventTarget;
 import net.TntClient.event.events.Event2D;
 import net.TntClient.event.events.EventKey;
-import net.TntClient.event.events.EventSendMessage;
+import net.TntClient.event.events.EventReceiverMessage;
 import net.TntClient.gui.JekasMenu.ListMods;
 import net.TntClient.mods.SpellCecker.SpellChecker;
 import net.TntClient.mods.hypixel.AutoTip;
@@ -56,7 +56,7 @@ public class TntClient {
     }
 
     @EventTarget
-    public void onMessage(EventSendMessage event) {
+    public void onMessage(EventReceiverMessage event) {
         if (HypixelPlayers.waitKey && event.text.toLowerCase().contains("new api key")) {
             Config.config.apiKey = event.text.substring(event.text.indexOf(" is ") + 4).trim();
             Config.write();

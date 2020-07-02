@@ -1,27 +1,20 @@
 package net.minecraft.client.gui;
 
 import com.google.common.collect.Lists;
-
-import java.io.IOException;
-import java.util.List;
-
+import net.TntClient.event.events.EventSendMessage;
 import net.TntClient.mods.SpellCecker.SpellChecker;
 import net.TntClient.mods.SpellCecker.Word;
 import net.TntClient.mods.translate.GuiGoogleTranslate;
 import net.minecraft.network.play.client.C14PacketTabComplete;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.IChatComponent;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.*;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
+import java.io.IOException;
+import java.util.List;
+
 public class GuiChat extends GuiScreen {
-    private static final Logger logger = LogManager.getLogger();
     private String historyBuffer = "";
 
     /**
@@ -119,13 +112,11 @@ public class GuiChat extends GuiScreen {
                 this.inputField.textboxKeyTyped(typedChar, keyCode);
             }
         } else {
-            String s = this.inputField.getText().trim();
-
-            if (s.length() > 0) {
-                this.sendChatMessage(s);
-            }
-
-            this.mc.displayGuiScreen(null);
+            final String s = inputField.getText().trim();
+            final EventSendMessage message = new EventSendMessage(s);
+            message.call();
+            if (!message.isCancelled() && s.length() > 0) sendChatMessage(s);
+            mc.displayGuiScreen(null);
         }
         SpellChecker.setText(inputField.getText());
         menu = -1;
@@ -139,9 +130,9 @@ public class GuiChat extends GuiScreen {
         int i = Mouse.getEventDWheel();
 
         if (i != 0) {
-            if(menu != -1){
+            if (menu != -1) {
                 final List<Word> words = SpellChecker.getWords();
-                if(words.size() > menu) {
+                if (words.size() > menu) {
                     scroll += i / 120;
                     if (scroll < 0)
                         scroll = 0;
@@ -149,7 +140,7 @@ public class GuiChat extends GuiScreen {
                     if (scroll > endItem)
                         scroll = endItem;
                 }
-            }else {
+            } else {
                 if (i > 1) {
                     i = 1;
                 }
@@ -224,7 +215,7 @@ public class GuiChat extends GuiScreen {
                     }
                 }
             }
-        } catch (Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
         this.inputField.mouseClicked(mouseX, mouseY, mouseButton);
@@ -255,7 +246,6 @@ public class GuiChat extends GuiScreen {
             int i = this.inputField.func_146197_a(-1, this.inputField.getCursorPosition(), false);
             this.foundPlayerNames.clear();
             this.autocompleteIndex = 0;
-            String s = this.inputField.getText().substring(i).toLowerCase();
             String s1 = this.inputField.getText().substring(0, this.inputField.getCursorPosition());
             this.sendAutocompleteRequest(s1);
 

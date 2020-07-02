@@ -26,6 +26,7 @@ public class EditMod extends GuiScreen {
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         final ScaledResolution sr = new ScaledResolution(Minecraft.getMinecraft());
 
+        final String descryp = module.getDescription().isEmpty() ? "No description" : module.getDescription();
         final int ScX = (sr.getScaledWidth() - width) / 2;
         final int ScY = (sr.getScaledHeight() - height) / 2;
         final int factor = sr.getScaleFactor();
@@ -53,6 +54,15 @@ public class EditMod extends GuiScreen {
         glVertex2f(ScX + 10, ScY);
         glVertex2f(ScX + 10, ScY + 12);
         glEnd();
+
+        int posY = ScY + 15;
+
+        for(Component component : module.getOptions()){
+            component.posX = ScX;
+            component.posY = (posY += component.height);
+            component.width = width;
+            component.drawScreen();
+        }
 
         glColor4f(1, 1, 1, 1);
         GL11.glEnable(GL11.GL_TEXTURE_2D);

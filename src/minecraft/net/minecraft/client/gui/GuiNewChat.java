@@ -1,7 +1,7 @@
 package net.minecraft.client.gui;
 
 import com.google.common.collect.Lists;
-import net.TntClient.event.events.EventSendMessage;
+import net.TntClient.event.events.EventReceiverMessage;
 import net.TntClient.mods.translate.TranslateGoogle;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
@@ -111,7 +111,7 @@ public class GuiNewChat extends Gui {
     }
 
     private void setChatLine(IChatComponent p_146237_1_, int p_146237_2_, int p_146237_3_, boolean p_146237_4_) {
-        final EventSendMessage message = new EventSendMessage(p_146237_1_.getUnformattedText());
+        final EventReceiverMessage message = new EventReceiverMessage(p_146237_1_.getUnformattedText());
         message.call();
         if (message.isCancelled())
             return;
@@ -121,8 +121,9 @@ public class GuiNewChat extends Gui {
             this.deleteChatLine(p_146237_2_);
         }
 
-        int i = MathHelper.floor_float((float) this.getChatWidth() / this.getChatScale());
-        List<IChatComponent> list = GuiUtilRenderComponents.func_178908_a(p_146237_1_, i, this.mc.fontRendererObj, false, false);
+        List<IChatComponent> list = GuiUtilRenderComponents.func_178908_a(p_146237_1_,
+                MathHelper.floor_float(getChatWidth() / getChatScale()), mc.fontRendererObj,
+                false, false);
         boolean flag = this.getChatOpen();
 
         for (IChatComponent ichatcomponent : list) {
@@ -280,20 +281,13 @@ public class GuiNewChat extends Gui {
     public void deleteChatLine(int p_146242_1_) {
         Iterator<ChatLine> iterator = this.field_146253_i.iterator();
 
-        while (iterator.hasNext()) {
-            ChatLine chatline = iterator.next();
-
-            if (chatline.getChatLineID() == p_146242_1_) {
+        while (iterator.hasNext())
+            if (iterator.next().getChatLineID() == p_146242_1_)
                 iterator.remove();
-            }
-        }
 
         iterator = this.chatLines.iterator();
-
         while (iterator.hasNext()) {
-            ChatLine chatline1 = iterator.next();
-
-            if (chatline1.getChatLineID() == p_146242_1_) {
+            if (iterator.next().getChatLineID() == p_146242_1_) {
                 iterator.remove();
                 break;
             }
