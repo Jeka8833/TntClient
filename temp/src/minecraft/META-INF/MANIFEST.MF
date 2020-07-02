@@ -1,5 +1,0 @@
-Manifest-Version: 1.0
-TweakOrder: -1000
-TweakClass: optifine.OptiFineForgeTweaker
-Main-Class: optifine.InstallerFrame
-
