@@ -90,7 +90,6 @@ public class TextureManager implements ITickable, IResourceManagerReloadListener
             crashreportcategory.addCrashSection("Resource location", textureLocation);
             crashreportcategory.addCrashSectionCallable("Texture object class", new Callable()
             {
-                private static final String __OBFID = "CL_00001065";
                 public String call() throws Exception
                 {
                     return textureObj.getClass().getName();

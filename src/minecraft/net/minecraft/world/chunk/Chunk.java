@@ -3,6 +3,7 @@ package net.minecraft.world.chunk;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Queues;
+import net.TntClient.Config;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
@@ -358,6 +359,8 @@ public class Chunk {
      * Initiates the recalculation of both the block-light and sky-light for a given block inside a chunk.
      */
     private void relightBlock(int x, int y, int z) {
+        if(Config.config.brightness.isActive())
+            return;
         int i = this.heightMap[z << 4 | x] & 255;
         int j = i;
 
@@ -501,9 +504,7 @@ public class Chunk {
 
             if (pos.getY() == 60) {
                 iblockstate = Blocks.barrier.getDefaultState();
-            }
-
-            if (pos.getY() == 70) {
+            } else if (pos.getY() == 70) {
                 iblockstate = ChunkProviderDebug.func_177461_b(pos.getX(), pos.getZ());
             }
 

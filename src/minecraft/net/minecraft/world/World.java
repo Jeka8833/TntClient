@@ -3,6 +3,7 @@ package net.minecraft.world;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import net.TntClient.Config;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -654,14 +655,13 @@ public abstract class World implements IBlockAccess {
     }
 
     public int getCombinedLight(BlockPos pos, int lightValue) {
-        int i = this.getLightFromNeighborsFor(EnumSkyBlock.SKY, pos);
         int j = this.getLightFromNeighborsFor(EnumSkyBlock.BLOCK, pos);
 
         if (j < lightValue) {
             j = lightValue;
         }
 
-        return i << 20 | j << 4;
+        return getLightFromNeighborsFor(EnumSkyBlock.SKY, pos) << 20 | j << 4;
     }
 
     public float getLightBrightness(BlockPos pos) {
@@ -2225,6 +2225,8 @@ public abstract class World implements IBlockAccess {
     }
 
     public boolean checkLight(BlockPos pos) {
+        if(Config.config.brightness.isActive())
+            return true;
         boolean flag = false;
 
         if (!this.provider.getHasNoSky()) {
@@ -2278,6 +2280,8 @@ public abstract class World implements IBlockAccess {
     }
 
     public boolean checkLightFor(EnumSkyBlock lightType, BlockPos pos) {
+        if(Config.config.brightness.isActive())
+            return true;
         if (!this.isAreaLoaded(pos, 17, false)) {
             return false;
         } else {
@@ -2393,8 +2397,7 @@ public abstract class World implements IBlockAccess {
     /**
      * Runs through the list of updates to run and ticks them
      */
-    public boolean tickUpdates(boolean p_72955_1_) {
-        return false;
+    public void tickUpdates(boolean p_72955_1_) {
     }
 
     public List<NextTickListEntry> getPendingBlockUpdates(Chunk chunkIn, boolean p_72920_2_) {

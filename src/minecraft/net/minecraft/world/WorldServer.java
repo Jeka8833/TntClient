@@ -348,8 +348,6 @@ public class WorldServer extends World implements IThreadListener
         }
         else
         {
-            int i = 0;
-            int j = 0;
 
             for (ChunkCoordIntPair chunkcoordintpair : this.activeChunkSet)
             {
@@ -415,13 +413,11 @@ public class WorldServer extends World implements IThreadListener
                                 int l1 = k1 & 15;
                                 int i2 = k1 >> 8 & 15;
                                 int j2 = k1 >> 16 & 15;
-                                ++j;
                                 IBlockState iblockstate = extendedblockstorage.get(l1, j2, i2);
                                 Block block = iblockstate.getBlock();
 
                                 if (block.getTickRandomly())
                                 {
-                                    ++i;
                                     block.randomTick(this, new BlockPos(l1 + k, j2 + extendedblockstorage.getYLocation(), i2 + l), iblockstate, this.rand);
                                 }
                             }
@@ -550,13 +546,9 @@ public class WorldServer extends World implements IThreadListener
     /**
      * Runs through the list of updates to run and ticks them
      */
-    public boolean tickUpdates(boolean p_72955_1_)
+    public void tickUpdates(boolean p_72955_1_)
     {
-        if (this.worldInfo.getTerrainType() == WorldType.DEBUG_WORLD)
-        {
-            return false;
-        }
-        else
+        if (this.worldInfo.getTerrainType() != WorldType.DEBUG_WORLD)
         {
             int i = this.pendingTickListEntriesTreeSet.size();
 
@@ -624,7 +616,6 @@ public class WorldServer extends World implements IThreadListener
 
                 this.theProfiler.endSection();
                 this.pendingTickListEntriesThisTick.clear();
-                return !this.pendingTickListEntriesTreeSet.isEmpty();
             }
         }
     }

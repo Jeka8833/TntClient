@@ -120,8 +120,7 @@ public class FontRenderer implements IResourceManagerReloadListener {
         this.renderEngine = textureManagerIn;
         this.unicodeFlag = unicode;
         this.locationFontTexture = FontUtils.getHdFontLocation(this.locationFontTextureBase);
-        this.bindTexture(this.locationFontTexture);
-
+        renderEngine.bindTexture(locationFontTexture);
         for (int i = 0; i < 32; ++i) {
             int j = (i >> 3 & 1) * 85;
             int k = (i >> 2 & 1) * 170 + j;
@@ -256,20 +255,18 @@ public class FontRenderer implements IResourceManagerReloadListener {
         int i = p_78266_1_ % 16 * 8;
         int j = p_78266_1_ / 16 * 8;
         int k = p_78266_2_ ? 1 : 0;
-        this.bindTexture(this.locationFontTexture);
-        float f = this.charWidth[p_78266_1_];
-        float f1 = 7.99F;
+        renderEngine.bindTexture(locationFontTexture);
         GL11.glBegin(GL11.GL_TRIANGLE_STRIP);
-        GL11.glTexCoord2f((float) i / 128.0F, (float) j / 128.0F);
-        GL11.glVertex3f(this.posX + (float) k, this.posY, 0.0F);
-        GL11.glTexCoord2f((float) i / 128.0F, ((float) j + 7.99F) / 128.0F);
-        GL11.glVertex3f(this.posX - (float) k, this.posY + 7.99F, 0.0F);
-        GL11.glTexCoord2f(((float) i + f1 - 1.0F) / 128.0F, (float) j / 128.0F);
-        GL11.glVertex3f(this.posX + f1 - 1.0F + (float) k, this.posY, 0.0F);
-        GL11.glTexCoord2f(((float) i + f1 - 1.0F) / 128.0F, ((float) j + 7.99F) / 128.0F);
-        GL11.glVertex3f(this.posX + f1 - 1.0F - (float) k, this.posY + 7.99F, 0.0F);
+        GL11.glTexCoord2f(i / 128.0F, j / 128.0F);
+        GL11.glVertex3f(posX + k, posY, 0.0F);
+        GL11.glTexCoord2f(i / 128.0F, (j + 7.99F) / 128.0F);
+        GL11.glVertex3f(posX - k, posY + 7.99F, 0.0F);
+        GL11.glTexCoord2f((i + 6.99F) / 128.0F, j / 128.0F);
+        GL11.glVertex3f(posX + 6.99F + k, posY, 0.0F);
+        GL11.glTexCoord2f((i + 6.99F) / 128.0F, (j + 7.99F) / 128.0F);
+        GL11.glVertex3f(posX + 6.99F - k, posY + 7.99F, 0.0F);
         GL11.glEnd();
-        return f;
+        return charWidth[p_78266_1_];
     }
 
     private ResourceLocation getUnicodePageLocation(int p_111271_1_) {
@@ -282,30 +279,19 @@ public class FontRenderer implements IResourceManagerReloadListener {
     }
 
     /**
-     * Load one of the /font/glyph_XX.png into a new GL texture and store the texture ID in glyphTextureName array.
-     */
-    private void loadGlyphTexture(int p_78257_1_) {
-        this.bindTexture(this.getUnicodePageLocation(p_78257_1_));
-    }
-
-    /**
      * Render a single Unicode character at current (posX,posY) location using one of the /font/glyph_XX.png files...
      */
     private float renderUnicodeChar(char p_78277_1_, boolean p_78277_2_) {
         if (this.glyphWidth[p_78277_1_] == 0) {
             return 0.0F;
         } else {
-            int i = p_78277_1_ / 256;
-            this.loadGlyphTexture(i);
-            int j = this.glyphWidth[p_78277_1_] >>> 4;
-            int k = this.glyphWidth[p_78277_1_] & 15;
-            j = j & 15;
-            float f = (float) j;
-            float f1 = (float) (k + 1);
-            float f2 = (float) (p_78277_1_ % 16 * 16) + f;
-            float f3 = (float) ((p_78277_1_ & 255) / 16 * 16);
-            float f4 = f1 - f - 0.02F;
-            float f5 = p_78277_2_ ? 1.0F : 0.0F;
+            renderEngine.bindTexture(getUnicodePageLocation(p_78277_1_ / 256));
+            int f = (glyphWidth[p_78277_1_] >>> 4) & 15;
+            int f1 = (glyphWidth[p_78277_1_] & 15) + 1 - f;
+            int f2 = (p_78277_1_ % 16 * 16) + f;
+            int f3 = ((p_78277_1_ & 255) / 16 * 16);
+            float f4 = f1 - 0.02F;
+            int f5 = p_78277_2_ ? 1 : 0;
             GL11.glBegin(GL11.GL_TRIANGLE_STRIP);
             GL11.glTexCoord2f(f2 / 256.0F, f3 / 256.0F);
             GL11.glVertex3f(this.posX + f5, this.posY, 0.0F);
@@ -316,7 +302,7 @@ public class FontRenderer implements IResourceManagerReloadListener {
             GL11.glTexCoord2f((f2 + f4) / 256.0F, (f3 + 15.98F) / 256.0F);
             GL11.glVertex3f(this.posX + f4 / 2.0F - f5, this.posY + 7.99F, 0.0F);
             GL11.glEnd();
-            return (f1 - f) / 2.0F + 1.0F;
+            return f1 / 2.0F + 1.0F;
         }
     }
 
@@ -340,7 +326,7 @@ public class FontRenderer implements IResourceManagerReloadListener {
      * Draws the specified string.
      */
     public int drawString(String text, float x, float y, int color, boolean dropShadow) {
-        this.enableAlpha();
+        GlStateManager.enableAlpha();
         this.resetStyles();
         int i;
 
@@ -745,8 +731,7 @@ public class FontRenderer implements IResourceManagerReloadListener {
             String s = str.substring(0, i);
             char c0 = str.charAt(i);
             boolean flag = c0 == 32 || c0 == 10;
-            String s1 = getFormatFromString(s) + str.substring(i + (flag ? 1 : 0));
-            return s + "\n" + this.wrapFormattedStringToWidth(s1, wrapWidth);
+            return s + "\n" + wrapFormattedStringToWidth(getFormatFromString(s) + str.substring(i + (flag ? 1 : 0)), wrapWidth);
         }
     }
 
@@ -828,10 +813,10 @@ public class FontRenderer implements IResourceManagerReloadListener {
     public static String getFormatFromString(String text) {
         StringBuilder var1 = new StringBuilder();
         int var2 = -1;
-        int var3 = text.length();
+        int var3 = text.length() - 1;
 
         while ((var2 = text.indexOf(167, var2 + 1)) != -1) {
-            if (var2 < var3 - 1) {
+            if (var2 < var3) {
                 char var4 = text.charAt(var2 + 1);
 
                 if (isFormatColor(var4)) {
@@ -853,31 +838,13 @@ public class FontRenderer implements IResourceManagerReloadListener {
     }
 
     public int getColorCode(char character) {
-        int index = "0123456789abcdef".indexOf(character);
-
+        final int index = "0123456789abcdef".indexOf(character);
         if (index >= 0 && index < this.colorCode.length) {
-            int color = this.colorCode[index];
-
-            if (Config.isCustomColors()) {
-                color = CustomColors.getTextColor(index, color);
-            }
-
-            return color;
-        } else {
-            return 16777215;
+            if (Config.isCustomColors())
+                return CustomColors.getTextColor(index, colorCode[index]);
+            return colorCode[index];
         }
-    }
-
-    protected void setColor(float p_setColor_1_, float p_setColor_2_, float p_setColor_3_, float p_setColor_4_) {
-        GlStateManager.color(p_setColor_1_, p_setColor_2_, p_setColor_3_, p_setColor_4_);
-    }
-
-    protected void enableAlpha() {
-        GlStateManager.enableAlpha();
-    }
-
-    protected void bindTexture(ResourceLocation p_bindTexture_1_) {
-        this.renderEngine.bindTexture(p_bindTexture_1_);
+        return 16777215;
     }
 
     protected InputStream getResourceInputStream(ResourceLocation p_getResourceInputStream_1_) throws IOException {
