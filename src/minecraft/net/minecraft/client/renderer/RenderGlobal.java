@@ -914,9 +914,6 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         }
 
         this.mc.mcProfiler.endStartSection("culling");
-        BlockPos blockpos2 = new BlockPos(d3, d4 + (double) viewEntity.getEyeHeight(), d5);
-        RenderChunk renderchunk = this.viewFrustum.getRenderChunk(blockpos2);
-        BlockPos blockpos = new BlockPos(MathHelper.floor_double(d3 / 16.0D) * 16, MathHelper.floor_double(d4 / 16.0D) * 16, MathHelper.floor_double(d5 / 16.0D) * 16);
         this.displayListEntitiesDirty = this.displayListEntitiesDirty || !this.chunksToUpdate.isEmpty() || viewEntity.posX != this.lastViewEntityX || viewEntity.posY != this.lastViewEntityY || viewEntity.posZ != this.lastViewEntityZ || (double) viewEntity.rotationPitch != this.lastViewEntityPitch || (double) viewEntity.rotationYaw != this.lastViewEntityYaw;
         this.lastViewEntityX = viewEntity.posX;
         this.lastViewEntityY = viewEntity.posY;
@@ -974,9 +971,9 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             this.visibilityDeque.clear();
             Deque deque = this.visibilityDeque;
             boolean flag1 = this.mc.renderChunksMany;
-
+            BlockPos blockpos2 = new BlockPos(d3, d4 + (double) viewEntity.getEyeHeight(), d5);
+            RenderChunk renderchunk = this.viewFrustum.getRenderChunk(blockpos2);
             if (renderchunk != null) {
-                boolean flag2 = false;
                 RenderGlobal.ContainerLocalRenderInformation renderglobal$containerlocalrenderinformation3 = new RenderGlobal.ContainerLocalRenderInformation(renderchunk, null, 0);
                 Set set1 = SET_ALL_FACINGS;
 
@@ -986,11 +983,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
                     set1.remove(enumfacing);
                 }
 
-                if (set1.isEmpty()) {
-                    flag2 = true;
-                }
-
-                if (flag2 && !playerSpectator) {
+                if (set1.isEmpty() && !playerSpectator) {
                     this.renderInfos.add(renderglobal$containerlocalrenderinformation3);
                 } else {
                     if (playerSpectator && this.theWorld.getBlockState(blockpos2).getBlock().isOpaqueCube()) {
@@ -1063,6 +1056,7 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         if (Shaders.isShadowPass) {
             Shaders.mcProfilerEndSection();
         } else {
+            BlockPos blockpos = new BlockPos(MathHelper.floor_double(d3 / 16.0D) * 16, MathHelper.floor_double(d4 / 16.0D) * 16, MathHelper.floor_double(d5 / 16.0D) * 16);
             this.renderDispatcher.clearChunkUpdates();
             Set set = this.chunksToUpdate;
             this.chunksToUpdate = Sets.newLinkedHashSet();

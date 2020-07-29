@@ -26,7 +26,7 @@ public class AutoGG extends Module {
 
     @EventTarget
     public void onMessage(EventReceiverMessage event) {
-        if (trotle + 1000 > System.currentTimeMillis()) return;
+        if (trotle + 5000 > System.currentTimeMillis()) return;
         if (event.text.contains("▬▬▬▬▬▬▬▬▬▬▬▬")) delay = System.currentTimeMillis();
         else if (event.text.contains(mc.getSession().getProfile().getName()) && delay + 100 > System.currentTimeMillis()) {
             trotle = System.currentTimeMillis();

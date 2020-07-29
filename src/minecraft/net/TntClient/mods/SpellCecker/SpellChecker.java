@@ -3,6 +3,7 @@ package net.TntClient.mods.SpellCecker;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import net.TntClient.Util;
 import net.TntClient.mods.Language;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiChat;
@@ -31,14 +32,14 @@ public class SpellChecker {
                 if (mc.currentScreen instanceof GuiChat) {
                     if (!text.startsWith("/")) {
                         try {
-                            if(text.startsWith("%")){
-                                List<Word> wordsMv = parseJson(readSite(new URL("https://languagetool.org/api/v2/check?language=" + lang + "&text=" + URLEncoder.encode(text.substring(1), "UTF-8"))));
+                            if (text.startsWith("%")) {
+                                List<Word> wordsMv = parseJson(Util.readSite("https://languagetool.org/api/v2/check?language=" + lang + "&text=" + URLEncoder.encode(text.substring(1), "UTF-8")));
                                 words.clear();
-                                for(Word w : wordsMv){
+                                for (Word w : wordsMv) {
                                     words.add(new Word(w.getIndex() + 1, w.getLength()));
                                 }
-                            }else
-                                words = parseJson(readSite(new URL("https://languagetool.org/api/v2/check?language=" + lang + "&text=" + URLEncoder.encode(text, "UTF-8"))));
+                            } else
+                                words = parseJson(Util.readSite("https://languagetool.org/api/v2/check?language=" + lang + "&text=" + URLEncoder.encode(text, "UTF-8")));
                         } catch (IOException ignored) {
                         }
                     } else {
@@ -65,16 +66,6 @@ public class SpellChecker {
         return words;
     }
 
-    private static String readSite(final URL url) throws IOException {
-        final InputStream con = url.openConnection().getInputStream();
-        final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        byte[] buf = new byte[8192];
-        int len;
-        while ((len = con.read(buf)) != -1) {
-            baos.write(buf, 0, len);
-        }
-        return new String(baos.toByteArray());
-    }
 
     private static List<Word> parseJson(final String json) {
         final List<Word> words = new ArrayList<>();
@@ -96,7 +87,7 @@ public class SpellChecker {
     public static List<Language> getLanguage() throws IOException {
         final List<Language> languages = new ArrayList<>();
         languages.add(new Language("Auto", "auto"));
-        final JsonArray arr = (JsonArray) new JsonParser().parse(readSite(new URL("https://languagetool.org/api/v2/languages")));
+        final JsonArray arr = (JsonArray) new JsonParser().parse(Util.readSite("https://languagetool.org/api/v2/languages"));
         final int len = arr.size();
         for (int i = 0; i < len; i++) {
             final JsonObject json = (JsonObject) arr.get(i);

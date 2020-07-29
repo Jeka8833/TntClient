@@ -34,7 +34,8 @@ public class ListMods extends GuiScreen {
     public void initGui() {
         final ScaledResolution sr = new ScaledResolution(Minecraft.getMinecraft());
         Keyboard.enableRepeatEvents(true);
-        searchField = new GuiTextField(0, this.fontRendererObj, sr.getScaledWidth() / 2 - 50, sr.getScaledHeight() / 2 - height / 2 - 4, 100, this.fontRendererObj.FONT_HEIGHT);
+        searchField = new GuiTextField(0, this.fontRendererObj, sr.getScaledWidth() / 2 - 50,
+                sr.getScaledHeight() / 2 - height / 2 - 4, 100, this.fontRendererObj.FONT_HEIGHT);
         searchField.setMaxStringLength(32);
         searchField.setEnableBackgroundDrawing(false);
     }
@@ -53,7 +54,6 @@ public class ListMods extends GuiScreen {
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         final ScaledResolution sr = new ScaledResolution(Minecraft.getMinecraft());
 
-        // Сложная математика a/2 - b/2 = (a - b) / 2
         final int ScX = (sr.getScaledWidth() - width) / 2;
         final int ScY = (sr.getScaledHeight() - height) / 2;
         final int factor = sr.getScaleFactor();
@@ -149,7 +149,8 @@ public class ListMods extends GuiScreen {
             glEnd();
             if (mouseY > ScY + 13 && mouseY < ScY + height && mouseX > ScX && mouseX < ScX + width) {
                 final int realY = PosY + (int) scroll;
-                if (mouseX > PosX && mouseX < PosX + whid - (isOptions ? 12 : 0) && mouseY > realY && mouseY < realY + blockHeight - 2) {
+                if (mouseX > PosX && mouseX < PosX + whid - (isOptions ? 12 : 0) &&
+                        mouseY > realY && mouseY < realY + blockHeight - 2) {
                     final int x = PosX + whid - (isOptions ? 13 : 0);
                     glColor4f(0, 0, 0f, 0.25f);
                     glBegin(GL_QUADS);
@@ -160,7 +161,8 @@ public class ListMods extends GuiScreen {
                     glEnd();
                     selected = i;
                 }
-                if (isOptions && mouseX > PosX + whid - 13 && mouseX < PosX + whid - 2 && mouseY > realY && mouseY < realY + blockHeight - 2) {
+                if (isOptions && mouseX > PosX + whid - 13 && mouseX < PosX + whid - 2 &&
+                        mouseY > realY && mouseY < realY + blockHeight - 2) {
                     glColor4f(0, 0, 0f, 0.25f);
                     glBegin(GL_QUADS);
                     glVertex2f(PosX + whid - 11, PosY);
@@ -174,8 +176,10 @@ public class ListMods extends GuiScreen {
             GL11.glEnable(GL11.GL_TEXTURE_2D);
             GL11.glEnable(GL11.GL_CULL_FACE);
             GL11.glDisable(GL11.GL_BLEND);
-            mc.fontRendererObj.drawString(substringText((Config.modules[i].keyBind != Integer.MAX_VALUE ? ("[" + Keyboard.getKeyName(Config.modules[i].keyBind) + "]") : "")
-                    + Config.modules[i].getName(), whid - (isOptions ? 12 : 0) - 5), PosX + 5, PosY + (blockHeight / 2 - 5), 0xffffffff);
+            mc.fontRendererObj.drawString(mc.fontRendererObj.trimStringToWidth((Config.modules[i].keyBind !=
+                    Integer.MAX_VALUE ? ("[" + Keyboard.getKeyName(Config.modules[i].keyBind) + "]") : "") +
+                    Config.modules[i].getName(), whid - (isOptions ? 12 : 0) - 5), PosX + 5, PosY +
+                    (blockHeight / 2 - 5), 0xffffffff);
             if (isOptions)
                 mc.fontRendererObj.drawString(">", PosX + whid - 8, PosY + (blockHeight / 2 - 5), 0xffffffff);
             GL11.glEnable(GL11.GL_BLEND);
@@ -193,15 +197,18 @@ public class ListMods extends GuiScreen {
         GL11.glDisable(GL11.GL_BLEND);
         if (!searchField.isFocused() && searchField.getText().equals(""))
             mc.fontRendererObj.drawString("Search...", ScX - 50 + width / 2, ScY - 4, 0x9f9f9fff);
+        mc.fontRendererObj.drawString("Click the mouse wheel to assign a key.",
+                ScX + (width - mc.fontRendererObj.getStringWidth("Click the mouse wheel to assign a key.")) / 2,
+                ScY + height + 2, 0xffffffff);
         searchField.drawTextBox();
-        if(selected != -1) {
+        if (selected != -1) {
             final Module md = Config.modules[selected];
-            if(!md.isActive()){
-                if(md.onlyTntGame && !HypixelPlayers.isTntRun)
+            if (!md.isActive()) {
+                if (md.onlyTntGame && !HypixelPlayers.isTntRun)
                     drawHoveringText(Collections.singletonList("Only TntRun"), mouseX, mouseY);
-                else if(md.onlyHypixel && !HypixelPlayers.isHypixel)
+                else if (md.onlyHypixel && !HypixelPlayers.isHypixel)
                     drawHoveringText(Collections.singletonList("Only Hypixel"), mouseX, mouseY);
-            } else if(!md.getDescription().isEmpty())
+            } else if (!md.getDescription().isEmpty())
                 drawHoveringText(Collections.singletonList(md.getDescription()), mouseX, mouseY);
         }
     }
@@ -212,7 +219,7 @@ public class ListMods extends GuiScreen {
         searchField.textboxKeyTyped(typedChar, keyCode);
         final List<Module> modules = new ArrayList<>();
         final String searchText = searchField.getText().toLowerCase();
-        for (Module m :Config.modules)
+        for (Module m : Config.modules)
             if (m.getName().toLowerCase().contains(searchText))
                 modules.add(m);
         Config.modules = modules.toArray(new Module[0]);
@@ -223,7 +230,9 @@ public class ListMods extends GuiScreen {
         if (isSellectScroll)
             scroll = Math.min(0,
                     Math.max(-((Config.modules.length - 1) / 3 * blockHeight + (17 + blockHeight - height)),
-                            -(((Config.modules.length + 2) * blockHeight * (2 * mouseY + height - new ScaledResolution(Minecraft.getMinecraft()).getScaledHeight() - 32)) / (6 * (height - 16))) + height / 2 - 8));
+                            -(((Config.modules.length + 2) * blockHeight * (2 * mouseY + height - new ScaledResolution(
+                                    Minecraft.getMinecraft()).getScaledHeight() - 32)) / (6 * (height - 16))) +
+                                    height / 2 - 8));
     }
 
     @Override
@@ -237,14 +246,16 @@ public class ListMods extends GuiScreen {
                 int realY = ScY + (int) scroll;
                 final int whid = Config.modules.length > 12 ? (width - 5) / 3 : width / 3;
                 for (int i = 0; i < Config.modules.length; i++) {
-                    if(Config.modules[i].isBlocking) continue;
+                    if (Config.modules[i].isBlocking) continue;
                     final boolean isOptions = Config.modules[i].getOptions().size() > 0;
                     final int PosX = (i % 3) * whid + ScX + 2;
                     final int PosY = (i / 3) * blockHeight + realY + 17;
-                    if (mouseY > PosY && mouseY < PosY + blockHeight - 2 && mouseX > PosX && mouseX < PosX + whid - (isOptions ? 12 : 0)) {
+                    if (mouseY > PosY && mouseY < PosY + blockHeight - 2 && mouseX > PosX &&
+                            mouseX < PosX + whid - (isOptions ? 12 : 0)) {
                         Config.modules[i].toggle();
                     }
-                    if (isOptions && mouseY > PosY && mouseY < PosY + blockHeight - 2 && mouseX > PosX + whid - 13 && mouseX < PosX + whid - 2) {
+                    if (isOptions && mouseY > PosY && mouseY < PosY + blockHeight - 2 &&
+                            mouseX > PosX + whid - 13 && mouseX < PosX + whid - 2) {
                         mc.displayGuiScreen(new EditMod(Config.modules[i]));
                     }
                 }
@@ -292,16 +303,5 @@ public class ListMods extends GuiScreen {
             }
         }
         super.handleMouseInput();
-    }
-
-    private String substringText(final String text, final int width) {
-        if (mc.fontRendererObj.getStringWidth(text) < width) return text;
-        final int len = text.length();
-        for (int i = len; i > 0; i--) {
-            final String sText = text.substring(0, i);
-            if (mc.fontRendererObj.getStringWidth(sText) < width)
-                return sText;
-        }
-        return "";
     }
 }

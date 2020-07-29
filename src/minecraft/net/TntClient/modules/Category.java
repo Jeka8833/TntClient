@@ -8,6 +8,5 @@ public enum Category {
     RENDER,
     COMBAT,
     OTHER,
-    FUN,
-    SETTING
+    FUN
 }

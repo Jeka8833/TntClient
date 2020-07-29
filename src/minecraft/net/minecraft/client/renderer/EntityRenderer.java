@@ -1279,7 +1279,6 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         }
 
         RenderGlobal renderglobal = this.mc.renderGlobal;
-        EffectRenderer effectrenderer = this.mc.effectRenderer;
         boolean flag1 = this.isDrawBlockOutline();
         GlStateManager.enableCull();
         this.mc.mcProfiler.endStartSection("clear");
@@ -1477,6 +1476,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
         GlStateManager.disableBlend();
 
         if (!this.debugView) {
+            EffectRenderer effectrenderer = this.mc.effectRenderer;
             this.enableLightmap();
             this.mc.mcProfiler.endStartSection("litParticles");
 
