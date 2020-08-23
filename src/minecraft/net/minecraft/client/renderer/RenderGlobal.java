@@ -1197,7 +1197,8 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         }
 
         this.mc.mcProfiler.startSection("filterempty");
-        int l = 0;
+
+        boolean l = false;
         boolean flag = blockLayerIn == EnumWorldBlockLayer.TRANSLUCENT;
         int i1 = flag ? this.renderInfos.size() - 1 : 0;
         int i = flag ? -1 : this.renderInfos.size();
@@ -1207,12 +1208,12 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
             RenderChunk renderchunk = ((RenderGlobal.ContainerLocalRenderInformation) this.renderInfos.get(j)).renderChunk;
 
             if (renderchunk.getCompiledChunk().isLayerEmpty(blockLayerIn)) {
-                ++l;
+                l = true;
                 this.renderContainer.addRenderChunk(renderchunk);
             }
         }
 
-        if (l != 0) {
+        if (l) {
             if (Config.isFogOff() && this.mc.entityRenderer.fogStandard) {
                 GlStateManager.disableFog();
             }
@@ -2415,12 +2416,6 @@ public class RenderGlobal implements IWorldAccess, IResourceManagerReloadListene
         if (Config.isDynamicLights()) {
             DynamicLights.entityRemoved(entityIn, this);
         }
-    }
-
-    /**
-     * Deletes all display lists
-     */
-    public void deleteAllDisplayLists() {
     }
 
     public void broadcastSound(int p_180440_1_, BlockPos p_180440_2_, int p_180440_3_) {

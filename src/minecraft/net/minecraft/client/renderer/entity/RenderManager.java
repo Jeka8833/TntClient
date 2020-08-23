@@ -287,10 +287,8 @@ public class RenderManager {
     }
 
     public void doRenderEntity(Entity entity, double x, double y, double z, float entityYaw, float partialTicks, boolean p_147939_10_) {
-        Render render = null;
-
         try {
-            render = this.getEntityRenderObject(entity);
+            Render render = this.getEntityRenderObject(entity);
 
             if (render != null && this.renderEngine != null) {
                 try {
@@ -325,7 +323,6 @@ public class RenderManager {
             CrashReportCategory crashreportcategory = crashreport.makeCategory("Entity being rendered");
             entity.addEntityCrashInfo(crashreportcategory);
             CrashReportCategory crashreportcategory1 = crashreport.makeCategory("Renderer details");
-            crashreportcategory1.addCrashSection("Assigned renderer", render);
             crashreportcategory1.addCrashSection("Location", CrashReportCategory.getCoordinateInfo(x, y, z));
             crashreportcategory1.addCrashSection("Rotation", entityYaw);
             crashreportcategory1.addCrashSection("Delta", partialTicks);

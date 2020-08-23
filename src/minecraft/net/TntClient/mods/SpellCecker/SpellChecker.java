@@ -8,10 +8,7 @@ import net.TntClient.mods.Language;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiChat;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;

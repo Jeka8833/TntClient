@@ -27,20 +27,24 @@ public class HypixelPlayers {
     public static volatile boolean waitKey = false;
 
     public static void startTime() {
-        new Timer().scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                if ((isHypixel = isHypixel()) && (Config.config.tabDJCount.isActive() || Config.config.tabStats.isActive()
-                        || Config.config.nicknameStats.isActive() || Config.config.tntGameStats.isActive()))
-                    updateStat();
+        new Thread(() -> {
+            //TODO: The timer was causing a bug
+            while (true) {
                 try {
-                    isTntRun = isTntRun();
-                    for (Module m : Config.modules)
-                        m.setBlocking((m.onlyHypixel && !isHypixel) || (m.onlyTntGame && !isTntRun));
+                    if ((isHypixel = isHypixel()) && (Config.config.tabDJCount.isActive() || Config.config.tabStats.isActive()
+                            || Config.config.nicknameStats.isActive() || Config.config.tntGameStats.isActive()))
+                        updateStat();
+                    try {
+                        isTntRun = isTntRun();
+                        for (Module m : Config.modules)
+                            m.setBlocking((m.onlyHypixel && !isHypixel) || (m.onlyTntGame && !isTntRun));
+                    } catch (Exception ignored) {
+                    }
+                    Thread.sleep(500);
                 } catch (Exception ignored) {
                 }
             }
-        }, 0, 501);
+        }).start();
     }
 
     public static void updateStat() {

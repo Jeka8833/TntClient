@@ -149,15 +149,11 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
                 GlStateManager.enableRescaleNormal();
                 GlStateManager.scale(-1.0F, -1.0F, 1.0F);
                 this.preRenderCallback(entity, partialTicks);
-                float f4 = 0.0625F;
                 GlStateManager.translate(0.0F, -1.5078125F, 0.0F);
                 float f5 = entity.prevLimbSwingAmount + (entity.limbSwingAmount - entity.prevLimbSwingAmount) * partialTicks;
-                float f6 = entity.limbSwing - entity.limbSwingAmount * (1.0F - partialTicks);
-
-                if (entity.isChild())
-                {
-                    f6 *= 3.0F;
-                }
+                float f6 = entity.isChild() ?
+                        entity.limbSwing - entity.limbSwingAmount * (1.0F - partialTicks) * 3 :
+                        entity.limbSwing - entity.limbSwingAmount * (1.0F - partialTicks);
 
                 if (f5 > 1.0F)
                 {

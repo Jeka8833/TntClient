@@ -193,10 +193,6 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
     private static final ResourceLocation locationMojangPng = new ResourceLocation("textures/gui/title/mojang.png");
     public static final boolean isRunningOnMac = Util.getOSType() == Util.EnumOS.OSX;
 
-    /**
-     * A 10MiB preallocation to ensure the heap is reasonably sized.
-     */
-    public static byte[] memoryReserve = new byte[10485760];
     private static final List<DisplayMode> macDisplayModes = Lists.newArrayList(new DisplayMode(2560, 1600), new DisplayMode(2880, 1800));
     private final File fileResourcepacks;
     private final PropertyMap twitchDetails;
@@ -1115,17 +1111,9 @@ public class Minecraft implements IThreadListener, IPlayerUsage {
 
     public void freeMemory() {
         try {
-            memoryReserve = new byte[0];
-            this.renderGlobal.deleteAllDisplayLists();
-        } catch (Throwable ignored) {
-        }
-
-        try {
-            System.gc();
             this.loadWorld(null);
         } catch (Throwable ignored) {
         }
-
         System.gc();
     }
 
