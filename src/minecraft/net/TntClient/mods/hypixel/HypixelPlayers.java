@@ -26,21 +26,28 @@ public class HypixelPlayers {
 
     public static volatile boolean waitKey = false;
 
+    public static final LinkedList<Long> sendPerSecond = new LinkedList<>();
+
     public static void startTime() {
         new Thread(() -> {
-            //TODO: The timer was causing a bug
             while (true) {
                 try {
                     if ((isHypixel = isHypixel()) && (Config.config.tabDJCount.isActive() || Config.config.tabStats.isActive()
-                            || Config.config.nicknameStats.isActive() || Config.config.tntGameStats.isActive()))
+                            || Config.config.nicknameStats.isActive() || Config.config.tntGameStats.isActive())) {
                         updateStat();
+                        final long to = System.currentTimeMillis() - 60000;
+                        sendPerSecond.removeIf(aLong -> aLong < to);
+                        if (sendPerSecond.size() > 120)
+                            Thread.sleep(500);
+                    } else {
+                        Thread.sleep(500);
+                    }
                     try {
                         isTntRun = isTntRun();
                         for (Module m : Config.modules)
                             m.setBlocking((m.onlyHypixel && !isHypixel) || (m.onlyTntGame && !isTntRun));
                     } catch (Exception ignored) {
                     }
-                    Thread.sleep(500);
                 } catch (Exception ignored) {
                 }
             }
@@ -67,9 +74,9 @@ public class HypixelPlayers {
             }
             playerInfoMap.put(upd.profile.getId(), upd);
             if (mc.thePlayer.getGameProfile().equals(upd.profile)) {
-                TntGameStats.streak = upd.streak;
-                TntGameStats.lose = upd.lose;
-                TntGameStats.win = upd.win;
+                TntGameStats.streak = upd.info.player.stats.TNTGames.winstreak;
+                TntGameStats.lose = upd.info.player.stats.TNTGames.deaths_tntrun;
+                TntGameStats.win = upd.info.player.stats.TNTGames.wins_tntrun;
             }
         } catch (Exception ignored) {
         }

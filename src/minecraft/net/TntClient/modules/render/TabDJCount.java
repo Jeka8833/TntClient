@@ -2,6 +2,7 @@ package net.TntClient.modules.render;
 
 import net.TntClient.Config;
 import net.TntClient.mods.hypixel.HypixelPlayers;
+import net.TntClient.mods.hypixel.parser.Info;
 import net.TntClient.modules.Category;
 import net.TntClient.modules.Module;
 import net.minecraft.util.EnumChatFormatting;
@@ -32,9 +33,9 @@ public class TabDJCount extends Module {
     public static String getPlayerSyff(UUID uuid) {
         if (!Config.config.tabDJCount.isActive() || !HypixelPlayers.playerInfoMap.containsKey(uuid))
             return "";
-        final int jump = HypixelPlayers.playerInfoMap.get(uuid).jump;
-        if (jump == Integer.MIN_VALUE)
+        final Info.Player player = HypixelPlayers.playerInfoMap.get(uuid).info.player;
+        if (player.stats.TNTGames.new_tntrun_double_jumps == 0)
             return "";
-        return EnumChatFormatting.GREEN.toString() + (jump + 4) + EnumChatFormatting.RESET;
+        return EnumChatFormatting.GREEN.toString() + (player.stats.TNTGames.new_tntrun_double_jumps + 4) + EnumChatFormatting.RESET;
     }
 }

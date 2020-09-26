@@ -44,7 +44,7 @@ public class SpellChecker {
                     }
                 }
             }
-        }, 0, 1525);
+        }, 0, 3000);
     }
 
     public static void setLang(final String lang) {

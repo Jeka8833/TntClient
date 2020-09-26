@@ -1,10 +1,9 @@
 package net.TntClient;
 
 import java.awt.*;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 public class Util {
 
@@ -13,12 +12,14 @@ public class Util {
     }
 
     public static String readSite(final String url) throws IOException {
-        final BufferedReader reader = new BufferedReader(new InputStreamReader(new URL(url).openStream()));
-        final StringBuilder buf = new StringBuilder();
-        String line;
-        while ((line = reader.readLine()) != null) {
-            buf.append(line).append('\n');
+        try (final InputStream inputStream = new URL(url).openStream();
+             final ByteArrayOutputStream result = new ByteArrayOutputStream()) {
+            final byte[] buffer = new byte[1024];
+            int length;
+            while ((length = inputStream.read(buffer)) != -1) {
+                result.write(buffer, 0, length);
+            }
+            return result.toString("UTF-8");
         }
-        return buf.toString();
     }
 }

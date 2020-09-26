@@ -1,9 +1,11 @@
 package net.TntClient;
 
+import com.mojang.authlib.GameProfile;
 import net.TntClient.event.EventManager;
 import net.TntClient.event.EventTarget;
 import net.TntClient.event.events.Event2D;
 import net.TntClient.event.events.EventKey;
+import net.TntClient.event.events.EventReceivePacket;
 import net.TntClient.event.events.EventReceiverMessage;
 import net.TntClient.gui.JekasMenu.ListMods;
 import net.TntClient.mods.SpellCecker.SpellChecker;
@@ -12,6 +14,8 @@ import net.TntClient.mods.hypixel.HypixelPlayers;
 import net.TntClient.mods.translate.TranslateGoogle;
 import net.TntClient.modules.Module;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.network.NetworkPlayerInfo;
+import net.minecraft.entity.player.EntityPlayer;
 import org.lwjgl.input.Keyboard;
 
 public class TntClient {
@@ -40,7 +44,8 @@ public class TntClient {
     public void onDraw(Event2D event) {
         for (Module m : Config.modules)
             if (m.isDanger && m.isActive()) {
-                mc.fontRendererObj.drawString("This can lead to a ban!!!", 2, (int) (event.getHeight() - 10), Util.getRainbow());
+                mc.fontRendererObj.drawString("This can l" +
+                        "ead to a ban!!!", 2, (int) (event.getHeight() - 10), Util.getRainbow());
                 return;
             }
     }

@@ -1,5 +1,6 @@
 package net.TntClient.modules.render;
 
+import net.TntClient.TntClient;
 import net.TntClient.event.EventTarget;
 import net.TntClient.event.events.Event2D;
 import net.TntClient.mods.hypixel.HypixelPlayers;
@@ -41,7 +42,11 @@ public class TntGameStats extends Module {
                 final String line1 = "Loses: " + toNull(lose);
                 mc.fontRendererObj.drawString(line1, (int) (event.getWidth() - mc.fontRendererObj.getStringWidth(line1)), posX += 10, -2039584);
                 final String line2 = "Streak: " + toNull(streak);
-                mc.fontRendererObj.drawString(line2, (int) (event.getWidth() - mc.fontRendererObj.getStringWidth(line2)), posX + 10, -2039584);
+                mc.fontRendererObj.drawString(line2, (int) (event.getWidth() - mc.fontRendererObj.getStringWidth(line2)), posX += 10, -2039584);
+                if(TntClient.isDebug){
+                    final String line4 = "Api request: " + HypixelPlayers.sendPerSecond.size();
+                    mc.fontRendererObj.drawString(line4, (int) (event.getWidth() - mc.fontRendererObj.getStringWidth(line4)), posX + 10, -2039584);
+                }
             }
         }
     }

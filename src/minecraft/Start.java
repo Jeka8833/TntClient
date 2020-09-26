@@ -25,7 +25,7 @@ public class Start {
             auth.logIn();
             Main.main(new String[]{"--username", auth.getSelectedProfile().getName(), "--version", "TntClient", "--gameDir", path.toString(), "--assetsDir", path.resolve("assets").toString(), "--assetIndex", "1.8", "--uuid", auth.getSelectedProfile().getId().toString(), "--accessToken", auth.getAuthenticatedToken(), "--userType", "mojang"});
         } else {
-            Main.main(new String[]{"--username", getValue("-name", args), "--version", "TntClient", "--gameDir", path.toString(), "--assetsDir", path.resolve("assets").toString(), "--assetIndex", "1.8", "--uuid", "--accessToken", "0", "--userType", "mojang"});
+            Main.main(new String[]{"--version", "mcp", "--accessToken", "0", "--gameDir", path.toString(), "--assetsDir", path.resolve("assets").toString(), "--assetIndex", "1.8", "--userProperties", "{}"});
         }
     }
 

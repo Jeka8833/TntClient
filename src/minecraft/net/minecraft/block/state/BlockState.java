@@ -24,7 +24,6 @@ import net.minecraft.util.MapPopulator;
 
 public class BlockState
 {
-    private static final Joiner COMMA_JOINER = Joiner.on(", ");
     private static final Function<IProperty, String> GET_NAME_FUNC = new Function<IProperty, String>()
     {
         public String apply(IProperty p_apply_1_)
