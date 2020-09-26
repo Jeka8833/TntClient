@@ -1,11 +1,9 @@
 package net.TntClient;
 
-import com.mojang.authlib.GameProfile;
 import net.TntClient.event.EventManager;
 import net.TntClient.event.EventTarget;
 import net.TntClient.event.events.Event2D;
 import net.TntClient.event.events.EventKey;
-import net.TntClient.event.events.EventReceivePacket;
 import net.TntClient.event.events.EventReceiverMessage;
 import net.TntClient.gui.JekasMenu.ListMods;
 import net.TntClient.mods.SpellCecker.SpellChecker;
@@ -14,13 +12,11 @@ import net.TntClient.mods.hypixel.HypixelPlayers;
 import net.TntClient.mods.translate.TranslateGoogle;
 import net.TntClient.modules.Module;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.network.NetworkPlayerInfo;
-import net.minecraft.entity.player.EntityPlayer;
 import org.lwjgl.input.Keyboard;
 
 public class TntClient {
 
-    public static final String version = "1.0.8";
+    public static final String version = "1.0.9";
 
     public static boolean isDebug = false;
 
