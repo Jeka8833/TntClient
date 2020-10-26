@@ -13,6 +13,7 @@ import net.TntClient.modules.render.*;
 import net.minecraft.client.Minecraft;
 
 import java.nio.file.Files;
+import java.nio.file.Path;
 
 public class Config {
     public final Bot bot = new Bot();
@@ -37,25 +38,33 @@ public class Config {
     public static Config config = new Config();
     public static Module[] modules;
 
+    private static final Gson GSON = new Gson();
+    private static final Path path = Minecraft.getMinecraft().mcDataDir.toPath().resolve("HC3Config.json");
+
     public static void read() {
         try {
-            config = new Gson().fromJson(new String(Files.readAllBytes(Minecraft.getMinecraft().mcDataDir.toPath().resolve("HC3Config.json"))), Config.class);
-            if (TntClient.isDebug)
-                modules = new Module[]{config.bot, config.longDJump, config.glitchBlocks, config.dolphin, config.freeDJ, config.showPotions, config.brightness, config.sprint, config.tntGameStats,
-                        config.nicknameStats, config.tabStats, config.autoTip, config.tabDJCount, config.autoGG, config.debugModule};
-            else
-                modules = new Module[]{config.bot, config.longDJump, config.glitchBlocks, config.dolphin, config.freeDJ, config.showPotions, config.brightness, config.sprint, config.tntGameStats,
-                        config.nicknameStats, config.tabStats, config.autoTip, config.tabDJCount, config.autoGG};
+            config = GSON.fromJson(new String(Files.readAllBytes(path)), Config.class);
+            setModules();
         } catch (Exception e) {
             write();
+            setModules();
         }
     }
 
     public static void write() {
         try {
-            Files.write(Minecraft.getMinecraft().mcDataDir.toPath().resolve("HC3Config.json"), new Gson().toJson(config).getBytes());
+            Files.write(path, GSON.toJson(config).getBytes());
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private static void setModules() {
+        if (TntClient.isDebug)
+            modules = new Module[]{config.bot, config.longDJump, config.glitchBlocks, config.dolphin, config.freeDJ, config.showPotions, config.brightness, config.sprint, config.tntGameStats,
+                    config.nicknameStats, config.tabStats, config.autoTip, config.tabDJCount, config.autoGG, config.debugModule};
+        else
+            modules = new Module[]{config.bot, config.longDJump, config.glitchBlocks, config.dolphin, config.freeDJ, config.showPotions, config.brightness, config.sprint, config.tntGameStats,
+                    config.nicknameStats, config.tabStats, config.autoTip, config.tabDJCount, config.autoGG};
     }
 }
