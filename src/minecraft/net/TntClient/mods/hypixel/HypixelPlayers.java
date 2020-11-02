@@ -4,6 +4,7 @@ import com.mojang.authlib.GameProfile;
 import net.TntClient.Config;
 import net.TntClient.Util;
 import net.TntClient.modules.Module;
+import net.TntClient.modules.render.TabDJCount;
 import net.TntClient.modules.render.TntGameStats;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ServerData;
@@ -47,6 +48,12 @@ public class HypixelPlayers {
                         for (Module m : Config.modules)
                             m.setBlocking((m.onlyHypixel && !isHypixel) || (m.onlyTntGame && !isTntRun));
                     } catch (Exception ignored) {
+                    }
+                    if (isTntRun) {
+                        for (GameProfile player : players) {
+                            if (!TabDJCount.jumpCount.containsKey(player.getId()))
+                                TabDJCount.jumpCount.put(player.getId(), 0);
+                        }
                     }
                 } catch (Exception ignored) {
                 }
