@@ -16,7 +16,7 @@ import org.lwjgl.input.Keyboard;
 
 public class TntClient {
 
-    public static final String version = "1.0.9";
+    public static final String version = "1.0.10";
 
     public static boolean isDebug = false;
 
