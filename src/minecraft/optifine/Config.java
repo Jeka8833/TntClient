@@ -3,7 +3,6 @@ package optifine;
 import net.minecraft.client.LoadingScreenRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.client.network.NetworkPlayerInfo;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderGlobal;
@@ -215,9 +214,6 @@ public class Config {
                 glVersion = getGlVersionLwjgl();
             }
 
-            if (glVersion == null) {
-                glVersion = new GlVersion(1, 0);
-            }
         }
 
         return glVersion;

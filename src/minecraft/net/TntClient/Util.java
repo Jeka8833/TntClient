@@ -12,14 +12,19 @@ public class Util {
     }
 
     public static String readSite(final String url) throws IOException {
-        try (final InputStream inputStream = new URL(url).openStream();
-             final ByteArrayOutputStream result = new ByteArrayOutputStream()) {
+        try (final InputStream inputStream = new URL(url).openStream()) {
+            return new String(toByteArray(inputStream), StandardCharsets.UTF_8);
+        }
+    }
+
+    public static byte[] toByteArray(final InputStream inputStream) throws IOException {
+        try (final ByteArrayOutputStream result = new ByteArrayOutputStream()) {
             final byte[] buffer = new byte[1024];
             int length;
             while ((length = inputStream.read(buffer)) != -1) {
                 result.write(buffer, 0, length);
             }
-            return result.toString("UTF-8");
+            return result.toByteArray();
         }
     }
 }
