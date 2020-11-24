@@ -132,10 +132,10 @@ public class Main extends javax.swing.JFrame {
         final Path path = Paths.get(jTextField1.getText());
         if (Files.exists(path)) {
             try {
-                InstallManager.copyFile(path);
-                try{
+                InstallManager.copyFile(path, false);
+                try {
                     InstallManager.modifyProfiles(path);
-                } catch (Exception ex){
+                } catch (Exception ex) {
                     JOptionPane.showMessageDialog(this,
                             "The problem of adding a profile to the launcher, but you can manually select the " +
                                     "new version in the launcher.", "Warning", JOptionPane.WARNING_MESSAGE);
@@ -159,8 +159,8 @@ public class Main extends javax.swing.JFrame {
         chooser.setAcceptAllFileFilterUsed(false);
         chooser.showSaveDialog(null);
         try {
-            InstallManager.copyFile(Paths.get(chooser.getSelectedFile().toString(), InstallManager.name));
-            System.out.println("good");
+            if (chooser.getSelectedFile() != null)
+                InstallManager.copyFile(Paths.get(chooser.getSelectedFile().toString(), InstallManager.name), true);
         } catch (IOException | URISyntaxException e) {
             e.printStackTrace();
         }

@@ -3,7 +3,6 @@ package net.TntClient.installer;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -16,12 +15,13 @@ public class InstallManager {
 
     public static final String name = "TntClientD";
 
-    public static void copyFile(final Path root) throws IOException, URISyntaxException {
-        Files.createDirectories(root.resolve("versions" + "/" + name));
+    public static void copyFile(final Path root, final boolean isExport) throws IOException, URISyntaxException {
+        final Path path = root.resolve(isExport ? name : "versions/" + name);
+        Files.createDirectories(path);
         Files.copy(InstallManager.class.getResourceAsStream("/net/TntClient/installer/files/TntClientD.json"),
-                root.resolve("versions/" + name + "/" + name + ".json"), StandardCopyOption.REPLACE_EXISTING);
+                path.resolve(name + ".json"), StandardCopyOption.REPLACE_EXISTING);
         Files.copy(Paths.get(InstallManager.class.getProtectionDomain().getCodeSource().getLocation().toURI()),
-                root.resolve("versions/" + name + "/" + name + ".jar"), StandardCopyOption.REPLACE_EXISTING);
+                path.resolve(name + ".jar"), StandardCopyOption.REPLACE_EXISTING);
     }
 
     public static void modifyProfiles(final Path root) throws IOException {
