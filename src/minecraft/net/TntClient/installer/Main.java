@@ -1,6 +1,7 @@
 package net.TntClient.installer;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
@@ -11,6 +12,8 @@ public class Main extends javax.swing.JFrame {
 
     public Main() {
         initComponents();
+        setTitle("TntClien Installer");
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/net/TntClient/installer/files/icon.png")));
         final Path path = Util.getWorkingDirectory();
         if (path != null)
             jTextField1.setText(path.toString());
