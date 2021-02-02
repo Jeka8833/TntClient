@@ -181,7 +181,7 @@ public class JSONObject {
         // implementations to rearrange their items for a faster element 
         // retrieval based on associative access.
         // Therefore, an implementation mustn't rely on the order of the item.
-        this.map = new HashMap<String, Object>();
+        this.map = new HashMap<>();
     }
 
     /**
@@ -286,9 +286,9 @@ public class JSONObject {
      */
     public JSONObject(Map<?, ?> m) {
         if (m == null) {
-            this.map = new HashMap<String, Object>();
+            this.map = new HashMap<>();
         } else {
-            this.map = new HashMap<String, Object>(m.size());
+            this.map = new HashMap<>(m.size());
         	for (final Entry<?, ?> e : m.entrySet()) {
         	    if(e.getKey() == null) {
         	        throw new NullPointerException("Null key.");
@@ -457,7 +457,7 @@ public class JSONObject {
      * @param initialCapacity initial capacity of the internal map.
      */
     protected JSONObject(int initialCapacity){
-        this.map = new HashMap<String, Object>(initialCapacity);
+        this.map = new HashMap<>(initialCapacity);
     }
 
     /**
@@ -894,15 +894,15 @@ public class JSONObject {
         if (value == null) {
             this.put(key, 1);
         } else if (value instanceof Integer) {
-            this.put(key, ((Integer) value).intValue() + 1);
+            this.put(key, (Integer) value + 1);
         } else if (value instanceof Long) {
-            this.put(key, ((Long) value).longValue() + 1L);
+            this.put(key, (Long) value + 1L);
         } else if (value instanceof BigInteger) {
             this.put(key, ((BigInteger)value).add(BigInteger.ONE));
         } else if (value instanceof Float) {
-            this.put(key, ((Float) value).floatValue() + 1.0f);
+            this.put(key, (Float) value + 1.0f);
         } else if (value instanceof Double) {
-            this.put(key, ((Double) value).doubleValue() + 1.0d);
+            this.put(key, (Double) value + 1.0d);
         } else if (value instanceof BigDecimal) {
             this.put(key, ((BigDecimal)value).add(BigDecimal.ONE));
         } else {
@@ -1079,9 +1079,7 @@ public class JSONObject {
                 return myE;
             }
             return Enum.valueOf(clazz, val.toString());
-        } catch (IllegalArgumentException e) {
-            return defaultValue;
-        } catch (NullPointerException e) {
+        } catch (IllegalArgumentException | NullPointerException e) {
             return defaultValue;
         }
     }
@@ -1115,7 +1113,7 @@ public class JSONObject {
             return defaultValue;
         }
         if (val instanceof Boolean){
-            return ((Boolean) val).booleanValue();
+            return (Boolean) val;
         }
         try {
             // we'll use the get anyway because it does string conversion.
@@ -1268,11 +1266,7 @@ public class JSONObject {
         if (val == null) {
             return defaultValue;
         }
-        final double doubleValue = val.doubleValue();
-        // if (Double.isNaN(doubleValue) || Double.isInfinite(doubleValue)) {
-        // return defaultValue;
-        // }
-        return doubleValue;
+        return val.doubleValue();
     }
 
     /**
@@ -1304,11 +1298,7 @@ public class JSONObject {
         if (val == null) {
             return defaultValue;
         }
-        final float floatValue = val.floatValue();
-        // if (Float.isNaN(floatValue) || Float.isInfinite(floatValue)) {
-        // return defaultValue;
-        // }
-        return floatValue;
+        return val.floatValue();
     }
 
     /**
@@ -1513,9 +1503,7 @@ public class JSONObject {
                                 }
                             }
                         }
-                    } catch (IllegalAccessException ignore) {
-                    } catch (IllegalArgumentException ignore) {
-                    } catch (InvocationTargetException ignore) {
+                    } catch (IllegalAccessException | InvocationTargetException | IllegalArgumentException ignore) {
                     }
                 }
             }
@@ -1598,9 +1586,7 @@ public class JSONObject {
             try {
                 Method im = i.getMethod(m.getName(), m.getParameterTypes());
                 return getAnnotation(im, annotationClass);
-            } catch (final SecurityException ex) {
-                continue;
-            } catch (final NoSuchMethodException ex) {
+            } catch (final SecurityException | NoSuchMethodException ex) {
                 continue;
             }
         }
@@ -1609,9 +1595,7 @@ public class JSONObject {
             return getAnnotation(
                     c.getSuperclass().getMethod(m.getName(), m.getParameterTypes()),
                     annotationClass);
-        } catch (final SecurityException ex) {
-            return null;
-        } catch (final NoSuchMethodException ex) {
+        } catch (final SecurityException | NoSuchMethodException ex) {
             return null;
         }
     }
@@ -1655,9 +1639,7 @@ public class JSONObject {
                     // since the annotation was on the interface, add 1
                     return d + 1;
                 }
-            } catch (final SecurityException ex) {
-                continue;
-            } catch (final NoSuchMethodException ex) {
+            } catch (final SecurityException | NoSuchMethodException ex) {
                 continue;
             }
         }
@@ -1671,9 +1653,7 @@ public class JSONObject {
                 return d + 1;
             }
             return -1;
-        } catch (final SecurityException ex) {
-            return -1;
-        } catch (final NoSuchMethodException ex) {
+        } catch (final SecurityException | NoSuchMethodException ex) {
             return -1;
         }
     }
@@ -2050,10 +2030,10 @@ public class JSONObject {
     public boolean similar(Object other) {
         try {
             if (!(other instanceof JSONObject)) {
-                return false;
+                return true;
             }
             if (!this.keySet().equals(((JSONObject)other).keySet())) {
-                return false;
+                return true;
             }
             for (final Entry<String,?> entry : this.entrySet()) {
                 String name = entry.getKey();
@@ -2063,23 +2043,23 @@ public class JSONObject {
                 	continue;
                 }
                 if(valueThis == null) {
-                	return false;
+                	return true;
                 }
                 if (valueThis instanceof JSONObject) {
-                    if (!((JSONObject)valueThis).similar(valueOther)) {
-                        return false;
+                    if (((JSONObject) valueThis).similar(valueOther)) {
+                        return true;
                     }
                 } else if (valueThis instanceof JSONArray) {
-                    if (!((JSONArray)valueThis).similar(valueOther)) {
-                        return false;
+                    if (((JSONArray) valueThis).similar(valueOther)) {
+                        return true;
                     }
                 } else if (!valueThis.equals(valueOther)) {
-                    return false;
+                    return true;
                 }
             }
-            return true;
-        } catch (Throwable exception) {
             return false;
+        } catch (Throwable exception) {
+            return true;
         }
     }
     
@@ -2115,7 +2095,7 @@ public class JSONObject {
                 try {
                     BigDecimal bd = new BigDecimal(val);
                     if(initial == '-' && BigDecimal.ZERO.compareTo(bd)==0) {
-                        return Double.valueOf(-0.0);
+                        return -0.0;
                     }
                     return bd;
                 } catch (NumberFormatException retryAsDouble) {
@@ -2154,10 +2134,10 @@ public class JSONObject {
             // long lived.
             BigInteger bi = new BigInteger(val);
             if(bi.bitLength() <= 31){
-                return Integer.valueOf(bi.intValue());
+                return bi.intValue();
             }
             if(bi.bitLength() <= 63){
-                return Long.valueOf(bi.longValue());
+                return bi.longValue();
             }
             return bi;
         }
@@ -2407,8 +2387,8 @@ public class JSONObject {
         return this.write(writer, 0, 0);
     }
 
-    static final Writer writeValue(Writer writer, Object value,
-            int indentFactor, int indent) throws JSONException, IOException {
+    static Writer writeValue(Writer writer, Object value,
+                             int indentFactor, int indent) throws JSONException, IOException {
         if (value == null || value.equals(null)) {
             writer.write("null");
         } else if (value instanceof JSONString) {
@@ -2451,7 +2431,7 @@ public class JSONObject {
         return writer;
     }
 
-    static final void indent(Writer writer, int indent) throws IOException {
+    static void indent(Writer writer, int indent) throws IOException {
         for (int i = 0; i < indent; i += 1) {
             writer.write(' ');
         }
@@ -2549,7 +2529,7 @@ public class JSONObject {
      * @return a java.util.Map containing the entries of this object
      */
     public Map<String, Object> toMap() {
-        Map<String, Object> results = new HashMap<String, Object>();
+        Map<String, Object> results = new HashMap<>();
         for (Entry<String, Object> entry : this.entrySet()) {
             Object value;
             if (entry.getValue() == null || NULL.equals(entry.getValue())) {

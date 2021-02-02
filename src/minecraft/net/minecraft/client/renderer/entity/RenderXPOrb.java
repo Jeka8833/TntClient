@@ -46,7 +46,7 @@ public class RenderXPOrb extends Render
         int j = entity.getBrightnessForRender(partialTicks);
         int k = j % 65536;
         int l = j / 65536;
-        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float)k / 1.0F, (float)l / 1.0F);
+        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) k, (float) l);
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         float f7 = 255.0F;
         float f8 = ((float)entity.xpColor + partialTicks) / 2.0F;

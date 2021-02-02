@@ -7,7 +7,7 @@ import optifine.StrUtils;
 
 public class ShaderOptionVariableConst extends ShaderOptionVariable
 {
-    private String type;
+    private final String type;
     private static final Pattern PATTERN_CONST = Pattern.compile("^\\s*const\\s*(float|int)\\s*([A-Za-z0-9_]+)\\s*=\\s*(-?[0-9\\.]+f?F?)\\s*;\\s*(//.*)?$");
 
     public ShaderOptionVariableConst(String name, String type, String description, String value, String[] values, String path)

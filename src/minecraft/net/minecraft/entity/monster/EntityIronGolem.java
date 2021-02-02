@@ -148,10 +148,6 @@ public class EntityIronGolem extends EntityGolem
     /**
      * Returns true if this entity can attack entities of the specified class.
      */
-//    public boolean canAttackClass(Class <? extends EntityLivingBase > cls)
-//    {
-//        return this.isPlayerCreated() && EntityPlayer.class.isAssignableFrom(cls) ? false : (cls == EntityCreeper.class ? false : super.canAttackClass(cls));
-//    }
 
     /**
      * (abstract) Protected helper method to write subclass entity data to NBT.

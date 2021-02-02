@@ -32,7 +32,7 @@ public class LayerSpiderEyes implements LayerRenderer
         char c0 = 61680;
         int i = c0 % 65536;
         int j = c0 / 65536;
-        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float)i / 1.0F, (float)j / 1.0F);
+        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) i, (float) j);
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 
         if (Config.isShaders())
@@ -44,7 +44,7 @@ public class LayerSpiderEyes implements LayerRenderer
         int k = entitylivingbaseIn.getBrightnessForRender(partialTicks);
         i = k % 65536;
         j = k / 65536;
-        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float)i / 1.0F, (float)j / 1.0F);
+        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) i, (float) j);
         this.spiderRenderer.func_177105_a(entitylivingbaseIn, partialTicks);
         GlStateManager.disableBlend();
         GlStateManager.enableAlpha();

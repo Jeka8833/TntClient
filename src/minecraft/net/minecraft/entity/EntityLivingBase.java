@@ -1463,7 +1463,7 @@ public abstract class EntityLivingBase extends Entity {
 
                 if (f3 > 0.0F) {
                     f1 += (0.54600006F - f1) * f3 / 3.0F;
-                    f2 += (this.getAIMoveSpeed() * 1.0F - f2) * f3 / 3.0F;
+                    f2 += (this.getAIMoveSpeed() - f2) * f3 / 3.0F;
                 }
 
                 this.moveFlying(strafe, forward, f2);

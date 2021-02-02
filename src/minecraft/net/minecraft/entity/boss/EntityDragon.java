@@ -269,8 +269,8 @@ public class EntityDragon extends EntityLiving implements IBossDisplayData, IEnt
                     }
 
                     this.randomYawVelocity *= 0.8F;
-                    float f6 = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionZ * this.motionZ) * 1.0F + 1.0F;
-                    double d9 = Math.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ) * 1.0D + 1.0D;
+                    float f6 = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionZ * this.motionZ) + 1.0F;
+                    double d9 = Math.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ) + 1.0D;
 
                     if (d9 > 40.0D)
                     {
@@ -336,7 +336,7 @@ public class EntityDragon extends EntityLiving implements IBossDisplayData, IEnt
                 float f18 = MathHelper.sin(this.rotationYaw * (float)Math.PI / 180.0F - this.randomYawVelocity * 0.01F);
                 float f19 = MathHelper.cos(this.rotationYaw * (float)Math.PI / 180.0F - this.randomYawVelocity * 0.01F);
                 this.dragonPartHead.onUpdate();
-                this.dragonPartHead.setLocationAndAngles(this.posX + (double)(f18 * 5.5F * f2), this.posY + (adouble[1] - adouble1[1]) * 1.0D + (double)(f15 * 5.5F), this.posZ - (double)(f19 * 5.5F * f2), 0.0F, 0.0F);
+                this.dragonPartHead.setLocationAndAngles(this.posX + (double)(f18 * 5.5F * f2), this.posY + (adouble[1] - adouble1[1]) + (double)(f15 * 5.5F), this.posZ - (double)(f19 * 5.5F * f2), 0.0F, 0.0F);
 
                 for (int j = 0; j < 3; ++j)
                 {
@@ -358,13 +358,13 @@ public class EntityDragon extends EntityLiving implements IBossDisplayData, IEnt
                     }
 
                     double[] adouble2 = this.getMovementOffsets(12 + j * 2, 1.0F);
-                    float f20 = this.rotationYaw * (float)Math.PI / 180.0F + this.simplifyAngle(adouble2[0] - adouble1[0]) * (float)Math.PI / 180.0F * 1.0F;
+                    float f20 = this.rotationYaw * (float)Math.PI / 180.0F + this.simplifyAngle(adouble2[0] - adouble1[0]) * (float) Math.PI / 180.0F;
                     float f21 = MathHelper.sin(f20);
                     float f22 = MathHelper.cos(f20);
                     float f23 = 1.5F;
                     float f24 = (float)(j + 1) * 2.0F;
                     entitydragonpart.onUpdate();
-                    entitydragonpart.setLocationAndAngles(this.posX - (double)((f16 * f23 + f21 * f24) * f2), this.posY + (adouble2[1] - adouble1[1]) * 1.0D - (double)((f24 + f23) * f15) + 1.5D, this.posZ + (double)((f4 * f23 + f22 * f24) * f2), 0.0F, 0.0F);
+                    entitydragonpart.setLocationAndAngles(this.posX - (double)((f16 * f23 + f21 * f24) * f2), this.posY + (adouble2[1] - adouble1[1]) - (double)((f24 + f23) * f15) + 1.5D, this.posZ + (double)((f4 * f23 + f22 * f24) * f2), 0.0F, 0.0F);
                 }
 
                 if (!this.worldObj.isRemote)

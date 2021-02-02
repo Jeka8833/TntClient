@@ -9,11 +9,11 @@ import optifine.Config;
 public class Property
 {
     private final int[] values = null;
-    private int defaultValue;
-    private String propertyName;
-    private String[] propertyValues;
-    private String userName;
-    private String[] userValues;
+    private final int defaultValue;
+    private final String propertyName;
+    private final String[] propertyValues;
+    private final String userName;
+    private final String[] userValues;
     private int value;
 
     public Property(String propertyName, String[] propertyValues, String userName, String[] userValues, int defaultValue)

@@ -26,7 +26,6 @@ SOFTWARE.
 
 import java.io.Reader;
 import java.io.StringReader;
-import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Iterator;
@@ -93,7 +92,7 @@ public class XML {
             public Iterator<Integer> iterator() {
                 return new Iterator<Integer>() {
                     private int nextIndex = 0;
-                    private int length = string.length();
+                    private final int length = string.length();
 
                     @Override
                     public boolean hasNext() {
@@ -366,7 +365,7 @@ public class XML {
                         } else if (!nilAttributeFound) {
                             jsonObject.accumulate(string,
                                     config.isKeepStrings()
-                                            ? ((String) token)
+                                            ? token
                                             : stringToValue((String) token));
                         }
                         token = null;
@@ -499,7 +498,7 @@ public class XML {
                 try {
                     BigDecimal bd = new BigDecimal(val);
                     if(initial == '-' && BigDecimal.ZERO.compareTo(bd)==0) {
-                        return Double.valueOf(-0.0);
+                        return -0.0;
                     }
                     return bd;
                 } catch (NumberFormatException retryAsDouble) {
@@ -538,10 +537,10 @@ public class XML {
             // long lived.
             BigInteger bi = new BigInteger(val);
             if(bi.bitLength() <= 31){
-                return Integer.valueOf(bi.intValue());
+                return bi.intValue();
             }
             if(bi.bitLength() <= 63){
-                return Long.valueOf(bi.longValue());
+                return bi.longValue();
             }
             return bi;
         }

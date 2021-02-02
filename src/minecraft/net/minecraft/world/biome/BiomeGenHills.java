@@ -22,8 +22,7 @@ public class BiomeGenHills extends BiomeGenBase
     protected BiomeGenHills(int p_i45373_1_, boolean p_i45373_2_)
     {
         super(p_i45373_1_);
-        int field_150635_aE = 0;
-        this.field_150638_aH = field_150635_aE;
+        this.field_150638_aH = 0;
 
         if (p_i45373_2_)
         {

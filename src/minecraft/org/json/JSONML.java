@@ -172,7 +172,7 @@ public class JSONML {
                             if (!(token instanceof String)) {
                                 throw x.syntaxError("Missing value");
                             }
-                            newjo.accumulate(attribute, keepStrings ? ((String)token) :XML.stringToValue((String)token));
+                            newjo.accumulate(attribute, keepStrings ? token :XML.stringToValue((String)token));
                             token = null;
                         } else {
                             newjo.accumulate(attribute, "");
@@ -436,7 +436,6 @@ public class JSONML {
         length = ja.length();
         if (i >= length) {
             sb.append('/');
-            sb.append('>');
         } else {
             sb.append('>');
             do {
@@ -457,8 +456,8 @@ public class JSONML {
             sb.append('<');
             sb.append('/');
             sb.append(tagName);
-            sb.append('>');
         }
+        sb.append('>');
         return sb.toString();
     }
 
@@ -514,7 +513,6 @@ public class JSONML {
         ja = jo.optJSONArray("childNodes");
         if (ja == null) {
             sb.append('/');
-            sb.append('>');
         } else {
             sb.append('>');
             length = ja.length();
@@ -535,8 +533,8 @@ public class JSONML {
             sb.append('<');
             sb.append('/');
             sb.append(tagName);
-            sb.append('>');
         }
+        sb.append('>');
         return sb.toString();
     }
 }

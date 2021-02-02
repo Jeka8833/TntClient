@@ -6,7 +6,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import net.minecraft.block.BlockPrismarine;
-import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.monster.EntityGuardian;
 import net.minecraft.init.Blocks;
@@ -690,12 +689,7 @@ public class StructureOceanMonumentPieces
             super(0);
             this.coordBaseMode = p_i45599_4_;
 
-            switch (this.coordBaseMode)
-            {
-
-                default:
-                    this.boundingBox = new StructureBoundingBox(p_i45599_2_, 39, p_i45599_3_, p_i45599_2_ + 58 - 1, 61, p_i45599_3_ + 58 - 1);
-            }
+            this.boundingBox = new StructureBoundingBox(p_i45599_2_, 39, p_i45599_3_, p_i45599_2_ + 58 - 1, 61, p_i45599_3_ + 58 - 1);
 
             List<StructureOceanMonumentPieces.RoomDefinition> list = this.func_175836_a(p_i45599_1_);
             this.field_175845_o.field_175963_d = true;

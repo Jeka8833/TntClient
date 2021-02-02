@@ -583,36 +583,25 @@ public class GuiScreenBook extends GuiScreen
 
     public IChatComponent func_175385_b(int p_175385_1_, int p_175385_2_)
     {
-        if (this.field_175386_A == null)
-        {
-            return null;
-        }
-        else
-        {
+        if (this.field_175386_A != null) {
             int i = p_175385_1_ - (this.width - this.bookImageWidth) / 2 - 36;
             int j = p_175385_2_ - 2 - 16 - 16;
 
-            if (i >= 0 && j >= 0)
-            {
+            if (i >= 0 && j >= 0) {
                 int k = Math.min(128 / this.fontRendererObj.FONT_HEIGHT, this.field_175386_A.size());
 
-                if (i <= 116 && j < this.mc.fontRendererObj.FONT_HEIGHT * k + k)
-                {
+                if (i <= 116 && j < this.mc.fontRendererObj.FONT_HEIGHT * k + k) {
                     int l = j / this.mc.fontRendererObj.FONT_HEIGHT;
 
-                    if (l >= 0 && l < this.field_175386_A.size())
-                    {
+                    if (l < this.field_175386_A.size()) {
                         IChatComponent ichatcomponent = this.field_175386_A.get(l);
                         int i1 = 0;
 
-                        for (IChatComponent ichatcomponent1 : ichatcomponent)
-                        {
-                            if (ichatcomponent1 instanceof ChatComponentText)
-                            {
-                                i1 += this.mc.fontRendererObj.getStringWidth(((ChatComponentText)ichatcomponent1).getChatComponentText_TextValue());
+                        for (IChatComponent ichatcomponent1 : ichatcomponent) {
+                            if (ichatcomponent1 instanceof ChatComponentText) {
+                                i1 += this.mc.fontRendererObj.getStringWidth(((ChatComponentText) ichatcomponent1).getChatComponentText_TextValue());
 
-                                if (i1 > i)
-                                {
+                                if (i1 > i) {
                                     return ichatcomponent1;
                                 }
                             }
@@ -621,8 +610,8 @@ public class GuiScreenBook extends GuiScreen
 
                 }
             }
-            return null;
         }
+        return null;
     }
 
     static class NextPageButton extends GuiButton

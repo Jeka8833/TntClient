@@ -110,16 +110,13 @@ public class CDL {
                 return null;
             }
             ja.put(value);
-            for (;;) {
-                if (c == ',') {
-                    break;
-                }
+            while (c != ',') {
                 if (c != ' ') {
                     if (c == '\n' || c == '\r' || c == 0) {
                         return ja;
                     }
                     throw x.syntaxError("Bad character '" + c + "' (" +
-                            (int)c + ").");
+                            (int) c + ").");
                 }
                 c = x.next();
             }

@@ -1,13 +1,9 @@
 package net.TntClient.modules.render;
 
 import net.TntClient.Config;
-import net.TntClient.event.EventTarget;
-import net.TntClient.event.events.Event2D;
 import net.TntClient.mods.hypixel.HypixelPlayers;
-import net.TntClient.mods.hypixel.parser.Info;
 import net.TntClient.modules.Category;
 import net.TntClient.modules.Module;
-import net.minecraft.client.gui.GuiDownloadTerrain;
 import net.minecraft.util.EnumChatFormatting;
 
 import java.util.HashMap;
@@ -30,12 +26,6 @@ public class TabDJCount extends Module {
     @Override
     public void onSetup() {
 
-    }
-
-    @EventTarget
-    public void onUpdate(Event2D event) {
-        if (mc.currentScreen instanceof GuiDownloadTerrain)
-            jumpCount.clear();
     }
 
     public static String getPlayerSyff(UUID uuid) {

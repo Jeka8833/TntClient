@@ -1,7 +1,6 @@
 package net.minecraft.block.state;
 
 import com.google.common.base.Function;
-import com.google.common.base.Joiner;
 import com.google.common.base.Objects;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.ImmutableList;

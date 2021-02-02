@@ -3,7 +3,6 @@ package net.minecraft.client.particle;
 import java.util.Random;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
 public class EntitySpellParticleFX extends EntityFX
@@ -127,7 +126,7 @@ public class EntitySpellParticleFX extends EntityFX
             EntitySpellParticleFX entityfx = new EntitySpellParticleFX(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
             entityfx.setBaseSpellTextureIndex(144);
             float f = worldIn.rand.nextFloat() * 0.5F + 0.35F;
-            entityfx.setRBGColorF(1.0F * f, 0.0F * f, 1.0F * f);
+            entityfx.setRBGColorF(f, 0.0F * f, f);
             return entityfx;
         }
     }

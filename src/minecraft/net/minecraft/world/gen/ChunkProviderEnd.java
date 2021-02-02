@@ -212,8 +212,8 @@ public class ChunkProviderEnd implements IChunkProvider
         {
             for (int k = 0; k < p_73187_7_; ++k)
             {
-                float f = (float)(j + p_73187_2_) / 1.0F;
-                float f1 = (float)(k + p_73187_4_) / 1.0F;
+                float f = (float) (j + p_73187_2_);
+                float f1 = (float) (k + p_73187_4_);
                 float f2 = 100.0F - MathHelper.sqrt_float(f * f + f1 * f1) * 8.0F;
 
                 if (f2 > 80.0F)

@@ -6,7 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Queue;
 import java.util.concurrent.Callable;
-import java.util.concurrent.FutureTask;
+
 import net.minecraft.client.ClientBrandRetriever;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ThreadLanServerPing;

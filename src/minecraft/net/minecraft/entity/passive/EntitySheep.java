@@ -343,7 +343,7 @@ public class EntitySheep extends EntityAnimal
         int j = ((EntitySheep)mother).getFleeceColor().getDyeDamage();
         this.inventoryCrafting.getStackInSlot(0).setItemDamage(i);
         this.inventoryCrafting.getStackInSlot(1).setItemDamage(j);
-        ItemStack itemstack = CraftingManager.getInstance().findMatchingRecipe(this.inventoryCrafting, ((EntitySheep)father).worldObj);
+        ItemStack itemstack = CraftingManager.getInstance().findMatchingRecipe(this.inventoryCrafting, father.worldObj);
         int k;
 
         if (itemstack != null && itemstack.getItem() == Items.dye)

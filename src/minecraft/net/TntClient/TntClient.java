@@ -9,10 +9,16 @@ import net.TntClient.gui.JekasMenu.ListMods;
 import net.TntClient.mods.SpellCecker.SpellChecker;
 import net.TntClient.mods.hypixel.AutoTip;
 import net.TntClient.mods.hypixel.HypixelPlayers;
+import net.TntClient.mods.hypixel.PlayerInfo;
 import net.TntClient.mods.translate.TranslateGoogle;
 import net.TntClient.modules.Module;
+import net.TntClient.modules.render.TabDJCount;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiDownloadTerrain;
 import org.lwjgl.input.Keyboard;
+
+import java.util.Map;
+import java.util.UUID;
 
 public class TntClient {
 
@@ -63,6 +69,19 @@ public class TntClient {
             Config.write();
             event.setCancelled(true);
             HypixelPlayers.waitKey = false;
+        }
+    }
+
+    @EventTarget
+    public void onUpdate(Event2D event) {
+        if (Config.config.tabDJCount.isActive()) {
+            if (mc.currentScreen instanceof GuiDownloadTerrain)
+                TabDJCount.jumpCount.clear();
+        }
+        final long time = System.currentTimeMillis() - 20 * 60 * 1000;
+        for (Map.Entry<UUID, PlayerInfo> playerInfo : HypixelPlayers.playerInfoMap.entrySet()) {
+            if (playerInfo.getValue().time < time)
+                HypixelPlayers.playerInfoMap.remove(playerInfo.getKey());
         }
     }
 }

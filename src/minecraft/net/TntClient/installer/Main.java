@@ -173,7 +173,7 @@ public class Main extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_jButton6ActionPerformed
 
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Windows".equals(info.getName())) {

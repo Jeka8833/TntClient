@@ -128,12 +128,8 @@ public class StrUtils
 
                 }
             }
-            return -1;
         }
-        else
-        {
-            return -1;
-        }
+        return -1;
     }
 
     private static boolean endsWithMaskSingle(String p_endsWithMaskSingle_0_, String p_endsWithMaskSingle_1_, char p_endsWithMaskSingle_2_)

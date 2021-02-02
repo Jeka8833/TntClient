@@ -12,7 +12,6 @@ public class CustomColorFader
         if (this.color == null)
         {
             this.color = new Vec3(p_getColor_1_, p_getColor_3_, p_getColor_5_);
-            return this.color;
         }
         else
         {
@@ -34,7 +33,7 @@ public class CustomColorFader
                     this.color = new Vec3(d4, d5, d6);
                 }
             }
-            return this.color;
         }
+        return this.color;
     }
 }

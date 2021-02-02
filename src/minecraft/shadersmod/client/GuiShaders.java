@@ -289,8 +289,8 @@ public class GuiShaders extends GuiScreen
                         try
                         {
                             Class oclass = Class.forName("java.awt.Desktop");
-                            Object object = oclass.getMethod("getDesktop", new Class[0]).invoke(null);
-                            oclass.getMethod("browse", new Class[] {URI.class}).invoke(object, (new File(this.mc.mcDataDir, Shaders.shaderpacksdirname)).toURI());
+                            Object object = oclass.getMethod("getDesktop").invoke(null);
+                            oclass.getMethod("browse", URI.class).invoke(object, (new File(this.mc.mcDataDir, Shaders.shaderpacksdirname)).toURI());
                         }
                         catch (Throwable throwable)
                         {

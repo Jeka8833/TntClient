@@ -38,7 +38,6 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
     protected final FloatBuffer brightnessBuffer = GLAllocation.createDirectFloatBuffer(4);
     protected List<LayerRenderer<T>> layerRenderers = Lists.newArrayList();
     protected boolean renderOutlines = false;
-    private static final String __OBFID = "CL_00001012";
     public static final float NAME_TAG_RANGE = 64.0F;
     public static final float NAME_TAG_RANGE_SNEAK = 32.0F;
 
@@ -302,7 +301,6 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
 
     protected boolean setBrightness(T entitylivingbaseIn, float partialTicks, boolean combineTextures)
     {
-        float f = entitylivingbaseIn.getBrightness(partialTicks);
         int i = this.getColorMultiplier(entitylivingbaseIn, partialTicks);
         boolean flag = (i >> 24 & 255) > 0;
         boolean flag1 = entitylivingbaseIn.hurtTime > 0 || entitylivingbaseIn.deathTime > 0;
@@ -536,7 +534,6 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
                 if (d0 < (double)(f * f))
                 {
                     String s = entity.getDisplayName().getFormattedText();
-                    float f1 = 0.02666667F;
                     GlStateManager.alphaFunc(516, 0.1F);
 
                     if (entity.isSneaking())
@@ -638,7 +635,6 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
     static final class RendererLivingEntity$1
     {
         static final int[] field_178679_a = new int[Team.EnumVisible.values().length];
-        private static final String __OBFID = "CL_00002435";
 
         static
         {

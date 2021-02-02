@@ -37,7 +37,7 @@ public class Cartesian
             list.add(t);
         }
 
-        return (T[]) list.toArray(createArray((Class <? super T >) Iterable.class, list.size()));
+        return list.toArray(createArray((Class <? super T >) Iterable.class, list.size()));
     }
 
     private static <T> T[] createArray(Class <? super T > p_179319_0_, int p_179319_1_)

@@ -10,14 +10,14 @@ import org.lwjgl.opengl.GL11;
 
 public class TextureAnimation
 {
-    private String dstTex;
+    private final String dstTex;
     ResourceLocation dstTexLoc;
     private int dstTextId = -1;
-    private int dstX;
-    private int dstY;
-    private int frameWidth;
-    private int frameHeight;
-    private TextureAnimationFrame[] frames;
+    private final int dstX;
+    private final int dstY;
+    private final int frameWidth;
+    private final int frameHeight;
+    private final TextureAnimationFrame[] frames;
     private int activeFrame = 0;
     byte[] srcData;
     private ByteBuffer imageData = null;

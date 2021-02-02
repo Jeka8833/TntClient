@@ -279,7 +279,7 @@ public class XMLParserConfiguration {
      */
     public XMLParserConfiguration withXsiTypeMap(final Map<String, XMLXsiTypeConverter<?>> xsiTypeMap) {
         XMLParserConfiguration newConfig = this.clone();
-        Map<String, XMLXsiTypeConverter<?>> cloneXsiTypeMap = new HashMap<String, XMLXsiTypeConverter<?>>(xsiTypeMap);
+        Map<String, XMLXsiTypeConverter<?>> cloneXsiTypeMap = new HashMap<>(xsiTypeMap);
         newConfig.xsiTypeMap = Collections.unmodifiableMap(cloneXsiTypeMap);
         return newConfig;
     }

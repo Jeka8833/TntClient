@@ -1,7 +1,6 @@
 package optifine;
 
 import java.net.Proxy;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class HttpRequest
@@ -12,7 +11,7 @@ public class HttpRequest
     private final String method;
     private final String file;
     private final String http;
-    private Map<String, String> headers;
+    private final Map<String, String> headers;
     private final byte[] body;
     private int redirects = 0;
 

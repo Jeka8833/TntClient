@@ -543,12 +543,7 @@ public class StructureNetherBridgePieces
             super(0);
             this.coordBaseMode = EnumFacing.Plane.HORIZONTAL.random(p_i2042_1_);
 
-            switch (this.coordBaseMode)
-            {
-
-                default:
-                    this.boundingBox = new StructureBoundingBox(p_i2042_2_, 64, p_i2042_3_, p_i2042_2_ + 19 - 1, 73, p_i2042_3_ + 19 - 1);
-            }
+            this.boundingBox = new StructureBoundingBox(p_i2042_2_, 64, p_i2042_3_, p_i2042_2_ + 19 - 1, 73, p_i2042_3_ + 19 - 1);
         }
 
         public void buildComponent(StructureComponent componentIn, List<StructureComponent> listIn, Random rand)

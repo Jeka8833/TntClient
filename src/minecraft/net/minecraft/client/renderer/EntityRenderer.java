@@ -920,7 +920,7 @@ public class EntityRenderer implements IResourceManagerReloadListener {
     private void updateTorchFlicker() {
         this.torchFlickerDX = (float) ((double) this.torchFlickerDX + (Math.random() - Math.random()) * Math.random() * Math.random());
         this.torchFlickerDX = (float) ((double) this.torchFlickerDX * 0.9D);
-        this.torchFlickerX += (this.torchFlickerDX - this.torchFlickerX) * 1.0F;
+        this.torchFlickerX += (this.torchFlickerDX - this.torchFlickerX);
         this.lightmapUpdateNeeded = true;
     }
 
